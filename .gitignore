@@ -1,5 +1,11 @@
 .DS_Store
 /.build
 /Packages
-/*.xcodeproj
+
+# Don't ignore the generated Xcode project - it is needed if this module is included in a Cartfile.
+# /*.xcodeproj
+
 xcuserdata/
+IDEWorkspaceChecks.plist
+/Build
+/DerivedData
