@@ -71,4 +71,24 @@
     // NB: It seems to be safe to import XCTest on Linux
     @_exported import func XCTest.XCTFail
   #endif
+#else
+  /// This function generates a failure immediately and unconditionally.
+  ///
+  /// Dynamically creates and records an `XCTIssue` under the hood that captures the source code
+  /// context of the caller. Useful for defining assertion helpers that fail in indirect code
+  /// paths, where the `file` and `line` of the failure have not been realized.
+  ///
+  /// - Parameter message: An optional description of the assertion, for inclusion in test
+  ///   results.
+  public func XCTFail(_ message: String = "") {}
+
+  /// This function generates a failure immediately and unconditionally.
+  ///
+  /// Dynamically creates and records an `XCTIssue` under the hood that captures the source code
+  /// context of the caller. Useful for defining assertion helpers that fail in indirect code
+  /// paths, where the `file` and `line` of the failure have not been realized.
+  ///
+  /// - Parameter message: An optional description of the assertion, for inclusion in test
+  ///   results.
+  public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
 #endif
