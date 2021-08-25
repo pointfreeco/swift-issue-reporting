@@ -1,7 +1,7 @@
 #if DEBUG
   #if canImport(ObjectiveC)
     import Foundation
-  
+
     /// This function generates a failure immediately and unconditionally.
     ///
     /// Dynamically creates and records an `XCTIssue` under the hood that captures the source code
@@ -40,7 +40,7 @@
         return
       }
     }
-  
+
     /// This function generates a failure immediately and unconditionally.
     ///
     /// Dynamically calls `XCTFail` with the given file and line. Useful for defining assertion
@@ -52,10 +52,10 @@
     public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
       guard let _XCTFailureHandler = _XCTFailureHandler
       else { return }
-  
+
       _XCTFailureHandler(nil, true, "\(file)", line, "\(message.isEmpty ? "failed" : message)", nil)
     }
-  
+
     private typealias XCTFailureHandler = @convention(c) (
       AnyObject?, Bool, UnsafePointer<CChar>, UInt, String, String?
     ) -> Void
