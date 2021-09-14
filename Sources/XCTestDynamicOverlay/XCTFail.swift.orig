@@ -11,7 +11,7 @@
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
     public func XCTFail(_ message: String = "") {
-      guard let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
+      if let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
         as Any as? NSObjectProtocol,
         String(describing: XCTestObservationCenter) != "<null>",
         let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
@@ -35,16 +35,10 @@
             with: message.isEmpty ? "failed" : message
           )?
           .takeUnretainedValue()
-      else {
-        breakpoint("""
-          Warning: XCTFail has been invoked.
-
-          This function should never be called outside of tests.
-          """)
+      {
+        _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
         return
       }
-
-      _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
     }
 
     /// This function generates a failure immediately and unconditionally.
@@ -86,7 +80,46 @@
   ///
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
+<<<<<<< HEAD
+  public func XCTFail(_ message: String = "") {
+    guard let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
+      as Any as? NSObjectProtocol,
+      String(describing: XCTestObservationCenter) != "<null>",
+      let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
+        .takeUnretainedValue(),
+      let observers = shared.perform(Selector(("observers")))?
+        .takeUnretainedValue() as? [AnyObject],
+      let observer =
+        observers
+        .first(where: { NSStringFromClass(type(of: $0)) == "XCTestMisuseObserver" }),
+      let currentTestCase = observer.perform(Selector(("currentTestCase")))?
+        .takeUnretainedValue(),
+      let XCTIssue = NSClassFromString("XCTIssue")
+        as Any as? NSObjectProtocol,
+      let alloc = XCTIssue.perform(NSSelectorFromString("alloc"))?
+        .takeUnretainedValue(),
+      let issue =
+        alloc
+        .perform(
+          Selector(("initWithType:compactDescription:")),
+          with: 0,
+          with: message.isEmpty ? "failed" : message
+        )?
+        .takeUnretainedValue()
+    else {
+      breakpoint("""
+        Warning: XCTFail has been invoked.
+
+        This function should never be called outside of tests.
+        """)
+      return
+    }
+
+    _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
+  }
+=======
   public func XCTFail(_ message: String = "") {}
+>>>>>>> origin/main
 
   /// This function generates a failure immediately and unconditionally.
   ///
