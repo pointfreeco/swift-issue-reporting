@@ -10,7 +10,7 @@
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
   public func XCTFail(_ message: String = "") {
-    if let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
+    guard let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
       as Any as? NSObjectProtocol,
       String(describing: XCTestObservationCenter) != "<null>",
       let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
@@ -34,10 +34,16 @@
           with: message.isEmpty ? "failed" : message
         )?
         .takeUnretainedValue()
-    {
-      _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
+    else {
+      breakpoint("""
+        Warning: XCTFail has been invoked.
+
+        This function should never be called outside of tests.
+        """)
       return
     }
+
+    _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
   }
 
   /// This function generates a failure immediately and unconditionally.
