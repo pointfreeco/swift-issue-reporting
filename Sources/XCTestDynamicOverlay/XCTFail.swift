@@ -37,11 +37,18 @@
           .takeUnretainedValue()
       else {
         #if canImport(Darwin)
-        breakpoint("""
-          Warning: XCTFail has been invoked.
+          breakpoint(
+            """
+            ---
+            Warning: 'XCTestDynamicOverlay.XCTFail' has been invoked outside of tests.
 
-          This function should never be called outside of tests.
-          """)
+            This function should only be invoked during an XCTest run, and is a no-op when run in \
+            application code. If you or a library you depend on is using 'XCTFail' for \
+            test-specific code paths, ensure that these same paths are not called in your \
+            application.
+            ---
+            """
+          )
         #endif
         return
       }
