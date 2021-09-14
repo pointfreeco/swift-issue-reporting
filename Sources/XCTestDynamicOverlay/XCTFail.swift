@@ -11,7 +11,7 @@
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
     public func XCTFail(_ message: String = "") {
-      if let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
+      guard let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
         as Any as? NSObjectProtocol,
         String(describing: XCTestObservationCenter) != "<null>",
         let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
@@ -35,10 +35,30 @@
             with: message.isEmpty ? "failed" : message
           )?
           .takeUnretainedValue()
-      {
-        _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
+      else {
+        #if canImport(Darwin)
+          let indentedMessage = message.split(separator: "\n", omittingEmptySubsequences: false)
+            .map { "  \($0)" }
+            .joined(separator: "\n")
+
+          breakpoint(
+            """
+            ---
+            Warning: "XCTestDynamicOverlay.XCTFail" has been invoked outside of tests\
+            \(message.isEmpty ? "." : "with the message:\n\n\(indentedMessage)")
+
+            This function should only be invoked during an XCTest run, and is a no-op when run in \
+            application code. If you or a library you depend on is using "XCTFail" for \
+            test-specific code paths, ensure that these same paths are not called in your \
+            application.
+            ---
+            """
+          )
+        #endif
         return
       }
+
+      _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
     }
 
     /// This function generates a failure immediately and unconditionally.
