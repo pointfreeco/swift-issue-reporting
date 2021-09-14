@@ -11,8 +11,9 @@
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
     public func XCTFail(_ message: String = "") {
-      guard let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
-        as Any as? NSObjectProtocol,
+      guard
+        let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
+          as Any as? NSObjectProtocol,
         String(describing: XCTestObservationCenter) != "<null>",
         let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
           .takeUnretainedValue(),
