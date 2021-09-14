@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 import Foundation
 
 /// Raises a debug breakpoint if a debugger is attached.
@@ -32,3 +33,4 @@ func breakpoint(_ message: @autoclosure () -> String = "") {
     }
   #endif
 }
+#endif
