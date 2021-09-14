@@ -36,11 +36,13 @@
           )?
           .takeUnretainedValue()
       else {
+        #if canImport(Darwin)
         breakpoint("""
           Warning: XCTFail has been invoked.
 
           This function should never be called outside of tests.
           """)
+        #endif
         return
       }
 
