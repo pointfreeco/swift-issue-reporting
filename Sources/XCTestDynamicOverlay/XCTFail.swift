@@ -71,23 +71,16 @@
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
     public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
-      guard let _XCTFailureHandler = _XCTFailureHandler
-      else { return }
-
       _XCTFailureHandler(nil, true, "\(file)", line, "\(message.isEmpty ? "failed" : message)", nil)
     }
 
     private typealias XCTFailureHandler = @convention(c) (
       AnyObject?, Bool, UnsafePointer<CChar>, UInt, String, String?
     ) -> Void
-    private let XCTest = NSClassFromString("XCTest")
-      .flatMap(Bundle.init(for:))
-      .flatMap { $0.executablePath }
-      .flatMap { dlopen($0, RTLD_NOW) }
-    private let _XCTFailureHandler =
-      XCTest
-      .flatMap { dlsym($0, "_XCTFailureHandler") }
-      .map { unsafeBitCast($0, to: XCTFailureHandler.self) }
+    private let _XCTFailureHandler = unsafeBitCast(
+      dlsym(dlopen(nil, RTLD_NOW), "_XCTFailureHandler"),
+      to: XCTFailureHandler.self
+    )
   #else
     // NB: It seems to be safe to import XCTest on Linux
     @_exported import func XCTest.XCTFail
