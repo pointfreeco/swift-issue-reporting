@@ -78,7 +78,7 @@
       AnyObject?, Bool, UnsafePointer<CChar>, UInt, String, String?
     ) -> Void
     private let _XCTFailureHandler = unsafeBitCast(
-      dlsym(dlopen(nil, RTLD_NOW), "_XCTFailureHandler"),
+      dlsym(dlopen(nil, RTLD_LAZY), "_XCTFailureHandler"),
       to: XCTFailureHandler.self
     )
   #else
