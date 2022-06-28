@@ -12,18 +12,7 @@
     ///   results.
     public func XCTFail(_ message: String = "") {
       guard
-        let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
-          as Any as? NSObjectProtocol,
-        String(describing: XCTestObservationCenter) != "<null>",
-        let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
-          .takeUnretainedValue(),
-        let observers = shared.perform(Selector(("observers")))?
-          .takeUnretainedValue() as? [AnyObject],
-        let observer =
-          observers
-          .first(where: { NSStringFromClass(type(of: $0)) == "XCTestMisuseObserver" }),
-        let currentTestCase = observer.perform(Selector(("currentTestCase")))?
-          .takeUnretainedValue(),
+        let currentTestCase = XCTCurrentTestCase,
         let XCTIssue = NSClassFromString("XCTIssue")
           as Any as? NSObjectProtocol,
         let alloc = XCTIssue.perform(NSSelectorFromString("alloc"))?
@@ -37,28 +26,23 @@
           )?
           .takeUnretainedValue()
       else {
-        #if canImport(Darwin)
-          let indentedMessage = message.split(separator: "\n", omittingEmptySubsequences: false)
-            .map { "  \($0)" }
-            .joined(separator: "\n")
+        runtimeWarning(
+          """
+          "XCTFail" was invoked outside of a test.
 
-          breakpoint(
-            """
-            ---
-            Warning: "XCTestDynamicOverlay.XCTFail" has been invoked outside of tests\
-            \(message.isEmpty ? "." : "with the message:\n\n\(indentedMessage)")
+            Message:
+              %@
 
-            This function should only be invoked during an XCTest run, and is a no-op when run in \
-            application code. If you or a library you depend on is using "XCTFail" for \
-            test-specific code paths, ensure that these same paths are not called in your \
-            application.
-            ---
-            """
-          )
-        #endif
+          This function should only be invoked during an XCTest run, and is a no-op when run in \
+          application code. If you or a library you depend on is using "XCTFail" for test-specific \
+          code paths, ensure that these same paths are not called in your application.
+          """,
+          [
+            message.isEmpty ? "(none)" : message
+          ]
+        )
         return
       }
-
       _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
     }
 
