@@ -148,7 +148,6 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) throws -> Result
 
-@_disfavoredOverload
 public func XCTUnimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable () throws -> Result {
@@ -159,7 +158,6 @@ public func XCTUnimplemented<Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) throws -> Result {
@@ -170,7 +168,6 @@ public func XCTUnimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) throws -> Result {
@@ -181,7 +178,6 @@ public func XCTUnimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) throws -> Result {
@@ -192,7 +188,6 @@ public func XCTUnimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) throws -> Result {
@@ -203,7 +198,6 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) throws -> Result {
@@ -352,7 +346,6 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) async throws -> Result
 
-@_disfavoredOverload
 public func XCTUnimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable () async throws -> Result {
@@ -363,7 +356,6 @@ public func XCTUnimplemented<Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) async throws -> Result {
@@ -374,7 +366,6 @@ public func XCTUnimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) async throws -> Result {
@@ -385,7 +376,6 @@ public func XCTUnimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) async throws -> Result {
@@ -396,7 +386,6 @@ public func XCTUnimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) async throws -> Result {
@@ -407,7 +396,6 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) async throws -> Result {

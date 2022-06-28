@@ -14,7 +14,12 @@ let package = Package(
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"])
   ],
   targets: [
-    .target(name: "XCTestDynamicOverlay"),
+    .target(
+      name: "XCTestDynamicOverlay",
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend", "-warn-concurrency"]),
+      ]
+    ),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
       dependencies: ["XCTestDynamicOverlay"]
