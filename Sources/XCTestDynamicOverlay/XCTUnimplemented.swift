@@ -72,7 +72,8 @@ public func XCTUnimplemented<A, B, C, D, E>(
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure, for inclusion in test
 ///     results.
-///   - placeholder: A placeholder value returned from the closure.
+///   - placeholder: An optional placeholder value returned from the closure. If omitted, calling
+///     the closure will fatal error instead.
 /// - Returns: A closure that generates a failure when invoked.
 @_disfavoredOverload
 public func XCTUnimplemented<Result>(
