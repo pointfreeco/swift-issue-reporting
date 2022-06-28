@@ -95,8 +95,8 @@ One way to do this is to create an instance of the `AnalyticsClient` type that s
 import XCTest
 
 extension AnalyticsClient {
-  static let failing = Self(
-    track: { _ in XCTFail("AnalyticsClient.track is unimplemented.") }
+  static let unimplemented = Self(
+    track: { _ in XCTFail("\(Self.self).track is unimplemented.") }
   )
 }
 ```
@@ -106,7 +106,7 @@ With this you can write a test that proves analytics are never tracked, and even
 ```swift
 func testValidation() {
   let viewModel = LoginViewModel(
-    analytics: .failing
+    analytics: .unimplemented
   )
 
   ...
@@ -115,7 +115,7 @@ func testValidation() {
 
 However, you cannot ship this code with the target that defines `AnalyticsClient`. You either need to extract it out to a test support module (which means `AnalyticsClient` must also be extracted), or the code must be confined to a test target and thus not shareable.
 
-However, with `XCTestDynamicOverlay` we can have our cake and eat it too 😋. We can define both the client type and the failing instance right next to each in application code without needing to extract out needless modules or targets:
+However, with XCTest Dynamic Overlay we can have our cake and eat it too 😋. We can define both the client type and the unimplemented instance right next to each in application code without needing to extract out needless modules or targets:
 
 ```swift
 struct AnalyticsClient {
@@ -130,11 +130,41 @@ struct AnalyticsClient {
 import XCTestDynamicOverlay
 
 extension AnalyticsClient {
-  static let failing = Self(
-    track: { _ in XCTFail("AnalyticsClient.track is unimplemented.") }
+  static let unimplemented = Self(
+    track: { _ in XCTFail("\(Self.self).track is unimplemented.") }
   )
 }
 ```
+
+XCTest Dynamic Overlay also comes with a helper that simplifies this exact pattern: `XCTUnimplemented`. It creates failing closures for you:
+
+```swift
+extension AnalyticsClient {
+  static let unimplemented = Self(
+    track: XCTUnimplemented("\(Self.self).track")
+  )
+}
+```
+
+And it can simplify the work of more complex dependency endpoints, which can throw or need to return a value:
+
+```swift
+struct AppDependencies {
+  var date: () -> Date = Date.init,
+  var fetchUser: (User.ID) async throws -> User,
+  var uuid: () -> UUID = UUID.init
+}
+
+extension AppDependencies {
+  static let unimplemented = Self(
+    date: XCTUnimplemented("\(Self.self).date", placeholder: Date()),
+    fetchUser: XCTUnimplemented("\(Self.self).fetchUser"),
+    date: XCTUnimplemented("\(Self.self).uuid", placeholder: UUID())
+  )
+}
+```
+
+The above `placeholder` parameters can be left off, but will fatal error when the endpoint is called.
 
 ## License
 
