@@ -42,7 +42,7 @@ struct Client {
   var p34: (Int, Int, Int, Int, Int) async -> Int
   var p35: (Int, Int, Int, Int, Int) async throws -> Int
 
-  static var unimplemented: Self {
+  static var unimplementedA: Self {
     Self(
       p00: XCTUnimplemented("\(Self.self).p00"),
       p01: XCTUnimplemented("\(Self.self).p01", placeholder: 42),
@@ -79,6 +79,47 @@ struct Client {
       p32: XCTUnimplemented("\(Self.self).p32"),
       p33: XCTUnimplemented("\(Self.self).p33"),
       p34: XCTUnimplemented("\(Self.self).p34", placeholder: 42),
+      p35: XCTUnimplemented("\(Self.self).p35")
+    )
+  }
+
+  static var unimplementedB: Self {
+    Self(
+      p00: XCTUnimplemented("\(Self.self).p00"),
+      p01: XCTUnimplemented("\(Self.self).p01"),
+      p02: XCTUnimplemented("\(Self.self).p02"),
+      p03: XCTUnimplemented("\(Self.self).p03"),
+      p04: XCTUnimplemented("\(Self.self).p04"),
+      p05: XCTUnimplemented("\(Self.self).p05"),
+      p06: XCTUnimplemented("\(Self.self).p06"),
+      p07: XCTUnimplemented("\(Self.self).p07"),
+      p08: XCTUnimplemented("\(Self.self).p08"),
+      p09: XCTUnimplemented("\(Self.self).p09"),
+      p10: XCTUnimplemented("\(Self.self).p10"),
+      p11: XCTUnimplemented("\(Self.self).p11"),
+      p12: XCTUnimplemented("\(Self.self).p12"),
+      p13: XCTUnimplemented("\(Self.self).p13"),
+      p14: XCTUnimplemented("\(Self.self).p14"),
+      p15: XCTUnimplemented("\(Self.self).p15"),
+      p16: XCTUnimplemented("\(Self.self).p16"),
+      p17: XCTUnimplemented("\(Self.self).p17"),
+      p18: XCTUnimplemented("\(Self.self).p18"),
+      p19: XCTUnimplemented("\(Self.self).p19"),
+      p20: XCTUnimplemented("\(Self.self).p20"),
+      p21: XCTUnimplemented("\(Self.self).p21"),
+      p22: XCTUnimplemented("\(Self.self).p22"),
+      p23: XCTUnimplemented("\(Self.self).p23"),
+      p24: XCTUnimplemented("\(Self.self).p24"),
+      p25: XCTUnimplemented("\(Self.self).p25"),
+      p26: XCTUnimplemented("\(Self.self).p26"),
+      p27: XCTUnimplemented("\(Self.self).p27"),
+      p28: XCTUnimplemented("\(Self.self).p28"),
+      p29: XCTUnimplemented("\(Self.self).p29"),
+      p30: XCTUnimplemented("\(Self.self).p30"),
+      p31: XCTUnimplemented("\(Self.self).p31"),
+      p32: XCTUnimplemented("\(Self.self).p32"),
+      p33: XCTUnimplemented("\(Self.self).p33"),
+      p34: XCTUnimplemented("\(Self.self).p34"),
       p35: XCTUnimplemented("\(Self.self).p35")
     )
   }
