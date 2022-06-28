@@ -12,18 +12,7 @@
     ///   results.
     public func XCTFail(_ message: String = "") {
       guard
-        let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
-          as Any as? NSObjectProtocol,
-        String(describing: XCTestObservationCenter) != "<null>",
-        let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
-          .takeUnretainedValue(),
-        let observers = shared.perform(Selector(("observers")))?
-          .takeUnretainedValue() as? [AnyObject],
-        let observer =
-          observers
-          .first(where: { NSStringFromClass(type(of: $0)) == "XCTestMisuseObserver" }),
-        let currentTestCase = observer.perform(Selector(("currentTestCase")))?
-          .takeUnretainedValue(),
+        let currentTestCase = XCTCurrentTestCase,
         let XCTIssue = NSClassFromString("XCTIssue")
           as Any as? NSObjectProtocol,
         let alloc = XCTIssue.perform(NSSelectorFromString("alloc"))?
@@ -54,7 +43,6 @@
         )
         return
       }
-
       _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
     }
 
