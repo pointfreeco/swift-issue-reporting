@@ -159,7 +159,7 @@ extension AppDependencies {
   static let unimplemented = Self(
     date: XCTUnimplemented("\(Self.self).date", placeholder: Date()),
     fetchUser: XCTUnimplemented("\(Self.self).fetchUser"),
-    date: XCTUnimplemented("\(Self.self).uuid", placeholder: UUID())
+    uuid: XCTUnimplemented("\(Self.self).uuid", placeholder: UUID())
   )
 }
 ```
