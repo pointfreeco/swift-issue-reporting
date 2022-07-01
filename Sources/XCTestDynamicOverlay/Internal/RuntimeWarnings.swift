@@ -39,6 +39,5 @@ func runtimeWarning(
         to: ((OSLogType, UnsafeRawPointer, OSLog, StaticString, [CVarArg]) -> Void).self
       )(.fault, rw.dso, rw.log, message, args())
     }
-    XCTFail(String(format: "\(message)", arguments: args()))
   #endif
 }
