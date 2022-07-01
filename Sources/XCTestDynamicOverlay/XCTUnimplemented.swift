@@ -341,8 +341,7 @@ private func _generatePlaceholder<Result>() -> Result? {
   if Result.self == Void.self {
     return () as? Result
   }
-  if
-    let result = (Witness<Result>.self as? AnyRangeReplaceableCollection.Type)?.empty() as? Result
+  if let result = (Witness<Result>.self as? AnyRangeReplaceableCollection.Type)?.empty() as? Result
   {
     return result
   }
