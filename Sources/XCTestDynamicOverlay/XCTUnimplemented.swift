@@ -1,80 +1,5 @@
-// MARK: (Parameters) -> Void
-
-/// Returns a closure that generates a failure when invoked.
-///
-/// - Parameter description: An optional description of the unimplemented closure, for inclusion in
-///   test results.
-/// - Returns: A closure that generates a failure when invoked.
-@_disfavoredOverload
-public func XCTUnimplemented(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable () -> Void {
-  return {
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A) -> Void {
-  return { _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B) -> Void {
-  return { _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C) -> Void {
-  return { _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D) -> Void {
-  return { _, _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D, E) -> Void {
-  return { _, _, _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
 // MARK: (Parameters) -> Result
 
-/// Returns a closure that generates a failure when invoked.
-///
-/// - Parameters:
-///   - description: An optional description of the unimplemented closure, for inclusion in test
-///     results.
-///   - placeholder: An optional placeholder value returned from the closure. If omitted, calling
-///     the closure will fatal error instead.
-/// - Returns: A closure that generates a failure when invoked.
 @_disfavoredOverload
 public func XCTUnimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -85,7 +10,7 @@ public func XCTUnimplemented<Result>(
   return {
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -101,7 +26,7 @@ public func XCTUnimplemented<A, Result>(
   return { _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -117,7 +42,7 @@ public func XCTUnimplemented<A, B, Result>(
   return { _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -133,7 +58,7 @@ public func XCTUnimplemented<A, B, C, Result>(
   return { _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -149,7 +74,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   return { _, _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -165,7 +90,7 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   return { _, _, _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -233,68 +158,6 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   }
 }
 
-// MARK: (Parameters) async -> Void
-
-@_disfavoredOverload
-public func XCTUnimplemented(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable () async -> Void {
-  return {
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A) async -> Void {
-  return { _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B) async -> Void {
-  return { _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C) async -> Void {
-  return { _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D) async -> Void {
-  return { _, _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
-@_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D, E) async -> Void {
-  return { _, _, _, _, _ in
-    let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-  }
-}
-
 // MARK: (Parameters) async -> Result
 
 @_disfavoredOverload
@@ -307,12 +170,21 @@ public func XCTUnimplemented<Result>(
   return {
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
 }
 
+/// Returns a closure that generates a failure when invoked.
+///
+/// - Parameters:
+///   - description: An optional description of the unimplemented closure, for inclusion in test
+///     results.
+///   - placeholder: An optional placeholder value returned from the closure. If omitted and a
+///     default value (like `()` for `Void`) cannot be returned, calling the closure will fatal
+///     error instead.
+/// - Returns: A closure that generates a failure when invoked.
 @_disfavoredOverload
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -323,7 +195,7 @@ public func XCTUnimplemented<A, Result>(
   return { _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -339,7 +211,7 @@ public func XCTUnimplemented<A, B, Result>(
   return { _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -355,7 +227,7 @@ public func XCTUnimplemented<A, B, C, Result>(
   return { _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -371,7 +243,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   return { _, _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -387,7 +259,7 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   return { _, _, _, _, _ in
     let description = description()
     XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
-    guard let placeholder = placeholder()
+    guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -405,6 +277,11 @@ public func XCTUnimplemented<Result>(
   }
 }
 
+/// Returns a closure that generates a failure when invoked.
+///
+/// - Parameter description: An optional description of the unimplemented closure, for inclusion in
+///   test results.
+/// - Returns: A closure that generates a failure and throws an error when invoked.
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) async throws -> Result {
@@ -455,8 +332,21 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   }
 }
 
+/// An error thrown from ``XCTUnimplemented(_:)-3obl5``.
 public struct XCTUnimplementedFailure: Error {
   public let description: String
+}
+
+private func _generatePlaceholder<Result>() -> Result? {
+  if Result.self == Void.self {
+    return () as? Result
+  }
+  if
+    let result = (Witness<Result>.self as? AnyRangeReplaceableCollection.Type)?.empty() as? Result
+  {
+    return result
+  }
+  return nil
 }
 
 private func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
@@ -469,4 +359,14 @@ private func _unimplementedFatalError(_ message: String, file: StaticString, lin
     file: file,
     line: line
   )
+}
+
+protocol AnyRangeReplaceableCollection {
+  static func empty() -> Any
+}
+private enum Witness<Value> {}
+extension Witness: AnyRangeReplaceableCollection where Value: RangeReplaceableCollection {
+  static func empty() -> Any {
+    Value()
+  }
 }
