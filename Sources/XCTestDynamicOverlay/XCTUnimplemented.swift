@@ -9,7 +9,7 @@ public func XCTUnimplemented<Result>(
 ) -> @Sendable () -> Result {
   return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, nil)
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -23,9 +23,9 @@ public func XCTUnimplemented<A, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A) -> Result {
-  return { _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, $0)
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -39,9 +39,9 @@ public func XCTUnimplemented<A, B, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B) -> Result {
-  return { _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -55,9 +55,9 @@ public func XCTUnimplemented<A, B, C, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C) -> Result {
-  return { _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -71,9 +71,9 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) -> Result {
-  return { _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -87,9 +87,9 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) -> Result {
-  return { _, _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3, $4))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -103,7 +103,7 @@ public func XCTUnimplemented<Result>(
 ) -> @Sendable () throws -> Result {
   return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, nil)
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -111,9 +111,9 @@ public func XCTUnimplemented<Result>(
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) throws -> Result {
-  return { _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, $0)
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -121,9 +121,9 @@ public func XCTUnimplemented<A, Result>(
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) throws -> Result {
-  return { _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -131,9 +131,9 @@ public func XCTUnimplemented<A, B, Result>(
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) throws -> Result {
-  return { _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -141,9 +141,9 @@ public func XCTUnimplemented<A, B, C, Result>(
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) throws -> Result {
-  return { _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -151,9 +151,9 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) throws -> Result {
-  return { _, _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3, $4))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -169,7 +169,7 @@ public func XCTUnimplemented<Result>(
 ) -> @Sendable () async -> Result {
   return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, nil)
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -192,9 +192,9 @@ public func XCTUnimplemented<A, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A) async -> Result {
-  return { _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, $0)
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -208,9 +208,9 @@ public func XCTUnimplemented<A, B, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B) async -> Result {
-  return { _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -224,9 +224,9 @@ public func XCTUnimplemented<A, B, C, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C) async -> Result {
-  return { _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -240,9 +240,9 @@ public func XCTUnimplemented<A, B, C, D, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) async -> Result {
-  return { _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -256,9 +256,9 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async -> Result {
-  return { _, _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3, $4))
     guard let placeholder = placeholder() ?? _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -272,7 +272,7 @@ public func XCTUnimplemented<Result>(
 ) -> @Sendable () async throws -> Result {
   return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, nil)
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -285,9 +285,9 @@ public func XCTUnimplemented<Result>(
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) async throws -> Result {
-  return { _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, $0)
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -295,9 +295,9 @@ public func XCTUnimplemented<A, Result>(
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) async throws -> Result {
-  return { _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -305,9 +305,9 @@ public func XCTUnimplemented<A, B, Result>(
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) async throws -> Result {
-  return { _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -315,9 +315,9 @@ public func XCTUnimplemented<A, B, C, Result>(
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) async throws -> Result {
-  return { _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -325,9 +325,9 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) async throws -> Result {
-  return { _, _, _, _, _ in
+  return {
     let description = description()
-    XCTFail("Unimplemented\(description.isEmpty ? "" : ": \(description)")")
+    _fail(description, ($0, $1, $2, $3, $4))
     throw XCTUnimplementedFailure(description: description)
   }
 }
@@ -335,6 +335,24 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 /// An error thrown from ``XCTUnimplemented(_:)-3obl5``.
 public struct XCTUnimplementedFailure: Error {
   public let description: String
+}
+
+private func _fail(_ description: String, _ parameters: Any?) {
+  let parametersDescription = parameters.map {
+    """
+     …
+
+    Invoked with:
+    
+      \($0)
+    """
+  }
+  ?? ""
+  XCTFail(
+    """
+    Unimplemented\(description.isEmpty ? "" : ": \(description)")\(parametersDescription)
+    """
+  )
 }
 
 private func _generatePlaceholder<Result>() -> Result? {
