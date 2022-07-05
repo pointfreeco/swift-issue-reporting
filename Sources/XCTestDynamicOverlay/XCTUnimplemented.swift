@@ -338,16 +338,17 @@ public struct XCTUnimplementedFailure: Error {
 }
 
 private func _fail(_ description: String, _ parameters: Any?) {
-  let parametersDescription = parameters.map {
-    """
-     …
+  let parametersDescription =
+    parameters.map {
+      """
+       …
 
-    Invoked with:
-    
-      \($0)
-    """
-  }
-  ?? ""
+      Invoked with:
+
+        \($0)
+      """
+    }
+    ?? ""
   XCTFail(
     """
     Unimplemented\(description.isEmpty ? "" : ": \(description)")\(parametersDescription)
