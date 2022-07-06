@@ -12,11 +12,10 @@ XCTest Dynamic Overlay provides APIs for invoking XCTest's `XCTFail` directly in
 
 - <doc:GettingStarted>
 
-<!--NB: A DocC bug prevents the functions from resolving:-->
-<!--### XCTFail-->
-<!---->
-<!--- ``XCTFail(_:)-30at6``-->
-<!--- ``XCTFail(_:file:line:)-3ujuf``-->
+### Overlays
+
+- ``XCTFail(_:)``
+- ``XCTFail(_:file:line:)``
 
 ### Unimplemented Dependencies
 
