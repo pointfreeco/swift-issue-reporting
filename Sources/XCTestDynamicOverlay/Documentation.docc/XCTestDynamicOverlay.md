@@ -21,5 +21,3 @@ XCTest Dynamic Overlay provides APIs for invoking XCTest's `XCTFail` directly in
 
 - ``XCTUnimplemented(_:placeholder:file:line:)-l4v2``
 - ``XCTUnimplemented(_:)-3obl5``
-- <doc:UnimplementedOverloads>
-- ``XCTUnimplementedFailure``
