@@ -16,7 +16,19 @@ test-linux:
 		-v "$(PWD):$(PWD)" \
 		-w "$(PWD)" \
 		swift:5.6.2-focal \
-		bash -c "make test"
+		bash -c "apt-get update && apt-get install make && make test"
+
+test-linux-static-stdlib:
+	@docker run \
+		-v "$(PWD):$(PWD)" \
+		-w "$(PWD)" \
+		swift:5.6.2-focal \
+		bash -c "swift build -c debug -Xswiftc -static-stdlib"
+	@docker run \
+		-v "$(PWD):$(PWD)" \
+		-w "$(PWD)" \
+		swift:5.6.2-focal \
+		bash -c "swift build -c release -Xswiftc -static-stdlib"
 
 format:
 	@swift format \
