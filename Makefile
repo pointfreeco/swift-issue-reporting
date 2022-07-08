@@ -23,7 +23,12 @@ test-linux-static-stdlib:
 		-v "$(PWD):$(PWD)" \
 		-w "$(PWD)" \
 		swift:5.6.2-focal \
-		bash -c "swift build -Xswiftc -static-stdlib"
+		bash -c "swift build -c debug -Xswiftc -static-stdlib"
+	@docker run \
+		-v "$(PWD):$(PWD)" \
+		-w "$(PWD)" \
+		swift:5.6.2-focal \
+		bash -c "swift build -c release -Xswiftc -static-stdlib"
 
 format:
 	@swift format \
