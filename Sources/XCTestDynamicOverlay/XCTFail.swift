@@ -65,9 +65,12 @@
       dlsym(dlopen(nil, RTLD_LAZY), "_XCTFailureHandler"),
       to: XCTFailureHandler.self
     )
-  #else
+  #elseif canImport(XCTest)
     // NB: It seems to be safe to import XCTest on Linux
     @_exported import func XCTest.XCTFail
+  #else
+    public func XCTFail(_ message: String = "") {}
+    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
   #endif
 #else
   /// This function generates a failure immediately and unconditionally.
