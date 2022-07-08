@@ -16,6 +16,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run tests
       run: make test
+    # Swift complains when directly invoking the command on Ubuntu
+    - name: Build with static linking (Docker)
+      run: make test-linux-static-stdlib
 
   ubuntu:
     name: Ubuntu
@@ -24,7 +27,3 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run tests
       run: make test
-    - name: Build with static linking (debug)
-      run: swift -c debug build -Xfrontend -static-stdlib
-    - name: Build with static linking (release)
-      run: swift -c release build -Xfrontend -static-stdlib
