@@ -25,6 +25,6 @@ jobs:
     - name: Run tests
       run: make test
     - name: Build with static linking (debug)
-      run: swift build -c debug -Xfrontend -static-stdlib
+      run: swift build -cdebug -Xfrontend -static-stdlib
     - name: Build with static linking (release)
-      run: swift build -c release -Xfrontend -static-stdlib
+      run: swift build -crelease -Xfrontend -static-stdlib
