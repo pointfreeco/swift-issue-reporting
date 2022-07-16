@@ -398,47 +398,38 @@ private enum Witness<Value> {}
 protocol AnyRangeReplaceableCollection {
   static func empty() -> Any
 }
-
 extension Witness: AnyRangeReplaceableCollection where Value: RangeReplaceableCollection {
   static func empty() -> Any {
     Value()
   }
 }
-
 protocol AnyExpressibleByArrayLiteral {
   static func empty() -> Any
 }
-
 extension Witness: AnyExpressibleByArrayLiteral where Value: ExpressibleByArrayLiteral {
   static func empty() -> Any {
     [] as Value
   }
 }
-
 protocol AnyExpressibleByDictionaryLiteral {
   static func empty() -> Any
 }
-
 extension Witness: AnyExpressibleByDictionaryLiteral where Value: ExpressibleByDictionaryLiteral {
   static func empty() -> Any {
     [:] as Value
   }
 }
-
 protocol AnyFixedWidthInteger {
   static func zero() -> Any
 }
-
 extension Witness: AnyFixedWidthInteger where Value: FixedWidthInteger {
   static func zero() -> Any {
     Value.zero
   }
 }
-
 protocol AnyBinaryFloatingPoint {
   static func zero() -> Any
 }
-
 extension Witness: AnyBinaryFloatingPoint where Value: BinaryFloatingPoint {
   static func zero() -> Any {
     Value.zero
@@ -448,7 +439,6 @@ extension Witness: AnyBinaryFloatingPoint where Value: BinaryFloatingPoint {
 protocol DefaultConstructible {
   init()
 }
-
 extension Bool: DefaultConstructible {}
 extension Set: DefaultConstructible {}
 extension Dictionary: DefaultConstructible {}
