@@ -1,3 +1,6 @@
+#if canImport(Foundation)
+import Foundation
+#endif
 // MARK: (Parameters) -> Result
 
 @_disfavoredOverload
@@ -364,6 +367,21 @@ private func _generatePlaceholder<Result>() -> Result? {
   {
     return result
   }
+  if let result = (Witness<Result>.self as? AnyExpressibleByArrayLiteral.Type)?.empty() as? Result
+  {
+    return result
+  }
+  if let result = (Witness<Result>.self as? AnyFixedWidthInteger.Type)?.zero() as? Result
+  {
+    return result
+  }
+  if let result = (Witness<Result>.self as? AnyBinaryFloatingPoint.Type)?.zero() as? Result
+  {
+    return result
+  }
+  if let result = (Result.self as? DefaultConstructible.Type)?.defaultValue as? Result {
+    return result
+  }
   return nil
 }
 
@@ -379,12 +397,68 @@ private func _unimplementedFatalError(_ message: String, file: StaticString, lin
   )
 }
 
+private enum Witness<Value> {}
 protocol AnyRangeReplaceableCollection {
   static func empty() -> Any
 }
-private enum Witness<Value> {}
 extension Witness: AnyRangeReplaceableCollection where Value: RangeReplaceableCollection {
   static func empty() -> Any {
     Value()
   }
 }
+protocol AnyExpressibleByArrayLiteral {
+  static func empty() -> Any
+}
+extension Witness: AnyExpressibleByArrayLiteral where Value: ExpressibleByArrayLiteral {
+  static func empty() -> Any {
+    [] as Value
+  }
+}
+protocol AnyExpressibleByDictionaryLiteral {
+  static func empty() -> Any
+}
+extension Witness: AnyExpressibleByDictionaryLiteral where Value: ExpressibleByDictionaryLiteral {
+  static func empty() -> Any {
+    [:] as Value
+  }
+}
+protocol AnyFixedWidthInteger {
+  static func zero() -> Any
+}
+extension Witness: AnyFixedWidthInteger where Value: FixedWidthInteger {
+  static func zero() -> Any {
+    Value.zero
+  }
+}
+protocol AnyBinaryFloatingPoint {
+  static func zero() -> Any
+}
+extension Witness: AnyBinaryFloatingPoint where Value: BinaryFloatingPoint {
+  static func zero() -> Any {
+    Value.zero
+  }
+}
+
+protocol DefaultConstructible {
+  static var defaultValue: Self { get }
+}
+extension Bool: DefaultConstructible {
+  static var defaultValue: Self { false }
+}
+extension Set: DefaultConstructible {
+  static var defaultValue: Self { [] }
+}
+extension Dictionary: DefaultConstructible {
+  static var defaultValue: Self { [:] }
+}
+#if canImport(Foundation)
+extension Date: DefaultConstructible {
+  static var defaultValue: Self { Date() }
+}
+extension UUID: DefaultConstructible {
+  static var defaultValue: Self { UUID() }
+}
+extension URL: DefaultConstructible {
+  static var defaultValue: Self { URL(string: "/")! }
+}
+#endif
