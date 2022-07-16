@@ -370,10 +370,10 @@ private func _generatePlaceholder<Result>() -> Result? {
   if let result = (Witness<Result>.self as? AnyExpressibleByArrayLiteral.Type)?.empty() as? Result {
     return result
   }
-  if let result = (Witness<Result>.self as? AnyFixedWidthInteger.Type)?.zero() as? Result {
+  if let result = (Witness<Result>.self as? AnyExpressibleByDictionaryLiteral.Type)?.empty() as? Result {
     return result
   }
-  if let result = (Witness<Result>.self as? AnyBinaryFloatingPoint.Type)?.zero() as? Result {
+  if let result = (Witness<Result>.self as? AnyAdditiveArithmetic.Type)?.zero() as? Result {
     return result
   }
   if let result = (Result.self as? DefaultConstructible.Type)?.init() as? Result {
@@ -419,18 +419,10 @@ extension Witness: AnyExpressibleByDictionaryLiteral where Value: ExpressibleByD
     [:] as Value
   }
 }
-protocol AnyFixedWidthInteger {
+protocol AnyAdditiveArithmetic {
   static func zero() -> Any
 }
-extension Witness: AnyFixedWidthInteger where Value: FixedWidthInteger {
-  static func zero() -> Any {
-    Value.zero
-  }
-}
-protocol AnyBinaryFloatingPoint {
-  static func zero() -> Any
-}
-extension Witness: AnyBinaryFloatingPoint where Value: BinaryFloatingPoint {
+extension Witness: AnyAdditiveArithmetic where Value: AdditiveArithmetic {
   static func zero() -> Any {
     Value.zero
   }
