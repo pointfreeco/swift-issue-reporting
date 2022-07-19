@@ -364,19 +364,10 @@ private func _generatePlaceholder<Result>() -> Result? {
     return () as? Result
   }
   if let result = (Witness<Result>.self as? AnyRangeReplaceableCollection.Type)?.empty() as? Result
-  {
-    return result
-  }
-  if let result = (Witness<Result>.self as? AnyExpressibleByArrayLiteral.Type)?.empty() as? Result {
-    return result
-  }
-  if let result = (Witness<Result>.self as? AnyExpressibleByDictionaryLiteral.Type)?.empty() as? Result {
-    return result
-  }
-  if let result = (Witness<Result>.self as? AnyAdditiveArithmetic.Type)?.zero() as? Result {
-    return result
-  }
-  if let result = (Result.self as? DefaultConstructible.Type)?.init() as? Result {
+      ?? (Witness<Result>.self as? AnyExpressibleByArrayLiteral.Type)?.empty() as? Result
+      ?? (Witness<Result>.self as? AnyExpressibleByDictionaryLiteral.Type)?.empty() as? Result
+      ?? (Witness<Result>.self as? AnyAdditiveArithmetic.Type)?.zero() as? Result
+      ?? (Result.self as? DefaultConstructible.Type)?.init() as? Result {
     return result
   }
   return nil
