@@ -3,14 +3,24 @@
 @_disfavoredOverload
 public func XCTUnimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable () -> Result {
+  return {
+    _fail(description(), nil)
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable () -> Result {
   return {
     let description = description()
     _fail(description, nil)
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -19,14 +29,24 @@ public func XCTUnimplemented<Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A) -> Result {
+  return {
+    _fail(description(), $0)
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A) -> Result {
   return {
     let description = description()
     _fail(description, $0)
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -35,14 +55,24 @@ public func XCTUnimplemented<A, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B) -> Result {
+  return {
+    _fail(description(), ($0, $1))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B) -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -51,14 +81,24 @@ public func XCTUnimplemented<A, B, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C) -> Result {
+  return {
+    _fail(description(), ($0, $1, $2))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C) -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -67,14 +107,24 @@ public func XCTUnimplemented<A, B, C, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C, D) -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, D, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -83,14 +133,24 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C, D, E) -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, D, E, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -163,14 +223,24 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable () async -> Result {
+  return {
+    _fail(description(), nil)
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable () async -> Result {
   return {
     let description = description()
     _fail(description, nil)
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -188,14 +258,24 @@ public func XCTUnimplemented<Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A) async -> Result {
+  return {
+    _fail(description(), $0)
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A) async -> Result {
   return {
     let description = description()
     _fail(description, $0)
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -204,14 +284,24 @@ public func XCTUnimplemented<A, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B) async -> Result {
+  return {
+    _fail(description(), ($0, $1))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B) async -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -220,14 +310,24 @@ public func XCTUnimplemented<A, B, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C) async -> Result {
+  return {
+    _fail(description(), ($0, $1, $2))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C) async -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -236,14 +336,24 @@ public func XCTUnimplemented<A, B, C, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C, D) async -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, D, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) async -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
@@ -252,14 +362,24 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 @_disfavoredOverload
 public func XCTUnimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result? = nil,
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (A, B, C, D, E) async -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4))
+    return placeholder()
+  }
+}
+
+@_disfavoredOverload
+public func XCTUnimplemented<A, B, C, D, E, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4))
-    guard let placeholder = placeholder() ?? _generatePlaceholder()
+    guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
   }
