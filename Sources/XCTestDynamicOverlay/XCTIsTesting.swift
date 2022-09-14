@@ -1,5 +1,6 @@
 import Foundation
 
+#if !os(WASI)
 public let _XCTIsTesting: Bool = {
   ProcessInfo.processInfo.environment.keys.contains("XCTestSessionIdentifier")
     || ProcessInfo.processInfo.arguments.first
@@ -7,3 +8,4 @@ public let _XCTIsTesting: Bool = {
       .map { $0.lastPathComponent == "xctest" || $0.pathExtension == "xctest" }
       ?? false
 }()
+#endif
