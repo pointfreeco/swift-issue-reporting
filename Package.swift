@@ -12,25 +12,12 @@ let package = Package(
   ],
   products: [
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
-    .library(name: "XCTestDynamicOverlayUnsafe", targets: ["XCTestDynamicOverlayUnsafe"]),
   ],
   targets: [
-    .target(name: "XCTestDynamicOverlayInternals"),
-    .target(
-      name: "XCTestDynamicOverlay",
-      dependencies: ["XCTestDynamicOverlayInternals"]
-    ),
+    .target(name: "XCTestDynamicOverlay"),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
       dependencies: ["XCTestDynamicOverlay"]
-    ),
-    .target(
-      name: "XCTestDynamicOverlayUnsafe",
-      dependencies: ["XCTestDynamicOverlayInternals"]
-    ),
-    .testTarget(
-      name: "XCTestDynamicOverlayUnsafeTests",
-      dependencies: ["XCTestDynamicOverlayUnsafe"]
     ),
   ]
 )
