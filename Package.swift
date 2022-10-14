@@ -15,10 +15,10 @@ let package = Package(
     .library(name: "XCTestDynamicOverlayUnsafe", targets: ["XCTestDynamicOverlayUnsafe"]),
   ],
   targets: [
-    .target(name: "RuntimeWarningInternal"),
+    .target(name: "XCTestDynamicOverlayInternals"),
     .target(
       name: "XCTestDynamicOverlay",
-      dependencies: ["RuntimeWarningInternal"]
+      dependencies: ["XCTestDynamicOverlayInternals"]
     ),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
@@ -26,7 +26,7 @@ let package = Package(
     ),
     .target(
       name: "XCTestDynamicOverlayUnsafe",
-      dependencies: ["RuntimeWarningInternal"]
+      dependencies: ["XCTestDynamicOverlayInternals"]
     ),
     .testTarget(
       name: "XCTestDynamicOverlayUnsafeTests",

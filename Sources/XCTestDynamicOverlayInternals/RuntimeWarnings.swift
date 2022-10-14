@@ -34,7 +34,7 @@ public func runtimeWarn(
   _ args: @autoclosure () -> [CVarArg] = []
 ) {
   #if DEBUG && canImport(os)
-    if !_Flags.disableRuntimeWarnings {
+    if !XCTestDynamicOverlayFlags.disableRuntimeWarnings {
       unsafeBitCast(
         os_log as (OSLogType, UnsafeRawPointer, OSLog, StaticString, CVarArg...) -> Void,
         to: ((OSLogType, UnsafeRawPointer, OSLog, StaticString, [CVarArg]) -> Void).self

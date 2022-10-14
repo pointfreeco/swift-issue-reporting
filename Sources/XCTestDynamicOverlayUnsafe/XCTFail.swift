@@ -1,4 +1,4 @@
-@_spi(Internals) import Internal
+@_spi(Internals) import XCTestDynamicOverlayInternals
 
 #if canImport(ObjectiveC)
   import Foundation

@@ -1,1 +1,1 @@
-@_exported import Internal
+@_exported import XCTestDynamicOverlayInternals
