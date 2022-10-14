@@ -1,16 +1,15 @@
-@_spi(Internals)
-public enum Flags {
+public enum _Flags {
   @TaskLocal public static var disableRuntimeWarnings = false
 }
 
 public func disableRuntimeWarnings<R>(_ operation: () throws -> R) rethrows -> R {
-  try Flags.$disableRuntimeWarnings.withValue(true) {
+  try _Flags.$disableRuntimeWarnings.withValue(true) {
     try operation()
   }
 }
 
 public func disableRuntimeWarnings<R>(_ operation: () async throws -> R) async rethrows -> R {
-  try await Flags.$disableRuntimeWarnings.withValue(true) {
+  try await _Flags.$disableRuntimeWarnings.withValue(true) {
     try await operation()
   }
 }
