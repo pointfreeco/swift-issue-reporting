@@ -11,13 +11,19 @@ let package = Package(
     .watchOS(.v6),
   ],
   products: [
-    .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"])
+    .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
+    .library(name: "XCTestDynamicOverlayUnsafe", targets: ["XCTestDynamicOverlayUnsafe"]),
   ],
   targets: [
     .target(name: "XCTestDynamicOverlay"),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
       dependencies: ["XCTestDynamicOverlay"]
+    ),
+    .target(name: "XCTestDynamicOverlayUnsafe"),
+    .testTarget(
+      name: "XCTestDynamicOverlayUnsafeTests",
+      dependencies: ["XCTestDynamicOverlayUnsafe"]
     ),
   ]
 )
