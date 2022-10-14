@@ -3,13 +3,13 @@ public enum Flags {
   @TaskLocal public static var disableRuntimeWarnings = false
 }
 
-public func disableRuntimeWarnings(_ operation: () throws -> Void) rethrows {
+public func disableRuntimeWarnings<R>(_ operation: () throws -> R) rethrows -> R {
   try Flags.$disableRuntimeWarnings.withValue(true) {
     try operation()
   }
 }
 
-public func disableRuntimeWarnings(_ operation: () async throws -> Void) async rethrows {
+public func disableRuntimeWarnings<R>(_ operation: () async throws -> R) async rethrows -> R {
   try await Flags.$disableRuntimeWarnings.withValue(true) {
     try await operation()
   }
