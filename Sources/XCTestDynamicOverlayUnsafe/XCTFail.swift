@@ -1,3 +1,5 @@
+@_spi(Internals) import Internal
+
 #if canImport(ObjectiveC)
   import Foundation
 
@@ -25,21 +27,9 @@
         )?
         .takeUnretainedValue()
     else {
-      runtimeWarning(
-        """
-        "XCTFail" was invoked outside of a test.
-
-          Message:
-            %@
-
-        This function should only be invoked during an XCTest run, and is a no-op when run in \
-        application code. If you or a library you depend on is using "XCTFail" for test-specific \
-        code paths, ensure that these same paths are not called in your application.
-        """,
-        [
-          message.isEmpty ? "(none)" : message
-        ]
-      )
+      if !_XCTIsTesting {
+        runtimeWarn("%@", [message])
+      }
       return
     }
     _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)

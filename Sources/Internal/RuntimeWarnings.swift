@@ -6,7 +6,8 @@
   //     To work around this, we hook into SwiftUI's runtime issue delivery mechanism, instead.
   //
   // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
-  private let rw = (
+  @_spi(Internals)
+  public let rw = (
     dso: { () -> UnsafeMutableRawPointer in
       let count = _dyld_image_count()
       for i in 0..<count {
@@ -25,14 +26,15 @@
   )
 #endif
 
+@_spi(Internals)
 @_transparent
 @inline(__always)
-func runtimeWarning(
+public func runtimeWarn(
   _ message: @autoclosure () -> StaticString,
   _ args: @autoclosure () -> [CVarArg] = []
 ) {
   #if DEBUG && canImport(os)
-    if !_XCTIsTesting {
+    if !Flags.disableRuntimeWarnings {
       unsafeBitCast(
         os_log as (OSLogType, UnsafeRawPointer, OSLog, StaticString, CVarArg...) -> Void,
         to: ((OSLogType, UnsafeRawPointer, OSLog, StaticString, [CVarArg]) -> Void).self
