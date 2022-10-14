@@ -115,7 +115,7 @@ func testValidation() {
 
 However, you cannot ship this code with the target that defines `AnalyticsClient`. You either need to extract it out to a test support module (which means `AnalyticsClient` must also be extracted), or the code must be confined to a test target and thus not shareable.
 
-However, with XCTest Dynamic Overlay we can have our cake and eat it too 😋. We can define both the client type and the unimplemented instance right next to each in application code without needing to extract out needless modules or targets:
+With XCTest Dynamic Overlay we can have our cake and eat it too 😋. We can define both the client type and the unimplemented instance right next to each in application code without needing to extract out needless modules or targets:
 
 ```swift
 struct AnalyticsClient {
