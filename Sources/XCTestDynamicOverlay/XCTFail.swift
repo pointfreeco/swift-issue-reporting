@@ -27,7 +27,7 @@
           .takeUnretainedValue()
       else {
         if !_XCTIsTesting {
-          runtimeWarn("%@", [message])
+          runtimeWarn(message)
         }
         return
       }

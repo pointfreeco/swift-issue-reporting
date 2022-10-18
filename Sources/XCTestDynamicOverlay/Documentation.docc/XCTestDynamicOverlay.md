@@ -19,5 +19,5 @@ XCTest Dynamic Overlay provides APIs for invoking XCTest's `XCTFail` directly in
 
 ### Unimplemented Dependencies
 
-- ``XCTUnimplemented(_:placeholder:)-1ho66``
-- ``XCTUnimplemented(_:)-3obl5``
+- ``unimplemented(_:placeholder:)-2d408``
+- ``unimplemented(_:)-1zu4x``
