@@ -1,7 +1,7 @@
 // MARK: (Parameters) -> Result
 
 @_disfavoredOverload
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable () -> Result {
@@ -12,7 +12,7 @@ public func XCTUnimplemented<Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -27,7 +27,7 @@ public func XCTUnimplemented<Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A) -> Result {
@@ -38,7 +38,7 @@ public func XCTUnimplemented<A, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -53,7 +53,7 @@ public func XCTUnimplemented<A, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B) -> Result {
@@ -64,7 +64,7 @@ public func XCTUnimplemented<A, B, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -79,7 +79,7 @@ public func XCTUnimplemented<A, B, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C) -> Result {
@@ -90,7 +90,7 @@ public func XCTUnimplemented<A, B, C, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -105,7 +105,7 @@ public func XCTUnimplemented<A, B, C, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C, D) -> Result {
@@ -116,7 +116,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -131,7 +131,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C, D, E) -> Result {
@@ -142,7 +142,7 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -158,70 +158,70 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) throws -> Result
 
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable () throws -> Result {
   return {
     let description = description()
     _fail(description, nil)
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) throws -> Result {
   return {
     let description = description()
     _fail(description, $0)
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
 // MARK: (Parameters) async -> Result
 
 @_disfavoredOverload
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable () async -> Result {
@@ -232,7 +232,7 @@ public func XCTUnimplemented<Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -256,7 +256,7 @@ public func XCTUnimplemented<Result>(
 ///     error instead.
 /// - Returns: A closure that generates a failure when invoked.
 @_disfavoredOverload
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A) async -> Result {
@@ -267,7 +267,7 @@ public func XCTUnimplemented<A, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -282,7 +282,7 @@ public func XCTUnimplemented<A, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B) async -> Result {
@@ -293,7 +293,7 @@ public func XCTUnimplemented<A, B, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -308,7 +308,7 @@ public func XCTUnimplemented<A, B, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C) async -> Result {
@@ -319,7 +319,7 @@ public func XCTUnimplemented<A, B, C, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -334,7 +334,7 @@ public func XCTUnimplemented<A, B, C, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C, D) async -> Result {
@@ -345,7 +345,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -360,7 +360,7 @@ public func XCTUnimplemented<A, B, C, D, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result
 ) -> @Sendable (A, B, C, D, E) async -> Result {
@@ -371,7 +371,7 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 }
 
 @_disfavoredOverload
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   line: UInt = #line
@@ -387,13 +387,13 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) async throws -> Result
 
-public func XCTUnimplemented<Result>(
+public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable () async throws -> Result {
   return {
     let description = description()
     _fail(description, nil)
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
@@ -402,62 +402,62 @@ public func XCTUnimplemented<Result>(
 /// - Parameter description: An optional description of the unimplemented closure, for inclusion in
 ///   test results.
 /// - Returns: A closure that generates a failure and throws an error when invoked.
-public func XCTUnimplemented<A, Result>(
+public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A) async throws -> Result {
   return {
     let description = description()
     _fail(description, $0)
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, Result>(
+public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B) async throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, Result>(
+public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C) async throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, D, Result>(
+public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D) async throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
-public func XCTUnimplemented<A, B, C, D, E, Result>(
+public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
 ) -> @Sendable (A, B, C, D, E) async throws -> Result {
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4))
-    throw XCTUnimplementedFailure(description: description)
+    throw UnimplementedFailure(description: description)
   }
 }
 
 /// An error thrown from ``XCTUnimplemented(_:)-3obl5``.
-public struct XCTUnimplementedFailure: Error {
+public struct UnimplementedFailure: Error {
   public let description: String
 }
 
-private func _fail(_ description: String, _ parameters: Any?) {
+func _fail(_ description: String, _ parameters: Any?) {
   let parametersDescription =
     parameters.map {
       """
@@ -476,7 +476,7 @@ private func _fail(_ description: String, _ parameters: Any?) {
   )
 }
 
-private func _generatePlaceholder<Result>() -> Result? {
+func _generatePlaceholder<Result>() -> Result? {
   if Result.self == Void.self {
     return () as? Result
   }
@@ -487,7 +487,7 @@ private func _generatePlaceholder<Result>() -> Result? {
   return nil
 }
 
-private func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
+func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
   fatalError(
     """
     XCTUnimplemented(\(message.isEmpty ? "" : message.debugDescription))
@@ -502,7 +502,7 @@ private func _unimplementedFatalError(_ message: String, file: StaticString, lin
 protocol AnyRangeReplaceableCollection {
   static func empty() -> Any
 }
-private enum Witness<Value> {}
+enum Witness<Value> {}
 extension Witness: AnyRangeReplaceableCollection where Value: RangeReplaceableCollection {
   static func empty() -> Any {
     Value()
