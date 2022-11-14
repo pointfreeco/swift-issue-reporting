@@ -4,9 +4,8 @@
 
     var XCTCurrentTestCase: AnyObject? {
       guard
-        let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter")
-          as Any as? NSObjectProtocol,
-        String(describing: XCTestObservationCenter) != "<null>",
+        let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
+        let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
         let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
           .takeUnretainedValue(),
         let observers = shared.perform(Selector(("observers")))?

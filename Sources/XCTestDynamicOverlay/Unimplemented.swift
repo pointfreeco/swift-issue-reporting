@@ -3,10 +3,12 @@
 @_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable () -> Result {
   return {
-    _fail(description(), nil)
+    _fail(description(), nil, fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -15,11 +17,12 @@ public func unimplemented<Result>(
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable () -> Result {
   return {
     let description = description()
-    _fail(description, nil)
+    _fail(description, nil, fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -29,10 +32,12 @@ public func unimplemented<Result>(
 @_disfavoredOverload
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A) -> Result {
   return {
-    _fail(description(), $0)
+    _fail(description(), $0, fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -41,11 +46,12 @@ public func unimplemented<A, Result>(
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A) -> Result {
   return {
     let description = description()
-    _fail(description, $0)
+    _fail(description, $0, fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -55,10 +61,12 @@ public func unimplemented<A, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B) -> Result {
   return {
-    _fail(description(), ($0, $1))
+    _fail(description(), ($0, $1), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -67,11 +75,12 @@ public func unimplemented<A, B, Result>(
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1))
+    _fail(description, ($0, $1), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -81,10 +90,12 @@ public func unimplemented<A, B, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C) -> Result {
   return {
-    _fail(description(), ($0, $1, $2))
+    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -93,11 +104,12 @@ public func unimplemented<A, B, C, Result>(
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2))
+    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -107,10 +119,12 @@ public func unimplemented<A, B, C, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D) -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3))
+    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -119,11 +133,12 @@ public func unimplemented<A, B, C, D, Result>(
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3))
+    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -133,10 +148,12 @@ public func unimplemented<A, B, C, D, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3, $4))
+    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -145,11 +162,12 @@ public func unimplemented<A, B, C, D, E, Result>(
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4))
+    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -159,61 +177,73 @@ public func unimplemented<A, B, C, D, E, Result>(
 // MARK: (Parameters) throws -> Result
 
 public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable () throws -> Result {
   return {
     let description = description()
-    _fail(description, nil)
+    _fail(description, nil, fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A) throws -> Result {
   return {
     let description = description()
-    _fail(description, $0)
+    _fail(description, $0, fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1))
+    _fail(description, ($0, $1), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2))
+    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3))
+    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4))
+    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -223,10 +253,12 @@ public func unimplemented<A, B, C, D, E, Result>(
 @_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable () async -> Result {
   return {
-    _fail(description(), nil)
+    _fail(description(), nil, fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -235,11 +267,12 @@ public func unimplemented<Result>(
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable () async -> Result {
   return {
     let description = description()
-    _fail(description, nil)
+    _fail(description, nil, fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -258,10 +291,12 @@ public func unimplemented<Result>(
 @_disfavoredOverload
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A) async -> Result {
   return {
-    _fail(description(), $0)
+    _fail(description(), $0, fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -270,11 +305,12 @@ public func unimplemented<A, Result>(
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A) async -> Result {
   return {
     let description = description()
-    _fail(description, $0)
+    _fail(description, $0, fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -284,10 +320,12 @@ public func unimplemented<A, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B) async -> Result {
   return {
-    _fail(description(), ($0, $1))
+    _fail(description(), ($0, $1), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -296,11 +334,12 @@ public func unimplemented<A, B, Result>(
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1))
+    _fail(description, ($0, $1), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -310,10 +349,12 @@ public func unimplemented<A, B, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2))
+    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -322,11 +363,12 @@ public func unimplemented<A, B, C, Result>(
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2))
+    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -336,10 +378,12 @@ public func unimplemented<A, B, C, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3))
+    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -348,11 +392,12 @@ public func unimplemented<A, B, C, D, Result>(
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3))
+    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -362,10 +407,12 @@ public func unimplemented<A, B, C, D, Result>(
 @_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3, $4))
+    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -374,11 +421,12 @@ public func unimplemented<A, B, C, D, E, Result>(
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
+  fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4))
+    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     guard let placeholder: Result = _generatePlaceholder()
     else { _unimplementedFatalError(description, file: file, line: line) }
     return placeholder
@@ -388,11 +436,13 @@ public func unimplemented<A, B, C, D, E, Result>(
 // MARK: (Parameters) async throws -> Result
 
 public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable () async throws -> Result {
   return {
     let description = description()
-    _fail(description, nil)
+    _fail(description, nil, fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -403,51 +453,61 @@ public func unimplemented<Result>(
 ///   test results.
 /// - Returns: A closure that generates a failure and throws an error when invoked.
 public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A) async throws -> Result {
   return {
     let description = description()
-    _fail(description, $0)
+    _fail(description, $0, fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1))
+    _fail(description, ($0, $1), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2))
+    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3))
+    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4))
+    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -457,11 +517,15 @@ public struct UnimplementedFailure: Error {
   public let description: String
 }
 
-func _fail(_ description: String, _ parameters: Any?) {
+func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line: UInt) {
   let parametersDescription =
     parameters.map {
       """
        …
+
+      Defined at:
+
+        \(fileID):\(line)
 
       Invoked with:
 
@@ -490,7 +554,7 @@ func _generatePlaceholder<Result>() -> Result? {
 func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
   fatalError(
     """
-    XCTUnimplemented(\(message.isEmpty ? "" : message.debugDescription))
+    unimplemented(\(message.isEmpty ? "" : message.debugDescription))
 
     To suppress this crash, provide an explicit "placeholder".
     """,

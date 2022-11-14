@@ -1,6 +1,8 @@
 import Foundation
 
-#if !os(WASI)
+#if RELEASE || os(WASI)
+  public let _XCTIsTesting = false
+#else
   public let _XCTIsTesting: Bool = {
     ProcessInfo.processInfo.environment.keys.contains("XCTestBundlePath")
       || ProcessInfo.processInfo.environment.keys.contains("XCTestConfigurationFilePath")
@@ -11,6 +13,4 @@ import Foundation
         ?? false)
       || XCTCurrentTestCase != nil
   }()
-#else
-  public let _XCTIsTesting = false
 #endif
