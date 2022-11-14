@@ -518,24 +518,27 @@ public struct UnimplementedFailure: Error {
 }
 
 func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line: UInt) {
-  let parametersDescription =
-    parameters.map {
-      """
-       …
+  var debugDescription = """
+     …
 
       Defined at:
-
         \(fileID):\(line)
-
-      Invoked with:
-
-        \($0)
+    """
+  if let parameters = parameters {
+    var parametersDescription = ""
+    debugPrint(parameters, terminator: "", to: &parametersDescription)
+    debugDescription.append(
       """
-    }
-    ?? ""
+
+
+        Invoked with:
+          \(parametersDescription)
+      """
+    )
+  }
   XCTFail(
     """
-    Unimplemented\(description.isEmpty ? "" : ": \(description)")\(parametersDescription)
+    Unimplemented\(description.isEmpty ? "" : ": \(description)")\(debugDescription)
     """
   )
 }

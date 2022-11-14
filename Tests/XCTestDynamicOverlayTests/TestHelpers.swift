@@ -1,3 +1,4 @@
+import Foundation
 import XCTestDynamicOverlay
 
 func MyXCTFail(_ message: String) {
@@ -30,32 +31,41 @@ struct Client {
   var p22: (Int, Int, Int, Int, Int) async -> Int
   var p23: (Int, Int, Int, Int, Int) async throws -> Int
 
-  static var unimplemented: Self {
+  static var testValue: Self {
     Self(
-      p00: XCTUnimplemented("\(Self.self).p00"),
-      p01: XCTUnimplemented("\(Self.self).p01"),
-      p02: XCTUnimplemented("\(Self.self).p02"),
-      p03: XCTUnimplemented("\(Self.self).p03"),
-      p04: XCTUnimplemented("\(Self.self).p04"),
-      p05: XCTUnimplemented("\(Self.self).p05"),
-      p06: XCTUnimplemented("\(Self.self).p06"),
-      p07: XCTUnimplemented("\(Self.self).p07"),
-      p08: XCTUnimplemented("\(Self.self).p08"),
-      p09: XCTUnimplemented("\(Self.self).p09"),
-      p10: XCTUnimplemented("\(Self.self).p10"),
-      p11: XCTUnimplemented("\(Self.self).p11"),
-      p12: XCTUnimplemented("\(Self.self).p12"),
-      p13: XCTUnimplemented("\(Self.self).p13"),
-      p14: XCTUnimplemented("\(Self.self).p14"),
-      p15: XCTUnimplemented("\(Self.self).p15"),
-      p16: XCTUnimplemented("\(Self.self).p16"),
-      p17: XCTUnimplemented("\(Self.self).p17"),
-      p18: XCTUnimplemented("\(Self.self).p18"),
-      p19: XCTUnimplemented("\(Self.self).p19"),
-      p20: XCTUnimplemented("\(Self.self).p20"),
-      p21: XCTUnimplemented("\(Self.self).p21"),
-      p22: XCTUnimplemented("\(Self.self).p22"),
-      p23: XCTUnimplemented("\(Self.self).p23")
+      p00: unimplemented("\(Self.self).p00"),
+      p01: unimplemented("\(Self.self).p01"),
+      p02: unimplemented("\(Self.self).p02"),
+      p03: unimplemented("\(Self.self).p03"),
+      p04: unimplemented("\(Self.self).p04"),
+      p05: unimplemented("\(Self.self).p05"),
+      p06: unimplemented("\(Self.self).p06"),
+      p07: unimplemented("\(Self.self).p07"),
+      p08: unimplemented("\(Self.self).p08"),
+      p09: unimplemented("\(Self.self).p09"),
+      p10: unimplemented("\(Self.self).p10"),
+      p11: unimplemented("\(Self.self).p11"),
+      p12: unimplemented("\(Self.self).p12"),
+      p13: unimplemented("\(Self.self).p13"),
+      p14: unimplemented("\(Self.self).p14"),
+      p15: unimplemented("\(Self.self).p15"),
+      p16: unimplemented("\(Self.self).p16"),
+      p17: unimplemented("\(Self.self).p17"),
+      p18: unimplemented("\(Self.self).p18"),
+      p19: unimplemented("\(Self.self).p19"),
+      p20: unimplemented("\(Self.self).p20"),
+      p21: unimplemented("\(Self.self).p21"),
+      p22: unimplemented("\(Self.self).p22"),
+      p23: unimplemented("\(Self.self).p23")
     )
   }
 }
+
+struct User { let id: UUID }
+
+let f00: () -> Int = unimplemented("f00", placeholder: 42)
+let f01: (String) -> Int = unimplemented("f01", placeholder: 42)
+let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
+let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
+let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
+let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
