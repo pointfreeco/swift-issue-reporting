@@ -166,6 +166,12 @@ extension AppDependencies {
 
 The above `placeholder` parameters can be left off, but will fatal error when the endpoint is called.
 
+## Documentation 
+
+Full documentation can be found [here][docs].
+
 ## License
 
 This library is released under the MIT license. See [LICENSE](LICENSE) for details.
+
+[docs]: https://pointfreeco.github.io/xctest-dynamic-overlay/main/documentation/xctestdynamicoverlay
