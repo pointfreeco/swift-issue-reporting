@@ -543,17 +543,6 @@ func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line
   )
 }
 
-func _generatePlaceholder<Result>() -> Result? {
-  if Result.self == Void.self {
-    return () as? Result
-  }
-  if let result = (Witness<Result>.self as? AnyRangeReplaceableCollection.Type)?.empty() as? Result
-  {
-    return result
-  }
-  return nil
-}
-
 func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
   fatalError(
     """
@@ -564,14 +553,4 @@ func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt)
     file: file,
     line: line
   )
-}
-
-protocol AnyRangeReplaceableCollection {
-  static func empty() -> Any
-}
-enum Witness<Value> {}
-extension Witness: AnyRangeReplaceableCollection where Value: RangeReplaceableCollection {
-  static func empty() -> Any {
-    Value()
-  }
 }
