@@ -136,12 +136,12 @@ extension AnalyticsClient {
 }
 ```
 
-XCTest Dynamic Overlay also comes with a helper that simplifies this exact pattern: `XCTUnimplemented`. It creates failing closures for you:
+XCTest Dynamic Overlay also comes with a helper that simplifies this exact pattern: `unimplemented`. It creates failing closures for you:
 
 ```swift
 extension AnalyticsClient {
   static let unimplemented = Self(
-    track: XCTUnimplemented("\(Self.self).track")
+    track: unimplemented("\(Self.self).track")
   )
 }
 ```
@@ -157,9 +157,9 @@ struct AppDependencies {
 
 extension AppDependencies {
   static let unimplemented = Self(
-    date: XCTUnimplemented("\(Self.self).date", placeholder: Date()),
-    fetchUser: XCTUnimplemented("\(Self.self).fetchUser"),
-    uuid: XCTUnimplemented("\(Self.self).uuid", placeholder: UUID())
+    date: unimplemented("\(Self.self).date", placeholder: Date()),
+    fetchUser: unimplemented("\(Self.self).fetchUser"),
+    uuid: unimplemented("\(Self.self).uuid", placeholder: UUID())
   )
 }
 ```
