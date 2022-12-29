@@ -1,6 +1,5 @@
 // MARK: (Parameters) -> Result
 
-@_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -13,7 +12,6 @@ public func unimplemented<Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -30,6 +28,30 @@ public func unimplemented<Result>(
 }
 
 @_disfavoredOverload
+public func unimplemented<Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> Result {
+  _fail(description(), nil, fileID: fileID, line: line)
+  return placeholder()
+}
+
+@_disfavoredOverload
+public func unimplemented<Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> Result {
+  let description = description()
+  _fail(description, nil, fileID: fileID, line: line)
+  guard let placeholder: Result = _generatePlaceholder()
+  else { _unimplementedFatalError(description, file: file, line: line) }
+  return placeholder
+}
+
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -42,7 +64,6 @@ public func unimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -58,7 +79,6 @@ public func unimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -71,7 +91,6 @@ public func unimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -87,7 +106,6 @@ public func unimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -100,7 +118,6 @@ public func unimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -116,7 +133,6 @@ public func unimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -129,7 +145,6 @@ public func unimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -145,7 +160,6 @@ public func unimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -158,7 +172,6 @@ public func unimplemented<A, B, C, D, E, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -250,7 +263,6 @@ public func unimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) async -> Result
 
-@_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -263,7 +275,6 @@ public func unimplemented<Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -288,7 +299,6 @@ public func unimplemented<Result>(
 ///     default value (like `()` for `Void`) cannot be returned, calling the closure will fatal
 ///     error instead.
 /// - Returns: A closure that generates a failure when invoked.
-@_disfavoredOverload
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -301,7 +311,6 @@ public func unimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -317,7 +326,6 @@ public func unimplemented<A, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -330,7 +338,6 @@ public func unimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -346,7 +353,6 @@ public func unimplemented<A, B, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -359,7 +365,6 @@ public func unimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -375,7 +380,6 @@ public func unimplemented<A, B, C, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -388,7 +392,6 @@ public func unimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -404,7 +407,6 @@ public func unimplemented<A, B, C, D, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
@@ -417,7 +419,6 @@ public func unimplemented<A, B, C, D, E, Result>(
   }
 }
 
-@_disfavoredOverload
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,

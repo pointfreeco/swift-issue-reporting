@@ -69,3 +69,12 @@ let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
 let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
 let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
 let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
+
+private struct Autoclosing {
+  init(
+    _: @autoclosure () -> Int = unimplemented(),
+    _: @autoclosure () async -> Int = unimplemented(),
+    _: @autoclosure () throws -> Int = unimplemented(),
+    _: @autoclosure () async throws -> Int = unimplemented()
+  ) async {}
+}
