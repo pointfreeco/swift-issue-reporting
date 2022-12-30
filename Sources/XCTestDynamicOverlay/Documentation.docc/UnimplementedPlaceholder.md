@@ -4,6 +4,8 @@
 
 ### Overloads
 
+- ``unimplemented(_:placeholder:fileID:line:)-9tt2k``
+- ``unimplemented(_:file:fileID:line:)-74vrh``
 - ``unimplemented(_:placeholder:fileID:line:)-63r9c``
 - ``unimplemented(_:file:fileID:line:)-7naoc``
 - ``unimplemented(_:placeholder:fileID:line:)-1d7ul``

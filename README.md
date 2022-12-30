@@ -60,13 +60,13 @@ If you are disciplined about injecting dependencies, you probably have a lot of 
 
 ```swift
 class LoginViewModel: ObservableObject {
-  ...
+  // ...
 
   init(analytics: AnalyticsClient) {
-    ...
+    // ...
   }
 
-  ...
+  // ...
 }
 ```
 
@@ -79,7 +79,7 @@ func testLogin() {
     analytics: .test { events.append($0) }
   )
 
-  ...
+  // ...
 
   XCTAssertEqual(events, [.init(name: "Login Success")])
 }
@@ -109,7 +109,7 @@ func testValidation() {
     analytics: .unimplemented
   )
 
-  ...
+  // ...
 }
 ```
 
