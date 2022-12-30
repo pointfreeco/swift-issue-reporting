@@ -31,14 +31,14 @@ extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
 }
 
 #if canImport(Foundation)
-import Foundation
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
+  import Foundation
+  #if canImport(FoundationNetworking)
+    import FoundationNetworking
+  #endif
 
-extension Data: _DefaultInitializable {}
-extension Date: _DefaultInitializable {}
-extension Decimal: _DefaultInitializable {}
-extension UUID: _DefaultInitializable {}
-extension URL: _DefaultInitializable { init() { self.init(string: "/")! } }
+  extension Data: _DefaultInitializable {}
+  extension Date: _DefaultInitializable {}
+  extension Decimal: _DefaultInitializable {}
+  extension UUID: _DefaultInitializable {}
+  extension URL: _DefaultInitializable { init() { self.init(string: "/")! } }
 #endif
