@@ -19,12 +19,12 @@
       return currentTestCase
     }
   #else
-    var XCTCurrentTestCase: AnyObject? {
+    @_spi(CurrentTestCase) public var XCTCurrentTestCase: AnyObject? {
       nil
     }
   #endif
 #else
-  var XCTCurrentTestCase: AnyObject? {
+  @_spi(CurrentTestCase) public var XCTCurrentTestCase: AnyObject? {
     nil
   }
 #endif
