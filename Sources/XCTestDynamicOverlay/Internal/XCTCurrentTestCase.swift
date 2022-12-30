@@ -2,7 +2,7 @@
   #if canImport(ObjectiveC)
     import Foundation
 
-    var XCTCurrentTestCase: AnyObject? {
+    @_spi(CurrentTestCase) public var XCTCurrentTestCase: AnyObject? {
       guard
         let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
         let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
@@ -19,12 +19,12 @@
       return currentTestCase
     }
   #else
-    var XCTCurrentTestCase: AnyObject? {
+    @_spi(CurrentTestCase) public var XCTCurrentTestCase: AnyObject? {
       nil
     }
   #endif
 #else
-  var XCTCurrentTestCase: AnyObject? {
+  @_spi(CurrentTestCase) public var XCTCurrentTestCase: AnyObject? {
     nil
   }
 #endif
