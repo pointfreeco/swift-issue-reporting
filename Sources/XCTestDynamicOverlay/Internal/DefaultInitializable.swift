@@ -22,10 +22,6 @@ extension UInt16: _DefaultInitializable {}
 extension UInt32: _DefaultInitializable {}
 extension UInt64: _DefaultInitializable {}
 
-extension Optional: _DefaultInitializable where Wrapped: _DefaultInitializable {
-  init() { self = .some(.init()) }
-}
-
 extension AsyncStream: _DefaultInitializable {
   init() { self.init { $0.finish() } }
 }
