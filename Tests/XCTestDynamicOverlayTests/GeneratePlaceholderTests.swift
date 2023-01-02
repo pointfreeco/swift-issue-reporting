@@ -25,6 +25,9 @@
       let set: () -> Set<Int> = unimplemented("set")
       XCTAssertEqual(XCTExpectFailure(failingBlock: set), Set<Int>())
 
+      let optionalInt: () -> Int? = unimplemented("optionalInt")
+      XCTAssertNotNil(XCTExpectFailure(failingBlock: optionalInt))
+      
       let stream: () -> AsyncStream<Int> = unimplemented("stream")
       for await _ in XCTExpectFailure(failingBlock: stream) {
         XCTFail("Stream should be finished")
