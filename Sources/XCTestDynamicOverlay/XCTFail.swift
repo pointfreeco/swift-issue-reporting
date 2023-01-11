@@ -10,6 +10,7 @@
     ///
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
+    @_disfavoredOverload
     public func XCTFail(_ message: String = "") {
       guard
         let currentTestCase = XCTCurrentTestCase,
@@ -42,6 +43,7 @@
     ///
     /// - Parameter message: An optional description of the assertion, for inclusion in test
     ///   results.
+    @_disfavoredOverload
     public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
       _XCTFailureHandler(nil, true, "\(file)", line, "\(message.isEmpty ? "failed" : message)", nil)
     }
@@ -57,7 +59,9 @@
     // NB: It seems to be safe to import XCTest on Linux
     @_exported import func XCTest.XCTFail
   #else
+    @_disfavoredOverload
     public func XCTFail(_ message: String = "") {}
+    @_disfavoredOverload
     public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
   #endif
 #else
@@ -69,6 +73,7 @@
   ///
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
+  @_disfavoredOverload
   public func XCTFail(_ message: String = "") {}
 
   /// This function generates a failure immediately and unconditionally.
@@ -79,5 +84,6 @@
   ///
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
+  @_disfavoredOverload
   public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
 #endif
