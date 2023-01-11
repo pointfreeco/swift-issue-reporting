@@ -9,7 +9,7 @@ on:
       - '*'
 
 concurrency:
-  group: docs-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
