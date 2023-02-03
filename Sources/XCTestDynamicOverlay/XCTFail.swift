@@ -103,34 +103,32 @@
     return [originalMessage, "", message].joined(separator: "\n")
   }
 
-private let testCaseCandidateRegex = #"(?<=\$s)\d{1,3}.*C(?=\d{1,3}test.*yy.*F)"#
-func testCaseSubclass(callStackSymbols: [String]) -> Any.Type? {
-  for frame in callStackSymbols {
-    var startIndex = frame.startIndex
-    while startIndex != frame.endIndex {
-      if let range = frame.range(
-        of: testCaseCandidateRegex,
-        options: .regularExpression,
-        range: startIndex..<frame.endIndex,
-        locale: nil
-      ) {
-        let candidate = _typeByName(String(frame[range]))
-        if
-          let nsCandidate = (candidate as? NSObject.Type),
-          let xcTestCase = NSClassFromString("XCTestCase"),
-          nsCandidate.isSubclass(of: xcTestCase)
-        {
-          return nsCandidate
+  private let testCaseCandidateRegex = #"(?<=\$s)\d{1,3}.*C(?=\d{1,3}test.*yy.*F)"#
+  func testCaseSubclass(callStackSymbols: [String]) -> Any.Type? {
+    for frame in callStackSymbols {
+      var startIndex = frame.startIndex
+      while startIndex != frame.endIndex {
+        if let range = frame.range(
+          of: testCaseCandidateRegex,
+          options: .regularExpression,
+          range: startIndex..<frame.endIndex,
+          locale: nil
+        ) {
+          let candidate = _typeByName(String(frame[range]))
+          if let nsCandidate = (candidate as? NSObject.Type),
+            let xcTestCase = NSClassFromString("XCTestCase"),
+            nsCandidate.isSubclass(of: xcTestCase)
+          {
+            return nsCandidate
+          }
+          startIndex = range.upperBound
+        } else {
+          break
         }
-        startIndex = range.upperBound
-      } else {
-        break
       }
     }
+    return nil
   }
-  return nil
-}
-
 
 #else
   /// This function generates a failure immediately and unconditionally.
