@@ -81,10 +81,11 @@
     }
 
     if Thread.callStackSymbols.contains(where: {
-      $0.range(of: ".Tests.{1,6}test.", options: .regularExpression) != nil
+      $0.range(of: #"\$s\d{1,3}.*Tests.*C\d{1,3}test.*yy.*F"#, options: .regularExpression) != nil
     }) {
       // We are apparently performing an async test.
-      // We're matching `_Tests` and `test_` on the same line separated by a few mangling symbols
+      // We're matching a `() -> ()` function that starts with `test`, from a class that contains
+      // `Tests` in its name.
       return originalMessage
     }
 
