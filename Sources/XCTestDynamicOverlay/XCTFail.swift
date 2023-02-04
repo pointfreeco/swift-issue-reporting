@@ -103,29 +103,42 @@
     return [originalMessage, "", message].joined(separator: "\n")
   }
 
-  private let testCaseCandidateRegex = #"(?<=\$s)\d{1,3}.*C(?=\d{1,3}test.*yy.*F)"#
+  // (?<=\$s): Starts with "$s" (stable mangling);
+  // \d{1,3}: Some numbers (the class name length or the module name length);
+  // .*: The class name, or module name + class name length + class name;
+  // C: The class type identifier;
+  // (?=\d{1,3}test.*yy(Ya)?K?F): Followed by a the function name length, function that starts with
+  // `test`, has no arguments (y), returns Void (y), and is a function (F), potentially async (Ya),
+  // throwing (K), or both.
+  private let testCaseRegex = #"(?<=\$s)\d{1,3}.*C(?=\d{1,3}test.*yy(Ya)?K?F)"#
+
   func testCaseSubclass(callStackSymbols: [String]) -> Any.Type? {
     for frame in callStackSymbols {
       var startIndex = frame.startIndex
       while startIndex != frame.endIndex {
         if let range = frame.range(
-          of: testCaseCandidateRegex,
+          of: testCaseRegex,
           options: .regularExpression,
           range: startIndex..<frame.endIndex,
           locale: nil
         ) {
-          let candidate = _typeByName(String(frame[range]))
-          if let nsCandidate = (candidate as? NSObject.Type),
-            let xcTestCase = NSClassFromString("XCTestCase"),
-            nsCandidate.isSubclass(of: xcTestCase)
-          {
-            return nsCandidate
+          if let testCase = XCTestCase(mangledName: String(frame[range])) {
+            return testCase
           }
           startIndex = range.upperBound
         } else {
           break
         }
       }
+    }
+    return nil
+  }
+
+  private func XCTestCase(mangledName: String) -> Any.Type? {
+    if let object = _typeByName(mangledName) as? NSObject.Type,
+      NSClassFromString("XCTestCase").map(object.isSubclass(of:)) == true
+    {
+      return object
     }
     return nil
   }
