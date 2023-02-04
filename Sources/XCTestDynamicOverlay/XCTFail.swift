@@ -75,6 +75,7 @@
       // XCTesting is providing a default host app.
       return originalMessage
     }
+    
     if Thread.callStackSymbols.contains(where: { $0.range(of: "XCTestCore") != nil }) {
       // We are apparently performing a sync test
       return originalMessage
@@ -88,12 +89,11 @@
 
     let message = """
       Warning! This failure occurred while running tests hosted by the main app.
+      
+      Testing using the main app as a host can lead to false positive test failures created by the \
+      app accessing unimplemented values itself when it is spun up.
 
-      When some `test` context is automatically inferred (like it's the case with "Dependencies") \
-      this can produce false positive test failures, as the app itself can load and access \
-      unimplemented values out of the scope of individual tests.
-
-        - Tests host: \(Bundle.main.bundleIdentifier ?? "Unknown")
+        - Test host: \(Bundle.main.bundleIdentifier ?? "Unknown")
 
       You can find more information and workarounds in the "Testing/Testing Gotchas" section of \
       Dependencies' documentation at \
@@ -107,7 +107,7 @@
   // \d{1,3}: Some numbers (the class name length or the module name length);
   // .*: The class name, or module name + class name length + class name;
   // C: The class type identifier;
-  // (?=\d{1,3}test.*yy(Ya)?K?F): Followed by a the function name length, function that starts with
+  // (?=\d{1,3}test.*yy(Ya)?K?F): Followed by the function name length, function that starts with
   // `test`, has no arguments (y), returns Void (y), and is a function (F), potentially async (Ya),
   // throwing (K), or both.
   private let testCaseRegex = #"(?<=\$s)\d{1,3}.*C(?=\d{1,3}test.*yy(Ya)?K?F)"#
@@ -122,7 +122,7 @@
           range: startIndex..<frame.endIndex,
           locale: nil
         ) {
-          if let testCase = XCTestCase(mangledName: String(frame[range])) {
+          if let testCase = testCase(mangledName: String(frame[range])) {
             return testCase
           }
           startIndex = range.upperBound
@@ -134,7 +134,7 @@
     return nil
   }
 
-  private func XCTestCase(mangledName: String) -> Any.Type? {
+  private func testCase(mangledName: String) -> Any.Type? {
     if let object = _typeByName(mangledName) as? NSObject.Type,
       NSClassFromString("XCTestCase").map(object.isSubclass(of:)) == true
     {
