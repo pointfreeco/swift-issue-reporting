@@ -75,7 +75,7 @@
       // XCTesting is providing a default host app.
       return originalMessage
     }
-    
+
     if Thread.callStackSymbols.contains(where: { $0.range(of: "XCTestCore") != nil }) {
       // We are apparently performing a sync test
       return originalMessage
@@ -89,7 +89,7 @@
 
     let message = """
       Warning! This failure occurred while running tests hosted by the main app.
-      
+
       Testing using the main app as a host can lead to false positive test failures created by the \
       app accessing unimplemented values itself when it is spun up.
 
