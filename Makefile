@@ -6,7 +6,8 @@ EXPECTED_STRING = This is expected to fail!
 EXPECTED = \033[31m\"$(EXPECTED_STRING)\"\033[0m
 
 test:
-	@TEST_FAILURE=true swift test 2>&1 | grep '$(EXPECTED_STRING)' > /dev/null \
+	@TEST_FAILURE=true swift build --build-tests \
+		&& swift test 2>&1 | grep '$(EXPECTED_STRING)' > /dev/null \
 		&& (echo "$(PASS) $(XCT_FAIL) was called with $(EXPECTED)" && exit) \
 		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
 
