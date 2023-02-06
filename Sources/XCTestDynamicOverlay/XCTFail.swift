@@ -83,6 +83,10 @@ import Foundation
 
       let bundleIdentifier = Bundle.main.bundleIdentifier ?? "Unknown bundle identifier"
 
+      if !message.contains(where: \.isNewline) {
+        message.append(" …")
+      }
+
       message.append("""
 
 
