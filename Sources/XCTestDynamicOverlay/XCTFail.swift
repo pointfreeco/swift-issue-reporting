@@ -95,7 +95,7 @@ import Foundation
         ┃     \(displayName) (\(bundleIdentifier))
         ┃
         ┃ The host application may have emitted this failure when it first launched,
-        ┃ outside of the current test that happened to be running.
+        ┃ outside this current test that happens to be running.
         ┃
         ┃ Consider setting the test target's host application to "None," or prevent
         ┃ the host application from performing the code path that emits failure.
