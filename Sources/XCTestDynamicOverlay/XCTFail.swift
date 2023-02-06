@@ -104,6 +104,7 @@ import Foundation
         ┃ Consider setting the test target's host application to "None," or prevent
         ┃ the host application from performing the code path that emits failure.
         ┗━━━━━━━━━━━━━━━━━┉┅
+            ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
 
         For more information (and workarounds), see "Testing gotchas":
 
