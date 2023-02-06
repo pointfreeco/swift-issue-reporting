@@ -1,7 +1,7 @@
 #if DEBUG
-  #if canImport(ObjectiveC)
-    import Foundation
+  import Foundation
 
+  #if canImport(ObjectiveC)
     /// This function generates a failure immediately and unconditionally.
     ///
     /// Dynamically creates and records an `XCTIssue` under the hood that captures the source code
