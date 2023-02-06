@@ -1,4 +1,4 @@
-#if DEBUG
+#if DEBUG && canImport(ObjectiveC)
   import XCTest
 
   @testable import XCTestDynamicOverlay
