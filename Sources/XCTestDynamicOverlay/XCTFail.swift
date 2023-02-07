@@ -109,7 +109,7 @@ import Foundation
 
         For more information (and workarounds), see "Testing gotchas":
 
-        https://pointfreeco.github.io/swift-dependencies/main/documentation/dependencies/testing#testing-gotchas
+        https://pointfreeco.github.io/swift-dependencies/main/documentation/dependencies/testing#Testing-gotchas
         """
       )
     }
