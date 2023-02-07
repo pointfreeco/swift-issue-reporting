@@ -77,9 +77,9 @@ import Foundation
       else { return }
 
       let displayName =
-      Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-      ?? Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String
-      ?? "Unknown host application"
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+        ?? Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String
+        ?? "Unknown host application"
 
       let bundleIdentifier = Bundle.main.bundleIdentifier ?? "Unknown bundle identifier"
 
@@ -87,7 +87,8 @@ import Foundation
         message.append(" …")
       }
 
-      message.append("""
+      message.append(
+        """
 
 
         ┏━━━━━━━━━━━━━━━━━┉┅
@@ -129,7 +130,9 @@ import Foundation
       else { return false }
 
       return frame.range(of: mangledTestFrame, options: .regularExpression)
-        .map { (_typeByName(String(frame[$0])) as? NSObject.Type)?.isSubclass(of: XCTestCase) ?? false }
+        .map {
+          (_typeByName(String(frame[$0])) as? NSObject.Type)?.isSubclass(of: XCTestCase) ?? false
+        }
         ?? false
     }
   #elseif canImport(XCTest)
