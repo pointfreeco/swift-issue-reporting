@@ -90,22 +90,16 @@ import Foundation
       message.append(
         """
 
+        
+        ━━┉┅
+        Note: This failure was emitted from tests running in a host application:
 
-        ┏━━━━━━━━━━━━━━━━━┉┅
-        ┃ ⚠︎ Warning:
-        ┃
-        ┃ This failure was emitted from a host application outside the test stack.
-        ┃
-        ┃   Host application:
-        ┃     \(displayName) (\(bundleIdentifier))
-        ┃
-        ┃ The host application may have emitted this failure when it first launched,
-        ┃ outside this current test that happens to be running.
-        ┃
-        ┃ Consider setting the test target's host application to "None," or prevent
-        ┃ the host application from performing the code path that emits failure.
-        ┗━━━━━━━━━━━━━━━━━┉┅
-            ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+          \(displayName) (\(bundleIdentifier))
+
+        This can lead to false positives, where failures (like this one) could have emitted from \
+        live application code at launch time, and not from the current test.
+
+        To avoid false positives, consider setting the test target's host application to "None."
 
         For more information (and workarounds), see "Testing gotchas":
 
