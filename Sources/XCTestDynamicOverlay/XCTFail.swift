@@ -92,14 +92,11 @@ import Foundation
 
         
         ━━┉┅
-        Note: This failure was emitted from tests running in a host application:
+        Note: This failure was emitted from tests running in a host application \
+        (\(bundleIdentifier)).
 
-          \(displayName) (\(bundleIdentifier))
-
-        This can lead to false positives, where failures (like this one) could have emitted from \
-        live application code at launch time, and not from the current test.
-
-        To avoid false positives, consider setting the test target's host application to "None."
+        This can lead to false positives, where failures could have emitted from live application \
+        code at launch time, and not from the current test.
 
         For more information (and workarounds), see "Testing gotchas":
 
