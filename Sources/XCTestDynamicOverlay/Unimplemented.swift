@@ -14,6 +14,18 @@ public func unimplemented<Result>(
 
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable () -> Result {
+  return {
+    _fail(description(), nil, fileID: fileID, line: line)
+    return placeholder()
+  }
+}
+
+public func unimplemented<Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   fileID: StaticString = #fileID,
   line: UInt = #line
