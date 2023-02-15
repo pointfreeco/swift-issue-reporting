@@ -83,7 +83,7 @@ import Foundation
       message.append(
         """
 
-        
+
         ━━┉┅
         Note: This failure was emitted from tests running in a host application\
         \(Bundle.main.bundleIdentifier.map { " (\($0))" }).
