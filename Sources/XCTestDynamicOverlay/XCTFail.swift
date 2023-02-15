@@ -76,13 +76,6 @@ import Foundation
       guard callStack.allSatisfy({ frame in !isTestFrame(frame) })
       else { return }
 
-      let displayName =
-        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-        ?? Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String
-        ?? "Unknown host application"
-
-      let bundleIdentifier = Bundle.main.bundleIdentifier ?? "Unknown bundle identifier"
-
       if !message.contains(where: \.isNewline) {
         message.append(" …")
       }
@@ -92,8 +85,8 @@ import Foundation
 
         
         ━━┉┅
-        Note: This failure was emitted from tests running in a host application \
-        (\(bundleIdentifier)).
+        Note: This failure was emitted from tests running in a host application\
+        \(Bundle.main.bundleIdentifier.map { " (\($0))" }).
 
         This can lead to false positives, where failures could have emitted from live application \
         code at launch time, and not from the current test.
