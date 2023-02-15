@@ -76,13 +76,6 @@ import Foundation
       guard callStack.allSatisfy({ frame in !isTestFrame(frame) })
       else { return }
 
-      let displayName =
-        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-        ?? Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String
-        ?? "Unknown host application"
-
-      let bundleIdentifier = Bundle.main.bundleIdentifier ?? "Unknown bundle identifier"
-
       if !message.contains(where: \.isNewline) {
         message.append(" …")
       }
@@ -90,22 +83,13 @@ import Foundation
       message.append(
         """
 
+        
+        ━━┉┅
+        Note: This failure was emitted from tests running in a host application\
+        \(Bundle.main.bundleIdentifier.map { " (\($0))" }).
 
-        ┏━━━━━━━━━━━━━━━━━┉┅
-        ┃ ⚠︎ Warning:
-        ┃
-        ┃ This failure was emitted from a host application outside the test stack.
-        ┃
-        ┃   Host application:
-        ┃     \(displayName) (\(bundleIdentifier))
-        ┃
-        ┃ The host application may have emitted this failure when it first launched,
-        ┃ outside this current test that happens to be running.
-        ┃
-        ┃ Consider setting the test target's host application to "None," or prevent
-        ┃ the host application from performing the code path that emits failure.
-        ┗━━━━━━━━━━━━━━━━━┉┅
-            ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+        This can lead to false positives, where failures could have emitted from live application \
+        code at launch time, and not from the current test.
 
         For more information (and workarounds), see "Testing gotchas":
 
