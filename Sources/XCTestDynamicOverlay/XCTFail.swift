@@ -162,7 +162,7 @@ import Foundation
 
 private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
   let fileAndLine: String
-  if let file, let line {
+  if let file = file, let line = line {
     fileAndLine = """
       :
       ┃
