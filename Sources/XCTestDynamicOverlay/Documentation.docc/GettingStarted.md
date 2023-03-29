@@ -1,7 +1,5 @@
 # Getting Started
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
-
 ## Overview
 
 A real world example of using this is in our library, the [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). That library vends a `TestStore` type whose purpose is to make it easy to write tests for your application's logic. The `TestStore` uses `XCTFail` internally, and so that forces us to move the code to a dedicated test support module. However, due to how SPM works you cannot currently have that module in the same package as the main module, and so we would be forced to extract it to a separate _repo_. By loading `XCTFail` dynamically we can keep the code where it belongs.

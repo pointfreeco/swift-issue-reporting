@@ -125,11 +125,11 @@ import Foundation
   #else
     @_disfavoredOverload
     public func XCTFail(_ message: String = "") {
-      print(noopMessage)
+      print(noop(message: message))
     }
     @_disfavoredOverload
     public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
-      print(noopMessage)
+      print(noop(message: message, file: file, line: line))
     }
   #endif
 #else
@@ -143,7 +143,7 @@ import Foundation
   ///   results.
   @_disfavoredOverload
   public func XCTFail(_ message: String = "") {
-    print(noopMessage)
+    print(noop(message: message))
   }
 
   /// This function generates a failure immediately and unconditionally.
@@ -156,19 +156,25 @@ import Foundation
   ///   results.
   @_disfavoredOverload
   public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
-    print(noopMessage)
+    print(noop(message: message, file: file, line: line))
   }
 #endif
 
-private let noopMessage = """
+private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
+  """
+  XCTFail: \(message)
 
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
-┃ ⚠︎ Warning: XCTFail ignored
-┃
-┃ XCTFail was invoked in a non-DEBUG environment,
-┃ and so was ignored. Be sure to run tests with
-┃ the DEBUG=1 flag set in order to dynamically
-┃ load XCTFail.
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
-    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
-"""
+  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+  ┃ ⚠︎ Warning: This XCTFail was ignored
+  ┃
+  ┃ XCTFail was invoked in a non-DEBUG environment:
+  ┃
+  ┃   \(file):\(line)
+  ┃
+  ┃  and so was ignored. Be sure to run tests with
+  ┃ the DEBUG=1 flag set in order to dynamically
+  ┃ load XCTFail.
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+      ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+  """
+}
