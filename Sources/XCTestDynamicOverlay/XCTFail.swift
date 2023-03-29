@@ -161,17 +161,28 @@ import Foundation
 #endif
 
 private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
-  """
+  let fileAndLine: String
+//  let file: String? = "File.swift"
+//  let line: Int? = 100
+  if let file, let line {
+    fileAndLine = """
+      :
+      ┃
+      ┃   \(file):\(line)
+      ┃
+      ┃ …
+      """
+  } else {
+    fileAndLine = "\n┃ "
+  }
+
+  return """
   XCTFail: \(message)
 
   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
   ┃ ⚠︎ Warning: This XCTFail was ignored
   ┃
-  ┃ XCTFail was invoked in a non-DEBUG environment:
-  ┃
-  ┃   \(file):\(line)
-  ┃
-  ┃  and so was ignored. Be sure to run tests with
+  ┃ XCTFail was invoked in a non-DEBUG environment\(fileAndLine)and so was ignored. Be sure to run tests with
   ┃ the DEBUG=1 flag set in order to dynamically
   ┃ load XCTFail.
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
