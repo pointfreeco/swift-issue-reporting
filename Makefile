@@ -12,6 +12,13 @@ test:
 		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
 	@swift test -c release | grep '⚠︎ Warning: This XCTFail was ignored' || exit 1
 
+test-linux-action:
+	@swift build --build-tests \
+		&& TEST_FAILURE=true swift test 2>&1 | grep '$(EXPECTED_STRING)' > /dev/null \
+		&& (echo "$(PASS) $(XCT_FAIL) was called with $(EXPECTED)" && exit) \
+		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
+	@swift test -c release
+
 test-linux:
 	@docker run \
 		--rm \
