@@ -124,9 +124,13 @@ import Foundation
     @_exported import func XCTest.XCTFail
   #else
     @_disfavoredOverload
-    public func XCTFail(_ message: String = "") {}
+    public func XCTFail(_ message: String = "") {
+      print(noopMessage)
+    }
     @_disfavoredOverload
-    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
+    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
+      print(noopMessage)
+    }
   #endif
 #else
   /// This function generates a failure immediately and unconditionally.
@@ -138,7 +142,9 @@ import Foundation
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
   @_disfavoredOverload
-  public func XCTFail(_ message: String = "") {}
+  public func XCTFail(_ message: String = "") {
+    print(noopMessage)
+  }
 
   /// This function generates a failure immediately and unconditionally.
   ///
@@ -149,5 +155,20 @@ import Foundation
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
   @_disfavoredOverload
-  public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
+  public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
+    print(noopMessage)
+  }
 #endif
+
+private let noopMessage = """
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+┃ ⚠︎ Warning: XCTFail ignored
+┃
+┃ XCTFail was invoked in a non-DEBUG environment,
+┃ and so was ignored. Be sure to run tests with
+┃ the DEBUG=1 flag set in order to dynamically
+┃ load XCTFail.
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+"""
