@@ -162,8 +162,6 @@ import Foundation
 
 private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
   let fileAndLine: String
-//  let file: String? = "File.swift"
-//  let line: Int? = 100
   if let file, let line {
     fileAndLine = """
       :
