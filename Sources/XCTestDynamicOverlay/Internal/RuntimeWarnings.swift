@@ -19,6 +19,7 @@ func runtimeWarn(
 
 #if DEBUG && canImport(os)
   import os
+  import Foundation
 
   // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
   //     breakpoints, but Apple provides no means of creating custom runtime warnings ourselves.
