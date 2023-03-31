@@ -31,13 +31,19 @@ import XCTest
 
 This is due to a confluence of problems, including test header search paths, linker issues, and more. XCTest just doesn't seem to be built to be loaded alongside your application or library code.
 
-## Solution
-
-That doesn't mean we can't try! XCTest Dynamic Overlay is a microlibrary that exposes an `XCTFail` function that can be invoked from anywhere. It dynamically loads XCTest functionality at runtime, which means your code will continue to compile just fine.
+So, the XCTest Dynamic Overlay library is a microlibrary that dynamically loads the `XCTFail` symbol
+at runtime and exposes it publicly so that it can be used from anywhere. This means you can import
+this library instead of XCTest:
 
 ```swift
 import XCTestDynamicOverlay // ✅
 ```
+
+…and your application or library will continue to compile just fine.
+
+> ⚠️ Important: The dynamically loaded `XCTFail` is only available in `DEBUG` builds in order
+to prevent App Store rejections due to runtime loading of symbols.
+
 
 ## Example
 

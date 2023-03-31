@@ -124,9 +124,13 @@ import Foundation
     @_exported import func XCTest.XCTFail
   #else
     @_disfavoredOverload
-    public func XCTFail(_ message: String = "") {}
+    public func XCTFail(_ message: String = "") {
+      print(noop(message: message))
+    }
     @_disfavoredOverload
-    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
+    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
+      print(noop(message: message, file: file, line: line))
+    }
   #endif
 #else
   /// This function generates a failure immediately and unconditionally.
@@ -138,7 +142,9 @@ import Foundation
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
   @_disfavoredOverload
-  public func XCTFail(_ message: String = "") {}
+  public func XCTFail(_ message: String = "") {
+    print(noop(message: message))
+  }
 
   /// This function generates a failure immediately and unconditionally.
   ///
@@ -149,5 +155,35 @@ import Foundation
   /// - Parameter message: An optional description of the assertion, for inclusion in test
   ///   results.
   @_disfavoredOverload
-  public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {}
+  public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
+    print(noop(message: message, file: file, line: line))
+  }
 #endif
+
+private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
+  let fileAndLine: String
+  if let file = file, let line = line {
+    fileAndLine = """
+      :
+      ┃
+      ┃   \(file):\(line)
+      ┃
+      ┃ …
+      """
+  } else {
+    fileAndLine = "\n┃ "
+  }
+
+  return """
+  XCTFail: \(message)
+
+  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+  ┃ ⚠︎ Warning: This XCTFail was ignored
+  ┃
+  ┃ XCTFail was invoked in a non-DEBUG environment\(fileAndLine)and so was ignored. Be sure to run tests with
+  ┃ the DEBUG=1 flag set in order to dynamically
+  ┃ load XCTFail.
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
+      ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+  """
+}
