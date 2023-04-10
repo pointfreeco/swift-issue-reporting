@@ -74,7 +74,7 @@ import Foundation
 #endif
 
 // Rule-of-threes: this is also used in XCTFail.swift. If you need it in a third place, consider refactoring.
-private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
+private func noop(message: String?, file: StaticString? = nil, line: UInt? = nil) -> String {
   let fileAndLine: String
   if let file = file, let line = line {
     fileAndLine = """
@@ -89,7 +89,7 @@ private func noop(message: String, file: StaticString? = nil, line: UInt? = nil)
   }
 
   return """
-    XCTExpectFailure: \(message)
+    XCTExpectFailure: \(message ?? "<no message provided>")
 
     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
     ┃ ⚠︎ Warning: This XCTExpectFailure was ignored

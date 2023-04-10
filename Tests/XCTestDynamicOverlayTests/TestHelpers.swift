@@ -5,6 +5,10 @@ func MyXCTFail(_ message: String) {
   XCTFail(message)
 }
 
+func MyXCTExpectFailure(strict: Bool, message: String, failingBlock: () -> Void) {
+  XCTExpectFailure(message, strict: strict, failingBlock: failingBlock)
+}
+
 struct Client {
   var p00: () -> Int
   var p01: () throws -> Int
