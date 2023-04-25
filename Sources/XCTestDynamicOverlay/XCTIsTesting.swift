@@ -2,7 +2,8 @@ import Foundation
 
 #if !os(WASI)
   public let _XCTIsTesting: Bool = {
-    ProcessInfo.processInfo.environment.keys.contains("XCTestBundlePath")
+    NSClassFromString("XCTestCase") != nil
+      || ProcessInfo.processInfo.environment.keys.contains("XCTestBundlePath")
       || ProcessInfo.processInfo.environment.keys.contains("XCTestConfigurationFilePath")
       || ProcessInfo.processInfo.environment.keys.contains("XCTestSessionIdentifier")
       || (ProcessInfo.processInfo.arguments.first
