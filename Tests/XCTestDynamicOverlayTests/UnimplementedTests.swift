@@ -10,7 +10,7 @@
           Unimplemented: f00 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:66
+              XCTestDynamicOverlayTests/TestHelpers.swift:84
           """
       }
 
@@ -21,7 +21,7 @@
           Unimplemented: f01 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:67
+              XCTestDynamicOverlayTests/TestHelpers.swift:85
 
             Invoked with:
               ""
@@ -35,7 +35,7 @@
           Unimplemented: f02 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:68
+              XCTestDynamicOverlayTests/TestHelpers.swift:86
 
             Invoked with:
               ("", 42)
@@ -49,7 +49,7 @@
           Unimplemented: f03 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:69
+              XCTestDynamicOverlayTests/TestHelpers.swift:87
 
             Invoked with:
               ("", 42, 1.2)
@@ -63,7 +63,7 @@
           Unimplemented: f04 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:70
+              XCTestDynamicOverlayTests/TestHelpers.swift:88
 
             Invoked with:
               ("", 42, 1.2, [1, 2])
@@ -79,11 +79,43 @@
           Unimplemented: f05 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:71
+              XCTestDynamicOverlayTests/TestHelpers.swift:89
 
             Invoked with:
               ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
           """
+      }
+
+      _ = XCTExpectFailure {
+        f06(
+          "", 42, 1.2, [1, 2], User(id: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF")!), Domain(id: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF")!)
+        )
+      } issueMatcher: {
+        $0.compactDescription == """
+        Unimplemented: f06 …
+
+          Defined at:
+            XCTestDynamicOverlayTests/TestHelpers.swift:90
+
+          Invoked with:
+            ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF), XCTestDynamicOverlayTests.Domain(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
+        """
+      }
+
+      _ = XCTExpectFailure {
+        f07(
+          "", 42, 1.2, [1, 2], User(id: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF")!), Domain(id: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF")!), Session(id: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF")!)
+        )
+      } issueMatcher: {
+        $0.compactDescription == """
+        Unimplemented: f07 …
+
+          Defined at:
+            XCTestDynamicOverlayTests/TestHelpers.swift:91
+
+          Invoked with:
+            ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF), XCTestDynamicOverlayTests.Domain(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF), XCTestDynamicOverlayTests.Session(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
+        """
       }
     }
   }

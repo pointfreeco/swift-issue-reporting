@@ -30,6 +30,14 @@ struct Client {
   var p21: (Int, Int, Int, Int, Int) throws -> Int
   var p22: (Int, Int, Int, Int, Int) async -> Int
   var p23: (Int, Int, Int, Int, Int) async throws -> Int
+  var p24: (Int, Int, Int, Int, Int, Int) -> Int
+  var p25: (Int, Int, Int, Int, Int, Int) throws -> Int
+  var p26: (Int, Int, Int, Int, Int, Int) async -> Int
+  var p27: (Int, Int, Int, Int, Int, Int) async throws -> Int
+  var p28: (Int, Int, Int, Int, Int, Int, Int) -> Int
+  var p29: (Int, Int, Int, Int, Int, Int, Int) throws -> Int
+  var p30: (Int, Int, Int, Int, Int, Int, Int) async -> Int
+  var p31: (Int, Int, Int, Int, Int, Int, Int) async throws -> Int
 
   static var testValue: Self {
     Self(
@@ -56,12 +64,22 @@ struct Client {
       p20: unimplemented("\(Self.self).p20"),
       p21: unimplemented("\(Self.self).p21"),
       p22: unimplemented("\(Self.self).p22"),
-      p23: unimplemented("\(Self.self).p23")
+      p23: unimplemented("\(Self.self).p23"),
+      p24: unimplemented("\(Self.self).p24"),
+      p25: unimplemented("\(Self.self).p25"),
+      p26: unimplemented("\(Self.self).p26"),
+      p27: unimplemented("\(Self.self).p27"),
+      p28: unimplemented("\(Self.self).p28"),
+      p29: unimplemented("\(Self.self).p29"),
+      p30: unimplemented("\(Self.self).p30"),
+      p31: unimplemented("\(Self.self).p31")
     )
   }
 }
 
 struct User { let id: UUID }
+struct Domain { let id: UUID }
+struct Session { let id: UUID }
 
 let f00: () -> Int = unimplemented("f00", placeholder: 42)
 let f01: (String) -> Int = unimplemented("f01", placeholder: 42)
@@ -69,6 +87,8 @@ let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
 let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
 let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
 let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
+let f06: (String, Int, Double, [Int], User, Domain) -> Int = unimplemented("f06", placeholder: 42)
+let f07: (String, Int, Double, [Int], User, Domain, Session) -> Int = unimplemented("f07", placeholder: 42)
 
 private struct Autoclosing {
   init(

@@ -187,6 +187,60 @@ public func unimplemented<A, B, C, D, E, Result>(
   }
 }
 
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    return placeholder()
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    guard let placeholder: Result = _generatePlaceholder()
+    else { _unimplementedFatalError(description, file: file, line: line) }
+    return placeholder
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
+    return placeholder()
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
+    guard let placeholder: Result = _generatePlaceholder()
+    else { _unimplementedFatalError(description, file: file, line: line) }
+    return placeholder
+  }
+}
+
 // MARK: (Parameters) throws -> Result
 
 public func unimplemented<Result>(
@@ -257,6 +311,30 @@ public func unimplemented<A, B, C, D, E, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    throw UnimplementedFailure(description: description)
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) throws -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    throw UnimplementedFailure(description: description)
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) throws -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -434,6 +512,60 @@ public func unimplemented<A, B, C, D, E, Result>(
   }
 }
 
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) async -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    return placeholder()
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) async -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    guard let placeholder: Result = _generatePlaceholder()
+    else { _unimplementedFatalError(description, file: file, line: line) }
+    return placeholder
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) async -> Result {
+  return {
+    _fail(description(), ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
+    return placeholder()
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) async -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
+    guard let placeholder: Result = _generatePlaceholder()
+    else { _unimplementedFatalError(description, file: file, line: line) }
+    return placeholder
+  }
+}
+
 // MARK: (Parameters) async throws -> Result
 
 public func unimplemented<Result>(
@@ -509,6 +641,30 @@ public func unimplemented<A, B, C, D, E, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    throw UnimplementedFailure(description: description)
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F) async throws -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5), fileID: fileID, line: line)
+    throw UnimplementedFailure(description: description)
+  }
+}
+
+public func unimplemented<A, B, C, D, E, F, G, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  line: UInt = #line
+) -> @Sendable (A, B, C, D, E, F, G) async throws -> Result {
+  return {
+    let description = description()
+    _fail(description, ($0, $1, $2, $3, $4, $5, $6), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
