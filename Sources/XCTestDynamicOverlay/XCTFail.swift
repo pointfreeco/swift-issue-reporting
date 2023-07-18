@@ -16,12 +16,8 @@ import Foundation
       attachHostApplicationWarningIfNeeded(&message)
       guard
         let currentTestCase = XCTCurrentTestCase,
-        let XCTIssue = NSClassFromString("XCTIssue")
-          as Any as? NSObjectProtocol,
-        let alloc = XCTIssue.perform(NSSelectorFromString("alloc"))?
-          .takeUnretainedValue(),
-        let issue =
-          alloc
+        let issue = (NSClassFromString("XCTIssue") as Any as? NSObjectProtocol)?
+          .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
           .perform(
             Selector(("initWithType:compactDescription:")),
             with: 0,
@@ -33,6 +29,19 @@ import Foundation
           runtimeWarn(message)
         }
         return
+      }
+      if let testFrame = Thread.callStackSymbols.enumerated().first(where: { isTestFrame($1) }),
+        let sourceCodeContext =
+          (NSClassFromString("XCTSourceCodeContext") as Any as? NSObjectProtocol)?
+          .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
+          .perform(
+            Selector(("initWithCallStackAddresses:location:")),
+            with: Array(Thread.callStackReturnAddresses[testFrame.offset...]),
+            with: nil
+          )?
+          .takeUnretainedValue()
+      {
+        _ = issue.perform(Selector(("setSourceCodeContext:")), with: sourceCodeContext)
       }
       _ = currentTestCase.perform(Selector(("recordIssue:")), with: issue)
     }
