@@ -1,18 +1,18 @@
 import Foundation
 
-#if DEBUG
-  public struct XCTFailContext {
-    @TaskLocal public static var current: Self?
+public struct XCTFailContext {
+  @TaskLocal public static var current: Self?
 
-    public var file: StaticString
-    public var line: UInt
+  public var file: StaticString
+  public var line: UInt
 
-    public init(file: StaticString, line: UInt) {
-      self.file = file
-      self.line = line
-    }
+  public init(file: StaticString, line: UInt) {
+    self.file = file
+    self.line = line
   }
+}
 
+#if DEBUG
   #if canImport(ObjectiveC)
     /// This function generates a failure immediately and unconditionally.
     ///
