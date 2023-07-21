@@ -30,7 +30,7 @@ jobs:
       run: make test-linux
 
   wasm:
-     name: SwiftWASM
+     name: Wasm
      runs-on: ubuntu-latest
      strategy:
        matrix:
