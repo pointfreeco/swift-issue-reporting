@@ -1,6 +1,18 @@
 import Foundation
 
 #if DEBUG
+  public struct XCTFailContext {
+    @TaskLocal public static var current: Self?
+
+    public var file: StaticString
+    public var line: UInt
+
+    public init(file: StaticString, line: UInt) {
+      self.file = file
+      self.line = line
+    }
+  }
+
   #if canImport(ObjectiveC)
     /// This function generates a failure immediately and unconditionally.
     ///
@@ -12,6 +24,10 @@ import Foundation
     ///   results.
     @_disfavoredOverload
     public func XCTFail(_ message: String = "") {
+      if let context = XCTFailContext.current {
+        XCTFail(message, file: context.file, line: context.line)
+        return
+      }
       var message = message
       attachHostApplicationWarningIfNeeded(&message)
       guard
