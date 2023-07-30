@@ -27,7 +27,7 @@
 
       let optionalInt: () -> Int? = unimplemented("optionalInt")
       XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
-      
+
       let stream: () -> AsyncStream<Int> = unimplemented("stream")
       for await _ in XCTExpectFailure(failingBlock: stream) {
         XCTFail("Stream should be finished")
