@@ -26,6 +26,15 @@ private func _placeholder<Result>() -> Result? {
   }
 }
 
+private protocol _OptionalProtocol { static var none: Self { get }}
+extension Optional: _OptionalProtocol {}
+private func _optionalPlaceholder<Result>() throws -> Result {
+  if let result = (Result.self as? any _OptionalProtocol.Type) {
+    return result.none as! Result
+  }
+  throw PlaceholderGenerationFailure()
+}
+
 private func _rawRepresentable<Result>() -> Result? {
   func posiblePlaceholder<T: RawRepresentable>(for type: T.Type) -> T? {
     (_placeholder() as T.RawValue?).flatMap(T.init(rawValue:))
@@ -140,7 +149,8 @@ extension Witness: AnyCaseIterable where Value: CaseIterable {
 
 #endif
 
-func _generatePlaceholder<Result>() -> Result? {
+struct PlaceholderGenerationFailure: Error {}
+func _generatePlaceholder<Result>() throws -> Result {
   if let result = _placeholder() as Result? {
     return result
   }
@@ -152,6 +162,6 @@ func _generatePlaceholder<Result>() -> Result? {
   if let result = _caseIterable() as Result? {
     return result
   }
-
-  return nil
+  
+  return try _optionalPlaceholder()
 }
