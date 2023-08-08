@@ -11,7 +11,7 @@ extension RangeReplaceableCollection { fileprivate static var placeholder: Self 
 private protocol _OptionalProtocol { static var none: Self { get } }
 extension Optional: _OptionalProtocol {}
 private func _optionalPlaceholder<Result>() throws -> Result {
-  if let result = (Result.self as? any _OptionalProtocol.Type) {
+  if let result = (Result.self as? _OptionalProtocol.Type) {
     return result.none as! Result
   }
   throw PlaceholderGenerationFailure()
