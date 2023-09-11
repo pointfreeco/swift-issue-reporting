@@ -1,4 +1,5 @@
-#if !os(Linux)
+// TODO: https://github.com/apple/swift-corelibs-xctest/issues/438
+#if !os(Linux) && !os(Windows)
   import XCTest
 
   final class UnimplementedTests: XCTestCase {
