@@ -15,39 +15,6 @@ extension UnimplementedMacro: AccessorMacro {
   ) throws -> [AccessorDeclSyntax] {
     guard
       let property = declaration.as(VariableDeclSyntax.self),
-      let identifier = property.bindings.first?.pattern.as(IdentifierPatternSyntax.self)?.identifier
-    else {
-      return []
-    }
-    return [
-      """
-      @storageRestrictions(initializes: _\(identifier))
-      init(initialValue) {
-        _\(identifier) = initialValue
-      }
-      """,
-      """
-      get {
-        _\(identifier)
-      }
-      """,
-      """
-      set {
-        _\(identifier) = newValue
-      }
-      """,
-    ]
-  }
-}
-
-extension UnimplementedMacro: PeerMacro {
-  public static func expansion<D: DeclSyntaxProtocol, C: MacroExpansionContext>(
-    of node: AttributeSyntax,
-    providingPeersOf declaration: D,
-    in context: C
-  ) throws -> [DeclSyntax] {
-    guard
-      let property = declaration.as(VariableDeclSyntax.self),
       let binding = property.bindings.first,
       let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier,
       let type = binding.typeAnnotation?.type,
@@ -69,6 +36,52 @@ extension UnimplementedMacro: PeerMacro {
       )
       return []
     }
+
+    let parameterList = (0..<functionType.parameters.count).map { "$\($0)" }.joined(separator: ", ")
+
+    return [
+      """
+      @storageRestrictions(initializes: _\(identifier))
+      init(initialValue) {
+        _\(identifier) = initialValue
+      }
+      """,
+      """
+      get {
+        _\(identifier)
+      }
+      """,
+      """
+      set {
+        var implemented = _$Implemented("\(identifier)")
+        _\(identifier) = {
+          implemented.fulfill()
+          return newValue(\(raw: parameterList))
+        }
+      }
+      """,
+    ]
+  }
+}
+
+extension UnimplementedMacro: PeerMacro {
+  public static func expansion<D: DeclSyntaxProtocol, C: MacroExpansionContext>(
+    of node: AttributeSyntax,
+    providingPeersOf declaration: D,
+    in context: C
+  ) throws -> [DeclSyntax] {
+    guard
+      let property = declaration.as(VariableDeclSyntax.self),
+      let binding = property.bindings.first,
+      let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier,
+      let type = binding.typeAnnotation?.type,
+      let functionType = type.as(FunctionTypeSyntax.self)
+        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self),
+      let functionReturnType = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+    else {
+      return []
+    }
+
     if let initializer = binding.initializer {
       context.diagnose(
         Diagnostic(

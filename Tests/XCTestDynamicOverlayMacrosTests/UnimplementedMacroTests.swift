@@ -32,7 +32,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _endpoint
           }
           set {
-            _endpoint = newValue
+            var implemented = _$Implemented("endpoint")
+            _endpoint = {
+              implemented.fulfill()
+              return newValue()
+            }
           }
         }
 
@@ -64,7 +68,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _endpoint
           }
           set {
-            _endpoint = newValue
+            var implemented = _$Implemented("endpoint")
+            _endpoint = {
+              implemented.fulfill()
+              return newValue($0, $1, $2)
+            }
           }
         }
 
@@ -100,6 +108,11 @@ final class UnimplementedMacroTests: XCTestCase {
         @Unimplemented(default: <#Bool#>)
       }
       """
+    } expansion: {
+      """
+      struct Client {(default: <#Bool#>)
+      }
+      """
     }
   }
 
@@ -123,7 +136,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _endpoint
           }
           set {
-            _endpoint = newValue
+            var implemented = _$Implemented("endpoint")
+            _endpoint = {
+              implemented.fulfill()
+              return newValue($0)
+            }
           }
         }
 
@@ -156,7 +173,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _endpoint
           }
           set {
-            _endpoint = newValue
+            var implemented = _$Implemented("endpoint")
+            _endpoint = {
+              implemented.fulfill()
+              return newValue($0)
+            }
           }
         }
 
@@ -236,7 +257,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _load
           }
           set {
-            _load = newValue
+            var implemented = _$Implemented("load")
+            _load = {
+              implemented.fulfill()
+              return newValue($0)
+            }
           }
         }
 
@@ -268,7 +293,11 @@ final class UnimplementedMacroTests: XCTestCase {
             _load
           }
           set {
-            _load = newValue
+            var implemented = _$Implemented("load")
+            _load = {
+              implemented.fulfill()
+              return newValue($0)
+            }
           }
         }
 
