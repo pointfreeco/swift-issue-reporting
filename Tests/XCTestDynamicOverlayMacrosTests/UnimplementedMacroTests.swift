@@ -216,4 +216,68 @@ final class UnimplementedMacroTests: XCTestCase {
       """
     }
   }
+
+  func testSendableClosure() {
+    assertMacro {
+      """
+      struct DataManager: Sendable {
+        @Unimplemented var load: @Sendable (URL) throws -> Data
+      }
+      """
+    } expansion: {
+      """
+      struct DataManager: Sendable {
+        var load: @Sendable (URL) throws -> Data {
+          @storageRestrictions(initializes: _load)
+          init(initialValue) {
+            _load = initialValue
+          }
+          get {
+            _load
+          }
+          set {
+            _load = newValue
+          }
+        }
+
+        private var _load: @Sendable (URL) throws -> Data = { _ in
+          XCTestDynamicOverlay.XCTFail("Unimplemented: 'load'")
+          throw XCTestDynamicOverlay.Unimplemented("load")
+        }
+      }
+      """
+    }
+  }
+
+  func testActorClosure() {
+    assertMacro {
+      """
+      struct DataManager: Sendable {
+        @Unimplemented var load: @MainActor (URL) throws -> Data
+      }
+      """
+    } expansion: {
+      """
+      struct DataManager: Sendable {
+        var load: @MainActor (URL) throws -> Data {
+          @storageRestrictions(initializes: _load)
+          init(initialValue) {
+            _load = initialValue
+          }
+          get {
+            _load
+          }
+          set {
+            _load = newValue
+          }
+        }
+
+        private var _load: @MainActor (URL) throws -> Data = { _ in
+          XCTestDynamicOverlay.XCTFail("Unimplemented: 'load'")
+          throw XCTestDynamicOverlay.Unimplemented("load")
+        }
+      }
+      """
+    }
+  }
 }

@@ -50,7 +50,9 @@ extension UnimplementedMacro: PeerMacro {
       let property = declaration.as(VariableDeclSyntax.self),
       let binding = property.bindings.first,
       let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier,
-      let functionType = binding.typeAnnotation?.type.as(FunctionTypeSyntax.self),
+      let type = binding.typeAnnotation?.type,
+      let functionType = type.as(FunctionTypeSyntax.self)
+        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self),
       let functionReturnType = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
     else {
       context.diagnose(
