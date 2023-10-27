@@ -53,7 +53,7 @@ extension UnimplementedMacro: AccessorMacro {
       """,
       """
       set {
-        var implemented = _$Implemented("\(identifier)")
+        let implemented = _$Implemented("\(identifier)")
         _\(identifier) = {
           implemented.fulfill()
           return newValue(\(raw: parameterList))
