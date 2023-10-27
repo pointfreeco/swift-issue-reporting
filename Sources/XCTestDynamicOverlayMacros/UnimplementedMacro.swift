@@ -37,6 +37,13 @@ extension UnimplementedMacro: AccessorMacro {
       return []
     }
 
+    var effectSpecifiers = ""
+    if functionType.effectSpecifiers?.throwsSpecifier != nil {
+      effectSpecifiers.append("try ")
+    }
+    if functionType.effectSpecifiers?.asyncSpecifier != nil {
+      effectSpecifiers.append("await ")
+    }
     let parameterList = (0..<functionType.parameters.count).map { "$\($0)" }.joined(separator: ", ")
 
     return [
@@ -56,7 +63,7 @@ extension UnimplementedMacro: AccessorMacro {
         let implemented = _$Implemented("\(identifier)")
         _\(identifier) = {
           implemented.fulfill()
-          return newValue(\(raw: parameterList))
+          return \(raw: effectSpecifiers)newValue(\(raw: parameterList))
         }
       }
       """,
