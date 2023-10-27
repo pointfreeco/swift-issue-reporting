@@ -1,7 +1,7 @@
-public final class _$Implemented {
-  private let description: () -> String
+public final class _$Implemented: @unchecked Sendable {
+  private let description: @Sendable () -> String
   private var fulfilled = false
-  public init(_ description: @autoclosure @escaping () -> String) {
+  public init(_ description: @autoclosure @escaping @Sendable () -> String) {
     self.description = description
   }
   public func fulfill() {
