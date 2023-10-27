@@ -211,7 +211,7 @@ public func unimplemented<Result>(
   return {
     let description = description()
     _fail(description, nil, fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -223,7 +223,7 @@ public func unimplemented<A, Result>(
   return {
     let description = description()
     _fail(description, $0, fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -235,7 +235,7 @@ public func unimplemented<A, B, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -247,7 +247,7 @@ public func unimplemented<A, B, C, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -259,7 +259,7 @@ public func unimplemented<A, B, C, D, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -271,7 +271,7 @@ public func unimplemented<A, B, C, D, E, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -470,7 +470,7 @@ public func unimplemented<Result>(
   return {
     let description = description()
     _fail(description, nil, fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -487,7 +487,7 @@ public func unimplemented<A, Result>(
   return {
     let description = description()
     _fail(description, $0, fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -499,7 +499,7 @@ public func unimplemented<A, B, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -511,7 +511,7 @@ public func unimplemented<A, B, C, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -523,7 +523,7 @@ public func unimplemented<A, B, C, D, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -535,7 +535,7 @@ public func unimplemented<A, B, C, D, E, Result>(
   return {
     let description = description()
     _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    throw Unimplemented(description: description)
+    throw Unimplemented(description)
   }
 }
 
@@ -545,6 +545,10 @@ public typealias UnimplementedFailure = Unimplemented
 /// An error thrown from ``XCTUnimplemented(_:)-3obl5``.
 public struct Unimplemented: Error {
   public let description: String
+
+  public init(_ description: String) {
+    self.description = description
+  }
 }
 
 func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line: UInt) {
