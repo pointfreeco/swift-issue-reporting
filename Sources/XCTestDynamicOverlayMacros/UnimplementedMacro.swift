@@ -58,6 +58,8 @@ extension UnimplementedMacro: AccessorMacro {
         _\(identifier)
       }
       """,
+      // FIXME: Can't always use `_$Implemented` in setter
+      // Instead we should add another member, _e.g._ `model.$onMeetingEnded.spy { … }`
       """
       set {
         let implemented = _$Implemented("\(identifier)")
