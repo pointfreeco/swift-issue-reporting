@@ -14,19 +14,41 @@ extension DependencyEndpointMacro: AccessorMacro {
     in context: C
   ) throws -> [AccessorDeclSyntax] {
     guard
-      let identifier = declaration.as(VariableDeclSyntax.self)?
-        .bindings.first?
-        .pattern.as(IdentifierPatternSyntax.self)?
-        .identifier.trimmed
+      let property = declaration.as(VariableDeclSyntax.self),
+      let binding = property.bindings.first,
+      let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.trimmed,
+      let type = binding.typeAnnotation?.type,
+      let functionType =
+        (type.as(FunctionTypeSyntax.self)
+        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed,
+      let functionReturnType = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
     else {
       return []
     }
+
+    let functionReturnTypeIsVoid = ["Void", "()"].qualified("Swift")
+      .contains(functionReturnType.name.text)
+    var effectSpecifiers = ""
+    if functionType.effectSpecifiers?.throwsSpecifier != nil {
+      effectSpecifiers.append("try ")
+    }
+    if functionType.effectSpecifiers?.asyncSpecifier != nil {
+      effectSpecifiers.append("await ")
+    }
+    let parameterList = (0..<functionType.parameters.count).map { "$\($0)" }.joined(separator: ", ")
 
     return [
       """
       @storageRestrictions(initializes: $\(identifier))
       init(initialValue) {
-      $\(identifier).rawValue = initialValue
+      $\(identifier) = Endpoint(initialValue: initialValue) { newValue in
+      let implemented = _$Implemented("\(identifier)")
+      return {
+      implemented.fulfill()
+      \(raw: functionReturnTypeIsVoid ? "": "return ")\
+      \(raw: effectSpecifiers)newValue(\(raw: parameterList))
+      }
+      }
       }
       """,
       """
