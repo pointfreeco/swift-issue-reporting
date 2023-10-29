@@ -445,4 +445,4 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 @available(macOS, deprecated: 9999, renamed: "UnimplementedFailure")
 @available(tvOS, deprecated: 9999, renamed: "UnimplementedFailure")
 @available(watchOS, deprecated: 9999, renamed: "UnimplementedFailure")
-public typealias XCTUnimplementedFailure = UnimplementedFailure
+public typealias XCTUnimplementedFailure = Unimplemented
