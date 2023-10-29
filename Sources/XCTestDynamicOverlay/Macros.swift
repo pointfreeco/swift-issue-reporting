@@ -1,5 +1,5 @@
 #if swift(>=5.9)
-  @attached(accessor, names: named(get), named(set))
+  @attached(accessor, names: named(init), named(get), named(set))
   @attached(peer, names: prefixed(`$`))
   public macro DependencyEndpoint() = #externalMacro(
     module: "XCTestDynamicOverlayMacros", type: "DependencyEndpointMacro"

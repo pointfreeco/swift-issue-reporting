@@ -24,6 +24,12 @@ extension DependencyEndpointMacro: AccessorMacro {
 
     return [
       """
+      @storageRestrictions(initializes: $\(identifier))
+      init(initialValue) {
+      $\(identifier).rawValue = initialValue
+      }
+      """,
+      """
       get {
       $\(identifier).rawValue
       }
