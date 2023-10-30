@@ -28,7 +28,7 @@ extension DependencyEndpointMacro: AccessorMacro {
       """
       @storageRestrictions(initializes: $\(identifier))
       init(initialValue) {
-      $\(identifier) = Endpoint(initialValue: initialValue) { $0 }
+      $\(identifier) = Endpoint(initialValue: initialValue)
       }
       """,
       """
@@ -209,10 +209,32 @@ extension DependencyEndpointMacro: PeerMacro {
       effectSpecifiers.append("await ")
     }
     let parameterList = (0..<functionType.parameters.count).map { "$\($0)" }.joined(separator: ", ")
+    let access = property.modifiers.first { $0.name.tokenKind == .keyword(.public) }
 
-    return [
+    var decls: [DeclSyntax] = []
+
+    if functionType.parameters.contains(where: { $0.secondName != nil }) {
+      var parameters = functionType.parameters
+      for (offset, i) in parameters.indices.enumerated() {
+        parameters[i].firstName = (parameters[i].secondName ?? .wildcardToken())
+          .with(\.trailingTrivia, .space)
+        parameters[i].secondName = TokenSyntax(stringLiteral: "p\(offset)")
+        parameters[i].colon = parameters[i].colon ?? .colonToken(trailingTrivia: .space)
+      }
+      let appliedParameters = (0..<parameters.count).map { "p\($0)" }.joined(separator: ", ")
+      decls.append(
+        """
+        \(access)func \(identifier)(\(parameters))\
+        \(functionType.effectSpecifiers)\(functionType.returnClause) {
+        \(raw: effectSpecifiers)self.\(identifier)(\(raw: appliedParameters))
+        }
+        """
+      )
+    }
+
+    return decls + [
       """
-      var $\(identifier) = Endpoint<\(raw: type)>(
+      \(access)var $\(identifier) = Endpoint<\(raw: type)>(
       initialValue: \(unimplementedDefault)
       ) { newValue in
       let implemented = _$Implemented("\(identifier)")

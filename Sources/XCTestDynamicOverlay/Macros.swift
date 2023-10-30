@@ -1,6 +1,6 @@
 #if swift(>=5.9)
   @attached(accessor, names: named(init), named(get), named(set))
-  @attached(peer, names: prefixed(`$`))
+  @attached(peer, names: overloaded, prefixed(`$`))
   public macro DependencyEndpoint() = #externalMacro(
     module: "XCTestDynamicOverlayMacros", type: "DependencyEndpointMacro"
   )
@@ -12,7 +12,7 @@ public struct Endpoint<Value> {
 
   public init(
     initialValue: Value,
-    override: @escaping (Value) -> Value
+    override: @escaping (Value) -> Value = { $0 }
   ) {
     self.rawValue = initialValue
     self._override = override

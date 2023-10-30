@@ -26,9 +26,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> Void {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -68,9 +66,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> Bool = { _ in false } {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -115,7 +111,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
                ✏️ Insert '= { <#Bool#> }'
       }
       """
-    }fixes: {
+    } fixes: {
       """
       struct Client {
         @DependencyEndpoint
@@ -128,9 +124,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> Bool = { <#Bool#> } {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -188,9 +182,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: (Int, Bool, String) -> Bool = { _, _, _ in <#Bool#> } {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -231,9 +223,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () throws -> Bool {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -274,9 +264,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         public var apiRequest: @Sendable (ServerRoute.Api.Route) async throws -> (Data, URLResponse) {
           @storageRestrictions(initializes: $apiRequest)
           init(initialValue) {
-            $apiRequest = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $apiRequest = Endpoint(initialValue: initialValue)
           }
           get {
             $apiRequest.rawValue
@@ -286,7 +274,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
           }
         }
 
-        var $apiRequest = Endpoint<@Sendable (ServerRoute.Api.Route) async throws -> (Data, URLResponse)>(
+        public var $apiRequest = Endpoint<@Sendable (ServerRoute.Api.Route) async throws -> (Data, URLResponse)>(
           initialValue: { _ in
             XCTestDynamicOverlay.XCTFail("Unimplemented: 'apiRequest'")
             throw XCTestDynamicOverlay.Unimplemented("apiRequest")
@@ -317,9 +305,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> () {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -359,9 +345,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> Int? {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -402,9 +386,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: () -> Optional<Int> {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -432,7 +414,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
   }
 
   func testSendableClosure() {
-    assertMacro(record: true) {
+    assertMacro {
       """
       struct Client {
         @DependencyEndpoint
@@ -445,9 +427,7 @@ final class DependencyEndpointMacroTests: XCTestCase {
         var endpoint: @Sendable (Int) -> Void {
           @storageRestrictions(initializes: $endpoint)
           init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) {
-              $0
-            }
+            $endpoint = Endpoint(initialValue: initialValue)
           }
           get {
             $endpoint.rawValue
@@ -466,6 +446,50 @@ final class DependencyEndpointMacroTests: XCTestCase {
           return {
             implemented.fulfill()
             newValue($0)
+          }
+        }
+      }
+      """
+    }
+  }
+
+  func testLabeledArguments() {
+    assertMacro {
+      """
+      public struct Client {
+        @DependencyEndpoint
+        public var endpoint: @Sendable (String, _ id: Int, _ progress: Float) async -> Void
+      }
+      """
+    } expansion: {
+      """
+      public struct Client {
+        public var endpoint: @Sendable (String, _ id: Int, _ progress: Float) async -> Void {
+          @storageRestrictions(initializes: $endpoint)
+          init(initialValue) {
+            $endpoint = Endpoint(initialValue: initialValue)
+          }
+          get {
+            $endpoint.rawValue
+          }
+          set {
+            $endpoint.rawValue = newValue
+          }
+        }
+
+        public func endpoint(_ p0: String, id p1: Int, progress p2: Float) async -> Void {
+          await self.endpoint(p0, p1, p2)
+        }
+
+        public var $endpoint = Endpoint<@Sendable (String, _ id: Int, _ progress: Float) async -> Void>(
+          initialValue: { _, _, _ in
+            XCTestDynamicOverlay.XCTFail("Unimplemented: 'endpoint'")
+          }
+        ) { newValue in
+          let implemented = _$Implemented("endpoint")
+          return {
+            implemented.fulfill()
+            await newValue($0, $1, $2)
           }
         }
       }
