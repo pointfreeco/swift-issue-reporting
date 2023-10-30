@@ -105,6 +105,11 @@ extension DependencyEndpointMacro: PeerMacro {
     let functionReturnTypeIsVoid = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
       .map { ["Void"].qualified("Swift").contains($0.name.text) }
       ?? functionType.returnClause.type.as(TupleTypeSyntax.self)?.elements.isEmpty == true
+    let functionReturnTypeIsOptional = !functionReturnTypeIsVoid
+      && functionType.returnClause.type.is(OptionalTypeSyntax.self)
+      || functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+      .map { ["Optional"].qualified("Swift").contains($0.name.text) }
+      ?? false
     var unimplementedDefault: ClosureExprSyntax
     if let initializer = binding.initializer {
       guard var closure = initializer.value.as(ClosureExprSyntax.self)
@@ -157,7 +162,15 @@ extension DependencyEndpointMacro: PeerMacro {
           throw XCTestDynamicOverlay.Unimplemented("\(identifier)")
           """
         )
-      } else if !functionReturnTypeIsVoid {
+      } else if functionReturnTypeIsVoid {
+        // Do nothing...
+      } else if functionReturnTypeIsOptional {
+        unimplementedDefault.statements.append(
+          """
+          return nil
+          """
+        )
+      } else {
         unimplementedDefault.statements.append(
           CodeBlockItemSyntax(
             item: CodeBlockItemSyntax.Item(

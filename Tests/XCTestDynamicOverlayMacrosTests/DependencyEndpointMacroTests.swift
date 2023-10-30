@@ -58,52 +58,6 @@ final class DependencyEndpointMacroTests: XCTestCase {
     }
   }
 
-  func testBasics_VoidTuple() {
-    assertMacro {
-      """
-      struct Client {
-        @DependencyEndpoint
-        var endpoint: () -> ()
-      }
-      """
-    } expansion: {
-      """
-      struct Client {
-        var endpoint: () -> () {
-          @storageRestrictions(initializes: $endpoint)
-          init(initialValue) {
-            $endpoint = Endpoint(initialValue: initialValue) { newValue in
-              let implemented = _$Implemented("endpoint")
-              return {
-                implemented.fulfill()
-                newValue()
-              }
-            }
-          }
-          get {
-            $endpoint.rawValue
-          }
-          set {
-            $endpoint.rawValue = newValue
-          }
-        }
-
-        var $endpoint = Endpoint<() -> ()>(
-          initialValue: {
-            XCTestDynamicOverlay.XCTFail("Unimplemented: 'endpoint'")
-          }
-        ) { newValue in
-          let implemented = _$Implemented("endpoint")
-          return {
-            implemented.fulfill()
-            newValue()
-          }
-        }
-      }
-      """
-    }
-  }
-
   func testInitialValue() {
     assertMacro {
       """
@@ -366,6 +320,146 @@ final class DependencyEndpointMacroTests: XCTestCase {
           return {
             implemented.fulfill()
             return try await newValue($0)
+          }
+        }
+      }
+      """
+    }
+  }
+
+  func testVoidTupleReturnValue() {
+    assertMacro {
+      """
+      struct Client {
+        @DependencyEndpoint
+        var endpoint: () -> ()
+      }
+      """
+    } expansion: {
+      """
+      struct Client {
+        var endpoint: () -> () {
+          @storageRestrictions(initializes: $endpoint)
+          init(initialValue) {
+            $endpoint = Endpoint(initialValue: initialValue) { newValue in
+              let implemented = _$Implemented("endpoint")
+              return {
+                implemented.fulfill()
+                newValue()
+              }
+            }
+          }
+          get {
+            $endpoint.rawValue
+          }
+          set {
+            $endpoint.rawValue = newValue
+          }
+        }
+
+        var $endpoint = Endpoint<() -> ()>(
+          initialValue: {
+            XCTestDynamicOverlay.XCTFail("Unimplemented: 'endpoint'")
+          }
+        ) { newValue in
+          let implemented = _$Implemented("endpoint")
+          return {
+            implemented.fulfill()
+            newValue()
+          }
+        }
+      }
+      """
+    }
+  }
+
+  func testOptionalReturnValue() {
+    assertMacro {
+      """
+      struct Client {
+        @DependencyEndpoint
+        var endpoint: () -> Int?
+      }
+      """
+    } expansion: {
+      """
+      struct Client {
+        var endpoint: () -> Int? {
+          @storageRestrictions(initializes: $endpoint)
+          init(initialValue) {
+            $endpoint = Endpoint(initialValue: initialValue) { newValue in
+              let implemented = _$Implemented("endpoint")
+              return {
+                implemented.fulfill()
+                return newValue()
+              }
+            }
+          }
+          get {
+            $endpoint.rawValue
+          }
+          set {
+            $endpoint.rawValue = newValue
+          }
+        }
+
+        var $endpoint = Endpoint<() -> Int?>(
+          initialValue: {
+            XCTestDynamicOverlay.XCTFail("Unimplemented: 'endpoint'")
+            return nil
+          }
+        ) { newValue in
+          let implemented = _$Implemented("endpoint")
+          return {
+            implemented.fulfill()
+            return newValue()
+          }
+        }
+      }
+      """
+    }
+  }
+
+  func testExplicitOptionalReturnValue() {
+    assertMacro {
+      """
+      struct Client {
+        @DependencyEndpoint
+        var endpoint: () -> Optional<Int>
+      }
+      """
+    } expansion: {
+      """
+      struct Client {
+        var endpoint: () -> Optional<Int> {
+          @storageRestrictions(initializes: $endpoint)
+          init(initialValue) {
+            $endpoint = Endpoint(initialValue: initialValue) { newValue in
+              let implemented = _$Implemented("endpoint")
+              return {
+                implemented.fulfill()
+                return newValue()
+              }
+            }
+          }
+          get {
+            $endpoint.rawValue
+          }
+          set {
+            $endpoint.rawValue = newValue
+          }
+        }
+
+        var $endpoint = Endpoint<() -> Optional<Int>>(
+          initialValue: {
+            XCTestDynamicOverlay.XCTFail("Unimplemented: 'endpoint'")
+            return nil
+          }
+        ) { newValue in
+          let implemented = _$Implemented("endpoint")
+          return {
+            implemented.fulfill()
+            return newValue()
           }
         }
       }
