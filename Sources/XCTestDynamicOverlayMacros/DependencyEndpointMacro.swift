@@ -18,45 +18,19 @@ extension DependencyEndpointMacro: AccessorMacro {
       let binding = property.bindings.first,
       let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.trimmed,
       let type = binding.typeAnnotation?.type,
-      let functionType =
-        (type.as(FunctionTypeSyntax.self)
-        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed
+      type.is(FunctionTypeSyntax.self)
+        || type.as(AttributedTypeSyntax.self)?.baseType.is(FunctionTypeSyntax.self) == true
     else {
       return []
     }
-
-    let functionReturnTypeIsVoid = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
-      .map { ["Void"].qualified("Swift").contains($0.name.text) }
-      ?? functionType.returnClause.type.as(TupleTypeSyntax.self)?.elements.isEmpty == true
-    var effectSpecifiers = ""
-    if functionType.effectSpecifiers?.throwsSpecifier != nil {
-      effectSpecifiers.append("try ")
-    }
-    if functionType.effectSpecifiers?.asyncSpecifier != nil {
-      effectSpecifiers.append("await ")
-    }
-    let parameterList = (0..<functionType.parameters.count).map { "$\($0)" }.joined(separator: ", ")
 
     return [
       """
       @storageRestrictions(initializes: $\(identifier))
       init(initialValue) {
-      $\(identifier) = Endpoint(initialValue: initialValue) { newValue in
-      let implemented = _$Implemented("\(identifier)")
-      return {
-      implemented.fulfill()
-      \(raw: functionReturnTypeIsVoid ? "": "return ")\
-      \(raw: effectSpecifiers)newValue(\(raw: parameterList))
-      }
-      }
+      $\(identifier) = Endpoint(initialValue: initialValue) { $0 }
       }
       """,
-      // TODO: Is this more correct?
-      // """
-      // @storageRestrictions(initializes: $\(identifier))
-      // init(initialValue) {
-      // $\(identifier) = Endpoint(initialValue: initialValue) { $0 }
-      // """,
       """
       get {
       $\(identifier).rawValue
@@ -82,7 +56,7 @@ extension DependencyEndpointMacro: PeerMacro {
       let property = declaration.as(VariableDeclSyntax.self),
       let binding = property.bindings.first,
       let identifier = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.trimmed,
-      let type = binding.typeAnnotation?.type,
+      let type = binding.typeAnnotation?.type.trimmed,
       let functionType =
         (type.as(FunctionTypeSyntax.self)
         ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed
@@ -238,7 +212,7 @@ extension DependencyEndpointMacro: PeerMacro {
 
     return [
       """
-      var $\(identifier) = Endpoint<\(raw: functionType)>(
+      var $\(identifier) = Endpoint<\(raw: type)>(
       initialValue: \(unimplementedDefault)
       ) { newValue in
       let implemented = _$Implemented("\(identifier)")
