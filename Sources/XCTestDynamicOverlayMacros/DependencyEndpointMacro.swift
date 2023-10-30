@@ -20,14 +20,14 @@ extension DependencyEndpointMacro: AccessorMacro {
       let type = binding.typeAnnotation?.type,
       let functionType =
         (type.as(FunctionTypeSyntax.self)
-        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed,
-      let functionReturnType = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed
     else {
       return []
     }
 
-    let functionReturnTypeIsVoid = ["Void", "()"].qualified("Swift")
-      .contains(functionReturnType.name.text)
+    let functionReturnTypeIsVoid = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+      .map { ["Void"].qualified("Swift").contains($0.name.text) }
+      ?? functionType.returnClause.type.as(TupleTypeSyntax.self)?.elements.isEmpty == true
     var effectSpecifiers = ""
     if functionType.effectSpecifiers?.throwsSpecifier != nil {
       effectSpecifiers.append("try ")
@@ -51,6 +51,12 @@ extension DependencyEndpointMacro: AccessorMacro {
       }
       }
       """,
+      // TODO: Is this more correct?
+      // """
+      // @storageRestrictions(initializes: $\(identifier))
+      // init(initialValue) {
+      // $\(identifier) = Endpoint(initialValue: initialValue) { $0 }
+      // """,
       """
       get {
       $\(identifier).rawValue
@@ -79,8 +85,7 @@ extension DependencyEndpointMacro: PeerMacro {
       let type = binding.typeAnnotation?.type,
       let functionType =
         (type.as(FunctionTypeSyntax.self)
-        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed,
-      let functionReturnType = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+        ?? type.as(AttributedTypeSyntax.self)?.baseType.as(FunctionTypeSyntax.self))?.trimmed
     else {
       context.diagnose(
         Diagnostic(
@@ -97,8 +102,9 @@ extension DependencyEndpointMacro: PeerMacro {
       return []
     }
 
-    let functionReturnTypeIsVoid = ["Void", "()"].qualified("Swift")
-      .contains(functionReturnType.name.text)
+    let functionReturnTypeIsVoid = functionType.returnClause.type.as(IdentifierTypeSyntax.self)
+      .map { ["Void"].qualified("Swift").contains($0.name.text) }
+      ?? functionType.returnClause.type.as(TupleTypeSyntax.self)?.elements.isEmpty == true
     var unimplementedDefault: ClosureExprSyntax
     if let initializer = binding.initializer {
       guard var closure = initializer.value.as(ClosureExprSyntax.self)
@@ -157,7 +163,7 @@ extension DependencyEndpointMacro: PeerMacro {
             item: CodeBlockItemSyntax.Item(
               EditorPlaceholderExprSyntax(
                 placeholder: TokenSyntax(
-                  stringLiteral: "<#\(functionReturnType.name.text)#>"
+                  stringLiteral: "<#\(functionType.returnClause.type.trimmed)#>"
                 ),
                 trailingTrivia: .space
               )
