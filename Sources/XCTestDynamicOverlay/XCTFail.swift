@@ -144,17 +144,71 @@ public struct XCTFailContext {
         }
         ?? false
     }
-  #elseif canImport(XCTest)
-    // NB: It seems to be safe to import XCTest on Linux
-    @_exported import func XCTest.XCTFail
   #else
-    @_disfavoredOverload
-    public func XCTFail(_ message: String = "") {
-      print(noop(message: message))
+    private typealias XCTFailType = (_: String, _ file: StaticString, _ line: UInt) -> Void
+    private func unsafeCastToXCTFailType(_ pXCTFail: UnsafeRawPointer) -> XCTFailType {
+      // The function itself is a Swift function and must be marked as
+      // `__attribute__((__swiftcall__))`. However, translating the Swift
+      // signature `(_:file:line:) -> ()` to C is slightly tricky as we cannot
+      // guarantee the formal parameter set matches the actual ABI of the
+      // function. Work around this by exploiting some undefined behaviour. Take
+      // a pointer to the raw pointer, cast the pointee to the appropriate Swift
+      // signature, and then return the pointee.  Given that the pointer itself
+      // is to a `.text` location which should not be unmapped, we should be
+      // able to deal with the escaping pointer remaining valid for the lifetime
+      // of the application. Unloading dynamically linked libraries is fraught
+      // with peril, and is generally unsupported.
+      withUnsafePointer(to: pXCTFail) {
+        UnsafeRawPointer($0).assumingMemoryBound(to: (@convention(thin) (_: String, _: StaticString, _: UInt) -> Void).self).pointee
+      }
     }
+
+    #if os(Windows)
+      import WinSDK
+
+      private func ResolveXCTFail() -> XCTFailType? {
+        let hXCTest = Array("XCTest.dll".utf16).withUnsafeBufferPointer {
+          LoadLibraryW($0.baseAddress)
+        }
+        guard let hXCTest else { return nil }
+
+        if let pXCTFail = GetProcAddress(hXCTest, "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF") {
+          return unsafeCastToXCTFailType(pXCTFail)
+        }
+
+        return nil
+      }
+    #else
+      import Glibc
+
+      private func ResolveXCTFail() -> XCTFailType? {
+        var hXCTest = dlopen("libXCTest.so", RTLD_NOW)
+        if hXCTest == nil { hXCTest = dlopen(nil, RTLD_NOW) }
+
+        if let pXCTFail = dlsym(hXCTest, "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF") {
+          return unsafeCastToXCTFailType(pXCTFail)
+        }
+
+        return nil
+      }
+    #endif
+
+    enum DynamicallyResolved {
+      static let XCTFail = {
+        if let XCTFail = ResolveXCTFail() {
+            return { (message: String, file: StaticString, line: UInt) in
+              XCTFail(message, file, line)
+            }
+        }
+        return { (message: String, _ file: StaticString, _ line: UInt) in
+          print(noop(message: message))
+        }
+      }()
+    }
+
     @_disfavoredOverload
-    public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
-      print(noop(message: message, file: file, line: line))
+    public func XCTFail(_ message: String = "", file: StaticString = #file, line: UInt = #line) {
+      DynamicallyResolved.XCTFail(message, file, line)
     }
   #endif
 #else
