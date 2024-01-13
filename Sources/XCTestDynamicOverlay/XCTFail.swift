@@ -167,13 +167,11 @@ public struct XCTFailContext {
       import WinSDK
 
       private func ResolveXCTFail() -> XCTFailType? {
-        let hXCTest = Array("XCTest.dll".utf16).withUnsafeBufferPointer {
-          LoadLibraryW($0.baseAddress)
-        }
+        let hXCTest = LoadLibraryA("XCTest.dll")
         guard let hXCTest else { return nil }
 
         if let pXCTFail = GetProcAddress(hXCTest, "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF") {
-          return unsafeCastToXCTFailType(pXCTFail)
+          return unsafeCastToXCTFailType(unsafeBitCast(pXCTFail, to: UnsafeRawPointer.self))
         }
 
         return nil
