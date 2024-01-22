@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 
 import PackageDescription
 
@@ -22,7 +22,7 @@ let package = Package(
   ]
 )
 
-#if swift(>=5.6) && !os(Windows)
+#if !os(Windows)
   // Add the documentation compiler plugin if possible
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")

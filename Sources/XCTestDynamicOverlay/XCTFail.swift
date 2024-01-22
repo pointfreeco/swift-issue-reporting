@@ -1,6 +1,6 @@
 import Foundation
 
-public struct XCTFailContext {
+public struct XCTFailContext: Sendable {
   @TaskLocal public static var current: Self?
 
   public var file: StaticString
