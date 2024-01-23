@@ -1,4 +1,5 @@
-#if !os(Linux)
+// TODO: https://github.com/apple/swift-corelibs-xctest/issues/438
+#if !os(Linux) && !os(Windows)
   import Foundation
   import XCTest
   import XCTestDynamicOverlay
@@ -24,6 +25,9 @@
       XCTAssertEqual(XCTExpectFailure(failingBlock: dictionary), [String: Int]())
       let set: () -> Set<Int> = unimplemented("set")
       XCTAssertEqual(XCTExpectFailure(failingBlock: set), Set<Int>())
+
+      let optionalInt: () -> Int? = unimplemented("optionalInt")
+      XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
 
       let stream: () -> AsyncStream<Int> = unimplemented("stream")
       for await _ in XCTExpectFailure(failingBlock: stream) {
