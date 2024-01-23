@@ -41,9 +41,6 @@ import XCTestDynamicOverlay // ✅
 
 …and your application or library will continue to compile just fine.
 
-> ⚠️ Important: The dynamically loaded `XCTFail` is only available in `DEBUG` builds in order
-to prevent App Store rejections due to runtime loading of symbols.
-
 
 ## Example
 
