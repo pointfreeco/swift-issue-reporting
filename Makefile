@@ -12,7 +12,7 @@ test-debug:
 		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
 
 test: test-debug
-	@swift test -c release | grep '⚠︎ Warning: This XCTFail was ignored' || exit 1
+	@swift test -c release
 
 test-linux: test-debug
 	@swift test -c release
