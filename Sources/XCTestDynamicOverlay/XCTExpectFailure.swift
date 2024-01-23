@@ -3,6 +3,7 @@ import Foundation
 #if DEBUG && canImport(ObjectiveC)
   /// Instructs the test to expect a failure in an upcoming assertion, with options to customize
   /// expected failure checking and handling.
+  ///
   /// - Parameters:
   ///   - failureReason: An optional string that describes why the test expects a failure.
   ///   - enabled: A Boolean value that indicates whether the test checks for the expected failure.
@@ -59,6 +60,7 @@ import Foundation
 
   /// Instructs the test to expect a failure in an upcoming assertion, with options to customize
   /// expected failure checking and handling.
+  ///
   /// - Parameters:
   ///   - failureReason: An optional string that describes why the test expects a failure.
   ///   - enabled: A Boolean value that indicates whether the test checks for the expected failure.
@@ -106,7 +108,6 @@ import Foundation
 
     XCTExpectFailureWithOptions(failureReason, options)
   }
-
 
   public struct _XCTIssue: /*CustomStringConvertible, */Equatable, Hashable {
     public var type: IssueType

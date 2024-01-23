@@ -5,7 +5,7 @@ func MyXCTFail(_ message: String) {
   XCTFail(message)
 }
 
-#if canImport(ObjectiveC)
+#if DEBUG && canImport(ObjectiveC)
   func MyXCTExpectFailure(
     _ failureReason: String,
     enabled: Bool = true,
