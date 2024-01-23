@@ -1,5 +1,4 @@
-// TODO: https://github.com/apple/swift-corelibs-xctest/issues/438
-#if !os(Linux) && !os(Windows)
+#if DEBUG && !os(Linux) && !os(Windows)
   import XCTest
 
   final class UnimplementedTests: XCTestCase {
@@ -11,7 +10,7 @@
           Unimplemented: f00 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:66
+              XCTestDynamicOverlayTests/TestHelpers.swift:70
           """
       }
 
@@ -22,7 +21,7 @@
           Unimplemented: f01 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:67
+              XCTestDynamicOverlayTests/TestHelpers.swift:71
 
             Invoked with:
               ""
@@ -36,7 +35,7 @@
           Unimplemented: f02 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:68
+              XCTestDynamicOverlayTests/TestHelpers.swift:72
 
             Invoked with:
               ("", 42)
@@ -50,7 +49,7 @@
           Unimplemented: f03 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:69
+              XCTestDynamicOverlayTests/TestHelpers.swift:73
 
             Invoked with:
               ("", 42, 1.2)
@@ -64,7 +63,7 @@
           Unimplemented: f04 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:70
+              XCTestDynamicOverlayTests/TestHelpers.swift:74
 
             Invoked with:
               ("", 42, 1.2, [1, 2])
@@ -80,7 +79,7 @@
           Unimplemented: f05 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:71
+              XCTestDynamicOverlayTests/TestHelpers.swift:75
 
             Invoked with:
               ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
