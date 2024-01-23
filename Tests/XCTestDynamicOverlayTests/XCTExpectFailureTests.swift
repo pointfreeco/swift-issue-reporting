@@ -1,6 +1,6 @@
 import XCTest
 
-#if DEBUG && canImport(ObjectiveC)
+#if canImport(ObjectiveC)
   final class XCTExpectFailureTests: XCTestCase {
     func testXCTDynamicOverlayWithBlockShouldFail() async throws {
       MyXCTExpectFailure("This is expected to pass.", strict: false) {

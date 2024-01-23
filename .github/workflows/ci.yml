@@ -17,7 +17,7 @@ jobs:
     name: MacOS
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Run tests
       run: make test
 
@@ -25,7 +25,7 @@ jobs:
     name: Ubuntu
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Run tests
       run: make test-linux
 
@@ -57,7 +57,7 @@ jobs:
         with:
           branch: swift-5.8.1-release
           tag: 5.8.1-RELEASE
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build
         run: swift build -c ${{ matrix.config }}
       - name: Run tests (debug only)
@@ -67,3 +67,19 @@ jobs:
         # that is generally available.
         if: ${{ matrix.config == 'debug' }}
         run: swift test
+
+  static-stdlib:
+    name: Static standard library
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: '5.8.0'
+      - name: Install dependencies
+        run: sudo apt-get install -y libcurl4-openssl-dev
+      - uses: actions/checkout@v4
+      - name: Build for static-stdlib
+        run: make build-for-static-stdlib

@@ -14,6 +14,8 @@ test-debug:
 test: test-debug
 	@swift test -c release
 
+test-linux: test-debug
+
 test-linux: test
 
 test-linux-docker:
@@ -35,6 +37,10 @@ test-linux-static-stdlib:
 		-w "$(PWD)" \
 		swift:5.6.2-focal \
 		bash -c "swift build -c release -Xswiftc -static-stdlib"
+
+build-for-static-stdlib:
+	@swift build -c debug --static-swift-stdlib
+	@swift build -c release --static-swift-stdlib
 
 format:
 	@swift format \

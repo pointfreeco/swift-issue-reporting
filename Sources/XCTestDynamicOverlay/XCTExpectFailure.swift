@@ -1,6 +1,6 @@
 import Foundation
 
-#if DEBUG && canImport(ObjectiveC)
+#if canImport(ObjectiveC)
   /// Instructs the test to expect a failure in an upcoming assertion, with options to customize
   /// expected failure checking and handling.
   ///
