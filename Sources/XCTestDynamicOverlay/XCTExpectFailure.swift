@@ -113,6 +113,9 @@ import Foundation
     public var compactDescription: String
     public var detailedDescription: String?
 
+    // NB: This surface are has been left unimplemented for now. We can consider adopting more of it
+    //     in the future:
+    //
     // var sourceCodeContext: XCTSourceCodeContext
     // var associatedError: Error?
     // var attachments: [XCTAttachment]

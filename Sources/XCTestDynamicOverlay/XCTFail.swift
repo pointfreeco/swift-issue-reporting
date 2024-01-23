@@ -160,7 +160,6 @@ import Foundation
   }
 #endif
 
-// Rule-of-threes: this is also used in XCTExpectFailure.swift. If you need it in a third place, consider refactoring.
 private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
   let fileAndLine: String
   if let file = file, let line = line {
