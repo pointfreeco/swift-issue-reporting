@@ -1,5 +1,5 @@
 // TODO: https://github.com/apple/swift-corelibs-xctest/issues/438
-#if !os(Linux) && !os(Windows)
+#if DEBUG && !os(Linux) && !os(Windows)
   import XCTest
   import XCTestDynamicOverlay
 
