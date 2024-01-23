@@ -14,8 +14,7 @@ test-debug:
 test: test-debug
 	@swift test -c release
 
-test-linux: test-debug
-	@swift test -c release
+test-linux: test
 
 test-linux-docker:
 	@docker run \
