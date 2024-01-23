@@ -1,19 +1,28 @@
 import XCTest
 
 final class XCTExpectFailureTests: XCTestCase {
-  func testXCTDynamicOverlayShouldFail() async throws {
-    MyXCTExpectFailure(strict: false, message: "This is expected to pass.") {
+  func testXCTDynamicOverlayWithBlockShouldFail() async throws {
+    MyXCTExpectFailure("This is expected to pass.", strict: false) {
       XCTAssertEqual(42, 42)
     }
 
-    MyXCTExpectFailure(strict: true, message: "This is expected to pass.") {
+    MyXCTExpectFailure("This is expected to pass.", strict: true) {
       XCTAssertEqual(42, 1729)
+    } issueMatcher: {
+      $0.compactDescription == #"XCTAssertEqual failed: ("42") is not equal to ("1729")"#
     }
 
     if ProcessInfo.processInfo.environment["TEST_FAILURE"] != nil {
-      MyXCTExpectFailure(strict: true, message: "This is expected to fail!") {
+      MyXCTExpectFailure("This is expected to fail!", strict: true) {
         XCTAssertEqual(42, 42)
       }
     }
+  }
+
+  func testXCTDynamicOverlayShouldFail() async throws {
+    MyXCTExpectFailure("This is expected to pass.", strict: true) {
+      $0.compactDescription == #"XCTAssertEqual failed: ("42") is not equal to ("1729")"#
+    }
+    XCTAssertEqual(42, 1729)
   }
 }

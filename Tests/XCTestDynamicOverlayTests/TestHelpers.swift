@@ -5,8 +5,34 @@ func MyXCTFail(_ message: String) {
   XCTFail(message)
 }
 
-func MyXCTExpectFailure(strict: Bool, message: String, failingBlock: () -> Void) {
-  XCTExpectFailure(message, strict: strict, failingBlock: failingBlock)
+func MyXCTExpectFailure(
+  _ failureReason: String,
+  enabled: Bool = true,
+  strict: Bool = true,
+  failingBlock: () -> Void,
+  issueMatcher: ((_XCTIssue) -> Bool)? = nil
+) {
+  XCTExpectFailure(
+    failureReason,
+    enabled: enabled,
+    strict: strict,
+    failingBlock: failingBlock,
+    issueMatcher: issueMatcher
+  )
+}
+
+func MyXCTExpectFailure(
+  _ failureReason: String,
+  enabled: Bool = true,
+  strict: Bool = true,
+  issueMatcher: ((_XCTIssue) -> Bool)? = nil
+) {
+  XCTExpectFailure(
+    failureReason,
+    enabled: enabled,
+    strict: strict,
+    issueMatcher: issueMatcher
+  )
 }
 
 struct Client {
