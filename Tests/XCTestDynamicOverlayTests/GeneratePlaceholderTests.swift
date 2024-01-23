@@ -1,4 +1,4 @@
-#if DEBUG && !os(Linux) && !os(Windows)
+#if !os(Linux) && !os(Windows)
   import Foundation
   import XCTest
   import XCTestDynamicOverlay

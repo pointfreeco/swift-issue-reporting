@@ -203,7 +203,7 @@ public struct XCTFailContext: Sendable {
         }
       }
       return { (message: String, _ file: StaticString, _ line: UInt) in
-        print(noop(message: message))
+        print("XCTFail: \(message)")
       }
     }()
   }
@@ -213,31 +213,3 @@ public struct XCTFailContext: Sendable {
     DynamicallyResolved.XCTFail(message, file, line)
   }
 #endif
-
-private func noop(message: String, file: StaticString? = nil, line: UInt? = nil) -> String {
-  let fileAndLine: String
-  if let file = file, let line = line {
-    fileAndLine = """
-      :
-      ┃
-      ┃   \(file):\(line)
-      ┃
-      ┃ …
-      """
-  } else {
-    fileAndLine = "\n┃ "
-  }
-
-  return """
-    XCTFail: \(message)
-
-    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
-    ┃ ⚠︎ Warning: This XCTFail was ignored
-    ┃
-    ┃ XCTFail was invoked in a non-DEBUG environment\(fileAndLine)and so was ignored. Be sure to run tests with
-    ┃ the DEBUG=1 flag set in order to dynamically
-    ┃ load XCTFail.
-    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┉┅
-        ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
-    """
-}
