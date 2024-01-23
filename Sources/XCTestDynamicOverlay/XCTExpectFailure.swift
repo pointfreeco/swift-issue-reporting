@@ -31,7 +31,8 @@ import Foundation
           .perform(NSSelectorFromString("nonStrictOptions"))?.takeUnretainedValue(),
       let functionBlockPointer = dlsym(dlopen(nil, RTLD_LAZY), "XCTExpectFailureWithOptionsInBlock")
     else {
-      let errorString = dlerror().map { charPointer in String(cString: charPointer) }
+      let errorString =
+        dlerror().map { charPointer in String(cString: charPointer) }
         ?? "Unknown error"
       assertionFailure(
         "Failed to get symbol for XCTExpectFailureWithOptionsInBlock with error: \(errorString)."
@@ -86,7 +87,8 @@ import Foundation
           .perform(NSSelectorFromString("nonStrictOptions"))?.takeUnretainedValue(),
       let functionBlockPointer = dlsym(dlopen(nil, RTLD_LAZY), "XCTExpectFailureWithOptions")
     else {
-      let errorString = dlerror().map { charPointer in String(cString: charPointer) }
+      let errorString =
+        dlerror().map { charPointer in String(cString: charPointer) }
         ?? "Unknown error"
       assertionFailure(
         "Failed to get symbol for XCTExpectFailureWithOptionsInBlock with error: \(errorString)."
@@ -109,7 +111,7 @@ import Foundation
     XCTExpectFailureWithOptions(failureReason, options)
   }
 
-  public struct _XCTIssue: /*CustomStringConvertible, */Equatable, Hashable {
+  public struct _XCTIssue: /*CustomStringConvertible, */ Equatable, Hashable {
     public var type: IssueType
     public var compactDescription: String
     public var detailedDescription: String?
