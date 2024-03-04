@@ -182,7 +182,7 @@ public struct XCTFailContext: Sendable {
     }
   #else
     #if os(WASI)
-      import WASI
+      import WASILibc
     #else
       import Glibc
     #endif
