@@ -32,17 +32,11 @@ jobs:
   wasm:
      name: Wasm
      runs-on: ubuntu-latest
-     strategy:
-       matrix:
-         include:
-           - { toolchain: wasm-5.7.1-RELEASE }
-
      steps:
        - uses: actions/checkout@v4
-       - run: echo "${{ matrix.toolchain }}" > .swift-version
-       - uses: swiftwasm/swiftwasm-action@v5.7
+       - uses: swiftwasm/swiftwasm-action@v5.9
          with:
-           shell-action: swift build
+           shell-action: carton test
 
   windows:
     name: Windows
