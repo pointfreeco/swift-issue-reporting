@@ -164,7 +164,20 @@ public struct XCTFailContext: Sendable {
     }
   }
 
-  #if os(Windows)
+  #if canImport(Glibc)
+    import Glibc
+
+    private func ResolveXCTFail() -> XCTFailType? {
+      var hXCTest = dlopen("libXCTest.so", RTLD_NOW)
+      if hXCTest == nil { hXCTest = dlopen(nil, RTLD_NOW) }
+
+      if let pXCTFail = dlsym(hXCTest, "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF") {
+        return unsafeCastToXCTFailType(pXCTFail)
+      }
+
+      return nil
+    }
+  #elseif canImport(WinSDK)
     import WinSDK
 
     private func ResolveXCTFail() -> XCTFailType? {
@@ -180,22 +193,15 @@ public struct XCTFailContext: Sendable {
 
       return nil
     }
-  #else
-    #if os(WASI)
-      import WASILibc
-    #else
-      import Glibc
-    #endif
+  #elseif canImport(XCTest)
+    import XCTest
 
     private func ResolveXCTFail() -> XCTFailType? {
-      var hXCTest = dlopen("libXCTest.so", RTLD_NOW)
-      if hXCTest == nil { hXCTest = dlopen(nil, RTLD_NOW) }
-
-      if let pXCTFail = dlsym(hXCTest, "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF") {
-        return unsafeCastToXCTFailType(pXCTFail)
-      }
-
-      return nil
+      XCTFail
+    }
+  #else
+    private func ResolveXCTFail() -> XCTFailType? {
+      nil
     }
   #endif
 
