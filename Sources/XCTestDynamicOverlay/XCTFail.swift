@@ -181,7 +181,11 @@ public struct XCTFailContext: Sendable {
       return nil
     }
   #else
-    import Glibc
+    #if os(WASI)
+      import WASI
+    #else
+      import Glibc
+    #endif
 
     private func ResolveXCTFail() -> XCTFailType? {
       var hXCTest = dlopen("libXCTest.so", RTLD_NOW)
