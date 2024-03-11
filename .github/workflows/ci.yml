@@ -34,9 +34,14 @@ jobs:
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v4
-       - uses: swiftwasm/swiftwasm-action@v5.9
+       - uses: bytecodealliance/actions/wasmtime/setup@v1
+       - uses: swiftwasm/setup-swiftwasm@v1
          with:
-           shell-action: carton test
+           swift-version: "wasm-5.9.2-RELEASE"
+       - name: Build tests
+         run: swift build --triple wasm32-unknown-wasi --build-tests
+       - name: Run tests
+         run: wasmtime --dir . .build/debug/xctest-dynamic-overlayPackageTests.wasm
 
   windows:
     name: Windows
