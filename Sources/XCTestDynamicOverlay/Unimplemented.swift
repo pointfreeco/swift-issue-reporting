@@ -7,7 +7,7 @@ public func unimplemented<Result>(
   line: UInt = #line
 ) -> @Sendable () -> Result {
   return {
-    _fail(description(), nil, fileID: fileID, line: line)
+    _fail(description(), [], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -20,7 +20,7 @@ public func unimplemented<Result>(
 ) -> @Sendable () -> Result {
   return {
     let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
+    _fail(description, [], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -36,7 +36,7 @@ public func unimplemented<Result>(
   fileID: StaticString = #fileID,
   line: UInt = #line
 ) -> Result {
-  _fail(description(), nil, fileID: fileID, line: line)
+  _fail(description(), [], fileID: fileID, line: line)
   return placeholder()
 }
 
@@ -48,7 +48,7 @@ public func unimplemented<Result>(
   line: UInt = #line
 ) -> Result {
   let description = description()
-  _fail(description, nil, fileID: fileID, line: line)
+  _fail(description, [], fileID: fileID, line: line)
   do {
     return try _generatePlaceholder()
   } catch {
@@ -63,7 +63,7 @@ public func unimplemented<A, Result>(
   line: UInt = #line
 ) -> @Sendable (A) -> Result {
   return {
-    _fail(description(), $0, fileID: fileID, line: line)
+    _fail(description(), [$0], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -76,7 +76,7 @@ public func unimplemented<A, Result>(
 ) -> @Sendable (A) -> Result {
   return {
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
+    _fail(description, [$0], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -92,7 +92,7 @@ public func unimplemented<A, B, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B) -> Result {
   return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
+    _fail(description(), [$0, $1], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -105,7 +105,7 @@ public func unimplemented<A, B, Result>(
 ) -> @Sendable (A, B) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
+    _fail(description, [$0, $1], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -121,7 +121,7 @@ public func unimplemented<A, B, C, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C) -> Result {
   return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -134,7 +134,7 @@ public func unimplemented<A, B, C, Result>(
 ) -> @Sendable (A, B, C) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -150,7 +150,7 @@ public func unimplemented<A, B, C, D, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2, $3], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -163,7 +163,7 @@ public func unimplemented<A, B, C, D, Result>(
 ) -> @Sendable (A, B, C, D) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -179,7 +179,7 @@ public func unimplemented<A, B, C, D, E, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -192,7 +192,7 @@ public func unimplemented<A, B, C, D, E, Result>(
 ) -> @Sendable (A, B, C, D, E) -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -210,7 +210,7 @@ public func unimplemented<Result>(
 ) -> @Sendable () throws -> Result {
   return {
     let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
+    _fail(description, [], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -222,7 +222,7 @@ public func unimplemented<A, Result>(
 ) -> @Sendable (A) throws -> Result {
   return {
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
+    _fail(description, [$0], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -234,7 +234,7 @@ public func unimplemented<A, B, Result>(
 ) -> @Sendable (A, B) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
+    _fail(description, [$0, $1], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -246,7 +246,7 @@ public func unimplemented<A, B, C, Result>(
 ) -> @Sendable (A, B, C) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -258,7 +258,7 @@ public func unimplemented<A, B, C, D, Result>(
 ) -> @Sendable (A, B, C, D) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -270,7 +270,7 @@ public func unimplemented<A, B, C, D, E, Result>(
 ) -> @Sendable (A, B, C, D, E) throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -284,7 +284,7 @@ public func unimplemented<Result>(
   line: UInt = #line
 ) -> @Sendable () async -> Result {
   return {
-    _fail(description(), nil, fileID: fileID, line: line)
+    _fail(description(), [], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -297,7 +297,7 @@ public func unimplemented<Result>(
 ) -> @Sendable () async -> Result {
   return {
     let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
+    _fail(description, [], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -322,7 +322,7 @@ public func unimplemented<A, Result>(
   line: UInt = #line
 ) -> @Sendable (A) async -> Result {
   return {
-    _fail(description(), $0, fileID: fileID, line: line)
+    _fail(description(), [$0], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -335,7 +335,7 @@ public func unimplemented<A, Result>(
 ) -> @Sendable (A) async -> Result {
   return {
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
+    _fail(description, [$0], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -351,7 +351,7 @@ public func unimplemented<A, B, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B) async -> Result {
   return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
+    _fail(description(), [$0, $1], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -364,7 +364,7 @@ public func unimplemented<A, B, Result>(
 ) -> @Sendable (A, B) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
+    _fail(description, [$0, $1], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -380,7 +380,7 @@ public func unimplemented<A, B, C, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -393,7 +393,7 @@ public func unimplemented<A, B, C, Result>(
 ) -> @Sendable (A, B, C) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -409,7 +409,7 @@ public func unimplemented<A, B, C, D, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C, D) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2, $3], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -422,7 +422,7 @@ public func unimplemented<A, B, C, D, Result>(
 ) -> @Sendable (A, B, C, D) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -438,7 +438,7 @@ public func unimplemented<A, B, C, D, E, Result>(
   line: UInt = #line
 ) -> @Sendable (A, B, C, D, E) async -> Result {
   return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description(), [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     return placeholder()
   }
 }
@@ -451,7 +451,7 @@ public func unimplemented<A, B, C, D, E, Result>(
 ) -> @Sendable (A, B, C, D, E) async -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -469,7 +469,7 @@ public func unimplemented<Result>(
 ) -> @Sendable () async throws -> Result {
   return {
     let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
+    _fail(description, [], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -486,7 +486,7 @@ public func unimplemented<A, Result>(
 ) -> @Sendable (A) async throws -> Result {
   return {
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
+    _fail(description, [$0], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -498,7 +498,7 @@ public func unimplemented<A, B, Result>(
 ) -> @Sendable (A, B) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
+    _fail(description, [$0, $1], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -510,7 +510,7 @@ public func unimplemented<A, B, C, Result>(
 ) -> @Sendable (A, B, C) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -522,7 +522,7 @@ public func unimplemented<A, B, C, D, Result>(
 ) -> @Sendable (A, B, C, D) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -534,7 +534,7 @@ public func unimplemented<A, B, C, D, E, Result>(
 ) -> @Sendable (A, B, C, D, E) async throws -> Result {
   return {
     let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, [$0, $1, $2, $3, $4], fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
@@ -544,22 +544,40 @@ public struct UnimplementedFailure: Error {
   public let description: String
 }
 
-func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line: UInt) {
+func _fail(_ description: String, _ parameters: [Any], fileID: StaticString, line: UInt) {
   var debugDescription = """
      …
 
       Defined at:
         \(fileID):\(line)
     """
-  if let parameters = parameters {
-    var parametersDescription = ""
-    debugPrint(parameters, terminator: "", to: &parametersDescription)
+  if !parameters.isEmpty {
+    let parameterDescriptions = parameters.map { parameter in
+      var description = ""
+      debugPrint(parameter, terminator: "", to: &description)
+      return description
+    }
+
+    let tooLongForOneLine = parameterDescriptions.reduce(0, { $0 + $1.count }) > 70
+    let containsNewLine = parameterDescriptions.contains(where: { $0.contains("\n") })
+    let parametersDescription = if parameterDescriptions.count == 1 {
+      parameterDescriptions[0]
+    } else if tooLongForOneLine || containsNewLine {
+      [
+        "(\n",
+        parameterDescriptions.joined(separator: ",\n").prefixingEachLine(with: "  "),
+        "\n)"
+      ]
+      .joined()
+    } else {
+      "(" + parameterDescriptions.joined(separator: ", ") + ")"
+    }
     debugDescription.append(
       """
 
 
         Invoked with:
-          \(parametersDescription)
+      \(parametersDescription.prefixingEachLine(with: "    "))
       """
     )
   }
@@ -580,4 +598,10 @@ func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt)
     file: file,
     line: line
   )
+}
+
+private extension String {
+  func prefixingEachLine(with prefix: String) -> String {
+    prefix + replacingOccurrences(of: "\n", with: "\n\(prefix)")
+  }
 }
