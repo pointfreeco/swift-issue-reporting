@@ -71,16 +71,25 @@ public struct XCTFailContext: Sendable {
   public func XCTFail(_ message: String = "", file: StaticString, line: UInt) {
     var message = message
     attachHostApplicationWarningIfNeeded(&message)
-    _XCTFailureHandler(nil, true, "\(file)", line, "\(message.isEmpty ? "failed" : message)", nil)
+    guard let handler = _XCTFailureHandler
+    else {
+      runtimeWarn(message)
+      return
+    }
+    handler(nil, true, "\(file)", line, "\(message.isEmpty ? "failed" : message)", nil)
   }
 
   private typealias XCTFailureHandler = @convention(c) (
     AnyObject?, Bool, UnsafePointer<CChar>, UInt, String, String?
   ) -> Void
-  private let _XCTFailureHandler = unsafeBitCast(
-    dlsym(dlopen(nil, RTLD_LAZY), "_XCTFailureHandler"),
-    to: XCTFailureHandler.self
-  )
+  private let _XCTFailureHandler: XCTFailureHandler? = {
+    dlsym(dlopen(nil, RTLD_LAZY), "_XCTFailureHandler").map { pointer in
+      unsafeBitCast(
+        pointer,
+        to: XCTFailureHandler.self
+      )
+    }
+  }()
 
   private func attachHostApplicationWarningIfNeeded(_ message: inout String) {
     guard
