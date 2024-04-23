@@ -1,34 +1,5 @@
 // MARK: (Parameters) -> Result
 
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () -> Result {
-  return {
-    _fail(description(), nil, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
 @_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -56,143 +27,27 @@ public func unimplemented<Result>(
   }
 }
 
-public func unimplemented<A, Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) -> Result {
-  return {
-    _fail(description(), $0, fileID: fileID, line: line)
+) -> @Sendable (repeat each A) -> Result {
+  return { (arg: repeat each A) in
+    _fail(description(), (repeat each arg), fileID: fileID, line: line)
     return placeholder()
   }
 }
 
-public func unimplemented<A, Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) -> Result {
-  return {
+) -> @Sendable (repeat each A) -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) -> Result {
-  return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -203,108 +58,19 @@ public func unimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) throws -> Result
 
-public func unimplemented<Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable () throws -> Result {
-  return {
+) -> @Sendable (repeat each A) throws -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
 
 // MARK: (Parameters) async -> Result
-
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async -> Result {
-  return {
-    _fail(description(), nil, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
 
 /// Returns a closure that generates a failure when invoked.
 ///
@@ -315,143 +81,27 @@ public func unimplemented<Result>(
 ///     default value (like `()` for `Void`) cannot be returned, calling the closure will fatal
 ///     error instead.
 /// - Returns: A closure that generates a failure when invoked.
-public func unimplemented<A, Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) async -> Result {
-  return {
-    _fail(description(), $0, fileID: fileID, line: line)
+) -> @Sendable (repeat each A) async -> Result {
+  return { (arg: repeat each A) in
+    _fail(description(), (repeat (each arg)), fileID: fileID, line: line)
     return placeholder()
   }
 }
 
-public func unimplemented<A, Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) async -> Result {
-  return {
+) -> @Sendable (repeat each A) async -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async -> Result {
-  return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -462,79 +112,19 @@ public func unimplemented<A, B, C, D, E, Result>(
 
 // MARK: (Parameters) async throws -> Result
 
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
 /// Returns a closure that generates a failure when invoked.
 ///
 /// - Parameter description: An optional description of the unimplemented closure, for inclusion in
 ///   test results.
 /// - Returns: A closure that generates a failure and throws an error when invoked.
-public func unimplemented<A, Result>(
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) async throws -> Result {
-  return {
+) -> @Sendable (repeat each A) async throws -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     throw UnimplementedFailure(description: description)
   }
 }
