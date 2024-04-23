@@ -11,6 +11,9 @@
 
             Defined at:
               XCTestDynamicOverlayTests/TestHelpers.swift:98
+
+            Invoked with:
+              ()
           """
       }
 
