@@ -3,22 +3,26 @@
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -35,22 +39,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -72,22 +80,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @_disfavoredOverload
 public func unimplemented<Result>(
@@ -103,22 +115,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @_disfavoredOverload
 public func unimplemented<Result>(
@@ -139,22 +155,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -171,22 +191,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -208,22 +232,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -240,22 +268,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -277,22 +309,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -309,22 +345,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -346,22 +386,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -378,22 +422,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -415,22 +463,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -447,22 +499,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -486,22 +542,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -518,22 +578,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -550,22 +614,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -582,22 +650,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -614,22 +686,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -646,22 +722,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -680,22 +760,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -712,22 +796,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -758,22 +846,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -790,22 +882,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -827,22 +923,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -859,22 +959,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -896,22 +1000,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -928,22 +1036,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -965,22 +1077,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -997,22 +1113,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1034,22 +1154,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1066,22 +1190,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1105,22 +1233,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1142,22 +1274,26 @@ public func unimplemented<Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1174,22 +1310,26 @@ public func unimplemented<A, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1206,22 +1346,26 @@ public func unimplemented<A, B, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1238,22 +1382,26 @@ public func unimplemented<A, B, C, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1270,22 +1418,26 @@ public func unimplemented<A, B, C, D, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public func unimplemented<A, B, C, D, E, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -1303,22 +1455,26 @@ public func unimplemented<A, B, C, D, E, Result>(
 @available(
   iOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   macOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   tvOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 @available(
   watchOS,
   deprecated: 9999,
-  message: "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
+  message:
+    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
 )
 public struct UnimplementedFailure: Error {
   public let description: String
