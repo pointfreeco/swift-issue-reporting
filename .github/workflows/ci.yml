@@ -15,9 +15,11 @@ concurrency:
 jobs:
   build:
     name: MacOS
-    runs-on: macOS-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
       run: make test
 
@@ -37,7 +39,7 @@ jobs:
        - uses: bytecodealliance/actions/wasmtime/setup@v1
        - uses: swiftwasm/setup-swiftwasm@v1
          with:
-           swift-version: "wasm-5.9.2-RELEASE"
+           swift-version: "wasm-5.10-RELEASE"
        - name: Build tests
          run: swift build --triple wasm32-unknown-wasi --build-tests
        - name: Run tests
@@ -54,17 +56,12 @@ jobs:
     steps:
       - uses: compnerd/gha-setup-swift@main
         with:
-          branch: swift-5.8.1-release
-          tag: 5.8.1-RELEASE
+          branch: swift-5.10-release
+          tag: 5.10-RELEASE
       - uses: actions/checkout@v4
       - name: Build
         run: swift build -c ${{ matrix.config }}
       - name: Run tests (debug only)
-        # There is an issue that exists in the 5.8.1 toolchain
-        # which fails on release configuration testing, but
-        # this issue is fixed 5.9 so we can remove the if once
-        # that is generally available.
-        if: ${{ matrix.config == 'debug' }}
         run: swift test
 
   static-stdlib:
@@ -76,7 +73,7 @@ jobs:
     steps:
       - uses: swift-actions/setup-swift@v1
         with:
-          swift-version: '5.8.0'
+          swift-version: '5.10.0'
       - name: Install dependencies
         run: sudo apt-get install -y libcurl4-openssl-dev
       - uses: actions/checkout@v4
