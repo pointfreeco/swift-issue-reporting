@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: apt-get install -y libcurl4-openssl-dev
+        run: apt-get install -y libcurl4-openssl-dev make
       - name: Run tests
         run: make test
       - name: Build for static-stdlib
