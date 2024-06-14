@@ -23,13 +23,22 @@ jobs:
     - name: Run tests
       run: make test
 
-  ubuntu:
-    name: Ubuntu
+  linux:
+    strategy:
+      matrix:
+        swift:
+          - '5.10'
+    name: Ubuntu (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
+    container: swift:${{ matrix.swift }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Run tests
-      run: make test-linux
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get install -y libcurl4-openssl-dev
+      - name: Run tests
+        run: make test
+      - name: Build for static-stdlib
+        run: make build-for-static-stdlib
 
   wasm:
      name: Wasm
@@ -63,19 +72,3 @@ jobs:
         run: swift build -c ${{ matrix.config }}
       - name: Run tests (debug only)
         run: swift test
-
-  static-stdlib:
-    name: Static standard library
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: '5.10.0'
-      - name: Install dependencies
-        run: sudo apt-get install -y libcurl4-openssl-dev
-      - uses: actions/checkout@v4
-      - name: Build for static-stdlib
-        run: make build-for-static-stdlib
