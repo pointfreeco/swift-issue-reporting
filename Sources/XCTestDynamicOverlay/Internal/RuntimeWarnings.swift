@@ -11,7 +11,7 @@ func runtimeWarn(
   #if DEBUG && canImport(os)
     os_log(
       .fault,
-      dso: dso,
+      dso: dso.wrappedValue,
       log: OSLog(subsystem: "com.apple.runtime-issues", category: "XCTestDynamicOverlay"),
       "%@",
       message()
@@ -29,7 +29,7 @@ func runtimeWarn(
   //
   // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
   @usableFromInline
-  let dso = { () -> UnsafeMutableRawPointer in
+  let dso = UncheckedSendable({ () -> UnsafeMutableRawPointer in
     let count = _dyld_image_count()
     for i in 0..<count {
       if let name = _dyld_get_image_name(i) {
@@ -42,5 +42,14 @@ func runtimeWarn(
       }
     }
     return UnsafeMutableRawPointer(mutating: #dsohandle)
-  }()
+  }())
+
+  @usableFromInline
+  struct UncheckedSendable<Value>: @unchecked Sendable {
+    @usableFromInline
+    var wrappedValue: Value
+    init(_ value: Value) {
+      self.wrappedValue = value
+    }
+  }
 #endif

@@ -95,12 +95,12 @@ struct Client {
 
 struct User { let id: UUID }
 
-let f00: () -> Int = unimplemented("f00", placeholder: 42)
-let f01: (String) -> Int = unimplemented("f01", placeholder: 42)
-let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
-let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
-let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
-let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
+@MainActor let f00: () -> Int = unimplemented("f00", placeholder: 42)
+@MainActor let f01: (String) -> Int = unimplemented("f01", placeholder: 42)
+@MainActor let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
+@MainActor let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
+@MainActor let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
+@MainActor let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
 
 private struct Autoclosing {
   init(
