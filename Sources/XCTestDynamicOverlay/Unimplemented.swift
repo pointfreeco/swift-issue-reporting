@@ -1487,7 +1487,7 @@ func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line
       Defined at:
         \(fileID):\(line)
     """
-  if let parameters = parameters {
+  if let parameters {
     var parametersDescription = ""
     debugPrint(parameters, terminator: "", to: &parametersDescription)
     debugDescription.append(
