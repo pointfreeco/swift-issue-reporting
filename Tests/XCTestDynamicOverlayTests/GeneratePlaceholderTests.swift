@@ -33,9 +33,11 @@
         XCTFail("Stream should be finished")
       }
 
-      let throwingStream: () -> AsyncThrowingStream<Int, Error> = unimplemented("throwingStream")
+      let throwingStream: @Sendable () -> AsyncThrowingStream<Int, Error> = unimplemented(
+        "throwingStream"
+      )
       let result = await Task {
-        try await XCTExpectFailure(failingBlock: throwingStream).first(where: { _ in true })
+        try await XCTExpectFailure { throwingStream() }.first(where: { _ in true })
       }.result
       XCTAssertThrowsError(try result.get()) { XCTAssertTrue($0 is CancellationError) }
 

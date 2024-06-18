@@ -40,7 +40,7 @@ import Foundation
       return try failingBlock()
     }
 
-    if let issueMatcher = issueMatcher {
+    if let issueMatcher {
       let issueMatcher: @convention(block) (AnyObject) -> Bool = { issue in
         issueMatcher(_XCTIssue(issue))
       }
@@ -96,7 +96,7 @@ import Foundation
       return
     }
 
-    if let issueMatcher = issueMatcher {
+    if let issueMatcher {
       let issueMatcher: @convention(block) (AnyObject) -> Bool = { issue in
         issueMatcher(_XCTIssue(issue))
       }
