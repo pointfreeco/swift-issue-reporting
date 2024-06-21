@@ -5,27 +5,53 @@ import Foundation
 @usableFromInline
 func runtimeWarn(
   _ message: @autoclosure () -> String,
-  file: StaticString? = nil,
-  line: UInt? = nil
+  fileID: StaticString,
+  line: UInt
 ) {
-  #if DEBUG && canImport(os)
-    os_log(
-      .fault,
-      dso: dso.wrappedValue,
-      log: OSLog(subsystem: "com.apple.runtime-issues", category: "XCTestDynamicOverlay"),
-      "%@",
-      message()
-    )
+  #if DEBUG
+    #if canImport(os)
+      os_log(
+        .fault,
+        dso: dso.wrappedValue,
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTesting"),
+        "%@",
+        "\(isTesting ? "[\(fileID):\(line)] " : "")\(message())"
+      )
+    #else
+      fputs("[\(fileID):\(line)] \(message())\n", stderr)
+    #endif
+  #endif
+}
+
+@_transparent
+@inline(__always)
+@usableFromInline
+func runtimeNote(
+  _ message: @autoclosure () -> String,
+  fileID: StaticString,
+  line: UInt
+) {
+  #if DEBUG
+    #if canImport(os)
+      os_log(
+        .info,
+        dso: dso.wrappedValue,
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTesting"),
+        "%@",
+        "\(isTesting ? "[\(fileID):\(line)] " : "")\(message())"
+      )
+    #else
+      fputs("[\(fileID):\(line)] \(message())\n", stdout)
+    #endif
   #endif
 }
 
 #if DEBUG && canImport(os)
   import os
-  import Foundation
 
   // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
-  //     breakpoints, but Apple provides no means of creating custom runtime warnings ourselves.
-  //     To work around this, we hook into SwiftUI's runtime issue delivery mechanism, instead.
+  //     breakpoints, but Apple provides no means of creating custom runtime warnings ourselves. To
+  //     work around this, we hook into SwiftUI's runtime issue delivery mechanism, instead.
   //
   // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
   @usableFromInline
