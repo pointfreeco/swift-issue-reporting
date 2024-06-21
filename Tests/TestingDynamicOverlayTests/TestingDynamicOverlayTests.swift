@@ -9,23 +9,23 @@ final class ExampleTests: XCTestCase {
 
     XCTAssertEqual(TestContext.current, .xcTest)
 
-    fail()
-    fail("!")
-    withKnownFailure {
-      fail()
+    reportIssue()
+    reportIssue("!")
+    withExpectedIssue {
+      reportIssue()
     }
-    withKnownFailure {
-      fail("This failed")
+    withExpectedIssue {
+      reportIssue("This failed")
     }
-    withKnownFailure {
+    withExpectedIssue {
     }
-    withKnownFailure("This didn't fail") {
+    withExpectedIssue("This didn't fail") {
     }
-    withKnownFailure(isIntermittent: true) {
+    withExpectedIssue(isIntermittent: true) {
     }
-    withKnownFailure {} when: { false }
-    withKnownFailure { throw Failure() }
-    withKnownFailure { throw Failure() } when: { false }
+    withExpectedIssue {} when: { false }
+    withExpectedIssue { throw Failure() }
+    withExpectedIssue { throw Failure() } when: { false }
   }
 }
 
@@ -35,22 +35,22 @@ final class ExampleTests: XCTestCase {
   @Test func example() async throws {
     #expect(TestContext.current == .swiftTesting)
 
-    fail()
-    fail("!")
-    withKnownFailure {
-      fail()
+    reportIssue()
+    reportIssue("!")
+    withExpectedIssue {
+      reportIssue()
     }
-    withKnownFailure {
-      fail("This failed")
+    withExpectedIssue {
+      reportIssue("This failed")
     }
-    withKnownFailure {
+    withExpectedIssue {
     }
-    withKnownFailure("This didn't fail") {
+    withExpectedIssue("This didn't fail") {
     }
-    withKnownFailure(isIntermittent: true) {
+    withExpectedIssue(isIntermittent: true) {
     }
-    withKnownFailure {} when: { false }
-    withKnownFailure { throw Failure() }
-    withKnownFailure { throw Failure() } when: { false }
+    withExpectedIssue {} when: { false }
+    withExpectedIssue { throw Failure() }
+    withExpectedIssue { throw Failure() } when: { false }
   }
 #endif

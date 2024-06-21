@@ -13,12 +13,12 @@ func runtimeWarn(
       os_log(
         .fault,
         dso: dso.wrappedValue,
-        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTesting"),
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTestingOverlay"),
         "%@",
-        "\(isTesting ? "[\(fileID):\(line)] " : "")\(message())"
+        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
       )
     #else
-      fputs("[\(fileID):\(line)] \(message())\n", stderr)
+      fputs("􀢄 \(fileID):\(line): \(message())\n", stderr)
     #endif
   #endif
 }
@@ -36,12 +36,12 @@ func runtimeNote(
       os_log(
         .info,
         dso: dso.wrappedValue,
-        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTesting"),
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTestingOverlay"),
         "%@",
-        "\(isTesting ? "[\(fileID):\(line)] " : "")\(message())"
+        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
       )
     #else
-      fputs("[\(fileID):\(line)] \(message())\n", stdout)
+      fputs("􀢄 \(fileID):\(line): \(message())\n", stdout)
     #endif
   #endif
 }

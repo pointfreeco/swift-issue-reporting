@@ -10,7 +10,7 @@ import Foundation
 @available(tvOS, deprecated: 9999, renamed: "fail")
 @available(watchOS, deprecated: 9999, renamed: "fail")
 public func XCTFail(_ message: String = "", file: StaticString = #filePath, line: UInt = #line) {
-  fail(message, filePath: file, line: line)
+  reportIssue(message, filePath: file, line: line)
 }
 
 @available(iOS, deprecated: 9999, renamed: "isTesting")
