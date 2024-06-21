@@ -10,10 +10,13 @@ func runtimeWarn(
 ) {
   #if DEBUG
     #if canImport(os)
+      let moduleName = String(
+        Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
+      )
       os_log(
         .fault,
         dso: dso.wrappedValue,
-        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTestingOverlay"),
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
         "%@",
         "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
       )
@@ -33,10 +36,12 @@ func runtimeNote(
 ) {
   #if DEBUG
     #if canImport(os)
+      let moduleName = String(
+        Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
+      )
       os_log(
         .info,
-        dso: dso.wrappedValue,
-        log: OSLog(subsystem: "com.apple.runtime-issues", category: "DynamicTestingOverlay"),
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
         "%@",
         "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
       )

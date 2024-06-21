@@ -101,12 +101,20 @@ extension Result: _ErrorMechanism {}
 
 var _XCTCurrentTestCase: AnyObject? {
   #if _runtime(_ObjC)
-    if let xctCurrentTestCasePtr = dlsym(
-      dlopen(nil, RTLD_NOW),
-      "_XCTCurrentTestCase"
-    ) {
-      return xctCurrentTestCasePtr.assumingMemoryBound(to: AnyObject?.self).pointee
-    }
+    guard
+      let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
+      let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
+      let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
+        .takeUnretainedValue(),
+      let observers = shared.perform(Selector(("observers")))?
+        .takeUnretainedValue() as? [AnyObject],
+      let observer =
+        observers
+        .first(where: { NSStringFromClass(type(of: $0)) == "XCTestMisuseObserver" }),
+      let currentTestCase = observer.perform(Selector(("currentTestCase")))?
+        .takeUnretainedValue()
+    else { return nil }
+    return currentTestCase
   #else
     // NB: swift-corelibs-xctest doesn't provide a public symbol to detect if we're in a test, so we
     //     always consider ourselves in a test if XCTest is linked.
@@ -114,8 +122,8 @@ var _XCTCurrentTestCase: AnyObject? {
       class Object {}
       return Object()
     }
+    return nil
   #endif
-  return nil
 }
 
 private var xctFailPtr: UnsafeMutableRawPointer? {
