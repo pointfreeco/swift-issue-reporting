@@ -10,7 +10,27 @@ import Foundation
 @available(tvOS, deprecated: 9999, renamed: "fail")
 @available(watchOS, deprecated: 9999, renamed: "fail")
 public func XCTFail(_ message: String = "", file: StaticString = #filePath, line: UInt = #line) {
-  reportIssue(message, filePath: file, line: line)
+  reportIssue(
+    message,
+    filePath: XCTFailContext.current?.file ?? file,
+    line: XCTFailContext.current?.line ?? line
+  )
+}
+
+@available(iOS, deprecated: 9999, renamed: "IssueContext")
+@available(macOS, deprecated: 9999, renamed: "IssueContext")
+@available(tvOS, deprecated: 9999, renamed: "IssueContext")
+@available(watchOS, deprecated: 9999, renamed: "IssueContext")
+public struct XCTFailContext: Sendable {
+  @TaskLocal public static var current: Self?
+
+  public var file: StaticString
+  public var line: UInt
+
+  public init(file: StaticString, line: UInt) {
+    self.file = file
+    self.line = line
+  }
 }
 
 @available(iOS, deprecated: 9999, renamed: "isTesting")
@@ -1741,19 +1761,6 @@ func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt)
 }
 
 // Hard-deprecated:
-
-@available(*, deprecated, renamed: "FailureContext")
-public struct XCTFailContext: Sendable {
-  @TaskLocal public static var current: Self?
-
-  public var file: StaticString
-  public var line: UInt
-
-  public init(file: StaticString, line: UInt) {
-    self.file = file
-    self.line = line
-  }
-}
 
 @_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented")

@@ -1,4 +1,4 @@
-public struct FailureContext: Sendable {
+public struct IssueContext: Sendable {
   @TaskLocal public static var current: Self?
 
   public var fileID: StaticString

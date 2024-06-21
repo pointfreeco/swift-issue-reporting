@@ -10,16 +10,16 @@ public func reportIssue(
   case .swiftTesting:
     Issue.record(
       message(),
-      fileID: "\(FailureContext.current?.fileID ?? fileID)",
-      filePath: "\(FailureContext.current?.filePath ?? filePath)",
-      line: Int(FailureContext.current?.line ?? line),
-      column: Int(FailureContext.current?.column ?? column)
+      fileID: "\(IssueContext.current?.fileID ?? fileID)",
+      filePath: "\(IssueContext.current?.filePath ?? filePath)",
+      line: Int(IssueContext.current?.line ?? line),
+      column: Int(IssueContext.current?.column ?? column)
     )
   case .xcTest:
     XCTFail(
       message(),
-      file: FailureContext.current?.filePath ?? filePath,
-      line: FailureContext.current?.line ?? line
+      file: IssueContext.current?.filePath ?? filePath,
+      line: IssueContext.current?.line ?? line
     )
   case nil:
     if let observer = FailureObserver.current {
@@ -29,15 +29,15 @@ public func reportIssue(
       }) {
         runtimeNote(
           message(),
-          fileID: FailureContext.current?.fileID ?? fileID,
-          line: FailureContext.current?.line ?? line
+          fileID: IssueContext.current?.fileID ?? fileID,
+          line: IssueContext.current?.line ?? line
         )
       }
     } else {
       runtimeWarn(
         message(),
-        fileID: FailureContext.current?.fileID ?? fileID,
-        line: FailureContext.current?.line ?? line
+        fileID: IssueContext.current?.fileID ?? fileID,
+        line: IssueContext.current?.line ?? line
       )
     }
   }

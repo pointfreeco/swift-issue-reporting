@@ -15,10 +15,10 @@ public func withExpectedIssue(
     withKnownIssue(
       message,
       isIntermittent: isIntermittent,
-      fileID: "\(FailureContext.current?.fileID ?? fileID)",
-      filePath: "\(FailureContext.current?.filePath ?? filePath)",
-      line: Int(FailureContext.current?.line ?? line),
-      column: Int(FailureContext.current?.column ?? column),
+      fileID: "\(IssueContext.current?.fileID ?? fileID)",
+      filePath: "\(IssueContext.current?.filePath ?? filePath)",
+      line: Int(IssueContext.current?.line ?? line),
+      column: Int(IssueContext.current?.column ?? column),
       body,
       when: precondition
     )
@@ -27,8 +27,8 @@ public func withExpectedIssue(
       message,
       enabled: precondition(),
       strict: !isIntermittent,
-      file: FailureContext.current?.filePath ?? filePath,
-      line: FailureContext.current?.line ?? line
+      file: IssueContext.current?.filePath ?? filePath,
+      line: IssueContext.current?.line ?? line
     ) {
       do {
         try body()
@@ -47,16 +47,16 @@ public func withExpectedIssue(
         if observer.withLock({ $0.count == 0 }), !isIntermittent {
           runtimeWarn(
             "Known issue was not recorded\(message.map { ": \($0)" } ?? "")",
-            fileID: FailureContext.current?.fileID ?? fileID,
-            line: FailureContext.current?.line ?? line
+            fileID: IssueContext.current?.fileID ?? fileID,
+            line: IssueContext.current?.line ?? line
           )
         }
       } catch {
         if precondition() {
           runtimeNote(
             "Caught error: \(error)",
-            fileID: FailureContext.current?.fileID ?? fileID,
-            line: FailureContext.current?.line ?? line
+            fileID: IssueContext.current?.fileID ?? fileID,
+            line: IssueContext.current?.line ?? line
           )
         }
       }
