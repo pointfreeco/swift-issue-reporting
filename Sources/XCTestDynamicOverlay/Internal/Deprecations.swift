@@ -1078,15 +1078,6 @@ public func unimplemented<Result>(
   }
 }
 
-/// Returns a closure that generates a failure when invoked.
-///
-/// - Parameters:
-///   - description: An optional description of the unimplemented closure, for inclusion in test
-///     results.
-///   - placeholder: An optional placeholder value returned from the closure. If omitted and a
-///     default value (like `()` for `Void`) cannot be returned, calling the closure will fatal
-///     error instead.
-/// - Returns: A closure that generates a failure when invoked.
 @available(
   iOS,
   deprecated: 9999,
@@ -1508,11 +1499,6 @@ public func unimplemented<Result>(
   }
 }
 
-/// Returns a closure that generates a failure when invoked.
-///
-/// - Parameter description: An optional description of the unimplemented closure, for inclusion in
-///   test results.
-/// - Returns: A closure that generates a failure and throws an error when invoked.
 @available(
   iOS,
   deprecated: 9999,
@@ -1693,7 +1679,6 @@ public func unimplemented<A, B, C, D, E, Result>(
   }
 }
 
-/// An error thrown from ``XCTUnimplemented(_:)-3obl5``.
 @available(
   iOS,
   deprecated: 9999,
