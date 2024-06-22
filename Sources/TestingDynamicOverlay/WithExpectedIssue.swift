@@ -24,7 +24,7 @@ public func withExpectedIssue(
     )
   case .xcTest:
     XCTExpectFailure(
-      message,
+      message.withAppHostWarningIfNeeded(),
       enabled: precondition(),
       strict: !isIntermittent,
       file: IssueContext.current?.filePath ?? filePath,
@@ -39,6 +39,7 @@ public func withExpectedIssue(
       }
     }
   case nil:
+    guard !isTesting else { return }
     let when = precondition()
     let observer = LockIsolated(FailureObserver(precondition: when))
     FailureObserver._$current.withValue(observer) {

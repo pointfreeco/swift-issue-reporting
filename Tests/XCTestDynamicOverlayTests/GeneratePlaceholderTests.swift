@@ -1,14 +1,14 @@
-//#if !os(Linux) && !os(WASI) && !os(Windows)
-//  import Foundation
-//  import XCTest
-//  import XCTestDynamicOverlay
-//
-//  #if canImport(FoundationNetworking)
-//    import FoundationNetworking
-//  #endif
-//
-//  final class GeneratePlaceholderTests: XCTestCase {
-//    func testShouldGeneratePlaceholder() async throws {
+#if !os(Linux) && !os(WASI) && !os(Windows)
+  import Foundation
+  import XCTest
+  import XCTestDynamicOverlay
+
+  #if canImport(FoundationNetworking)
+    import FoundationNetworking
+  #endif
+
+  final class GeneratePlaceholderTests: XCTestCase {
+    func testShouldGeneratePlaceholder() async throws {
 //      let bool: () -> Bool = unimplemented("bool")
 //      XCTAssertEqual(XCTExpectFailure(failingBlock: bool), false)
 //      let double: () -> Double = unimplemented("double")
@@ -24,48 +24,48 @@
 //      XCTAssertEqual(XCTExpectFailure(failingBlock: dictionary), [String: Int]())
 //      let set: () -> Set<Int> = unimplemented("set")
 //      XCTAssertEqual(XCTExpectFailure(failingBlock: set), Set<Int>())
-//
-//      let optionalInt: () -> Int? = unimplemented("optionalInt")
-//      XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
-//
-//      let stream: () -> AsyncStream<Int> = unimplemented("stream")
-//      for await _ in XCTExpectFailure(failingBlock: stream) {
-//        XCTFail("Stream should be finished")
-//      }
-//
-//      let throwingStream: @Sendable () -> AsyncThrowingStream<Int, Error> = unimplemented(
-//        "throwingStream"
-//      )
-//      let result = await Task {
-//        try await XCTExpectFailure { throwingStream() }.first(where: { _ in true })
-//      }.result
-//      XCTAssertThrowsError(try result.get()) { XCTAssertTrue($0 is CancellationError) }
-//
-//      let date: () -> Date = unimplemented("date")
-//      XCTAssertNotNil(XCTExpectFailure(failingBlock: date))
-//      let url: () -> URL = unimplemented("url")
-//      XCTAssertNotNil(XCTExpectFailure(failingBlock: url))
-//      let uuid: () -> UUID = unimplemented("uuid")
-//      XCTAssertNotNil(XCTExpectFailure(failingBlock: uuid))
-//
-//      let enumCaseIterable: () -> EnumCaseIterable = unimplemented("enumCaseIterable")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: enumCaseIterable), .first)
-//      let enumInt: () -> EnumInt = unimplemented("enumInt")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: enumInt), .zero)
-//      let taggedInt: () -> Tagged<Self, Int> = unimplemented("taggedInt")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: taggedInt), 0)
-//    }
-//  }
-//
-//  enum EnumInt: Int { case zero, one, two }
-//
-//  enum EnumCaseIterable: CaseIterable { case first, second, third }
-//
-//  struct Tagged<Tag, RawValue: Equatable>: Equatable { var rawValue: RawValue }
-//  extension Tagged: ExpressibleByIntegerLiteral where RawValue: ExpressibleByIntegerLiteral {
-//    typealias IntegerLiteralType = RawValue.IntegerLiteralType
-//    init(integerLiteral value: IntegerLiteralType) {
-//      self.init(rawValue: RawValue(integerLiteral: value))
-//    }
-//  }
-//#endif
+
+      let optionalInt: () -> Int? = unimplemented("optionalInt")
+      XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
+
+      let stream: () -> AsyncStream<Int> = unimplemented("stream")
+      for await _ in XCTExpectFailure(failingBlock: stream) {
+        XCTFail("Stream should be finished")
+      }
+
+      let throwingStream: @Sendable () -> AsyncThrowingStream<Int, Error> = unimplemented(
+        "throwingStream"
+      )
+      let result = await Task {
+        try await XCTExpectFailure { throwingStream() }.first(where: { _ in true })
+      }.result
+      XCTAssertThrowsError(try result.get()) { XCTAssertTrue($0 is CancellationError) }
+
+      let date: () -> Date = unimplemented("date")
+      XCTAssertNotNil(XCTExpectFailure(failingBlock: date))
+      let url: () -> URL = unimplemented("url")
+      XCTAssertNotNil(XCTExpectFailure(failingBlock: url))
+      let uuid: () -> UUID = unimplemented("uuid")
+      XCTAssertNotNil(XCTExpectFailure(failingBlock: uuid))
+
+      let enumCaseIterable: () -> EnumCaseIterable = unimplemented("enumCaseIterable")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: enumCaseIterable), .first)
+      let enumInt: () -> EnumInt = unimplemented("enumInt")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: enumInt), .zero)
+      let taggedInt: () -> Tagged<Self, Int> = unimplemented("taggedInt")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: taggedInt), 0)
+    }
+  }
+
+  enum EnumInt: Int { case zero, one, two }
+
+  enum EnumCaseIterable: CaseIterable { case first, second, third }
+
+  struct Tagged<Tag, RawValue: Equatable>: Equatable { var rawValue: RawValue }
+  extension Tagged: ExpressibleByIntegerLiteral where RawValue: ExpressibleByIntegerLiteral {
+    typealias IntegerLiteralType = RawValue.IntegerLiteralType
+    init(integerLiteral value: IntegerLiteralType) {
+      self.init(rawValue: RawValue(integerLiteral: value))
+    }
+  }
+#endif

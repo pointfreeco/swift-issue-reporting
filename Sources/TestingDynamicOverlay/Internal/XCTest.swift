@@ -102,9 +102,9 @@ extension Result: _ErrorMechanism {}
 var _XCTCurrentTestCase: AnyObject? {
   #if _runtime(_ObjC)
     guard
-      let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
-      let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
-      let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
+      let xcTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
+      let xcTestObservationCenter = xcTestObservationCenter as Any as? NSObjectProtocol,
+      let shared = xcTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
         .takeUnretainedValue(),
       let observers = shared.perform(Selector(("observers")))?
         .takeUnretainedValue() as? [AnyObject],

@@ -17,11 +17,12 @@ public func reportIssue(
     )
   case .xcTest:
     XCTFail(
-      message(),
+      message().withAppHostWarningIfNeeded(),
       file: IssueContext.current?.filePath ?? filePath,
       line: IssueContext.current?.line ?? line
     )
   case nil:
+    guard !isTesting else { return }
     if let observer = FailureObserver.current {
       if observer.withLock({
         $0.count += 1

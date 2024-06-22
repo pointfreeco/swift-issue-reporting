@@ -2062,7 +2062,7 @@ public func XCTUnimplemented<A, B, C, D, E, Result>(
 @available(*, deprecated, renamed: "UnimplementedFailure")
 public typealias XCTUnimplementedFailure = UnimplementedFailure
 
-protocol _DefaultInitializable {
+private protocol _DefaultInitializable {
   init()
 }
 
@@ -2077,6 +2077,7 @@ extension Int8: _DefaultInitializable {}
 extension Int16: _DefaultInitializable {}
 extension Int32: _DefaultInitializable {}
 extension Int64: _DefaultInitializable {}
+extension Swift.Optional: _DefaultInitializable { init() { self = .none } }
 extension Set: _DefaultInitializable {}
 extension String: _DefaultInitializable {}
 extension Substring: _DefaultInitializable {}
@@ -2118,9 +2119,9 @@ extension ExpressibleByUnicodeScalarLiteral { fileprivate static var placeholder
 extension RangeReplaceableCollection { fileprivate static var placeholder: Self { Self() } }
 
 private protocol _OptionalProtocol { static var none: Self { get } }
-extension Optional: _OptionalProtocol {}
+extension Swift.Optional: _OptionalProtocol {}
 private func _optionalPlaceholder<Result>() throws -> Result {
-  if let result = (Result.self as? _OptionalProtocol.Type) {
+  if let result = Result.self as? _OptionalProtocol.Type {
     return result.none as! Result
   }
   throw PlaceholderGenerationFailure()
@@ -2143,12 +2144,11 @@ private func _placeholder<Result>() -> Result? {
 }
 
 private func _rawRepresentable<Result>() -> Result? {
-  func posiblePlaceholder<T: RawRepresentable>(for type: T.Type) -> T? {
+  func possiblePlaceholder<T: RawRepresentable>(for type: T.Type) -> T? {
     (_placeholder() as T.RawValue?).flatMap(T.init(rawValue:))
   }
-
   return (Result.self as? any RawRepresentable.Type).flatMap {
-    posiblePlaceholder(for: $0) as? Result
+    possiblePlaceholder(for: $0) as? Result
   }
 }
 
@@ -2156,7 +2156,6 @@ private func _caseIterable<Result>() -> Result? {
   func firstCase<T: CaseIterable>(for type: T.Type) -> Result? {
     T.allCases.first as? Result
   }
-
   return (Result.self as? any CaseIterable.Type).flatMap {
     firstCase(for: $0)
   }
@@ -2167,14 +2166,11 @@ func _generatePlaceholder<Result>() throws -> Result {
   if let result = _placeholder() as Result? {
     return result
   }
-
   if let result = _rawRepresentable() as Result? {
     return result
   }
-
   if let result = _caseIterable() as Result? {
     return result
   }
-
   return try _optionalPlaceholder()
 }
