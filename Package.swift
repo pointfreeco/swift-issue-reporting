@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "xctest-dynamic-overlay",
+  name: "testing-dynamic-overlay",
   platforms: [
     .iOS(.v13),
     .macOS(.v10_15),
