@@ -9,24 +9,26 @@
 
   final class GeneratePlaceholderTests: XCTestCase {
     func testShouldGeneratePlaceholder() async throws {
-//      let bool: () -> Bool = unimplemented("bool")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: bool), false)
-//      let double: () -> Double = unimplemented("double")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: double), 0.0)
-//      let int: () -> Int = unimplemented("int")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: int), 0)
-//      let string: () -> String = unimplemented("string")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: string), "")
-//
-//      let array: () -> [Int] = unimplemented("array")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: array), [Int]())
-//      let dictionary: () -> [String: Int] = unimplemented("dictionary")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: dictionary), [String: Int]())
-//      let set: () -> Set<Int> = unimplemented("set")
-//      XCTAssertEqual(XCTExpectFailure(failingBlock: set), Set<Int>())
+      let bool: () -> Bool = unimplemented("bool")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: bool), false)
+      let double: () -> Double = unimplemented("double")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: double), 0.0)
+      let int: () -> Int = unimplemented("int")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: int), 0)
+      let string: () -> String = unimplemented("string")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: string), "")
 
-      let optionalInt: () -> Int? = unimplemented("optionalInt")
-      XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
+      let array: () -> [Int] = unimplemented("array")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: array), [Int]())
+      let dictionary: () -> [String: Int] = unimplemented("dictionary")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: dictionary), [String: Int]())
+      let set: () -> Set<Int> = unimplemented("set")
+      XCTAssertEqual(XCTExpectFailure(failingBlock: set), Set<Int>())
+
+      #if swift(<6)
+        let optionalInt: () -> Int? = unimplemented("optionalInt")
+        XCTAssertNil(XCTExpectFailure(failingBlock: optionalInt))
+      #endif
 
       let stream: () -> AsyncStream<Int> = unimplemented("stream")
       for await _ in XCTExpectFailure(failingBlock: stream) {
