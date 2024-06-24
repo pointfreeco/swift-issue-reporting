@@ -16,12 +16,8 @@ struct RuntimeWarningReporter: IssueReporter {
   func reportIssue(_ message: String) {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
-      if observer.withLock({
-        $0.count += 1
-        return $0.precondition
-      }) {
-        runtimeNote(message, fileID: "TODO", line: 0 /*TODO*/)
-      }
+      observer.withLock { $0.count += 1 }
+      runtimeNote(message, fileID: "TODO", line: 0 /*TODO*/)
     } else {
       runtimeWarn(message, fileID: "TODO", line: 0 /*TODO*/)
     }
