@@ -1,25 +1,98 @@
-# XCTest Dynamic Overlay
+# Swift Issue Reporting
 
 [![CI](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
 
-Define XCTest assertion helpers directly in your application and library code.
+Report issues in your application and library code as Xcode runtime warnings, test failures, and
+more.
 
 ## Motivation
 
-It is very common to write test support code for libraries and applications. This often comes in the form of little domain-specific functions or helpers that make it easier for users of your code to formulate assertions on behavior.
+Swift's built-in error reporting tools are rather blunt. You can use `assert`, `precondition`, or
+`fatalError` to catch issues early, but at the cost of crashes that can be disruptive to your debug
+sessions and unit test runs.
+
+This library provides a single `reportIssue` function that emits "purple" runtime warnings to Xcode
+while debugging your application in the simulator or on device, or test failures during test runs.
+This is no simple task! Xcode provides no public interface to emit "purple" runtime warnings, and it
+is not possible to `import Testing` or `import XCTest` into application or library code. This
+library bridges the gap with a single interface that allows you to do both.
+
+---
+
+You can even use `reportIssue` to build test helpers that are agnostic to the Testing and XCTest
+frameworks. Calling Testing's `#expect` from XCTest 
+
+---
+
+You can use this function to introduce less disruptive assertions to your debug sessions and tests,
+and even super generic test helpers that emit failures in both Swift's new Testing framework as well
+as XCTest.
+
+---
+
+This library unlocks 3 things:
+
+  1. It allows you to emit Xcode's purple runtime warnings from your application and library code.
+
+  2. These runtime warnings will automatically by promoted to test failures in Swift's Testing
+     framework and XCTest.
+     
+  3. You can use this error reporting feature to write generic test helpers that work in both
+     Testing _and_ XCTest.
+
+---
+
+Swift's built-in error reporting tools are rather blunt. You can use `assert`, `precondition`, or
+`fatalError` to catch issues early, but they lead to crashes that can disrupt your debugging and
+unit tests.
+
+It can be far better to surface issues while debugging using Xcode's "purple" runtime warning
+machinery, or _via_ test failures.
+
+This library provides tools to do just that!
+
+  * First, it defines a `reportIssue` function, which reports a "purple" runtime warning and stack
+    trace to Xcode when debugging the application, and reports test failures to Swift's Testing
+    framework or XCTest during a test run.
+    
+    This function is similar to the Testing framework's `Issue.report()` function, but can be called
+    from your application target, and will trigger test failures in both Testing and XCTest.
+
+  * Second, it provides a `withExpectedIssue` function, which allows you to log or suppress reported
+    issues, much like the `withKnownIssue` function from the Testing framework.
+
+These two functions can be employed by your applications and libraries to better catch problems when
+debugging and testing them.
+
+===
+
+It is very common to write test support code for libraries and applications. This often comes in the
+form of little domain-specific functions or helpers that make it easier for users of your code to
+formulate assertions on behavior.
 
 Currently there are only two options for writing test support code:
 
-* Put it in a test target, but then you can't access it from multiple other test targets. For whatever reason test targets cannot be imported, and so the test support code will only be available in that one single test target.
-* Create a dedicated test support module that ships just the test-specific code. Then you can import this module into as many test targets as you want, while never letting the module interact with your regular, production code.
+  * Put it in a test target, but then you can't access it from multiple other test targets. For
+    whatever reason test targets cannot be imported, and so the test support code will only be
+    available in that one single test target.
 
-Neither of these options is ideal. In the first case you cannot share your test support, and the second case will lead you to a proliferation of modules. For each feature you potentially need 3 modules: `MyFeature`, `MyFeatureTests` and `MyFeatureTestSupport`. SPM makes managing this quite easy, but it's still a burden.
+  * Create a dedicated test support module that ships just the test-specific code. Then you can
+    import this module into as many test targets as you want, while never letting the module
+    interact with your regular, production code.
 
-It would be far better if we could ship the test support code right along side or actual library or application code. After all, they are intimately related. You can even fence off the test support code in `#if DEBUG ... #endif` if you are worried about leaking test code into production.
+Neither of these options is ideal. In the first case you cannot share your test support, and the
+second case will lead you to a proliferation of modules. For each feature you potentially need 3
+modules: `MyFeature`, `MyFeatureTests` and `MyFeatureTestSupport`. SPM makes managing this quite
+easy, but it's still a burden.
 
-However, as soon as you add `import XCTest` to a source file in your application or a library it loads, the target becomes unbuildable:
+It would be far better if we could ship the test support code right along side or actual library or
+application code. After all, they are intimately related. You can even fence off the test support
+code in `#if DEBUG ... #endif` if you are worried about leaking test code into production.
+
+However, as soon as you add `import XCTest` to a source file in your application or a library it
+loads, the target becomes unbuildable:
 
 ```swift
 import XCTest
