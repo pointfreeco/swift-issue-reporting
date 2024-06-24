@@ -7,10 +7,7 @@ struct FailureObserver {
   @usableFromInline
   var count: Int
   @usableFromInline
-  var precondition: Bool
-  @usableFromInline
-  init(count: Int = 0, precondition: Bool) {
+  init(count: Int = 0) {
     self.count = count
-    self.precondition = precondition
   }
 }

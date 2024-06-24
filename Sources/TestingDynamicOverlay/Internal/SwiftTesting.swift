@@ -78,15 +78,14 @@ func withKnownIssue(
   filePath: String = #filePath,
   line: Int = #line,
   column: Int = #column,
-  _ body: () throws -> Void,
-  when precondition: () -> Bool
+  _ body: () throws -> Void
 ) {
   guard
     let withKnownIssuePtr = dlsym(
       dlopen(nil, RTLD_LAZY),
       """
-      $s7Testing14withKnownIssue_14isIntermittent6fileID0G4Path4line6column_4when8matchingyAA7Comme\
-      ntVSg_SbS2SS2iyyKXESbyXESbAA0D0VYbctKF
+      $s7Testing14withKnownIssue_14isIntermittent6fileID0G4Path4line6column_yAA7CommentVSg_SbS2SS2i\
+      yyKXEtF
       """
     )
   else { return }
@@ -108,16 +107,14 @@ func withKnownIssue(
           String,
           Int,
           Int,
-          () throws -> Void,
-          () -> Bool,
-          @Sendable (Any) -> Bool
+          () throws -> Void
         ) -> Void
       )
       .self
     )
     .pointee
     withKnownIssue(
-      comment, isIntermittent, fileID, filePath, line, column, body, precondition, { _ in true }
+      comment, isIntermittent, fileID, filePath, line, column, body
     )
   }
 }

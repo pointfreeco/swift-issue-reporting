@@ -1,3 +1,17 @@
+/// Report an issue.
+///
+/// A generalized version of Swift Testing's [`Issue.record`][Issue.record] that emits "purple"
+/// warnings to Xcode at runtime and logs fault-level messages to the console.
+///
+/// During test runs, the issue will be sent to Swift Testing's [`Issue.record`][Issue.record] _or_
+/// XCTest's [`XCTFail`][XCTFail] accordingly, which means you can use it to drive custom assertion
+/// helpers that you want to work in both Swift Testing and XCTest.
+///
+/// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:fileid:filepath:line:column:)
+/// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
+///
+/// - Parameters:
+///   - message: A message describing the issue.
 @_transparent
 public func reportIssue(
   _ message: @autoclosure () -> String = "",
@@ -24,16 +38,12 @@ public func reportIssue(
   case nil:
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
-      if observer.withLock({
-        $0.count += 1
-        return $0.precondition
-      }) {
-        runtimeNote(
-          message(),
-          fileID: IssueContext.current?.fileID ?? fileID,
-          line: IssueContext.current?.line ?? line
-        )
-      }
+      observer.withLock { $0.count += 1 }
+      runtimeNote(
+        message(),
+        fileID: IssueContext.current?.fileID ?? fileID,
+        line: IssueContext.current?.line ?? line
+      )
     } else {
       runtimeWarn(
         message(),
