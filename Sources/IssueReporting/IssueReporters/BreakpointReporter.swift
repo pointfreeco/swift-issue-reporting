@@ -2,9 +2,16 @@
   import Darwin
 
   extension IssueReporter where Self == BreakpointReporter {
+    /// An issue reporter that pauses program execution when a debugger is attached.
+    ///
+    /// Logs a warning to the console and raises `SIGTRAP` when an issue is received.
     public static var breakpoint: Self { Self() }
   }
 
+  /// A type representing an issue reporter that pauses program execution when a debugger is
+  /// attached.
+  ///
+  /// Use ``IssueReporter/breakpoint`` to create one of these values.
   public struct BreakpointReporter: IssueReporter {
     public func reportIssue(
       _ message: @autoclosure () -> String,
@@ -13,9 +20,10 @@
       line: UInt,
       column: UInt
     ) {
+      fputs("􀢄 \(fileID):\(line): \(message())\n", stderr)
+      guard isDebuggerAttached else { return }
       fputs(
         """
-        \(fileID):\(line): \(message())
 
         Caught debug breakpoint. Type "continue" ("c") to resume execution.
 
@@ -24,6 +32,8 @@
       )
       raise(SIGTRAP)
     }
+
+    // TODO: Should this reporter do anything with *expected* issues?
 
     var isDebuggerAttached: Bool {
       var name: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()]

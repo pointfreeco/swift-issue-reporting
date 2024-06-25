@@ -5,9 +5,20 @@ import Foundation
 #endif
 
 extension IssueReporter where Self == RuntimeWarningReporter {
+  /// An issue reporter that emits "purple" runtime warnings to Xcode and logs fault-level messages
+  /// to the console.
+  ///
+  /// This is the default issue reporter.
+  ///
+  /// If this issue reporter receives an expected issue, it will log an info-level message to the
+  /// console, instead.
   public static var runtimeWarning: Self { Self() }
 }
 
+/// A type representing an issue reporter that emits "purple" runtime warnings to Xcode and logs
+/// fault-level messages to the console.
+///
+/// Use ``IssueReporter/runtimeWarning`` to create one of these values.
 public struct RuntimeWarningReporter: IssueReporter {
   #if DEBUG && canImport(os)
     @UncheckedSendable
