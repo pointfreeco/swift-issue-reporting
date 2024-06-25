@@ -27,6 +27,10 @@
 ///   - message: An optional message describing the known issue.
 ///   - isIntermittent: Whether or not the known issue occurs intermittently. If this argument is
 ///     `true` and the known issue does not occur, no secondary issue is recorded.
+///   - fileID: The source `#fileID` associated with the issue.
+///   - filePath: The source `#filePath` associated with the issue.
+///   - line: The source `#line` associated with the issue.
+///   - column: The source `#column` associated with the issue.
 ///   - body: The function to invoke.
 @_transparent
 public func withExpectedIssue(

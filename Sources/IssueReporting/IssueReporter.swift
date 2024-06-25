@@ -1,3 +1,50 @@
+/// A type that can report issues.
+public protocol IssueReporter: Sendable {
+  /// Called when an issue is reported.
+  /// 
+  /// - Parameters:
+  ///   - message: A message describing the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
+  func reportIssue(
+    _ message: @autoclosure () -> String,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
+
+  /// Called when an expected issue is reported.
+  ///
+  /// The default implementation of this conformance simply ignores the issue.
+  ///
+  /// - Parameters:
+  ///   - message: A message describing the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
+  func expectIssue(
+    _ message: @autoclosure () -> String,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
+}
+
+extension IssueReporter {
+  public func expectIssue(
+    _ message: @autoclosure () -> String,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {}
+}
+
 public enum IssueReporters {
   /// The task's current issue reporters.
   ///
@@ -23,7 +70,7 @@ public enum IssueReporters {
   /// Issue reporters are fed issues in order.
   ///
   /// To override the task's issue reporters for a scoped operation, prefer
-  /// ``withIssueReporters(_:operation:)-90mss``.
+  /// ``withIssueReporters(_:operation:)-91179``.
   public static var current: [any IssueReporter] {
     get { _current.withLock { $0 } }
     set { _current.withLock { $0 = newValue } }
@@ -69,45 +116,7 @@ public func withIssueReporters<R>(
 ///   - operation: An asynchronous operation.
 public func withIssueReporters<R>(
   _ reporters: [any IssueReporter],
-  operation: () throws -> R
+  operation: () async throws -> R
 ) async rethrows -> R {
   try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
-}
-
-public protocol IssueReporter: Sendable {
-  /// Called when an issue is reported.
-  ///
-  /// - Parameters:
-  ///   - message: A message describing the issue.
-  func reportIssue(
-    _ message: @autoclosure () -> String,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  )
-  
-  /// Called when an expected issue is reported.
-  ///
-  /// The default implementation of this conformance simply ignores the issue.
-  ///
-  /// - Parameters:
-  ///   - message: A message describing the issue.
-  func expectIssue(
-    _ message: @autoclosure () -> String,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  )
-}
-
-extension IssueReporter {
-  public func expectIssue(
-    _ message: @autoclosure () -> String,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  ) {}
 }

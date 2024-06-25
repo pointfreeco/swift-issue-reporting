@@ -4,6 +4,9 @@ Define XCTest assertion helpers directly in your application and library code.
 
 ## Overview
 
+> Important: This module is considered deprecated for `IssueReporting` and will be removed in the
+> next major version of the library.
+
 It is very common to write test support code for libraries and applications. This often comes in the 
 form of little domain-specific functions or helpers that make it easier for users of your code to 
 formulate assertions on behavior.
@@ -59,7 +62,6 @@ to prevent App Store rejections due to runtime loading of symbols.
 
 ### Overlays
 
-- ``XCTFail(_:)``
 - ``XCTFail(_:file:line:)``
 
 ### Unimplemented Dependencies

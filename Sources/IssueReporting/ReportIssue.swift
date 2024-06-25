@@ -12,6 +12,10 @@
 ///
 /// - Parameters:
 ///   - message: A message describing the issue.
+///   - fileID: The source `#fileID` associated with the issue.
+///   - filePath: The source `#filePath` associated with the issue.
+///   - line: The source `#line` associated with the issue.
+///   - column: The source `#column` associated with the issue.
 @_transparent
 public func reportIssue(
   _ message: @autoclosure () -> String = "",

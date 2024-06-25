@@ -118,7 +118,7 @@ var _XCTCurrentTestCase: AnyObject? {
   #else
     // NB: swift-corelibs-xctest doesn't provide a public symbol to detect if we're in a test, so we
     //     always consider ourselves in a test if XCTest is linked.
-    if xctFailPtr != nil {
+    if isTesting && xctFailPtr != nil {
       class Object {}
       return Object()
     }
