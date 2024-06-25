@@ -1,13 +1,16 @@
-/// Sets the context for issues reported 
+/// Sets the context for issues reported for the duration of the synchronous operation.
+///
+/// This context will override the implicit context from the call sites of
+/// ``reportIssue(_:fileID:filePath:line:column:)`` and
+/// ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``, and can be leveraged by
+/// custom test helpers that want to associate reported issues with specific source code.
 ///
 /// - Parameters:
-///   - fileID: <#fileID description#>
-///   - filePath: <#filePath description#>
-///   - line: <#line description#>
-///   - column: <#column description#>
-///   - operation: <#operation description#>
-/// - Throws: <#description#>
-/// - Returns: <#description#>
+///   - fileID: The source `#fileID` to associate with issues reported during the operation.
+///   - filePath: The source `#filePath` to associate with issues reported during the operation.
+///   - line: The source `#line` to associate with issues reported during the operation.
+///   - column: The source `#column` to associate with issues reported during the operation.
+///   - operation: A synchronous operation.
 public func withIssueContext<R>(
   fileID: StaticString,
   filePath: StaticString,
@@ -21,6 +24,16 @@ public func withIssueContext<R>(
   )
 }
 
+/// Sets the context for issues reported for the duration of the asynchronous operation.
+///
+/// An asynchronous version of ``withIssueContext(fileID:filePath:line:column:operation:)-97lux``.
+///
+/// - Parameters:
+///   - fileID: The source `#fileID` to associate with issues reported during the operation.
+///   - filePath: The source `#filePath` to associate with issues reported during the operation.
+///   - line: The source `#line` to associate with issues reported during the operation.
+///   - column: The source `#column` to associate with issues reported during the operation.
+///   - operation: An asynchronous operation.
 public func withIssueContext<R>(
   fileID: StaticString,
   filePath: StaticString,
