@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "testing-dynamic-overlay",
+  name: "swift-issue-reporting",
   platforms: [
     .iOS(.v13),
     .macOS(.v10_15),
@@ -11,18 +11,18 @@ let package = Package(
     .watchOS(.v6),
   ],
   products: [
-    .library(name: "TestingDynamicOverlay", targets: ["TestingDynamicOverlay"]),
+    .library(name: "IssueReporting", targets: ["IssueReporting"]),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
-    .target(name: "TestingDynamicOverlay"),
+    .target(name: "IssueReporting"),
     .testTarget(
-      name: "TestingDynamicOverlayTests",
-      dependencies: ["TestingDynamicOverlay"]
+      name: "IssueReportingTests",
+      dependencies: ["IssueReporting"]
     ),
     .target(
       name: "XCTestDynamicOverlay",
-      dependencies: ["TestingDynamicOverlay"]
+      dependencies: ["IssueReporting"]
     ),
     .testTarget(
       name: "XCTestDynamicOverlayTests",

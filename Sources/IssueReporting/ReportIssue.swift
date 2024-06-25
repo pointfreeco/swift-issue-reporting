@@ -39,17 +39,25 @@ public func reportIssue(
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
       observer.withLock { $0.count += 1 }
-      runtimeNote(
-        message(),
-        fileID: IssueContext.current?.fileID ?? fileID,
-        line: IssueContext.current?.line ?? line
-      )
+      for reporter in IssueReporters.current {
+        reporter.expectIssue(
+          message(),
+          fileID: IssueContext.current?.fileID ?? fileID,
+          filePath: IssueContext.current?.filePath ?? filePath,
+          line: IssueContext.current?.line ?? line,
+          column: IssueContext.current?.column ?? column
+        )
+      }
     } else {
-      runtimeWarn(
-        message(),
-        fileID: IssueContext.current?.fileID ?? fileID,
-        line: IssueContext.current?.line ?? line
-      )
+      for reporter in IssueReporters.current {
+        reporter.reportIssue(
+          message(),
+          fileID: IssueContext.current?.fileID ?? fileID,
+          filePath: IssueContext.current?.filePath ?? filePath,
+          line: IssueContext.current?.line ?? line,
+          column: IssueContext.current?.column ?? column
+        )
+      }
     }
   }
 }

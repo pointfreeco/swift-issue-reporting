@@ -69,18 +69,26 @@ public func withExpectedIssue(
       do {
         try body()
         if observer.withLock({ $0.count == 0 }), !isIntermittent {
-          runtimeWarn(
-            "Known issue was not recorded\(message.map { ": \($0)" } ?? "")",
-            fileID: IssueContext.current?.fileID ?? fileID,
-            line: IssueContext.current?.line ?? line
-          )
+          for reporter in IssueReporters.current {
+            reporter.reportIssue(
+              "Known issue was not recorded\(message.map { ": \($0)" } ?? "")",
+              fileID: IssueContext.current?.fileID ?? fileID,
+              filePath: IssueContext.current?.filePath ?? filePath,
+              line: IssueContext.current?.line ?? line,
+              column: IssueContext.current?.column ?? column
+            )
+          }
         }
       } catch {
-        runtimeNote(
-          "Caught error: \(error)",
-          fileID: IssueContext.current?.fileID ?? fileID,
-          line: IssueContext.current?.line ?? line
-        )
+        for reporter in IssueReporters.current {
+          reporter.expectIssue(
+            "Caught error: \(error)",
+            fileID: IssueContext.current?.fileID ?? fileID,
+            filePath: IssueContext.current?.filePath ?? filePath,
+            line: IssueContext.current?.line ?? line,
+            column: IssueContext.current?.column ?? column
+          )
+        }
       }
     }
     return
