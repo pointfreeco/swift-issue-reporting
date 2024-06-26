@@ -63,10 +63,10 @@ public struct RuntimeWarningReporter: IssueReporter {
         dso: dso,
         log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
         "%@",
-        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
+        message()
       )
     #else
-      fputs("􀢄 \(fileID):\(line): \(message())\n", stderr)
+      fputs("\(fileID):\(line): \(message())\n", stderr)
     #endif
   }
 
@@ -86,10 +86,10 @@ public struct RuntimeWarningReporter: IssueReporter {
           .info,
           log: OSLog(subsystem: "co.pointfree.expected-issues", category: moduleName),
           "%@",
-          "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
+          message()
         )
       #else
-        fputs("􀢄 \(fileID):\(line): \(message())\n", stdout)
+        fputs("\(fileID):\(line): \(message())\n", stdout)
       #endif
     #endif
   }
