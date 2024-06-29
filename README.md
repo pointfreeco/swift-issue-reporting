@@ -7,7 +7,102 @@
 Report issues in your application and library code as Xcode runtime warnings, test failures, and
 more.
 
-## Motivation
+## Overview
+
+Swift Issue Reporting lets you generate your own "purple" Xcode runtime warnings in application and
+library code:
+
+[![](todo://image-of-runtime-warnings)]
+
+Further, if one of these runtime warnings is emitted from a unit test, it will automatically be
+recorded as a test failure:
+
+[![](todo://image-of-test-failure)]
+
+And so the benefits are twofold: reporting issues will help you catch bugs during debug _and_ test
+sessions.
+
+While this is incredibly useful on its own, it only scratches the library's surface. This
+functionality is built on top of a highly flexible issue reporting system that can be used in a
+variety of ways.
+
+### Custom issue reporting
+
+<!-- TODO -->
+
+### Custom test helpers
+
+<!-- TODO -->
+
+## Case studies
+
+There are many popular libraries out there using Swift Issue Reporting. To name a few:
+
+<!-- TODO: Order? -->
+
+  * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
+    comes with powerful testing tools that support both Swift Testing and XCTest out of the box
+    thanks to Swift Issue Reporting. In addition, the library is heavily instrumented with issue
+    reporting to help developers catch bugs in their code early.
+
+  * [**Perception**](https://github.com/pointfreeco/swift-perception) is a back-port of Swift's
+    Observation framework that can be deployed all the way back to the iOS 13 generation of devices.
+    It provides a special SwiftUI view that can observe changes to objects annotated with the macro,
+    and uses Swift Issue Reporting to warn developers when this view is missing.
+
+  <!-- TODO: Rewrite for SwiftUI Navigation if Swift Issue Reporting is released first -->
+
+  * [**Swift Navigation**](https://github.com/pointfreeco/swiftui-navigation) provides concise
+    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
+    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
+
+  * [**Swift Dependencies**](https://github.com/pointfreeco/swift-dependencies) is a general purpose
+    dependency injection tool inspired by SwiftUI's environment. It uses Swift Issue Reporting to
+    notify users when they haven't asserted against how a dependency is used. This forces each test
+    to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
+    existing tests will fail until they account for it.
+
+  * [**Swift Snapshot Testing**](https://github.com/pointfreeco/swift-snapshot-testing) provides
+    test helpers that can automatically record failures to disk, or inline into tests when possible.
+    These helpers are powered by Swift Issue Reporting and are automatically supported in both
+    Swift Testing and XCTest.
+
+  * [**Swift Macro Testing**](https://github.com/pointfreeco/swift-macro-testing) builds upon
+    [Swift Snapshot Testing](https://github.com/pointfreeco/swift-snapshot-testing), but
+    specifically for macros. It uses the same issue reporting mechanism to provide test helpers to
+    both Swift Testing and XCTest.
+
+  * [**Swift Custom Dump**](https://github.com/pointfreeco/swift-custom-dump) is an improved version
+    of Swift's `dump` function, and a whole lot more. It provides well-formatted dumps of data types
+    that read like Swift code, as well as well-formatted diffs when data types are compared. It also
+    ships several test helpers powered by Swift Issue Reporting, including drop-in replacements for
+    `#expect(_ == _)` and `XCTAssertEqual` that render failures as concise diffs, as well as helpers
+    that allow you to assert against changes to data structures over time.
+
+  * [**Swift Clocks**](https://github.com/pointfreeco/swift-clocks) and
+    [**Combine Schedulers**](https://github.com/pointfreeco/combine-schedulers) are sibling packages
+    that use issue reporting to drive their "test" and "unimplemented" clocks and schedulers. "Test" 
+    clocks/schedulers allow you to _control time_ in tests, and will emit failures when expectations
+    aren't met. "Unimplemented" clocks/schedulers record unexpected usage as issues.
+
+<!-- TODO: The XCTest helpers are basically deprecated, and while we may add issue reporting to `modify`, it's pretty subtle to describe? -->
+<!-- * [**Case Paths**](https://github.com/pointfreeco/swift-case-paths) generates key paths for enum-->
+<!--   cases, which unlocks a variety of tools that close the ergonomic gap between structs and enums.-->
+
+Have another case study to share? [Let us know!](edit/main/README.md)
+
+## Documentation 
+
+Full documentation can be found
+[here](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting/main/documentation).
+
+## License
+
+This library is released under the MIT license. See [LICENSE](LICENSE) for details.
+
+---
+
+## Sketches
 
 Swift's built-in error reporting tools are rather blunt. You can use `assert`, `precondition`, or
 `fatalError` to catch issues early, but at the cost of crashes that can be disruptive to your debug
@@ -66,7 +161,7 @@ This library provides tools to do just that!
 These two functions can be employed by your applications and libraries to better catch problems when
 debugging and testing them.
 
-===
+## Old
 
 It is very common to write test support code for libraries and applications. This often comes in the
 form of little domain-specific functions or helpers that make it easier for users of your code to
@@ -241,13 +336,3 @@ extension AppDependencies {
 ```
 
 The above `placeholder` parameters can be left off, but will fatal error when the endpoint is called.
-
-## Documentation 
-
-Full documentation can be found [here][docs].
-
-## License
-
-This library is released under the MIT license. See [LICENSE](LICENSE) for details.
-
-[docs]: https://pointfreeco.github.io/xctest-dynamic-overlay/main/documentation/xctestdynamicoverlay
