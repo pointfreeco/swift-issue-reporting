@@ -21,10 +21,10 @@ public enum TestContext {
   public static var current: Self? {
     if Test.current != nil {
       return .swiftTesting
-    }
-    if _XCTCurrentTestCase != nil {
+    } else if _XCTCurrentTestCase != nil {
       return .xcTest
+    } else {
+      return nil
     }
-    return nil
   }
 }
