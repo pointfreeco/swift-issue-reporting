@@ -11,7 +11,7 @@ import Foundation
 @usableFromInline
 struct Issue {
   @usableFromInline
-  static func record(
+  static func __record(
     _ message: String = "",
     fileID: String = #fileID,
     filePath: String = #filePath,

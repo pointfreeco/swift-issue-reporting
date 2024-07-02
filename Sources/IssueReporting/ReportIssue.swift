@@ -26,7 +26,7 @@ public func reportIssue(
 ) {
   switch TestContext.current {
   case .swiftTesting:
-    Issue.record(
+    Issue.__record(
       message(),
       fileID: "\(IssueContext.current?.fileID ?? fileID)",
       filePath: "\(IssueContext.current?.filePath ?? filePath)",
