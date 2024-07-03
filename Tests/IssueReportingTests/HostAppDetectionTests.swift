@@ -1,7 +1,7 @@
 #if canImport(ObjectiveC)
   import XCTest
 
-  @testable import TestingDynamicOverlay
+  @testable import IssueReporting
 
   final class HostAppCallStackTests: XCTestCase {
     func testIsAbleToDetectTest() {
