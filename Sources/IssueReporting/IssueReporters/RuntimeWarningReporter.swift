@@ -58,12 +58,16 @@ public struct RuntimeWarningReporter: IssueReporter {
       let moduleName = String(
         Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
       )
+      var message = message()
+      if message.isEmpty {
+        message = "Issue reported"
+      }
       os_log(
         .fault,
         dso: dso,
         log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
         "%@",
-        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message())"
+        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message)"
       )
     #else
       fputs("􀢄 \(fileID):\(line): \(message())\n", stderr)
