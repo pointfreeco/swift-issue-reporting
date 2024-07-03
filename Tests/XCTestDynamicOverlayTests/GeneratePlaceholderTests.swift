@@ -8,6 +8,7 @@
   #endif
 
   final class GeneratePlaceholderTests: XCTestCase {
+    @available(*, deprecated)
     func testShouldGeneratePlaceholder() async throws {
       let bool: () -> Bool = unimplemented("bool")
       XCTAssertEqual(XCTExpectFailure(failingBlock: bool), false)
