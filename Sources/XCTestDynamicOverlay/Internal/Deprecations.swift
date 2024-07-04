@@ -1,8 +1,10 @@
 import Foundation
 
-// Deprecated after 1.1.2:
+#if canImport(FoundationNetworking)
+  import FoundationNetworking
+#endif
 
-// Soft-deprecated:
+// NB: Deprecated after 1.1.2
 
 @_disfavoredOverload
 @available(iOS, deprecated: 9999, renamed: "fail")
@@ -248,143 +250,8 @@ public var XCTCurrentTestCase: AnyObject? {
   #endif
 }
 
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () -> Result {
-  return {
-    _fail(description(), nil, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
 @_disfavoredOverload
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> Result {
-  _fail(description(), nil, fileID: fileID, line: line)
-  return placeholder()
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@_disfavoredOverload
+@available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
@@ -400,75 +267,16 @@ public func unimplemented<Result>(
   }
 }
 
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) -> Result {
-  return {
-    _fail(description(), $0, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
+@available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A) -> Result {
-  return {
+) -> @Sendable (repeat each A) -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -477,75 +285,16 @@ public func unimplemented<A, Result>(
   }
 }
 
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) -> Result {
-  return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
+@available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
+public func unimplemented<each A, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file: StaticString = #file,
   fileID: StaticString = #fileID,
   line: UInt = #line
-) -> @Sendable (A, B) -> Result {
-  return {
+) -> @Sendable (repeat each A) async -> Result {
+  return { (arg: repeat each A) in
     let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
+    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
     do {
       return try _generatePlaceholder()
     } catch {
@@ -554,1186 +303,8 @@ public func unimplemented<A, B, Result>(
   }
 }
 
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () throws -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async -> Result {
-  return {
-    _fail(description(), nil, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) async -> Result {
-  return {
-    _fail(description(), $0, fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) async -> Result {
-  return {
-    let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async -> Result {
-  return {
-    _fail(description(), ($0, $1), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  return {
-    _fail(description(), ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    return placeholder()
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: file, line: line)
-    }
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable () async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, nil, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, $0, fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public func unimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  fileID: StaticString = #fileID,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async throws -> Result {
-  return {
-    let description = description()
-    _fail(description, ($0, $1, $2, $3, $4), fileID: fileID, line: line)
-    throw UnimplementedFailure(description: description)
-  }
-}
-
-@available(
-  iOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  macOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  tvOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-@available(
-  watchOS,
-  deprecated: 9999,
-  message:
-    "'unimplemented' has been deprecated in favor of '@DependencyClient' and '@DependencyEndpoint' from the 'swift-dependencies' package. See https://github.com/pointfreeco/swift-dependencies for more information."
-)
-public struct UnimplementedFailure: Error {
-  public let description: String
-}
-
-func _fail(_ description: String, _ parameters: Any?, fileID: StaticString, line: UInt) {
-  var debugDescription = """
-     …
-
-      Defined at:
-        \(fileID):\(line)
-    """
-  if let parameters {
-    var parametersDescription = ""
-    debugPrint(parameters, terminator: "", to: &parametersDescription)
-    debugDescription.append(
-      """
-
-
-        Invoked with:
-          \(parametersDescription)
-      """
-    )
-  }
-  XCTFail(
-    """
-    Unimplemented\(description.isEmpty ? "" : ": \(description)")\(debugDescription)
-    """
-  )
-}
-
-func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
+@available(*, deprecated)
+private func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt) -> Never {
   fatalError(
     """
     unimplemented(\(message.isEmpty ? "" : message.debugDescription))
@@ -1745,369 +316,7 @@ func _unimplementedFatalError(_ message: String, file: StaticString, line: UInt)
   )
 }
 
-// Hard-deprecated:
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable () -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable () -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A) -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A) -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B) -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B) -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C) -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C) -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C, D) -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C, D, E) -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable () throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A) throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B) throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C) throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D) throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D, E) throws -> Result {
-  unimplemented(description())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable () async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable () async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A) async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B) async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C) async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C, D) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D) async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
-}
-
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
-  line: UInt = #line
-) -> @Sendable (A, B, C, D, E) async -> Result {
-  unimplemented(description(), file: file, line: line)
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable () async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A) async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B) async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C) async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D) async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<A, B, C, D, E, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (A, B, C, D, E) async throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "UnimplementedFailure")
-public typealias XCTUnimplementedFailure = UnimplementedFailure
-
-private protocol _DefaultInitializable {
-  init()
-}
-
-extension Array: _DefaultInitializable {}
-extension Bool: _DefaultInitializable {}
-extension Character: _DefaultInitializable { init() { self.init(" ") } }
-extension Dictionary: _DefaultInitializable {}
-extension Double: _DefaultInitializable {}
-extension Float: _DefaultInitializable {}
-extension Int: _DefaultInitializable {}
-extension Int8: _DefaultInitializable {}
-extension Int16: _DefaultInitializable {}
-extension Int32: _DefaultInitializable {}
-extension Int64: _DefaultInitializable {}
-extension Swift.Optional: _DefaultInitializable { init() { self = .none } }
-extension Set: _DefaultInitializable {}
-extension String: _DefaultInitializable {}
-extension Substring: _DefaultInitializable {}
-extension UInt: _DefaultInitializable {}
-extension UInt8: _DefaultInitializable {}
-extension UInt16: _DefaultInitializable {}
-extension UInt32: _DefaultInitializable {}
-extension UInt64: _DefaultInitializable {}
-
-extension AsyncStream: _DefaultInitializable {
-  init() { self.init { $0.finish() } }
-}
-
-extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
-  init() { self.init { $0.finish(throwing: CancellationError()) } }
-}
-
-#if canImport(Foundation)
-  import Foundation
-  #if canImport(FoundationNetworking)
-    import FoundationNetworking
-  #endif
-
-  extension Data: _DefaultInitializable {}
-  extension Date: _DefaultInitializable {}
-  extension Decimal: _DefaultInitializable {}
-  extension UUID: _DefaultInitializable {}
-  extension URL: _DefaultInitializable { init() { self.init(string: "/")! } }
-#endif
-
+@available(*, deprecated)
 extension _DefaultInitializable { fileprivate static var placeholder: Self { Self() } }
 extension AdditiveArithmetic { fileprivate static var placeholder: Self { .zero } }
 extension ExpressibleByArrayLiteral { fileprivate static var placeholder: Self { [] } }
@@ -2118,15 +327,19 @@ extension ExpressibleByIntegerLiteral { fileprivate static var placeholder: Self
 extension ExpressibleByUnicodeScalarLiteral { fileprivate static var placeholder: Self { " " } }
 extension RangeReplaceableCollection { fileprivate static var placeholder: Self { Self() } }
 
+@available(*, deprecated)
 private protocol _OptionalProtocol { static var none: Self { get } }
-extension Swift.Optional: _OptionalProtocol {}
+@available(*, deprecated)
+extension Optional: _OptionalProtocol {}
+@available(*, deprecated)
 private func _optionalPlaceholder<Result>() throws -> Result {
-  if let result = Result.self as? _OptionalProtocol.Type {
+  if let result = (Result.self as? _OptionalProtocol.Type) {
     return result.none as! Result
   }
   throw PlaceholderGenerationFailure()
 }
 
+@available(*, deprecated)
 private func _placeholder<Result>() -> Result? {
   switch Result.self {
   case let type as _DefaultInitializable.Type: return type.placeholder as? Result
@@ -2143,34 +356,141 @@ private func _placeholder<Result>() -> Result? {
   }
 }
 
+@available(*, deprecated)
 private func _rawRepresentable<Result>() -> Result? {
-  func possiblePlaceholder<T: RawRepresentable>(for type: T.Type) -> T? {
+  func posiblePlaceholder<T: RawRepresentable>(for type: T.Type) -> T? {
     (_placeholder() as T.RawValue?).flatMap(T.init(rawValue:))
   }
+
   return (Result.self as? any RawRepresentable.Type).flatMap {
-    possiblePlaceholder(for: $0) as? Result
+    posiblePlaceholder(for: $0) as? Result
   }
 }
 
+@available(*, deprecated)
 private func _caseIterable<Result>() -> Result? {
   func firstCase<T: CaseIterable>(for type: T.Type) -> Result? {
     T.allCases.first as? Result
   }
+
   return (Result.self as? any CaseIterable.Type).flatMap {
     firstCase(for: $0)
   }
 }
 
+@available(*, deprecated)
 struct PlaceholderGenerationFailure: Error {}
+@available(*, deprecated)
 func _generatePlaceholder<Result>() throws -> Result {
   if let result = _placeholder() as Result? {
     return result
   }
+
   if let result = _rawRepresentable() as Result? {
     return result
   }
+
   if let result = _caseIterable() as Result? {
     return result
   }
+
   return try _optionalPlaceholder()
 }
+
+@available(*, deprecated)
+private protocol _DefaultInitializable {
+  init()
+}
+
+@available(*, deprecated) extension Array: _DefaultInitializable {}
+@available(*, deprecated) extension Bool: _DefaultInitializable {}
+@available(*, deprecated) extension Character: _DefaultInitializable { init() { self.init(" ") } }
+@available(*, deprecated) extension Dictionary: _DefaultInitializable {}
+@available(*, deprecated) extension Double: _DefaultInitializable {}
+@available(*, deprecated) extension Float: _DefaultInitializable {}
+@available(*, deprecated) extension Int: _DefaultInitializable {}
+@available(*, deprecated) extension Int8: _DefaultInitializable {}
+@available(*, deprecated) extension Int16: _DefaultInitializable {}
+@available(*, deprecated) extension Int32: _DefaultInitializable {}
+@available(*, deprecated) extension Int64: _DefaultInitializable {}
+@available(*, deprecated) extension Set: _DefaultInitializable {}
+@available(*, deprecated) extension String: _DefaultInitializable {}
+@available(*, deprecated) extension Substring: _DefaultInitializable {}
+@available(*, deprecated) extension UInt: _DefaultInitializable {}
+@available(*, deprecated) extension UInt8: _DefaultInitializable {}
+@available(*, deprecated) extension UInt16: _DefaultInitializable {}
+@available(*, deprecated) extension UInt32: _DefaultInitializable {}
+@available(*, deprecated) extension UInt64: _DefaultInitializable {}
+
+@available(*, deprecated)
+extension AsyncStream: _DefaultInitializable {
+  init() { self.init { $0.finish() } }
+}
+
+@available(*, deprecated)
+extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
+  init() { self.init { $0.finish(throwing: CancellationError()) } }
+}
+
+#if canImport(Foundation)
+  @available(*, deprecated)extension Data: _DefaultInitializable {}
+  @available(*, deprecated)extension Date: _DefaultInitializable {}
+  @available(*, deprecated)extension Decimal: _DefaultInitializable {}
+  @available(*, deprecated)extension UUID: _DefaultInitializable {}
+  @available(*, deprecated)extension URL: _DefaultInitializable {
+    init() { self.init(string: "/")! }
+  }
+#endif
+
+@_disfavoredOverload
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (repeat each A) -> Result {
+  unimplemented(description(), placeholder: placeholder())
+}
+
+@_disfavoredOverload
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  line: UInt = #line
+) -> @Sendable (repeat each A) -> Result {
+  unimplemented(description(), file: file, line: line)
+}
+
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = ""
+) -> @Sendable (repeat each A) throws -> Result {
+  unimplemented(description())
+}
+
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  placeholder: @autoclosure @escaping @Sendable () -> Result
+) -> @Sendable (repeat each A) async -> Result {
+  unimplemented(description(), placeholder: placeholder())
+}
+
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  file: StaticString = #file,
+  line: UInt = #line
+) -> @Sendable (repeat each A) async -> Result {
+  unimplemented(description(), file: file, line: line)
+}
+
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each A, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = ""
+) -> @Sendable (repeat each A) async throws -> Result {
+  unimplemented(description())
+}
+
+@available(*, deprecated, renamed: "UnimplementedFailure")
+public typealias XCTUnimplementedFailure = UnimplementedFailure

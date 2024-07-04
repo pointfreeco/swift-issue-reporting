@@ -63,8 +63,13 @@ to prevent App Store rejections due to runtime loading of symbols.
 ### Overlays
 
 - ``XCTFail(_:file:line:)``
+- ``XCTExpectFailure(_:enabled:strict:failingBlock:issueMatcher:)``
 
-### Unimplemented Dependencies
+### Unimplemented dependencies
 
-- ``unimplemented(_:placeholder:fileID:line:)-7jrdo``
-- ``unimplemented(_:fileID:line:)-5098a``
+- ``unimplemented(_:placeholder:fileID:line:)-70bno``
+- ``unimplemented(_:fileID:line:)-7znj2``
+
+### Deprecated interfaces
+
+- <doc:Deprecations>
