@@ -7,12 +7,12 @@
         f00()
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f00 …
+          failed - Unimplemented: f00 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:99
+              XCTestDynamicOverlayTests/TestHelpers.swift:99:46
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ()
           """
       }
@@ -21,12 +21,12 @@
         f01("")
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f01 …
+          failed - Unimplemented: f01 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:100
+              XCTestDynamicOverlayTests/TestHelpers.swift:100:52
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ""
           """
       }
@@ -35,12 +35,12 @@
         f02("", 42)
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f02 …
+          failed - Unimplemented: f02 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:101
+              XCTestDynamicOverlayTests/TestHelpers.swift:101:57
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ("", 42)
           """
       }
@@ -49,12 +49,12 @@
         f03("", 42, 1.2)
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f03 …
+          failed - Unimplemented: f03 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:102
+              XCTestDynamicOverlayTests/TestHelpers.swift:102:65
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ("", 42, 1.2)
           """
       }
@@ -63,12 +63,12 @@
         f04("", 42, 1.2, [1, 2])
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f04 …
+          failed - Unimplemented: f04 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:103
+              XCTestDynamicOverlayTests/TestHelpers.swift:103:72
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ("", 42, 1.2, [1, 2])
           """
       }
@@ -79,12 +79,12 @@
         )
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f05 …
+          failed - Unimplemented: f05 …
 
             Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:104
+              XCTestDynamicOverlayTests/TestHelpers.swift:104:78
 
-            Invoked with:
+            Invoked from 'XCTestDynamicOverlayTests' with:
               ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
           """
       }
