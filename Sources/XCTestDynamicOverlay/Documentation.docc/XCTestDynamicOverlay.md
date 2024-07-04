@@ -69,4 +69,4 @@ to prevent App Store rejections due to runtime loading of symbols.
 
 ### Deprecated interfaces
 
-- <doc:/Deprecations.md>
+- <doc:Deprecations>
