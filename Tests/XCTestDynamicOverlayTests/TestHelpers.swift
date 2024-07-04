@@ -37,6 +37,7 @@ func MyXCTFail(_ message: String) {
 }
 #endif
 
+@available(*, deprecated)
 struct Client {
   var p00: () -> Int
   var p01: () throws -> Int
@@ -102,6 +103,7 @@ struct User { let id: UUID }
 @MainActor let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
 @MainActor let f05: (String, Int, Double, [Int], User) -> Int = unimplemented("f05", placeholder: 42)
 
+@available(*, deprecated)
 private struct Autoclosing {
   init(
     _: @autoclosure () -> Int = unimplemented(),
