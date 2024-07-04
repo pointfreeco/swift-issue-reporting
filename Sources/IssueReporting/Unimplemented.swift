@@ -4,7 +4,7 @@
 ///   - description: An optional description of the unimplemented closure.
 ///   - placeholder: A placeholder value returned from the closure when left unimplemented.
 /// - Returns: A closure that reports an issue when invoked.
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result = (),
   fileID: StaticString = #fileID,
@@ -12,11 +12,11 @@ public func unimplemented<each A, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) -> Result {
+  return { (argument: repeat each Argument) in
     _fail(
       description(),
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,
@@ -31,19 +31,19 @@ public func unimplemented<each A, Result>(
 ///
 /// - Parameter description: An optional description of the unimplemented closure.
 /// - Returns: A throwing closure that reports an issue and throws an error when invoked.
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) throws -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) throws -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
     _fail(
       description,
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,
@@ -60,7 +60,7 @@ public func unimplemented<each A, Result>(
 ///   - description: An optional description of the unimplemented closure.
 ///   - placeholder: A placeholder value returned from the closure when left unimplemented.
 /// - Returns: An asynchronous closure that reports an issue when invoked.
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result = (),
   fileID: StaticString = #fileID,
@@ -68,11 +68,11 @@ public func unimplemented<each A, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) async -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) async -> Result {
+  return { (argument: repeat each Argument) in
     _fail(
       description(),
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,
@@ -88,19 +88,19 @@ public func unimplemented<each A, Result>(
 /// - Parameter description: An optional description of the unimplemented closure.
 /// - Returns: A throwing, asynchronous closure that reports an issue and throws an error when
 ///   invoked.
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) async throws -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) async throws -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
     _fail(
       description,
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,

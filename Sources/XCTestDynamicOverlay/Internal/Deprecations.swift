@@ -278,18 +278,18 @@ public func unimplemented<Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file filePath: StaticString = #filePath,
   fileID: StaticString = #fileID,
   function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
     _fail(
       description,
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,
@@ -305,18 +305,18 @@ public func unimplemented<each A, Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file filePath: StaticString = #filePath,
   fileID: StaticString = #fileID,
   function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) async -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) async -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
     _fail(
       description,
-      (repeat each arg),
+      (repeat each argument),
       fileID: fileID,
       filePath: filePath,
       function: function,
@@ -472,7 +472,7 @@ extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
 
 @_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
   fileID: StaticString = #fileID,
@@ -480,7 +480,7 @@ public func XCTUnimplemented<each A, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) -> Result {
+) -> @Sendable (repeat each Argument) -> Result {
   unimplemented(
     description(),
     placeholder: placeholder(),
@@ -494,13 +494,13 @@ public func XCTUnimplemented<each A, Result>(
 
 @_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) -> Result {
+) -> @Sendable (repeat each Argument) -> Result {
   unimplemented(
     description(),
     file: filePath,
@@ -511,14 +511,14 @@ public func XCTUnimplemented<each A, Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each A) throws -> Result {
+) -> @Sendable (repeat each Argument) throws -> Result {
   unimplemented(
     description(),
     fileID: fileID,
@@ -530,14 +530,14 @@ public func XCTUnimplemented<each A, Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   placeholder: @autoclosure @escaping @Sendable () -> Result,
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) async -> Result {
+) -> @Sendable (repeat each Argument) async -> Result {
   unimplemented(
     description(),
     file: filePath,
@@ -548,13 +548,13 @@ public func XCTUnimplemented<each A, Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) async -> Result {
+) -> @Sendable (repeat each Argument) async -> Result {
   unimplemented(
     description(),
     file: filePath,
@@ -565,9 +565,9 @@ public func XCTUnimplemented<each A, Result>(
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (repeat each A) async throws -> Result {
+) -> @Sendable (repeat each Argument) async throws -> Result {
   unimplemented(description())
 }
 
