@@ -89,6 +89,9 @@
             Invoked with:
               ()
           """
+          || issue.description == """
+            Caught error: UnimplementedFailure(description: "")
+            """
       }
     }
 

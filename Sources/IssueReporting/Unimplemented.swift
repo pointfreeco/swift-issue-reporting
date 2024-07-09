@@ -150,8 +150,8 @@ package func _fail(
   var debugDescription = """
      …
 
-      Defined at:
-        \(fileID):\(line):\(column)
+      Defined in '\(function)' at:
+        \(fileID):\(line)
     """
   if let parameters {
     var parametersDescription = ""
@@ -160,7 +160,7 @@ package func _fail(
       """
 
 
-        Invoked from '\(function)' with:
+        Invoked with:
           \(parametersDescription)
       """
     )

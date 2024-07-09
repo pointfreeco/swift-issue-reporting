@@ -51,7 +51,7 @@ struct Issue {
             @autoclosure () -> String?,
             @autoclosure () -> [Any],
             Bool,
-            SourceLocation
+            _SourceLocation
           ) -> Result<Void, any Error>
         )
         .self
@@ -64,7 +64,7 @@ struct Issue {
         nil,
         [],
         false,
-        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+        _SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
       )
     }
   }
@@ -102,7 +102,7 @@ func withKnownIssue(
         @convention(thin) (
           Any?,
           Bool,
-          SourceLocation,
+          _SourceLocation,
           () throws -> Void
         ) -> Void
       )
@@ -112,7 +112,7 @@ func withKnownIssue(
     withKnownIssue(
       comment,
       isIntermittent,
-      SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+      _SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
       body
     )
   }
@@ -153,7 +153,7 @@ private struct TypeInfo: Sendable {
   var _kind: _Kind
 }
 
-private struct SourceLocation: Sendable {
+private struct _SourceLocation: Sendable {
   var fileID: String
   var _filePath: String
   var line: Int
@@ -198,7 +198,7 @@ struct Test: @unchecked Sendable {
   private var name: String
   private var displayName: String?
   private var traits: [any Trait]
-  private var sourceLocation: SourceLocation
+  private var sourceLocation: _SourceLocation
   private var containingTypeInfo: TypeInfo?
   private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
   fileprivate enum TestCasesState: @unchecked Sendable {

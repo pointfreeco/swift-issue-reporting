@@ -9,10 +9,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f00 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:99:46
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:99
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ()
           """
       }
@@ -23,10 +23,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f01 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:100:52
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:100
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ""
           """
       }
@@ -37,10 +37,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f02 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:101:57
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:101
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ("", 42)
           """
       }
@@ -51,10 +51,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f03 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:102:65
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:102
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ("", 42, 1.2)
           """
       }
@@ -65,10 +65,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f04 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:103:72
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:103
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ("", 42, 1.2, [1, 2])
           """
       }
@@ -81,10 +81,10 @@
         $0.compactDescription == """
           failed - Unimplemented: f05 …
 
-            Defined at:
-              XCTestDynamicOverlayTests/TestHelpers.swift:104:78
+            Defined in 'XCTestDynamicOverlayTests' at:
+              XCTestDynamicOverlayTests/TestHelpers.swift:104
 
-            Invoked from 'XCTestDynamicOverlayTests' with:
+            Invoked with:
               ("", 42, 1.2, [1, 2], XCTestDynamicOverlayTests.User(id: DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF))
           """
       }
