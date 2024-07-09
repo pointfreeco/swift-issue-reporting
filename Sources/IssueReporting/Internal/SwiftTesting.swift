@@ -84,8 +84,8 @@ func withKnownIssue(
     let withKnownIssuePtr = dlsym(
       dlopen(nil, RTLD_LAZY),
       """
-      $s7Testing14withKnownIssue_14isIntermittent6fileID0G4Path4line6column_yAA7CommentVSg_SbS2SS2i\
-      yyKXEtF
+      $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyK\
+      XEtF
       """
     )
   else { return }
@@ -96,17 +96,13 @@ func withKnownIssue(
     c.rawValue = message
     comment = c
   }
-
   withUnsafePointer(to: withKnownIssuePtr) {
     let withKnownIssue = UnsafeRawPointer($0).assumingMemoryBound(
       to: (
         @convention(thin) (
           Any?,
           Bool,
-          String,
-          String,
-          Int,
-          Int,
+          SourceLocation,
           () throws -> Void
         ) -> Void
       )
@@ -114,7 +110,10 @@ func withKnownIssue(
     )
     .pointee
     withKnownIssue(
-      comment, isIntermittent, fileID, filePath, line, column, body
+      comment,
+      isIntermittent,
+      SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+      body
     )
   }
 }

@@ -95,7 +95,7 @@
     @Test func throwing() throws {
       final class Model: Sendable {
         let line = #line + 1
-        let callback: @Sendable () throws -> Void = IssueReporting.throwing()
+        let callback: @Sendable () throws -> Void = IssueReporting.unimplemented()
       }
 
       let model = Model()
