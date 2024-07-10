@@ -67,7 +67,7 @@ public struct RuntimeWarningReporter: IssueReporter {
         dso: dso,
         log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
         "%@",
-        "\(isTesting ? "􀢄 \(fileID):\(line): " : "")\(message)"
+        "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
       )
     #else
       fputs("\(fileID):\(line): \(message() ?? "")\n", stderr)
@@ -75,7 +75,7 @@ public struct RuntimeWarningReporter: IssueReporter {
   }
 
   public func expectIssue(
-    _ message: @autoclosure () -> String,
+    _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
@@ -86,11 +86,15 @@ public struct RuntimeWarningReporter: IssueReporter {
         let moduleName = String(
           Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
         )
+        var message = message() ?? ""
+        if message.isEmpty {
+          message = "Issue expected"
+        }
         os_log(
           .info,
           log: OSLog(subsystem: "co.pointfree.expected-issues", category: moduleName),
           "%@",
-          message()
+          "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
         )
       #else
         fputs("\(fileID):\(line): \(message() ?? "")\n", stdout)
