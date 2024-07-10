@@ -14,6 +14,16 @@ public func _XCTExpectFailure(
   failingBlock: () throws -> Void
 ) rethrows {
   #if canImport(XCTest)
-    try XCTExpectFailure(failureReason, strict: strict, failingBlock: failingBlock)
+    #if _runtime(_ObjC)
+      try XCTExpectFailure(failureReason, strict: strict, failingBlock: failingBlock)
+    #else
+      XCTFail(
+        """
+        'XCTExpectFailure' is not available on this platform.
+
+        Consider using Swift Testing and 'withKnownIssue', instead.
+        """
+      )
+    #endif
   #endif
 }
