@@ -48,7 +48,7 @@ public struct RuntimeWarningReporter: IssueReporter {
 
   @_transparent
   public func reportIssue(
-    _ message: @autoclosure () -> String = "",
+    _ message: @autoclosure () -> String?, // TODO: Handle `nil`/`""` better
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
@@ -58,7 +58,7 @@ public struct RuntimeWarningReporter: IssueReporter {
       let moduleName = String(
         Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
       )
-      var message = message()
+      var message = message() ?? ""
       if message.isEmpty {
         message = "Issue reported"
       }

@@ -15,7 +15,13 @@ let package = Package(
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
-    .target(name: "IssueReporting"),
+    .target(
+      name: "IssueReporting",
+      dependencies: ["IssueReportingTestSupport"]
+    ),
+    .target(
+      name: "IssueReportingTestSupport"
+    ),
     .testTarget(
       name: "IssueReportingTests",
       dependencies: ["IssueReporting"]

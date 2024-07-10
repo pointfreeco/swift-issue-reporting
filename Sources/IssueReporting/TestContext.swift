@@ -5,7 +5,8 @@ public enum TestContext {
 
   /// The XCTest framework.
   case xcTest
-  
+
+  // TODO: Fix docs
   /// The context associated with current test.
   ///
   /// How the test context is detected depends on the framework:
@@ -19,12 +20,11 @@ public enum TestContext {
   ///
   /// To detect if the current process is a test runner, use ``isTesting``, instead.
   public static var current: Self? {
-    if Test.current != nil {
+    guard isTesting else { return nil }
+    if _testCurrentIsNotNil() {
       return .swiftTesting
-    } else if _XCTCurrentTestCase != nil {
-      return .xcTest
     } else {
-      return nil
+      return .xcTest
     }
   }
 }

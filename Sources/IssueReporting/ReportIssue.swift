@@ -18,7 +18,7 @@
 ///   - column: The source `#column` associated with the issue.
 @_transparent
 public func reportIssue(
-  _ message: @autoclosure () -> String = "",
+  _ message: @autoclosure () -> String? = nil,
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   line: UInt = #line,
@@ -26,16 +26,16 @@ public func reportIssue(
 ) {
   switch TestContext.current {
   case .swiftTesting:
-    Issue.record(
-      message(),
+    _recordIssue(
+      message: message(),
       fileID: "\(IssueContext.current?.fileID ?? fileID)",
       filePath: "\(IssueContext.current?.filePath ?? filePath)",
       line: Int(IssueContext.current?.line ?? line),
       column: Int(IssueContext.current?.column ?? column)
     )
   case .xcTest:
-    XCTFail(
-      message().withAppHostWarningIfNeeded(),
+    _XCTFail(
+      message().withAppHostWarningIfNeeded() ?? "",
       file: IssueContext.current?.filePath ?? filePath,
       line: IssueContext.current?.line ?? line
     )

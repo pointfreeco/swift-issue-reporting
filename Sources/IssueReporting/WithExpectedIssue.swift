@@ -44,26 +44,20 @@ public func withExpectedIssue(
 ) {
   switch TestContext.current {
   case .swiftTesting:
-    withKnownIssue(
+    _withKnownIssue(
       message,
       isIntermittent: isIntermittent,
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column),
       body
     )
   case .xcTest:
-    XCTExpectFailure(
+    _XCTExpectFailure(
       message.withAppHostWarningIfNeeded(),
-      strict: !isIntermittent,
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
+      strict: !isIntermittent
     ) {
       do {
         try body()
       } catch {
-        XCTFail("Caught error: \(error)", file: filePath, line: line)
+        _XCTFail("Caught error: \(error)", file: filePath, line: line)
       }
     }
   case nil:

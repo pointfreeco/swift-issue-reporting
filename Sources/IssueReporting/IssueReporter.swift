@@ -9,7 +9,7 @@ public protocol IssueReporter: Sendable {
   ///   - line: The source `#line` associated with the issue.
   ///   - column: The source `#column` associated with the issue.
   func reportIssue(
-    _ message: @autoclosure () -> String,
+    _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
@@ -27,7 +27,7 @@ public protocol IssueReporter: Sendable {
   ///   - line: The source `#line` associated with the issue.
   ///   - column: The source `#column` associated with the issue.
   func expectIssue(
-    _ message: @autoclosure () -> String,
+    _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
@@ -37,7 +37,7 @@ public protocol IssueReporter: Sendable {
 
 extension IssueReporter {
   public func expectIssue(
-    _ message: @autoclosure () -> String,
+    _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,

@@ -10,13 +10,13 @@ extension IssueReporter where Self == FatalErrorReporter {
 /// Use ``IssueReporter/fatalError`` to create one of these values.
 public struct FatalErrorReporter: IssueReporter {
   public func reportIssue(
-    _ message: @autoclosure () -> String,
+    _ message: @autoclosure () -> String?, // TODO: Handle `nil`/`""` better
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
     column: UInt
   ) {
-    Swift.fatalError(message(), file: filePath, line: line)
+    Swift.fatalError(message() ?? "", file: filePath, line: line)
   }
 
   // TODO: Should this reporter do anything with *expected* issues?
