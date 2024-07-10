@@ -11,36 +11,38 @@ final class XCTestTests: XCTestCase {
   func testTestContext() {
     XCTAssertEqual(TestContext.current, .xcTest)
   }
-  
-  func testReportIssue_NoMessage() {
-    XCTExpectFailure {
-      reportIssue()
-    } issueMatcher: {
-      $0.compactDescription == "failed"
-    }
-  }
-  
-  func testReportIssue_CustomMessage() {
-    XCTExpectFailure {
-      reportIssue("Something went wrong")
-    } issueMatcher: {
-      $0.compactDescription == "failed - Something went wrong"
-    }
-  }
-  
-  func testWithExpectedIssue() {
-    withExpectedIssue {
-      reportIssue("Something went wrong")
-    }
-  }
 
-  func testWithExpectedIssue_XCTFail() {
-    withExpectedIssue {
-      XCTFail()
+  #if _runtime(_ObjC)
+    func testReportIssue_NoMessage() {
+      XCTExpectFailure {
+        reportIssue()
+      } issueMatcher: {
+        $0.compactDescription == "failed"
+      }
     }
-  }
 
-  func testWithExpectedIssue_Throwing() {
-    withExpectedIssue { throw Failure() }
-  }
+    func testReportIssue_CustomMessage() {
+      XCTExpectFailure {
+        reportIssue("Something went wrong")
+      } issueMatcher: {
+        $0.compactDescription == "failed - Something went wrong"
+      }
+    }
+
+    func testWithExpectedIssue() {
+      withExpectedIssue {
+        reportIssue("Something went wrong")
+      }
+    }
+
+    func testWithExpectedIssue_XCTFail() {
+      withExpectedIssue {
+        XCTFail()
+      }
+    }
+
+    func testWithExpectedIssue_Throwing() {
+      withExpectedIssue { throw Failure() }
+    }
+  #endif
 }
