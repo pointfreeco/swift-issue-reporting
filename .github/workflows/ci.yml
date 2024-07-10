@@ -52,7 +52,7 @@ jobs:
        - name: Build tests
          run: swift build --triple wasm32-unknown-wasi --build-tests
        - name: Run tests
-         run: wasmtime --dir . .build/debug/xctest-dynamic-overlayPackageTests.wasm
+         run: wasmtime --dir . .build/debug/swift-issue-reportingPackageTests.wasm
 
   windows:
     name: Windows
