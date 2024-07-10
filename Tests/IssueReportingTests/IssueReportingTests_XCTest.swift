@@ -4,13 +4,15 @@ import XCTest
 struct Failure: Error {}
 
 final class XCTestTests: XCTestCase {
-  func testIsTesting() {
-    XCTAssertTrue(isTesting)
-  }
+  #if !os(WASI)
+    func testIsTesting() {
+      XCTAssertTrue(isTesting)
+    }
 
-  func testTestContext() {
-    XCTAssertEqual(TestContext.current, .xcTest)
-  }
+    func testTestContext() {
+      XCTAssertEqual(TestContext.current, .xcTest)
+    }
+  #endif
 
   #if _runtime(_ObjC)
     func testReportIssue_NoMessage() {
