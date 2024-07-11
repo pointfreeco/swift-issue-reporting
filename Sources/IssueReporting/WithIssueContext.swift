@@ -49,8 +49,7 @@ public func withIssueContext<R>(
 
 @usableFromInline
 struct IssueContext: Sendable {
-  @usableFromInline
-  @TaskLocal static var current: Self?
+  @TaskLocal public static var current: Self?
   @usableFromInline
   let fileID: StaticString
   @usableFromInline

@@ -1,13 +1,21 @@
+import Foundation
+
 @usableFromInline
-struct FailureObserver {
-  @usableFromInline
-  @TaskLocal static var current: LockIsolated<Self>?
-  @usableFromInline
-  static var _$current: TaskLocal<LockIsolated<Self>?> { $current }
-  @usableFromInline
-  var count: Int
+final class FailureObserver: @unchecked Sendable {
+  @TaskLocal public static var current: FailureObserver?
+
+  private let lock = NSRecursiveLock()
+  private var count = 0
+
   @usableFromInline
   init(count: Int = 0) {
     self.count = count
+  }
+
+  @usableFromInline
+  func withLock<R>(_ body: (inout Int) -> R) -> R {
+    lock.withLock {
+      body(&count)
+    }
   }
 }

@@ -62,11 +62,11 @@ public func withExpectedIssue(
     }
   case nil:
     guard !isTesting else { return }
-    let observer = LockIsolated(FailureObserver())
-    FailureObserver._$current.withValue(observer) {
+    let observer = FailureObserver()
+    FailureObserver.$current.withValue(observer) {
       do {
         try body()
-        if observer.withLock({ $0.count == 0 }), !isIntermittent {
+        if observer.withLock({ $0 == 0 }), !isIntermittent {
           for reporter in IssueReporters.current {
             reporter.reportIssue(
               "Known issue was not recorded\(message.map { ": \($0)" } ?? "")",

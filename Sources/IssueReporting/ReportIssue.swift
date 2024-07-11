@@ -42,7 +42,7 @@ public func reportIssue(
   case nil:
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
-      observer.withLock { $0.count += 1 }
+      observer.withLock { $0 += 1 }
       for reporter in IssueReporters.current {
         reporter.expectIssue(
           message(),
