@@ -50,17 +50,21 @@ let testSupportVersion: Version = "0.1.0"
   //     from: testSupportVersion
   //   )
   // )
+  package.targets.append(
+    "IssueReportingTestSupport"
+  )
 #endif
 
 for target in package.targets {
   if target.name == "IssueReporting" {
-    // #if os(macOS)
+    #if os(macOS)
       target.dependencies.append("IssueReportingTestSupport")
-    // #else
-    //   target.dependencies.append(
-    //     .product(name: "IssueReportingTestSupport", package: "swift-issue-reporting-support")
-    //   )
-    // #endif
+    #else
+      // target.dependencies.append(
+      //   .product(name: "IssueReportingTestSupport", package: "swift-issue-reporting-support")
+      // )
+      target.dependencies.append("IssueReportingTestSupport")
+    #endif
   }
 }
 
