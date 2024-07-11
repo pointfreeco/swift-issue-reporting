@@ -41,7 +41,7 @@ let testSupportVersion: Version = "0.1.0"
       name: "IssueReportingTestSupport",
       // url: "https://github.com/pointfreeco/swift-issue-reporting-support/release/\(testSupportVersion)/TODO",
       // checksum: "TODO"
-      path: "Sources/IssueReportingTestSupport.xcframework"
+      path: "Sources/IssueReportingTestSupport.600.xcframework"
     )
   )
 #else
