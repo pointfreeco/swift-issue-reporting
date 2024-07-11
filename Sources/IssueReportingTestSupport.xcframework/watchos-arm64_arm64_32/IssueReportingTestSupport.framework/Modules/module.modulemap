@@ -1,0 +1,6 @@
+framework module IssueReportingTestSupport {
+  umbrella header "IssueReportingTestSupport.h"
+  export *
+
+  module * { export * }
+}
