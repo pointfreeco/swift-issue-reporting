@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.5.15 clang-1600.0.22.6)
-// swift-module-flags: -target arm64-apple-tvos18.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name IssueReportingTestSupport
+// swift-module-flags: -target arm64-apple-tvos15.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name IssueReportingTestSupport
 @_exported import IssueReportingTestSupport
 import Swift
 import Testing
