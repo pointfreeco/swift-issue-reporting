@@ -51,7 +51,9 @@ let testSupportVersion: Version = "0.1.0"
   //   )
   // )
   package.targets.append(
-    "IssueReportingTestSupport"
+    .target(
+      name: "IssueReportingTestSupport"
+    )
   )
 #endif
 
