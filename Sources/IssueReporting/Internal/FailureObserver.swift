@@ -14,8 +14,8 @@ final class FailureObserver: @unchecked Sendable {
 
   @usableFromInline
   func withLock<R>(_ body: (inout Int) -> R) -> R {
-    lock.withLock {
-      body(&count)
-    }
+    lock.lock()
+    defer { lock.unlock() }
+    return body(&count)
   }
 }
