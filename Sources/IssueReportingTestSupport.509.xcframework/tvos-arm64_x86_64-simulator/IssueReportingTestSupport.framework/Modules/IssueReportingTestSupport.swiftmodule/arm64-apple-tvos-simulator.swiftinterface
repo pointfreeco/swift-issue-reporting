@@ -1,15 +1,14 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-tvos13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name IssueReportingTestSupport
 // swift-module-flags-ignorable: -enable-bare-slash-regex
-@_exported import IssueReportingTestSupport
 import Swift
 import XCTest
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public func _XCTFail(_ message: Swift.String, file: Swift.StaticString, line: Swift.UInt)
-public func _XCTExpectFailure(_ failureReason: Swift.String?, strict: Swift.Bool?, failingBlock: () throws -> Swift.Void) rethrows
 public func _recordIssue(message: Swift.String?, fileID: Swift.String, filePath: Swift.String, line: Swift.Int, column: Swift.Int)
 public func _withKnownIssue(_ message: Swift.String?, isIntermittent: Swift.Bool, _ body: () throws -> Swift.Void)
 public func _testCurrentIsNotNil() -> Swift.Bool
+public func _XCTFail(_ message: Swift.String, file: Swift.StaticString, line: Swift.UInt)
+public func _XCTExpectFailure(_ failureReason: Swift.String?, strict: Swift.Bool?, failingBlock: () throws -> Swift.Void) rethrows

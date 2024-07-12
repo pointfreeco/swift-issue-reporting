@@ -4,9 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<data>
-		WrzXheLzgy+bbQErbxOOIR+dbl8=
+		0adExh1CYzGfxmsuvnosAOW8sRg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.private.swiftinterface</key>
 		<data>
-		/VhKKPnoMDmTusx+nFk44/pPJfE=
+		PUtv5f41CcaL5Swcn0GVfpz5jWw=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.swiftdoc</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.swiftinterface</key>
 		<data>
-		/VhKKPnoMDmTusx+nFk44/pPJfE=
+		PUtv5f41CcaL5Swcn0GVfpz5jWw=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.swiftmodule</key>
 		<data>
-		SH5AVQKgo5vPEPjddDYQJEm4tsU=
+		VKLNPGXzo7itGucvacKF8rNLNUY=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.abi.json</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.private.swiftinterface</key>
 		<data>
-		Uf+YduJYNqE3xi5wZQBKSJx6PlA=
+		oAdjU2sn6fClan+WAEVUz7GqMjs=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.swiftdoc</key>
 		<data>
@@ -46,24 +46,24 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.swiftinterface</key>
 		<data>
-		Uf+YduJYNqE3xi5wZQBKSJx6PlA=
+		oAdjU2sn6fClan+WAEVUz7GqMjs=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.swiftmodule</key>
 		<data>
-		HO9s5xWn5HJt3hkRnoElVKkr1dA=
+		Csi/RlkgjhpQKm/GG2nZMUBGncA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		CXitLBuhFRumi085iDtyIsseWII=
+		XrCZc6JQ2A7xX8lCBLQAVdG5Jww=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1oYtTbe2JeMlqBTyFVnuxXM7Abqn3RD8RwtIbtmpDXg=
+			bIa6uFTvxSJN+SXTE3MQ0Q80xJLfRX9A7pOy8jVnK4w=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.abi.json</key>
@@ -77,7 +77,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			l4gD0VA/a74QyeHHNgjnmELFo9biHrmzHCS7Ny2ZTTM=
+			yN1GhSXioGCnU7Y3UNgTzY953bGH5JAbg3Do8iPFsVs=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.swiftdoc</key>
@@ -91,14 +91,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			l4gD0VA/a74QyeHHNgjnmELFo9biHrmzHCS7Ny2ZTTM=
+			yN1GhSXioGCnU7Y3UNgTzY953bGH5JAbg3Do8iPFsVs=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-xros-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Cazle/OgsXm8cSR6khT7jyyfGCxpGtu5RE9ohmMj0aw=
+			U8Q/RMOvMYEgMZL1CgPtfiD1MlEiav0Fkbv+K9BuKjQ=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.abi.json</key>
@@ -112,7 +112,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8xsRnr5qneTPEEcRFj3sutmjHeN7fiCw7tBOeQqe7W4=
+			9ygWDyc/Hv9lx2iImnnqsfAbFxYq7jkyn0fR5zq1Ys0=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.swiftdoc</key>
@@ -126,21 +126,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8xsRnr5qneTPEEcRFj3sutmjHeN7fiCw7tBOeQqe7W4=
+			9ygWDyc/Hv9lx2iImnnqsfAbFxYq7jkyn0fR5zq1Ys0=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-xros-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			QQMZJ9XtPBHnP1T9OaX0ddUWfQsj/SgVXR5X4PM5lnY=
+			ggnoP0cmKXCveEIqxPgfq/VTf4YF6iGcvUjLMKKtGxQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			10Y9Ft89+6D8mkO2GYnhQYRFwCJGRGJgDdx5X2YRvkk=
+			kFrcRSAQcrUTMfhROg6SI6MpJHIjeKnYTqcS8ibORYQ=
 			</data>
 		</dict>
 	</dict>

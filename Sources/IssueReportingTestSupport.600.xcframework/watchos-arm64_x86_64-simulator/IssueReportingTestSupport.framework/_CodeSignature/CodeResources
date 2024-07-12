@@ -4,13 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<data>
-		WrzXheLzgy+bbQErbxOOIR+dbl8=
+		0adExh1CYzGfxmsuvnosAOW8sRg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JelG0MZotSwV53LCxI20/WkVNS8=
+		2cu7d3EShR0s4h3rpigID5PNWVI=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.abi.json</key>
 		<data>
@@ -18,19 +18,19 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.private.swiftinterface</key>
 		<data>
-		yGWrCyJIgG3Z6fzwsQlX9qwgk+A=
+		7Vy79z0k4iqhOzhKLizFDeOLP/U=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftdoc</key>
 		<data>
-		3nmusbmbVUaf2qe3yMQSV6gsn0Y=
+		oedXE7qrd+E2a7qLausrma9wDoU=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftinterface</key>
 		<data>
-		yGWrCyJIgG3Z6fzwsQlX9qwgk+A=
+		7Vy79z0k4iqhOzhKLizFDeOLP/U=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftmodule</key>
 		<data>
-		mu8c05WBjO6QC7Td6yHBwrd3YJQ=
+		0rfQLxL/oLZUyqtsRDs0Cu03kM4=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.abi.json</key>
 		<data>
@@ -38,32 +38,32 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.private.swiftinterface</key>
 		<data>
-		xZtu3o10n9XqfRSgnpHe1F0eBI4=
+		+9OVSN5uxRzPjYZU1rOcZdfLtwY=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftdoc</key>
 		<data>
-		79QqwZq4eIEKKw+E2DxD1kj/pNU=
+		hEEbJtzwZbV0RZdWZxw/59PCU9c=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftinterface</key>
 		<data>
-		xZtu3o10n9XqfRSgnpHe1F0eBI4=
+		+9OVSN5uxRzPjYZU1rOcZdfLtwY=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftmodule</key>
 		<data>
-		M0yEgmlIhnsJrt7uDpSayrVHbdk=
+		gz2OExaetadfTSyG/KCnftG9Iw0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		CXitLBuhFRumi085iDtyIsseWII=
+		XrCZc6JQ2A7xX8lCBLQAVdG5Jww=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1oYtTbe2JeMlqBTyFVnuxXM7Abqn3RD8RwtIbtmpDXg=
+			bIa6uFTvxSJN+SXTE3MQ0Q80xJLfRX9A7pOy8jVnK4w=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.abi.json</key>
@@ -77,28 +77,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KebwOxnVZBEIFYXeP7RWGBmJezsolyjG23XW/CNlJL4=
+			hQRzvDnPT0TOcEyJoeLorInhs1JHrG3XJb+dA2I0hSM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+OQJNC1ZDOXsy1IhXLK8LM6OfmcCqftTvl6gmiaQ55w=
+			rGdi9Ob7gQGTz8UdB3vttdZXJQboC0J+0QEc1/N4cOI=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KebwOxnVZBEIFYXeP7RWGBmJezsolyjG23XW/CNlJL4=
+			hQRzvDnPT0TOcEyJoeLorInhs1JHrG3XJb+dA2I0hSM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-watchos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6CKcbPk7aqUFskyeW1u6Ca6zDyQT5KzCh4YjAM8hUXw=
+			aFtPIvT9LTmHQUs4VAD4/LYAxMQm87jPR0ZOOUTlzdA=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.abi.json</key>
@@ -112,35 +112,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v1aspnTfTRm3Z5Aj8P2IXvjVzsPRmQRP2x+XVRrdADY=
+			aAae63HpsdCt8FcAXvqMWJPyezHruM2uM1PslkyfRRo=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G1xkN3IxatWyJIl3DoEGP4xUC48ELS9JknwelW5/kXw=
+			F7mHJm/nWpCOGvZpHEGCftvRaIREOlgsZmJdPzxmOlU=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			v1aspnTfTRm3Z5Aj8P2IXvjVzsPRmQRP2x+XVRrdADY=
+			aAae63HpsdCt8FcAXvqMWJPyezHruM2uM1PslkyfRRo=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-watchos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yt8otrqI7v53DUS56ZMcYAmPU/YMkvJ1ejhQoNzP0/c=
+			wDfQFFPhjfRH0P0cA5lG2VvAwxS48VQIGNQCcughC8g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			10Y9Ft89+6D8mkO2GYnhQYRFwCJGRGJgDdx5X2YRvkk=
+			kFrcRSAQcrUTMfhROg6SI6MpJHIjeKnYTqcS8ibORYQ=
 			</data>
 		</dict>
 	</dict>

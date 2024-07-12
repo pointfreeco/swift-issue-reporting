@@ -4,13 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<data>
-		WrzXheLzgy+bbQErbxOOIR+dbl8=
+		0adExh1CYzGfxmsuvnosAOW8sRg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		7uAah8W9/eEYOLPPldpXb6Skefk=
+		wONRfZ4PYwhfjG0NAag0V4YWdQw=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -18,19 +18,19 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		oAOLTa5OqaRzSs6mB4Cua2sxwWw=
+		P2115MOne3TAHeyX2khSC2vkwLs=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Xd67PfeAoCVIzS5eZM+Egim/yFE=
+		vXUcZmXWA/k6WaacgDCuvurgn3A=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		oAOLTa5OqaRzSs6mB4Cua2sxwWw=
+		P2115MOne3TAHeyX2khSC2vkwLs=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		mNKjxWjorVPviSkuYGIJWhcSG4o=
+		jrNR2vERt4ULu8i7SbVj5EI00ZQ=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -38,32 +38,32 @@
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		4rYo3hLBwmVV8ti5JTgP2xgf2qo=
+		SC2R2KgDYtw7euKKexiennxosv0=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		XHVUbVhvp2pupvb1F8YAxL3/+AU=
+		OjSp4uLbi3qgDxSFtWhEskOQAPU=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		4rYo3hLBwmVV8ti5JTgP2xgf2qo=
+		SC2R2KgDYtw7euKKexiennxosv0=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		6RdOOzJ91r5GcB9tojGlV0fHDZs=
+		kq5M7ZLwSGDRUKyQ8U/Bv7j5OhE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		CXitLBuhFRumi085iDtyIsseWII=
+		XrCZc6JQ2A7xX8lCBLQAVdG5Jww=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
+		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1oYtTbe2JeMlqBTyFVnuxXM7Abqn3RD8RwtIbtmpDXg=
+			bIa6uFTvxSJN+SXTE3MQ0Q80xJLfRX9A7pOy8jVnK4w=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -77,28 +77,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NncIPaK1FxooZALa1B8U6irvfFDoX6fX5A17U9NtK+g=
+			4uWuFFTwzMu31L/Hp4UhTEO0G5BZJfCBSqlyeIKSa0g=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yYvpc7qYaTVOnI546BSs6u4HbEo3UG7Z5zby7iEydkY=
+			0QGSg2t/CL8dA0nOTEZofOwYXqF4iGmzwJ5vz9dcZx4=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NncIPaK1FxooZALa1B8U6irvfFDoX6fX5A17U9NtK+g=
+			4uWuFFTwzMu31L/Hp4UhTEO0G5BZJfCBSqlyeIKSa0g=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			u3S9llAyBY4AvszWoTGid59J2V2QdSs1PJSx90/N/HI=
+			i1ZBK4VZmESZsu8jHXxXAZ9edPmtGWeksh8BjonEiDQ=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -112,35 +112,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			U0+gvCerZk+dl4I9Z0tphTs4JPav+NAKVAW0ZpyrVGY=
+			zESCRNnLeLGohzL5HDrAsOQ6kCAMikGs+OW75TaG0Og=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wvlGn3xRnZKF8/l0JpvgQdZhyYgkBN5rmB4SPUpdaKc=
+			BZL/Owl1E173B5iMBJPgCqV6xAZIX0SVjlOwFc779c0=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			U0+gvCerZk+dl4I9Z0tphTs4JPav+NAKVAW0ZpyrVGY=
+			zESCRNnLeLGohzL5HDrAsOQ6kCAMikGs+OW75TaG0Og=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ek/xrgo7+52W8Ej6nJbK+2Hy4mrMgWKYaJ4WSppGruY=
+			FS5MlqC1CS4gpslpGF/gmRb4C00nUH6IxSEgVPRKzho=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			10Y9Ft89+6D8mkO2GYnhQYRFwCJGRGJgDdx5X2YRvkk=
+			kFrcRSAQcrUTMfhROg6SI6MpJHIjeKnYTqcS8ibORYQ=
 			</data>
 		</dict>
 	</dict>

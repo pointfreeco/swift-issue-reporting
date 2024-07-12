@@ -1,6 +1,4 @@
 framework module IssueReportingTestSupport {
-  umbrella header "IssueReportingTestSupport.h"
-  export *
-
-  module * { export * }
+  header "IssueReportingTestSupport-Swift.h"
+  requires objc
 }

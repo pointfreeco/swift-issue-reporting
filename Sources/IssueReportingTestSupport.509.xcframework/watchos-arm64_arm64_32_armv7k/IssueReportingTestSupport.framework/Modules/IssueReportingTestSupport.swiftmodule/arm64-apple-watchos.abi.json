@@ -5,121 +5,6 @@
     "printedName": "TopLevel",
     "children": [
       {
-        "kind": "Import",
-        "name": "XCTest",
-        "printedName": "XCTest",
-        "declKind": "Import",
-        "moduleName": "IssueReportingTestSupport"
-      },
-      {
-        "kind": "Function",
-        "name": "_XCTFail",
-        "printedName": "_XCTFail(_:file:line:)",
-        "children": [
-          {
-            "kind": "TypeNominal",
-            "name": "Void",
-            "printedName": "()"
-          },
-          {
-            "kind": "TypeNominal",
-            "name": "String",
-            "printedName": "Swift.String",
-            "usr": "s:SS"
-          },
-          {
-            "kind": "TypeNominal",
-            "name": "StaticString",
-            "printedName": "Swift.StaticString",
-            "usr": "s:s12StaticStringV"
-          },
-          {
-            "kind": "TypeNominal",
-            "name": "UInt",
-            "printedName": "Swift.UInt",
-            "usr": "s:Su"
-          }
-        ],
-        "declKind": "Func",
-        "usr": "s:25IssueReportingTestSupport8_XCTFail_4file4lineySS_s12StaticStringVSutF",
-        "mangledName": "$s25IssueReportingTestSupport8_XCTFail_4file4lineySS_s12StaticStringVSutF",
-        "moduleName": "IssueReportingTestSupport",
-        "declAttributes": [
-          "AccessControl"
-        ],
-        "funcSelfKind": "NonMutating"
-      },
-      {
-        "kind": "Function",
-        "name": "_XCTExpectFailure",
-        "printedName": "_XCTExpectFailure(_:strict:failingBlock:)",
-        "children": [
-          {
-            "kind": "TypeNominal",
-            "name": "Void",
-            "printedName": "()"
-          },
-          {
-            "kind": "TypeNominal",
-            "name": "Optional",
-            "printedName": "Swift.String?",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "usr": "s:Sq"
-          },
-          {
-            "kind": "TypeNominal",
-            "name": "Optional",
-            "printedName": "Swift.Bool?",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              }
-            ],
-            "usr": "s:Sq"
-          },
-          {
-            "kind": "TypeFunc",
-            "name": "Function",
-            "printedName": "() throws -> ()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "typeAttributes": [
-              "noescape"
-            ]
-          }
-        ],
-        "declKind": "Func",
-        "usr": "s:25IssueReportingTestSupport17_XCTExpectFailure_6strict12failingBlockySSSg_SbSgyyKXEtKF",
-        "mangledName": "$s25IssueReportingTestSupport17_XCTExpectFailure_6strict12failingBlockySSSg_SbSgyyKXEtKF",
-        "moduleName": "IssueReportingTestSupport",
-        "declAttributes": [
-          "Rethrows",
-          "AccessControl"
-        ],
-        "throwing": true,
-        "funcSelfKind": "NonMutating"
-      },
-      {
         "kind": "Function",
         "name": "_recordIssue",
         "printedName": "_recordIssue(message:fileID:filePath:line:column:)",
@@ -257,13 +142,128 @@
           "AccessControl"
         ],
         "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Import",
+        "name": "XCTest",
+        "printedName": "XCTest",
+        "declKind": "Import",
+        "moduleName": "IssueReportingTestSupport"
+      },
+      {
+        "kind": "Function",
+        "name": "_XCTFail",
+        "printedName": "_XCTFail(_:file:line:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "StaticString",
+            "printedName": "Swift.StaticString",
+            "usr": "s:s12StaticStringV"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UInt",
+            "printedName": "Swift.UInt",
+            "usr": "s:Su"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "s:25IssueReportingTestSupport8_XCTFail_4file4lineySS_s12StaticStringVSutF",
+        "mangledName": "$s25IssueReportingTestSupport8_XCTFail_4file4lineySS_s12StaticStringVSutF",
+        "moduleName": "IssueReportingTestSupport",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "_XCTExpectFailure",
+        "printedName": "_XCTExpectFailure(_:strict:failingBlock:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.String?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "usr": "s:Sq"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.Bool?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "usr": "s:Sq"
+          },
+          {
+            "kind": "TypeFunc",
+            "name": "Function",
+            "printedName": "() throws -> ()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "typeAttributes": [
+              "noescape"
+            ]
+          }
+        ],
+        "declKind": "Func",
+        "usr": "s:25IssueReportingTestSupport17_XCTExpectFailure_6strict12failingBlockySSSg_SbSgyyKXEtKF",
+        "mangledName": "$s25IssueReportingTestSupport17_XCTExpectFailure_6strict12failingBlockySSSg_SbSgyyKXEtKF",
+        "moduleName": "IssueReportingTestSupport",
+        "declAttributes": [
+          "Rethrows",
+          "AccessControl"
+        ],
+        "throwing": true,
+        "funcSelfKind": "NonMutating"
       }
     ],
     "json_format_version": 8
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/stephen\/Developer\/pointfreeco\/IssueReportingTestSupport\/IssueReportingTestSupport\/SwiftTesting.swift",
+      "filePath": "\/Users\/stephen\/Developer\/pointfreeco\/xctest-dynamic-overlay\/Sources\/IssueReportingTestSupport\/SwiftTesting.swift",
       "kind": "BooleanLiteral",
       "offset": 1149,
       "length": 5,

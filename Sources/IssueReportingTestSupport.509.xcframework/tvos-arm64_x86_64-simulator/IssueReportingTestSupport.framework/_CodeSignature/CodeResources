@@ -6,59 +6,55 @@
 	<dict>
 		<key>Headers/IssueReportingTestSupport-Swift.h</key>
 		<data>
-		5Oh0Kuiy7MCsgigCCDCDZF6Tobc=
-		</data>
-		<key>Headers/IssueReportingTestSupport.h</key>
-		<data>
-		WrzXheLzgy+bbQErbxOOIR+dbl8=
+		GlqYFxwT4xsCiaI8qFMPvULFUkY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		49U7iBKa4lxcYqu0k6cLcvaqQ4w=
+		kT7b4cvlQL6w0PrN402BP8WBgpc=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
-		WouLvHQppUKWDalAvmk2MY8R4A8=
+		4WRTOiAMjMRXcgNlZDKoMGRRq3E=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
-		AxGrrUx1yR8zEShYrFLPwrBydTk=
+		p2eB0z8i0hAuLFR1KhfscaO7oBo=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftdoc</key>
 		<data>
-		oKRu+kfYAFtntQgLOc/kkY7HFIM=
+		1BGyPw2oVgw2gQ5++KANdGYiRUE=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftinterface</key>
 		<data>
-		AxGrrUx1yR8zEShYrFLPwrBydTk=
+		p2eB0z8i0hAuLFR1KhfscaO7oBo=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		X/3m8JJ5etvLU2wE0Ia/Ux0n5mM=
+		W3ED/5EFjWToN6nJUoJhpI+NaCY=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
-		WouLvHQppUKWDalAvmk2MY8R4A8=
+		4WRTOiAMjMRXcgNlZDKoMGRRq3E=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
-		9EFT46H2t1DazWLbSq5IcInegsk=
+		3mHHYqV5665Z7i93sJHFvfvHY1k=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftdoc</key>
 		<data>
-		QDgk+f2G1ie0atQm55qu02RLF/E=
+		6B7oE70qpoKumPS8VEzyBo3hvB8=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftinterface</key>
 		<data>
-		9EFT46H2t1DazWLbSq5IcInegsk=
+		3mHHYqV5665Z7i93sJHFvfvHY1k=
 		</data>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		RUh7KPgoe3YqeQ+QMpeFt3oGCKs=
+		9g3S7UY+NMPOGu6KDI3lOVjK5Dg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		hOgIETGPKs7x6aMIVXAy/8uzpCQ=
+		XrCZc6JQ2A7xX8lCBLQAVdG5Jww=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -67,91 +63,84 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			p6fJDaPSOKUSrOXT5rl00uPU3Qp+Q4lVcw6vpOk2vOk=
-			</data>
-		</dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1oYtTbe2JeMlqBTyFVnuxXM7Abqn3RD8RwtIbtmpDXg=
+			6vnOkiXmwxWgvIov9s0pt9hUHFpSPCyfrnP+NyvyDHQ=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yQQ7XbS4UfXyEaULyiLUxS7rpFJ//KVarjXHT0s+QwA=
+			j8+ybUr8FE+kIwO8ZQ5eJPM1Byx3xk5dbyMTes1HQeM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5UKummIPZm2H5UpX9FGTQ8fZLdp5+Nt0JxuXL7MDymc=
+			ZVwM9uex5wpWhAJnNPQXejgFJGIZSu+ZezVsWm6IgN8=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			RDib83XrqskSaj8lZU5jBJKEQ0sRllbbbZSN0qMvrwA=
+			JNQnW7cBdt6E3c5U+6SDjN0f0aWedOVFYmKJEhvk/uY=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5UKummIPZm2H5UpX9FGTQ8fZLdp5+Nt0JxuXL7MDymc=
+			ZVwM9uex5wpWhAJnNPQXejgFJGIZSu+ZezVsWm6IgN8=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ImXd0fIDWtwwEOd2L8ZxVH+dv2v4n44FAJPAkJLVoks=
+			qlx7AReNf8dIL/p7DYp8zjWKg5NhpUMomGqQ/VvBDlc=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yQQ7XbS4UfXyEaULyiLUxS7rpFJ//KVarjXHT0s+QwA=
+			j8+ybUr8FE+kIwO8ZQ5eJPM1Byx3xk5dbyMTes1HQeM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			scs3agHyj0DP6NcTUQIsjRNi/jl2KNofywdl8a50+3o=
+			EsCE1JoOXvlrbL+mBcYHVU9FAT2osCrtn78PxDJTnrk=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4hYskQWRkZQxvLLlskLswpZ6//TQyQKAcRSFi8sfpbA=
+			CIpdj81wDkRE5cm4iOQhHjB3VizthvhsWFO8NXkdRDM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			scs3agHyj0DP6NcTUQIsjRNi/jl2KNofywdl8a50+3o=
+			EsCE1JoOXvlrbL+mBcYHVU9FAT2osCrtn78PxDJTnrk=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6h2iWgt6y733Cj8gkpNlWNBUqBGhkVvzoZuPS2cyD+8=
+			whzh0Hh5TZeeRdkKLjD8UFxBTKnWcQCpILhknFnnR3A=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2h2pvTfJmSAa17rcKrcnGlU2Uefn2l9uKc24YCoNyOM=
+			kFrcRSAQcrUTMfhROg6SI6MpJHIjeKnYTqcS8ibORYQ=
 			</data>
 		</dict>
 	</dict>

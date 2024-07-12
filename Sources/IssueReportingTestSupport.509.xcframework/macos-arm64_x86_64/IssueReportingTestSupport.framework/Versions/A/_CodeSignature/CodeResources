@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		1fTbFoaSqJZNz1dykHknCtKaG7s=
+		VsaH8MkseTPqQNmK6zGaAE3CpqY=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,98 +15,91 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			p6fJDaPSOKUSrOXT5rl00uPU3Qp+Q4lVcw6vpOk2vOk=
-			</data>
-		</dict>
-		<key>Headers/IssueReportingTestSupport.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1oYtTbe2JeMlqBTyFVnuxXM7Abqn3RD8RwtIbtmpDXg=
+			6vnOkiXmwxWgvIov9s0pt9hUHFpSPCyfrnP+NyvyDHQ=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-macos.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yQQ7XbS4UfXyEaULyiLUxS7rpFJ//KVarjXHT0s+QwA=
+			j8+ybUr8FE+kIwO8ZQ5eJPM1Byx3xk5dbyMTes1HQeM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-macos.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6A2oLnP1pg1X9lEziojplvaaS/RYtAzQsXOYTRfhkN0=
+			a4wdJvMHHdSpJijpY80E5FlygQ6pRA+e0Fkzsvl5hYU=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-macos.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			klKgFBt4a7T9/+eFc0HlK7/YtpazXG91WOPHRnRY8fQ=
+			4kTf686fYK5YS6aJMrhsNx7Wf6p2wlpPQV2XmIcfw1A=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-macos.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6A2oLnP1pg1X9lEziojplvaaS/RYtAzQsXOYTRfhkN0=
+			a4wdJvMHHdSpJijpY80E5FlygQ6pRA+e0Fkzsvl5hYU=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/arm64-apple-macos.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IyPSC9D9VVyYn/YsnxCypQeqYHv/FGmilJuhxpWJzVA=
+			GLSlExlg6v/zDrBw017rMmQTwYyvmkyxy11xu85e6aw=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-macos.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yQQ7XbS4UfXyEaULyiLUxS7rpFJ//KVarjXHT0s+QwA=
+			j8+ybUr8FE+kIwO8ZQ5eJPM1Byx3xk5dbyMTes1HQeM=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-macos.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/d0+8AJrwu04fI1NVK6/UWJDXMG40SvFEJHGZcKGW7o=
+			g3TLks/iD3XBqqWJDtZ0e5Yv+z1gXbneRa+HyDjxjSY=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-macos.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4szqJyNCpdaZV5ds0Pt23Iq9CPmsIPBwzM4C6zkI7nA=
+			Ut36SjWfqASP2SZMril2sB34qehdR1xO43RMpuEOwLY=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-macos.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/d0+8AJrwu04fI1NVK6/UWJDXMG40SvFEJHGZcKGW7o=
+			g3TLks/iD3XBqqWJDtZ0e5Yv+z1gXbneRa+HyDjxjSY=
 			</data>
 		</dict>
 		<key>Modules/IssueReportingTestSupport.swiftmodule/x86_64-apple-macos.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			046mrFsCqSDOXxE8m9M9ym0RjSuOmboQ0ws1YBfRlt0=
+			KeTBTjwHZava1GmY/v6Ii0zIKmdXf0HUYoRf1sagxUA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2h2pvTfJmSAa17rcKrcnGlU2Uefn2l9uKc24YCoNyOM=
+			kFrcRSAQcrUTMfhROg6SI6MpJHIjeKnYTqcS8ibORYQ=
 			</data>
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VRHpWvN2lZNM/8SdrJLbQ7oWWGZyqK30LOANKZKJ8pc=
+			ubUNpa+VCkVh9VVmY2jrtbYS5e9TnChZKFA2KXZHwHg=
 			</data>
 		</dict>
 	</dict>
