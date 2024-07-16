@@ -9,7 +9,7 @@ func _recordIssue(
   column: Int
 ) {
   guard let pointer = pointer(for: "IssueReportingTestSupport_RecordIssue")
-  else { fatalError() }
+  else { return }
 
   let recordIssue = withUnsafePointer(to: pointer) {
     UnsafeRawPointer($0).assumingMemoryBound(
@@ -28,7 +28,7 @@ func _withKnownIssue(
   _ body: () throws -> Void
 ) {
   guard let pointer = pointer(for: "IssueReportingTestSupport_WithKnownIssue")
-  else { fatalError() }
+  else { return }
 
   let withKnownIssue = withUnsafePointer(to: pointer) {
     UnsafeRawPointer($0).assumingMemoryBound(
@@ -44,7 +44,7 @@ func _withKnownIssue(
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
   guard let pointer = pointer(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
-  else { fatalError() }
+  else { return false }
 
   let currentTestIsNotNil = withUnsafePointer(to: pointer) {
     UnsafeRawPointer($0).assumingMemoryBound(
@@ -59,7 +59,7 @@ func _currentTestIsNotNil() -> Bool {
 @usableFromInline
 func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   guard let pointer = pointer(for: "IssueReportingTestSupport_XCTFail")
-  else { fatalError() }
+  else { return }
 
   let XCTFail = withUnsafePointer(to: pointer) {
     UnsafeRawPointer($0).assumingMemoryBound(
@@ -78,7 +78,7 @@ func _XCTExpectFailure(
   failingBlock: () throws -> Void
 ) rethrows {
   guard let pointer = pointer(for: "IssueReportingTestSupport_XCTExpectFailure")
-  else { fatalError() }
+  else { return }
 
   let XCTExpectFailure = withUnsafePointer(to: pointer) {
     UnsafeRawPointer($0).assumingMemoryBound(
@@ -87,8 +87,7 @@ func _XCTExpectFailure(
     .pointee() as! (String?, Bool?, () throws -> Void) throws -> Void
   }
 
-  // TODO: Traffic `rethrows`
-  try? XCTExpectFailure(failureReason, strict, failingBlock)
+  try Result { try XCTExpectFailure(failureReason, strict, failingBlock) }._rethrowGet()
 }
 
 private func pointer(for symbol: String) -> UnsafeMutableRawPointer? {
