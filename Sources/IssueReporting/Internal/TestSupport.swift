@@ -15,8 +15,8 @@ func _recordIssue(
     UnsafeRawPointer($0).assumingMemoryBound(
       to: (@convention(c) () -> Any).self
     )
+    .pointee() as! (String?, String, String, Int, Int) -> Void
   }
-  .pointee() as! (String?, String, String, Int, Int) -> Void
 
   recordIssue(message, fileID, filePath, line, column)
 }
@@ -34,8 +34,8 @@ func _withKnownIssue(
     UnsafeRawPointer($0).assumingMemoryBound(
       to: (@convention(c) () -> Any).self
     )
+    .pointee() as! (String?, Bool, () throws -> Void) -> Void
   }
-  .pointee() as! (String?, Bool, () throws -> Void) -> Void
 
   withKnownIssue(message, isIntermittent, body)
 }
@@ -50,8 +50,8 @@ func _currentTestIsNotNil() -> Bool {
     UnsafeRawPointer($0).assumingMemoryBound(
       to: (@convention(c) () -> Any).self
     )
+    .pointee() as! () -> Bool
   }
-  .pointee() as! () -> Bool
 
   return currentTestIsNotNil()
 }
@@ -65,8 +65,8 @@ func _XCTFail(_ message: String, file: StaticString, line: UInt) {
     UnsafeRawPointer($0).assumingMemoryBound(
       to: (@convention(c) () -> Any).self
     )
+    .pointee() as! (String, StaticString, UInt) -> Void
   }
-  .pointee() as! (String, StaticString, UInt) -> Void
 
   XCTFail(message, file, line)
 }
@@ -84,8 +84,8 @@ func _XCTExpectFailure(
     UnsafeRawPointer($0).assumingMemoryBound(
       to: (@convention(c) () -> Any).self
     )
+    .pointee() as! (String?, Bool?, () throws -> Void) throws -> Void
   }
-  .pointee() as! (String?, Bool?, () throws -> Void) throws -> Void
 
   // TODO: Traffic `rethrows`
   try? XCTExpectFailure(failureReason, strict, failingBlock)
