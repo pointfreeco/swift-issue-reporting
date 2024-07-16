@@ -2,7 +2,9 @@
   import Testing
 #endif
 
-public func _recordIssue(
+@_cdecl("IssueReportingTestSupport_RecordIssue")
+public func _recordIssue() -> Any { __recordIssue }
+private func __recordIssue(
   message: String?,
   fileID: String,
   filePath: String,
@@ -36,7 +38,9 @@ public func _recordIssue(
   #endif
 }
 
-public func _withKnownIssue(
+@_cdecl("IssueReportingTestSupport_WithKnownIssue")
+public func _withKnownIssue() -> Any { __withKnownIssue }
+private func __withKnownIssue(
   _ message: String?,
   isIntermittent: Bool,
   _ body: () throws -> Void
@@ -46,7 +50,9 @@ public func _withKnownIssue(
   #endif
 }
 
-public func _testCurrentIsNotNil() -> Bool {
+@_cdecl("IssueReportingTestSupport_CurrentTestIsNotNil")
+public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
+private func __currentTestIsNotNil() -> Bool {
   #if canImport(Testing)
     return Test.current != nil
   #else

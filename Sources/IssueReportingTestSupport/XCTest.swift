@@ -2,13 +2,17 @@
   import XCTest
 #endif
 
-public func _XCTFail(_ message: String, file: StaticString, line: UInt) {
+@_cdecl("IssueReportingTestSupport_XCTFail")
+public func _XCTFail() -> Any { __XCTFail }
+private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if canImport(XCTest)
     XCTFail(message, file: file, line: line)
   #endif
 }
 
-public func _XCTExpectFailure(
+@_cdecl("IssueReportingTestSupport_XCTExpectFailure")
+public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
+public func __XCTExpectFailure(
   _ failureReason: String?,
   strict: Bool?,
   failingBlock: () throws -> Void

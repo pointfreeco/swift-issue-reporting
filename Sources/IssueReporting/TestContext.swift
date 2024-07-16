@@ -21,7 +21,7 @@ public enum TestContext {
   /// To detect if the current process is a test runner, use ``isTesting``, instead.
   public static var current: Self? {
     guard isTesting else { return nil }
-    if _testCurrentIsNotNil() {
+    if _currentTestIsNotNil() {
       return .swiftTesting
     } else {
       return .xcTest

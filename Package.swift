@@ -16,7 +16,10 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "IssueReporting"
+      name: "IssueReporting",
+      resources: [
+        .process("Resources/509"),
+      ]
     ),
     .testTarget(
       name: "IssueReportingTests",
@@ -32,43 +35,6 @@ let package = Package(
     ),
   ]
 )
-
-let testSupportVersion: Version = "0.1.0"
-#if os(macOS)
-  package.targets.append(
-    .binaryTarget(
-      name: "IssueReportingTestSupport",
-      // url: "https://github.com/pointfreeco/swift-issue-reporting-support/release/\(testSupportVersion)/TODO",
-      // checksum: "TODO"
-      path: "Sources/IssueReportingTestSupport.509.xcframework"
-    )
-  )
-#else
-  // package.dependencies.append(
-  //   .package(
-  //     url: "https://github.com/pointfreeco/swift-issue-reporting-support",
-  //     from: testSupportVersion
-  //   )
-  // )
-  package.targets.append(
-    .target(
-      name: "IssueReportingTestSupport"
-    )
-  )
-#endif
-
-for target in package.targets {
-  if target.name == "IssueReporting" {
-    #if os(macOS)
-      target.dependencies.append("IssueReportingTestSupport")
-    #else
-      // target.dependencies.append(
-      //   .product(name: "IssueReportingTestSupport", package: "swift-issue-reporting-support")
-      // )
-      target.dependencies.append("IssueReportingTestSupport")
-    #endif
-  }
-}
 
 #if !os(Windows)
   // Add the documentation compiler plugin if possible

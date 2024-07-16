@@ -1,4 +1,0 @@
-framework module IssueReportingTestSupport {
-  header "IssueReportingTestSupport-Swift.h"
-  requires objc
-}
