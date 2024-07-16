@@ -111,6 +111,8 @@ private let prefix: String? = {
     #else
       return "ios-arm64"
     #endif
+  #elseif os(macOS)
+    return "macos-arm64_x86_64"
   #elseif os(tvOS)
     #if targetEnvironment(simulator)
       return "tvos-arm64_x86_64-simulator"
