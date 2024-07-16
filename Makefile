@@ -37,71 +37,101 @@ xcframework-5-9:
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=iOS" \
 		-archivePath "archives/IssueReportingTestSupport-iOS" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=iOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-iOS_Simulator" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=macOS" \
 		-archivePath "archives/IssueReportingTestSupport-macOS" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=macOS,variant=Mac Catalyst" \
 		-archivePath "archives/IssueReportingTestSupport-Mac_Catalyst" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=tvOS" \
 		-archivePath "archives/IssueReportingTestSupport-tvOS" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=tvOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-tvOS_Simulator" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=visionOS" \
 		-archivePath "archives/IssueReportingTestSupport-visionOS" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=visionOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-visionOS_Simulator" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=watchOS" \
 		-archivePath "archives/IssueReportingTestSupport-watchOS" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=watchOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-watchOS_Simulator" \
-		SKIP_INSTALL=NO \
-		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		SKIP_INSTALL=NO
 	xcodebuild -create-xcframework \
 		-framework archives/IssueReportingTestSupport-iOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-iOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
@@ -124,81 +154,111 @@ xcframework-6-0:
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=iOS" \
 		-archivePath "archives/IssueReportingTestSupport-iOS" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=iOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-iOS_Simulator" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=macOS" \
 		-archivePath "archives/IssueReportingTestSupport-macOS" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=macOS,variant=Mac Catalyst" \
 		-archivePath "archives/IssueReportingTestSupport-Mac_Catalyst" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=tvOS" \
 		-archivePath "archives/IssueReportingTestSupport-tvOS" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=tvOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-tvOS_Simulator" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=visionOS" \
 		-archivePath "archives/IssueReportingTestSupport-visionOS" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=visionOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-visionOS_Simulator" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=watchOS" \
 		-archivePath "archives/IssueReportingTestSupport-watchOS" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
 		-destination "generic/platform=watchOS Simulator" \
 		-archivePath "archives/IssueReportingTestSupport-watchOS_Simulator" \
-		SKIP_INSTALL=NO \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)"
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_ALLOWED=NO \
+		CODE_SIGNING_REQUIRED=NO \
+		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
+		SKIP_INSTALL=NO
 	xcodebuild -create-xcframework \
 		-framework archives/IssueReportingTestSupport-iOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-iOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \

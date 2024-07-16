@@ -1,6 +1,6 @@
 import Foundation
 
-#if DEBUG && canImport(os)
+#if canImport(os)
   import os
 #endif
 
@@ -20,7 +20,7 @@ extension IssueReporter where Self == RuntimeWarningReporter {
 ///
 /// Use ``IssueReporter/runtimeWarning`` to create one of these values.
 public struct RuntimeWarningReporter: IssueReporter {
-  #if DEBUG && canImport(os)
+  #if canImport(os)
     @UncheckedSendable
     @usableFromInline var dso: UnsafeRawPointer
 
@@ -54,7 +54,7 @@ public struct RuntimeWarningReporter: IssueReporter {
     line: UInt,
     column: UInt
   ) {
-    #if DEBUG && canImport(os)
+    #if canImport(os)
       let moduleName = String(
         Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
       )
@@ -81,24 +81,22 @@ public struct RuntimeWarningReporter: IssueReporter {
     line: UInt,
     column: UInt
   ) {
-    #if DEBUG
-      #if canImport(os)
-        let moduleName = String(
-          Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
-        )
-        var message = message() ?? ""
-        if message.isEmpty {
-          message = "Issue expected"
-        }
-        os_log(
-          .info,
-          log: OSLog(subsystem: "co.pointfree.expected-issues", category: moduleName),
-          "%@",
-          "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
-        )
-      #else
-        fputs("\(fileID):\(line): \(message() ?? "")\n", stdout)
-      #endif
+    #if canImport(os)
+      let moduleName = String(
+        Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
+      )
+      var message = message() ?? ""
+      if message.isEmpty {
+        message = "Issue expected"
+      }
+      os_log(
+        .info,
+        log: OSLog(subsystem: "co.pointfree.expected-issues", category: moduleName),
+        "%@",
+        "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
+      )
+    #else
+      fputs("\(fileID):\(line): \(message() ?? "")\n", stdout)
     #endif
   }
 }
