@@ -3,6 +3,7 @@
 /.swiftpm
 /archives/
 /xcframeworks/
+/Bundle
 /Packages
 /*.xcodeproj
 xcuserdata/

@@ -59,7 +59,16 @@ let package = Package(
 #endif
 
 #if os(macOS)
-  package.dependencies.append(
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
+  package.dependencies.append(contentsOf: [
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+    .package(url: "https://github.com/swiftwasm/carton", from: "1.0.0"),
+  ])
+  package.targets.append(
+    .executableTarget(
+      name: "WasmTests",
+      dependencies: [
+        "IssueReporting"
+      ]
+    )
   )
 #endif
