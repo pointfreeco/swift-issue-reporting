@@ -15,7 +15,7 @@ func _recordIssue(
   column: Int
 ) {
   #if os(WASI)
-    let _recordIssue = _recordIssue()
+    let _recordIssue = IssueReportingTestSupport._recordIssue()
   #else
     guard let _recordIssue = function(for: "IssueReportingTestSupport_RecordIssue")
     else { return }
@@ -31,7 +31,7 @@ func _withKnownIssue(
   _ body: () throws -> Void
 ) {
   #if os(WASI)
-    let _withKnownIssue = _withKnownIssue()
+    let _withKnownIssue = IssueReportingTestSupport._withKnownIssue()
   #else
     guard let _withKnownIssue = function(for: "IssueReportingTestSupport_WithKnownIssue")
     else { return }
@@ -44,7 +44,7 @@ func _withKnownIssue(
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
   #if os(WASI)
-    let _currentTestIsNotNil = _currentTestIsNotNil()
+    let _currentTestIsNotNil = IssueReportingTestSupport._currentTestIsNotNil()
   #else
     guard let _currentTestIsNotNil = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
     else { return false }
@@ -56,7 +56,7 @@ func _currentTestIsNotNil() -> Bool {
 @usableFromInline
 func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if os(WASI)
-    let _XCTFail = _XCTFail()
+    let _XCTFail = IssueReportingTestSupport._XCTFail()
   #else
     guard let _XCTFail = function(for: "IssueReportingTestSupport_XCTFail")
     else { return }
@@ -72,7 +72,7 @@ func _XCTExpectFailure(
   failingBlock: () throws -> Void
 ) rethrows {
   #if os(WASI)
-    let _XCTExpectFailure = _XCTExpectFailure()
+    let _XCTExpectFailure = IssueReportingTestSupport._XCTExpectFailure()
   #else
     guard let _XCTExpectFailure = function(for: "IssueReportingTestSupport_XCTExpectFailure")
     else { return }
