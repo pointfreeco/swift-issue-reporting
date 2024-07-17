@@ -17,6 +17,9 @@ let package = Package(
   targets: [
     .target(
       name: "IssueReporting",
+      dependencies: [
+        .byName(name: "IssueReportingTestSupport", condition: .when(platforms: [.wasi]))
+      ],
       exclude: ["Resources/509"],
       resources: [
         .process("Resources/600"),
@@ -25,6 +28,9 @@ let package = Package(
     .testTarget(
       name: "IssueReportingTests",
       dependencies: ["IssueReporting"]
+    ),
+    .target(
+      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -38,7 +44,7 @@ let package = Package(
   swiftLanguageVersions: [.v6]
 )
 
-#if os(Linux) || os(WASI) || os(Windows)
+#if os(Linux) || os(Windows)
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
   )
@@ -50,17 +56,6 @@ let package = Package(
     )
   )
   package.targets[0].exclude.append("Resources/600")
-  package.targets.append(
-    .target(
-      name: "IssueReportingTestSupport",
-      dependencies: [
-        .product(name: "Testing", package: "swift-testing")
-      ]
-    )
-  )
-  #if os(WASI)
-    package.targets[0].dependencies.append("IssueReportingTestSupport")
-  #endif
 #endif
 
 #if os(macOS)

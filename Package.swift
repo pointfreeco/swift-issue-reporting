@@ -17,6 +17,9 @@ let package = Package(
   targets: [
     .target(
       name: "IssueReporting",
+      dependencies: [
+        .byName(name: "IssueReportingTestSupport", condition: .when(platforms: [.wasi]))
+      ],
       exclude: ["Resources/600"],
       resources: [
         .process("Resources/509"),
@@ -25,6 +28,9 @@ let package = Package(
     .testTarget(
       name: "IssueReportingTests",
       dependencies: ["IssueReporting"]
+    ),
+    .target(
+      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -37,7 +43,7 @@ let package = Package(
   ]
 )
 
-#if os(Linux) || os(WASI) || os(Windows)
+#if os(Linux) || os(Windows)
   package.products.append(
     .library(
       name: "IssueReportingTestSupport",
@@ -46,14 +52,6 @@ let package = Package(
     )
   )
   package.targets[0].exclude.append("Resources/509")
-  package.targets.append(
-    .target(
-      name: "IssueReportingTestSupport"
-    )
-  )
-  #if os(WASI)
-    package.targets[0].dependencies.append("IssueReportingTestSupport")
-  #endif
 #endif
 
 #if os(macOS)

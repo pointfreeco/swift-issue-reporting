@@ -2,9 +2,7 @@ import Foundation
 
 #if os(WASI)
   import IssueReportingTestSupport
-#endif
-
-#if os(Windows)
+#elseif os(Windows)
   import WinSDK
 #endif
 
