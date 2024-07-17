@@ -2,7 +2,9 @@
   import Testing
 #endif
 
-@_cdecl("IssueReportingTestSupport_RecordIssue")
+#if !os(Windows)
+  @_cdecl("IssueReportingTestSupport_RecordIssue")
+#endif
 public func _recordIssue() -> Any { __recordIssue }
 private func __recordIssue(
   message: String?,
@@ -38,7 +40,9 @@ private func __recordIssue(
   #endif
 }
 
-@_cdecl("IssueReportingTestSupport_WithKnownIssue")
+#if !os(Windows)
+  @_cdecl("IssueReportingTestSupport_WithKnownIssue")
+#endif
 public func _withKnownIssue() -> Any { __withKnownIssue }
 private func __withKnownIssue(
   _ message: String?,
@@ -50,7 +54,9 @@ private func __withKnownIssue(
   #endif
 }
 
-@_cdecl("IssueReportingTestSupport_CurrentTestIsNotNil")
+#if !os(Windows)
+  @_cdecl("IssueReportingTestSupport_CurrentTestIsNotNil")
+#endif
 public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
 private func __currentTestIsNotNil() -> Bool {
   #if canImport(Testing)
