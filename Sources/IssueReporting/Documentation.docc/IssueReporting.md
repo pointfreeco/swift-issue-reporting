@@ -1,14 +1,14 @@
 # ``IssueReporting``
 
-Report issues in your application and library code as Xcode runtime warnings, test failures, and
-more.
+Report issues in your application and library code as Xcode runtime warnings, test failures, 
+breakpoints, assertions, and more.
 
 ## Overview
 
 This library provides robust tools for reporting issues in your application with a varying degree
 of granularity and severity. In its most basic for you can use the unified 
 ``reportIssue(_:fileID:filePath:line:column:)`` function anywhere in your application to flag an
-issue with your code, such as a code path that you think should never be callable:
+issue with your code, such as a code path that you think should never be executed:
 
 ```swift
 guard let lastItem = items.last
@@ -26,19 +26,24 @@ issues while running your app, while also catching the issues in tests with expl
 The `reportIssue` tool can also be customized to allow for other ways of reporting issues beyond
 runtime warnings and test failures. It can also be configured to trigger a breakpoint if you want to
 do some debugging when an issue is reported, or a precondition or fatal error, or you can create
-your own custom issue reporter.
+your own custom issue reporter to send issues to OSLog or an external server.
 
 ## Topics
 
 ### Essentials
 
 - <doc:GettingStarted>
-- <doc:WritingTestHelpers>
 
 ### Reporting issues
 
 - ``reportIssue(_:fileID:filePath:line:column:)``
 - ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``
+
+### Issue reports
+
+- ``IssueReporter/breakpoint``
+- ``IssueReporter/fatalError``
+- ``IssueReporter/runtimeWarning``
 
 ### Custom reporting
 
@@ -51,3 +56,7 @@ your own custom issue reporter.
 
 - ``isTesting``
 - ``TestContext``
+
+### Unimplemented
+
+- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-34tpp``

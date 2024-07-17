@@ -3,6 +3,11 @@
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.
 ///   - placeholder: A placeholder value returned from the closure when left unimplemented.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
 /// - Returns: A closure that reports an issue when invoked.
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -29,7 +34,13 @@ public func unimplemented<each Argument, Result>(
 
 /// Returns a throwing closure that reports an issue and throws an error when invoked.
 ///
-/// - Parameter description: An optional description of the unimplemented closure.
+/// - Parameters:
+///   - description: An optional description of the unimplemented closure.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
 /// - Returns: A throwing closure that reports an issue and throws an error when invoked.
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -59,6 +70,11 @@ public func unimplemented<each Argument, Result>(
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.
 ///   - placeholder: A placeholder value returned from the closure when left unimplemented.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
 /// - Returns: An asynchronous closure that reports an issue when invoked.
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
@@ -85,7 +101,13 @@ public func unimplemented<each Argument, Result>(
 
 /// Returns a throwing, asynchronous closure that reports an issue and throws an error when invoked.
 ///
-/// - Parameter description: An optional description of the unimplemented closure.
+/// - Parameters:
+///   - description: An optional description of the unimplemented closure.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
 /// - Returns: A throwing, asynchronous closure that reports an issue and throws an error when
 ///   invoked.
 public func unimplemented<each Argument, Result>(

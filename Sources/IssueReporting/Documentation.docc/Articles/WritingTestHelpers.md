@@ -1,3 +1,0 @@
-# Writing Test Helpers
-
-<!-- TODO -->

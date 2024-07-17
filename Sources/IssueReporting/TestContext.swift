@@ -1,4 +1,5 @@
-/// A type representing the context in which a test is being run.
+/// A type representing the context in which a test is being run, i.e. either in Swift's native
+/// Testing framework, or Xcode's XCTest framework.
 public enum TestContext {
   /// The Swift Testing framework.
   case swiftTesting

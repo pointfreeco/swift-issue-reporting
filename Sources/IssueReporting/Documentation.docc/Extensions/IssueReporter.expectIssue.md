@@ -1,7 +1,7 @@
-# ``IssueReporting/IssueReporter/expectIssue(_:fileID:filePath:line:column:)-6rpik``
+# ``IssueReporting/IssueReporter/expectIssue(_:fileID:filePath:line:column:)``
 
 ## Topics
 
 ### Protocol method
 
-- ``IssueReporter/expectIssue(_:fileID:filePath:line:column:)-1olee``
+- ``IssueReporter/expectIssue(_:fileID:filePath:line:column:)-8ooca``
