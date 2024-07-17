@@ -16,11 +16,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "IssueReporting",
-      exclude: ["Resources/509"],
-      resources: [
-        .process("Resources/600"),
-      ]
+      name: "IssueReporting"
     ),
     .testTarget(
       name: "IssueReportingTests",
@@ -42,14 +38,6 @@ let package = Package(
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
   )
-  package.products.append(
-    .library(
-      name: "IssueReportingTestSupport",
-      type: .dynamic,
-      targets: ["IssueReportingTestSupport"]
-    )
-  )
-  package.targets[0].exclude.append("Resources/600")
 #endif
 
 #if os(macOS)
