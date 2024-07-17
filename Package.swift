@@ -37,7 +37,7 @@ let package = Package(
   ]
 )
 
-#if os(Linux) || os(Windows)
+#if os(Linux) || os(WASI) || os(Windows)
   package.products.append(
     .library(
       name: "IssueReportingTestSupport",

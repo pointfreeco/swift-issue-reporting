@@ -38,7 +38,7 @@ let package = Package(
   swiftLanguageVersions: [.v6]
 )
 
-#if os(Linux) || os(Windows)
+#if os(Linux) || os(WASI) || os(Windows)
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
   )
