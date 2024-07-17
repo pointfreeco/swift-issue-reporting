@@ -17,9 +17,6 @@ let package = Package(
   targets: [
     .target(
       name: "IssueReporting",
-      dependencies: [
-        .byName(name: "IssueReportingTestSupport", condition: .when(platforms: [.wasi]))
-      ],
       exclude: ["Resources/600"],
       resources: [
         .process("Resources/509"),
@@ -28,9 +25,6 @@ let package = Package(
     .testTarget(
       name: "IssueReportingTests",
       dependencies: ["IssueReporting"]
-    ),
-    .target(
-      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",

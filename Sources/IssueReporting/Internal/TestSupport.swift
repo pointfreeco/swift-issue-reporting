@@ -1,7 +1,12 @@
 import Foundation
 
 #if os(WASI)
-  import IssueReportingTestSupport
+  #if canImport(Testing)
+    import Testing
+  #endif
+  #if canImport(XCTest)
+    import XCTest
+  #endif
 #elseif os(Windows)
   import WinSDK
 #endif
@@ -15,13 +20,37 @@ func _recordIssue(
   column: Int
 ) {
   #if os(WASI)
-    let _recordIssue = IssueReportingTestSupport._recordIssue()
+    #if canImport(Testing)
+      // NB: https://github.com/apple/swift-testing/issues/490
+      // Issue.record(
+      //   message.map(Comment.init(rawValue:)),
+      //   sourceLocation: SourceLocation(
+      //     fileID: fileID,
+      //     filePath: filePath,
+      //     line: line,
+      //     column: column
+      //   )
+      // )
+      __checkValue(
+        false,
+        expression: .__fromSyntaxNode(message ?? ""),
+        comments: [],
+        isRequired: false,
+        sourceLocation: SourceLocation(
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
+      )
+      .__expected()
+    #endif
   #else
     guard let _recordIssue = function(for: "IssueReportingTestSupport_RecordIssue")
     else { return }
+    let recordIssue = _recordIssue as! (String?, String, String, Int, Int) -> Void
+    recordIssue(message, fileID, filePath, line, column)
   #endif
-  let recordIssue = _recordIssue as! (String?, String, String, Int, Int) -> Void
-  recordIssue(message, fileID, filePath, line, column)
 }
 
 @usableFromInline
@@ -31,38 +60,45 @@ func _withKnownIssue(
   _ body: () throws -> Void
 ) {
   #if os(WASI)
-    let _withKnownIssue = IssueReportingTestSupport._withKnownIssue()
+    #if canImport(Testing)
+      withKnownIssue(message.map(Comment.init(rawValue:)), isIntermittent: isIntermittent, body)
+    #endif
   #else
     guard let _withKnownIssue = function(for: "IssueReportingTestSupport_WithKnownIssue")
     else { return }
+    let withKnownIssue = _withKnownIssue as! (String?, Bool, () throws -> Void) -> Void
+    withKnownIssue(message, isIntermittent, body)
   #endif
-  let withKnownIssue = _withKnownIssue as! (String?, Bool, () throws -> Void) -> Void
-  withKnownIssue(message, isIntermittent, body)
 }
-
 
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
   #if os(WASI)
-    let _currentTestIsNotNil = IssueReportingTestSupport._currentTestIsNotNil()
+    #if canImport(Testing)
+      return Test.current != nil
+    #else
+      return false
+    #endif
   #else
     guard let _currentTestIsNotNil = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
     else { return false }
+    let currentTestIsNotNil = _currentTestIsNotNil as! () -> Bool
+    return currentTestIsNotNil()
   #endif
-  let currentTestIsNotNil = _currentTestIsNotNil as! () -> Bool
-  return currentTestIsNotNil()
 }
 
 @usableFromInline
 func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if os(WASI)
-    let _XCTFail = IssueReportingTestSupport._XCTFail()
+    #if canImport(XCTest)
+      XCTFail(message, file: file, line: line)
+    #endif
   #else
     guard let _XCTFail = function(for: "IssueReportingTestSupport_XCTFail")
     else { return }
+    let XCTFail = _XCTFail as! (String, StaticString, UInt) -> Void
+    XCTFail(message, file, line)
   #endif
-  let XCTFail = _XCTFail as! (String, StaticString, UInt) -> Void
-  XCTFail(message, file, line)
 }
 
 @usableFromInline
@@ -72,13 +108,25 @@ func _XCTExpectFailure(
   failingBlock: () throws -> Void
 ) rethrows {
   #if os(WASI)
-    let _XCTExpectFailure = IssueReportingTestSupport._XCTExpectFailure()
+    #if canImport(XCTest)
+      #if _runtime(_ObjC)
+        try XCTExpectFailure(failureReason, strict: strict, failingBlock: failingBlock)
+      #else
+        XCTFail(
+          """
+          'XCTExpectFailure' is not available on this platform.
+
+          Consider using Swift Testing and 'withKnownIssue', instead.
+          """
+        )
+      #endif
+    #endif
   #else
     guard let _XCTExpectFailure = function(for: "IssueReportingTestSupport_XCTExpectFailure")
     else { return }
+    let XCTExpectFailure = _XCTExpectFailure as! (String?, Bool?, () throws -> Void) throws -> Void
+    try Result { try XCTExpectFailure(failureReason, strict, failingBlock) }._rethrowGet()
   #endif
-  let XCTExpectFailure = _XCTExpectFailure as! (String?, Bool?, () throws -> Void) throws -> Void
-  try Result { try XCTExpectFailure(failureReason, strict, failingBlock) }._rethrowGet()
 }
 
 #if !os(WASI)
@@ -152,7 +200,8 @@ func _XCTExpectFailure(
   #if os(Linux) || os(Windows)
     private let symbolMap: [String: String] = [
       "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
-      "IssueReportingTestSupport_WithKnownIssue": "$s25IssueReportingTestSupport010_withKnownA0ypyF",
+      "IssueReportingTestSupport_WithKnownIssue":
+        "$s25IssueReportingTestSupport010_withKnownA0ypyF",
       "IssueReportingTestSupport_CurrentTestIsNotNil":
         "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
       "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
