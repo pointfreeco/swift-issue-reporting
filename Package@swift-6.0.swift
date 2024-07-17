@@ -17,6 +17,7 @@ let package = Package(
   targets: [
     .target(
       name: "IssueReporting",
+      exclude: ["Resources/509"],
       resources: [
         .process("Resources/600"),
       ]
@@ -37,8 +38,29 @@ let package = Package(
   swiftLanguageVersions: [.v6]
 )
 
-#if !os(Windows)
-  // Add the documentation compiler plugin if possible
+#if os(Linux) || os(Windows)
+  package.dependencies.append(
+    .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
+  )
+  package.products.append(
+    .library(
+      name: "IssueReportingTestSupport",
+      type: .dynamic,
+      targets: ["IssueReportingTestSupport"]
+    )
+  )
+  package.targets[0].exclude.append("Resources/600")
+  package.targets.append(
+    .target(
+      name: "IssueReportingTestSupport",
+      dependencies: [
+        .product(name: "Testing", package: "swift-testing")
+      ]
+    )
+  )
+#endif
+
+#if os(macOS)
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
   )

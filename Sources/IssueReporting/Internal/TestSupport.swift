@@ -12,10 +12,8 @@ func _recordIssue(
   else { return }
 
   let recordIssue = withUnsafePointer(to: pointer) {
-    UnsafeRawPointer($0).assumingMemoryBound(
-      to: (@convention(c) () -> Any).self
-    )
-    .pointee() as! (String?, String, String, Int, Int) -> Void
+    UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self)
+      .pointee() as! (String?, String, String, Int, Int) -> Void
   }
 
   recordIssue(message, fileID, filePath, line, column)
@@ -31,10 +29,8 @@ func _withKnownIssue(
   else { return }
 
   let withKnownIssue = withUnsafePointer(to: pointer) {
-    UnsafeRawPointer($0).assumingMemoryBound(
-      to: (@convention(c) () -> Any).self
-    )
-    .pointee() as! (String?, Bool, () throws -> Void) -> Void
+    UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self)
+      .pointee() as! (String?, Bool, () throws -> Void) -> Void
   }
 
   withKnownIssue(message, isIntermittent, body)
@@ -47,10 +43,8 @@ func _currentTestIsNotNil() -> Bool {
   else { return false }
 
   let currentTestIsNotNil = withUnsafePointer(to: pointer) {
-    UnsafeRawPointer($0).assumingMemoryBound(
-      to: (@convention(c) () -> Any).self
-    )
-    .pointee() as! () -> Bool
+    UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self)
+      .pointee() as! () -> Bool
   }
 
   return currentTestIsNotNil()
@@ -62,10 +56,8 @@ func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   else { return }
 
   let XCTFail = withUnsafePointer(to: pointer) {
-    UnsafeRawPointer($0).assumingMemoryBound(
-      to: (@convention(c) () -> Any).self
-    )
-    .pointee() as! (String, StaticString, UInt) -> Void
+    UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self)
+      .pointee() as! (String, StaticString, UInt) -> Void
   }
 
   XCTFail(message, file, line)
@@ -81,24 +73,44 @@ func _XCTExpectFailure(
   else { return }
 
   let XCTExpectFailure = withUnsafePointer(to: pointer) {
-    UnsafeRawPointer($0).assumingMemoryBound(
-      to: (@convention(c) () -> Any).self
-    )
-    .pointee() as! (String?, Bool?, () throws -> Void) throws -> Void
+    UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self)
+      .pointee() as! (String?, Bool?, () throws -> Void) throws -> Void
   }
 
   try Result { try XCTExpectFailure(failureReason, strict, failingBlock) }._rethrowGet()
 }
 
+#if os(Linux) || os(Windows)
+  private typealias DynamicFunction = @convention(thin) () -> Any
+#else
+  private typealias DynamicFunction = @convention(c) () -> Any
+#endif
+
 private func pointer(for symbol: String) -> UnsafeMutableRawPointer? {
-  guard
-    let prefix,
-    let path = Bundle.module
-      .path(forResource: "\(prefix)_IssueReportingTestSupport", ofType: nil),
-    let handle = dlopen(path, RTLD_LAZY),
-    let pointer = dlsym(handle, symbol)
-  else { return nil }
-  return pointer
+  #if os(Linux)
+    let symbol = symbolMap[symbol] ?? symbol
+    guard
+      let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return pointer
+  #elseif os(Windows)
+    let symbol = symbolMap[symbol]
+    guard
+      let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
+      let pointer = GetProcAddress(handle, symbol)
+    else { return nil }
+    return pointer
+  #else
+    guard
+      let prefix,
+      let path = Bundle.module
+        .path(forResource: "\(prefix)_IssueReportingTestSupport", ofType: nil),
+      let handle = dlopen(path, RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return pointer
+  #endif
 }
 
 private let prefix: String? = {
@@ -134,3 +146,15 @@ private let prefix: String? = {
     return nil
   #endif
 }()
+
+#if os(Linux) || os(Windows)
+  private let symbolMap: [String: String] = [
+    "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
+    "IssueReportingTestSupport_WithKnownIssue": "$s25IssueReportingTestSupport010_withKnownA0ypyF",
+    "IssueReportingTestSupport_CurrentTestIsNotNil":
+      "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
+    "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
+    "IssueReportingTestSupport_XCTExpectFailure":
+      "$s25IssueReportingTestSupport17_XCTExpectFailureypyF",
+  ]
+#endif

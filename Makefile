@@ -16,6 +16,14 @@ test-debug:
 test: test-debug
 	@swift test -c release
 
+test-linux:
+	docker run \
+		--rm \
+		-v "$(PWD):$(PWD)" \
+		-w "$(PWD)" \
+		swift:5.10 \
+		bash -c 'swift test'
+
 build-for-static-stdlib:
 	@swift build -c debug --static-swift-stdlib
 	@swift build -c release --static-swift-stdlib

@@ -12,7 +12,7 @@ private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
 
 @_cdecl("IssueReportingTestSupport_XCTExpectFailure")
 public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
-public func __XCTExpectFailure(
+private func __XCTExpectFailure(
   _ failureReason: String?,
   strict: Bool?,
   failingBlock: () throws -> Void

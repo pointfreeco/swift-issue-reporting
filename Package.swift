@@ -17,6 +17,7 @@ let package = Package(
   targets: [
     .target(
       name: "IssueReporting",
+      exclude: ["Resources/600"],
       resources: [
         .process("Resources/509"),
       ]
@@ -36,8 +37,23 @@ let package = Package(
   ]
 )
 
-#if !os(Windows)
-  // Add the documentation compiler plugin if possible
+#if os(Linux) || os(Windows)
+  package.products.append(
+    .library(
+      name: "IssueReportingTestSupport",
+      type: .dynamic,
+      targets: ["IssueReportingTestSupport"]
+    )
+  )
+  package.targets[0].exclude.append("Resources/509")
+  package.targets.append(
+    .target(
+      name: "IssueReportingTestSupport"
+    )
+  )
+#endif
+
+#if os(macOS)
   package.dependencies.append(
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
   )
