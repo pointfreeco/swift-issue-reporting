@@ -123,7 +123,7 @@ However, requiring the `onDelete` closure at the time of creating a `ChildModel`
 Sometimes you need to create the `ChildModel` in situations where it is not appropriate to 
 provide the `onDelete` closure. For example, when deep linking into the child feature:
 
-```
+```swift
 import SwiftUI 
 
 @main
