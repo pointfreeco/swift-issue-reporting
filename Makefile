@@ -39,7 +39,7 @@ xcframeworks: xcframework-5-9 xcframework-6-0
 
 xcframework-5-9:
 	sudo xcode-select -s /Applications/Xcode-15.2.0.app
-	rm -fr archives Sources/IssueReportingTestSupport.509.xcframework
+	rm -fr archives xcframeworks/IssueReportingTestSupport.509.xcframework
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
@@ -140,6 +140,7 @@ xcframework-5-9:
 		CODE_SIGNING_ALLOWED=NO \
 		CODE_SIGNING_REQUIRED=NO \
 		SKIP_INSTALL=NO
+	mkdir -p xcframeworks
 	xcodebuild -create-xcframework \
 		-framework archives/IssueReportingTestSupport-iOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-iOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
@@ -151,12 +152,12 @@ xcframework-5-9:
 		-framework archives/IssueReportingTestSupport-visionOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-watchOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-watchOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
-		-output Sources/IssueReportingTestSupport.509.xcframework
+		-output xcframeworks/IssueReportingTestSupport.509.xcframework
 	sudo xcode-select -s $(XCODE_PATH)
 
 xcframework-6-0:
 	sudo xcode-select -s /Applications/Xcode-16.0.0-Beta.3.app
-	rm -fr archives Sources/IssueReportingTestSupport.600.xcframework
+	rm -fr archives xcframeworks/IssueReportingTestSupport.600.xcframework
 	xcodebuild archive \
 		-project TestSupport/IssueReportingTestSupport.xcodeproj \
 		-scheme IssueReportingTestSupport \
@@ -267,6 +268,7 @@ xcframework-6-0:
 		CODE_SIGNING_REQUIRED=NO \
 		OTHER_LDFLAGS="-weak_framework Testing $$(inherited)" \
 		SKIP_INSTALL=NO
+	mkdir -p xcframeworks
 	xcodebuild -create-xcframework \
 		-framework archives/IssueReportingTestSupport-iOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-iOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
@@ -278,5 +280,5 @@ xcframework-6-0:
 		-framework archives/IssueReportingTestSupport-visionOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-watchOS.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
 		-framework archives/IssueReportingTestSupport-watchOS_Simulator.xcarchive/Products/Library/Frameworks/IssueReportingTestSupport.framework \
-		-output Sources/IssueReportingTestSupport.600.xcframework
+		-output xcframeworks/IssueReportingTestSupport.600.xcframework
 	sudo xcode-select -s $(XCODE_PATH)
