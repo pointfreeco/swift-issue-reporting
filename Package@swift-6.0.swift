@@ -58,6 +58,9 @@ let package = Package(
       ]
     )
   )
+  #if os(WASI)
+    package.targets[0].dependencies.append("IssueReportingTestSupport")
+  #endif
 #endif
 
 #if os(macOS)
