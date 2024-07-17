@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(WASI)
+#if os(WASI) && DEBUG
   #if canImport(Testing)
     import Testing
   #endif
@@ -20,7 +20,7 @@ func _recordIssue(
   column: Int
 ) {
   #if os(WASI)
-    #if canImport(Testing)
+    #if canImport(Testing) && DEBUG
       // NB: https://github.com/apple/swift-testing/issues/490
       // Issue.record(
       //   message.map(Comment.init(rawValue:)),
@@ -60,7 +60,7 @@ func _withKnownIssue(
   _ body: () throws -> Void
 ) {
   #if os(WASI)
-    #if canImport(Testing)
+    #if canImport(Testing) && DEBUG
       withKnownIssue(message.map(Comment.init(rawValue:)), isIntermittent: isIntermittent, body)
     #endif
   #else
@@ -74,7 +74,7 @@ func _withKnownIssue(
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
   #if os(WASI)
-    #if canImport(Testing)
+    #if canImport(Testing) && DEBUG
       return Test.current != nil
     #else
       return false
@@ -90,7 +90,7 @@ func _currentTestIsNotNil() -> Bool {
 @usableFromInline
 func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if os(WASI)
-    #if canImport(XCTest)
+    #if canImport(XCTest) && DEBUG
       XCTFail(message, file: file, line: line)
     #endif
   #else
@@ -108,7 +108,7 @@ func _XCTExpectFailure(
   failingBlock: () throws -> Void
 ) rethrows {
   #if os(WASI)
-    #if canImport(XCTest)
+    #if canImport(XCTest) && DEBUG
       #if _runtime(_ObjC)
         try XCTExpectFailure(failureReason, strict: strict, failingBlock: failingBlock)
       #else
