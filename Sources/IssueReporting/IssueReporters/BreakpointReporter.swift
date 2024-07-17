@@ -14,13 +14,17 @@
   /// Use ``IssueReporter/breakpoint`` to create one of these values.
   public struct BreakpointReporter: IssueReporter {
     public func reportIssue(
-      _ message: @autoclosure () -> String?, // TODO: Handle `nil`/`""` better
+      _ message: @autoclosure () -> String?,
       fileID: StaticString,
       filePath: StaticString,
       line: UInt,
       column: UInt
     ) {
-      fputs("􀢄 \(fileID):\(line): \(message() ?? "")\n", stderr)
+      var message = message() ?? ""
+      if message.isEmpty {
+        message = "Issue reported"
+      }
+      fputs("\(fileID):\(line): \(message)\n", stderr)
       guard isDebuggerAttached else { return }
       fputs(
         """
