@@ -19,11 +19,8 @@ func _recordIssue(
   #if os(WASI)
     let _recordIssue = _recordIssue()
   #else
-    guard let pointer = pointer(for: "IssueReportingTestSupport_RecordIssue")
+    guard let _recordIssue = function(for: "IssueReportingTestSupport_RecordIssue")
     else { return }
-    let _recordIssue = withUnsafePointer(to: pointer) {
-      UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self).pointee()
-    }
   #endif
   let recordIssue = _recordIssue as! (String?, String, String, Int, Int) -> Void
   recordIssue(message, fileID, filePath, line, column)
@@ -38,11 +35,8 @@ func _withKnownIssue(
   #if os(WASI)
     let _withKnownIssue = _withKnownIssue()
   #else
-    guard let pointer = pointer(for: "IssueReportingTestSupport_WithKnownIssue")
+    guard let _withKnownIssue = function(for: "IssueReportingTestSupport_WithKnownIssue")
     else { return }
-    let _withKnownIssue = withUnsafePointer(to: pointer) {
-      UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self).pointee()
-    }
   #endif
   let withKnownIssue = _withKnownIssue as! (String?, Bool, () throws -> Void) -> Void
   withKnownIssue(message, isIntermittent, body)
@@ -54,11 +48,8 @@ func _currentTestIsNotNil() -> Bool {
   #if os(WASI)
     let _currentTestIsNotNil = _currentTestIsNotNil()
   #else
-    guard let pointer = pointer(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
+    guard let _currentTestIsNotNil = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
     else { return false }
-    let _currentTestIsNotNil = withUnsafePointer(to: pointer) {
-      UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self).pointee()
-    }
   #endif
   let currentTestIsNotNil = _currentTestIsNotNil as! () -> Bool
   return currentTestIsNotNil()
@@ -69,11 +60,8 @@ func _XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if os(WASI)
     let _XCTFail = _XCTFail()
   #else
-    guard let pointer = pointer(for: "IssueReportingTestSupport_XCTFail")
+    guard let _XCTFail = function(for: "IssueReportingTestSupport_XCTFail")
     else { return }
-    let _XCTFail = withUnsafePointer(to: pointer) {
-      UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self).pointee()
-    }
   #endif
   let XCTFail = _XCTFail as! (String, StaticString, UInt) -> Void
   XCTFail(message, file, line)
@@ -88,11 +76,8 @@ func _XCTExpectFailure(
   #if os(WASI)
     let _XCTExpectFailure = _XCTExpectFailure()
   #else
-    guard let pointer = pointer(for: "IssueReportingTestSupport_XCTExpectFailure")
+    guard let _XCTExpectFailure = function(for: "IssueReportingTestSupport_XCTExpectFailure")
     else { return }
-    let _XCTExpectFailure = withUnsafePointer(to: pointer) {
-      UnsafeRawPointer($0).assumingMemoryBound(to: DynamicFunction.self).pointee()
-    }
   #endif
   let XCTExpectFailure = _XCTExpectFailure as! (String?, Bool?, () throws -> Void) throws -> Void
   try Result { try XCTExpectFailure(failureReason, strict, failingBlock) }._rethrowGet()
@@ -105,21 +90,21 @@ func _XCTExpectFailure(
     private typealias DynamicFunction = @convention(c) () -> Any
   #endif
 
-  private func pointer(for symbol: String) -> UnsafeMutableRawPointer? {
+  private func function(for symbol: String) -> Any? {
     #if os(Linux)
       let symbol = symbolMap[symbol] ?? symbol
       guard
         let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
         let pointer = dlsym(handle, symbol)
       else { return nil }
-      return pointer
+      return unsafeBitCast(pointer, to: DynamicFunction.self)()
     #elseif os(Windows)
       let symbol = symbolMap[symbol]
       guard
         let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
         let pointer = GetProcAddress(handle, symbol)
       else { return nil }
-      return pointer
+      return unsafeBitCast(pointer, to: DynamicFunction.self)()
     #else
       guard
         let prefix,
@@ -128,7 +113,7 @@ func _XCTExpectFailure(
         let handle = dlopen(path, RTLD_LAZY),
         let pointer = dlsym(handle, symbol)
       else { return nil }
-      return pointer
+      return unsafeBitCast(pointer, to: DynamicFunction.self)()
     #endif
   }
 
