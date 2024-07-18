@@ -16,12 +16,24 @@ func _XCTFail(
   file: StaticString = #filePath,
   line: UInt = #line
 ) {
+  var pointer: UnsafeMutableRawPointer? {
+    let symbol = "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF"
+    #if canImport(Darwin) || canImport(Glibc)
+      return dlsym(dlopen("libXCTest.so", RTLD_NOW) ?? dlopen(nil, RTLD_NOW), symbol)
+    #elseif canImport(WinSDK)
+      guard let dll = LoadLibraryA("XCTest.dll") else { return nil }
+      return GetProcAddress(dll, symbol)
+    #else
+      return nil
+    #endif
+  }
+
   guard
     !_XCTExpectedFailure.isInFailingBlock,
-    let xctFailPtr
+    let pointer
   else { return }
   let XCTFail = unsafeBitCast(
-    xctFailPtr,
+    pointer,
     to: (@convention(thin) (String, StaticString, UInt) -> Void).self
   )
   XCTFail(message, file, line)
@@ -33,6 +45,8 @@ func _XCTExpectFailure<R>(
   _ failureReason: String? = nil,
   enabled: Bool? = nil,
   strict: Bool? = nil,
+  file: StaticString,
+  line: UInt,
   failingBlock: () throws -> R
 ) rethrows -> R {
   guard enabled != false
@@ -66,7 +80,11 @@ func _XCTExpectFailure<R>(
     }
     return try result._rethrowGet()
   #else
-    XCTFail("XCTExpectFailure is unavailable", file: file, line: line)
+    _XCTFail(
+      "XCTest's XCTExpectFailure is unavailable on this platform.",
+      file: file,
+      line: line
+    )
     return try _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
       try failingBlock()
     }
@@ -75,19 +93,4 @@ func _XCTExpectFailure<R>(
 
 public enum _XCTExpectedFailure {
   @TaskLocal public static var isInFailingBlock = false
-}
-
-private var xctFailPtr: UnsafeMutableRawPointer? {
-  let mangledXctFail = "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF"
-  #if canImport(Darwin) || canImport(Glibc)
-    return dlsym(
-      dlopen("libXCTest.so", RTLD_NOW) ?? dlopen(nil, RTLD_NOW),
-      mangledXctFail
-    )
-  #elseif canImport(WinSDK)
-    guard let dll = LoadLibraryA("XCTest.dll") else { return nil }
-    return GetProcAddress(dll, mangledXctFail)
-  #else
-    return nil
-  #endif
 }

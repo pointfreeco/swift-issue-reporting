@@ -52,7 +52,9 @@ public func withExpectedIssue(
   case .xcTest:
     _XCTExpectFailure(
       message.withAppHostWarningIfNeeded(),
-      strict: !isIntermittent
+      strict: !isIntermittent,
+      file: filePath,
+      line: line
     ) {
       do {
         try body()
