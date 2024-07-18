@@ -35,6 +35,7 @@ private func __XCTExpectFailure(
         Consider using Swift Testing and 'withKnownIssue', instead.
         """
       )
+      try failingBlock()
     #endif
   #endif
 }
