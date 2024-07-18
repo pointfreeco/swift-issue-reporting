@@ -10,31 +10,30 @@ func _recordIssue(
 ) {
   guard let function = function(for: "IssueReportingTestSupport_RecordIssue")
   else {
-#if DEBUG
-    guard
-      let fromSyntaxNodePtr = dlsym(
-        dlopen(nil, RTLD_LAZY),
-        "$s7Testing12__ExpressionV16__fromSyntaxNodeyACSSFZ"
-      ),
-      let checkValuePtr = dlsym(
-        dlopen(nil, RTLD_LAZY),
-        """
-        $s7Testing12__checkValue_10expression0D25WithCapturedRuntimeValues26mismatchedErrorDescript\
-        ion10difference8comments10isRequired14sourceLocations6ResultOyyts0J0_pGSb_AA12__ExpressionV\
-        AOSgyXKSSSgyXKAQyXKSayAA7CommentVGyXKSbAA06SourceQ0VtF
-        """
+    #if DEBUG
+      guard
+        let fromSyntaxNodePtr = dlsym(
+          dlopen(nil, RTLD_LAZY),
+          "$s7Testing12__ExpressionV16__fromSyntaxNodeyACSSFZ"
+        ),
+        let checkValuePtr = dlsym(
+          dlopen(nil, RTLD_LAZY),
+          """
+          $s7Testing12__checkValue_10expression0D25WithCapturedRuntimeValues26mismatchedErrorDescript\
+          ion10difference8comments10isRequired14sourceLocations6ResultOyyts0J0_pGSb_AA12__ExpressionV\
+          AOSgyXKSSSgyXKAQyXKSayAA7CommentVGyXKSbAA06SourceQ0VtF
+          """
+        )
+      else { return }
+
+      let fromSyntaxNode = unsafeBitCast(
+        fromSyntaxNodePtr, to: (@convention(thin) (String) -> __Expression).self
       )
-    else { return }
+      let syntaxNode = fromSyntaxNode(message ?? "")
 
-    let fromSyntaxNode = unsafeBitCast(
-      fromSyntaxNodePtr, to: (@convention(thin) (String) -> __Expression).self
-    )
-    let syntaxNode = fromSyntaxNode(message ?? "")
-
-    let checkValue = unsafeBitCast(
-      checkValuePtr,
-      to: (
-        @convention(thin) (
+      let checkValue = unsafeBitCast(
+        checkValuePtr,
+        to: (@convention(thin) (
           Bool,
           __Expression,
           @autoclosure () -> __Expression?,
@@ -43,23 +42,22 @@ func _recordIssue(
           @autoclosure () -> [Any],
           Bool,
           SourceLocation
-        ) -> Result<Void, any Error>
+        ) -> Result<Void, any Error>)
+        .self
       )
-      .self
-    )
-    _ = checkValue(
-      false,
-      syntaxNode,
-      nil,
-      nil,
-      nil,
-      [],
-      false,
-      SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
-    )
-#else
-    // TODO: Warn
-#endif
+      _ = checkValue(
+        false,
+        syntaxNode,
+        nil,
+        nil,
+        nil,
+        [],
+        false,
+        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+      )
+    #else
+      // TODO: Warn
+    #endif
     return
   }
 
@@ -68,34 +66,46 @@ func _recordIssue(
 }
 
 #if os(Linux) || os(Windows)
-private typealias DynamicFunction = @convention(thin) () -> Any
+  private typealias DynamicFunction = @convention(thin) () -> Any
 #else
-private typealias DynamicFunction = @convention(c) () -> Any
+  private typealias DynamicFunction = @convention(c) () -> Any
 #endif
 
 func function(for symbol: String) -> Any? {
-#if os(Linux)
-  let symbol = symbolMap[symbol] ?? symbol
-  guard
-    let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
-    let pointer = dlsym(handle, symbol)
-  else { return nil }
-  return unsafeBitCast(pointer, to: DynamicFunction.self)()
-#elseif os(Windows)
-  let symbol = symbolMap[symbol]
-  guard
-    let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
-    let pointer = GetProcAddress(handle, symbol)
-  else { return nil }
-  return unsafeBitCast(pointer, to: DynamicFunction.self)()
-#else
-  guard
-    let handle = dlopen(nil, RTLD_LAZY),
-    let pointer = dlsym(handle, symbol)
-  else { return nil }
-  return unsafeBitCast(pointer, to: DynamicFunction.self)()
-#endif
+  #if os(Linux)
+    let symbol = symbolMap[symbol] ?? symbol
+    guard
+      let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #elseif os(Windows)
+    let symbol = symbolMap[symbol]
+    guard
+      let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
+      let pointer = GetProcAddress(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #else
+    guard
+      let handle = dlopen(nil, RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #endif
 }
+#if os(Linux) || os(Windows)
+  private let symbolMap: [String: String] = [
+    "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
+    "IssueReportingTestSupport_WithKnownIssue":
+      "$s25IssueReportingTestSupport010_withKnownA0ypyF",
+    "IssueReportingTestSupport_CurrentTestIsNotNil":
+      "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
+    "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
+    "IssueReportingTestSupport_XCTExpectFailure":
+      "$s25IssueReportingTestSupport17_XCTExpectFailureypyF",
+  ]
+#endif
 
 @usableFromInline
 func _withKnownIssue(
@@ -109,44 +119,42 @@ func _withKnownIssue(
 ) {
   guard let function = function(for: "IssueReportingTestSupport_WithKnownIssue")
   else {
-#if DEBUG
-    guard
-      let withKnownIssuePtr = dlsym(
-        dlopen(nil, RTLD_LAZY),
-        """
-        $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyK\
-        XEtF
-        """
-      )
-    else { return }
+    #if DEBUG
+      guard
+        let withKnownIssuePtr = dlsym(
+          dlopen(nil, RTLD_LAZY),
+          """
+          $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyK\
+          XEtF
+          """
+        )
+      else { return }
 
-    var comment: Any?
-    if let message {
-      var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-      c.rawValue = message
-      comment = c
-    }
-    let withKnownIssue = unsafeBitCast(
-      withKnownIssuePtr,
-      to: (
-        @convention(thin) (
+      var comment: Any?
+      if let message {
+        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+        c.rawValue = message
+        comment = c
+      }
+      let withKnownIssue = unsafeBitCast(
+        withKnownIssuePtr,
+        to: (@convention(thin) (
           Any?,
           Bool,
           SourceLocation,
           () throws -> Void
-        ) -> Void
+        ) -> Void)
+        .self
       )
-      .self
-    )
-    withKnownIssue(
-      comment,
-      isIntermittent,
-      SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
-      body
-    )
-#else
-    // TODO: Warn
-#endif
+      withKnownIssue(
+        comment,
+        isIntermittent,
+        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+        body
+      )
+    #else
+      // TODO: Warn
+    #endif
     return
   }
 
@@ -159,12 +167,12 @@ func _currentTestIsNotNil() -> Bool {
 
   guard let function = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
   else {
-#if DEBUG
-    return Test.current != nil
-#else
-    // TODO: Warn?
-    return false
-#endif
+    #if DEBUG
+      return Test.current != nil
+    #else
+      // TODO: Warn?
+      return false
+    #endif
   }
 
   return (function as! @Sendable () -> Bool)()
