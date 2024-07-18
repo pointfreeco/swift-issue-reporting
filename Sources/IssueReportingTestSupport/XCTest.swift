@@ -6,6 +6,7 @@
   @_cdecl("IssueReportingTestSupport_XCTFail")
 #endif
 public func _XCTFail() -> Any { __XCTFail }
+@Sendable
 private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
   #if canImport(XCTest)
     XCTFail(message, file: file, line: line)
@@ -16,6 +17,7 @@ private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
   @_cdecl("IssueReportingTestSupport_XCTExpectFailure")
 #endif
 public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
+@Sendable
 private func __XCTExpectFailure(
   _ failureReason: String?,
   enabled: Bool?,

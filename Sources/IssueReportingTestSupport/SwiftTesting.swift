@@ -6,6 +6,7 @@
   @_cdecl("IssueReportingTestSupport_RecordIssue")
 #endif
 public func _recordIssue() -> Any { __recordIssue }
+@Sendable
 private func __recordIssue(
   message: String?,
   fileID: String,
@@ -44,6 +45,7 @@ private func __recordIssue(
   @_cdecl("IssueReportingTestSupport_WithKnownIssue")
 #endif
 public func _withKnownIssue() -> Any { __withKnownIssue }
+@Sendable
 private func __withKnownIssue(
   _ message: String?,
   isIntermittent: Bool,
@@ -59,6 +61,7 @@ private func __withKnownIssue(
   @_cdecl("IssueReportingTestSupport_CurrentTestIsNotNil")
 #endif
 public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
+@Sendable
 private func __currentTestIsNotNil() -> Bool {
   #if canImport(Testing)
     return Test.current != nil
