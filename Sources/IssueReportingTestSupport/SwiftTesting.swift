@@ -2,9 +2,6 @@
   import Testing
 #endif
 
-#if !os(WASI) && !os(Windows)
-  @_cdecl("IssueReportingTestSupport_RecordIssue")
-#endif
 public func _recordIssue() -> Any { __recordIssue }
 @Sendable
 private func __recordIssue(
@@ -41,9 +38,6 @@ private func __recordIssue(
   #endif
 }
 
-#if !os(WASI) && !os(Windows)
-  @_cdecl("IssueReportingTestSupport_WithKnownIssue")
-#endif
 public func _withKnownIssue() -> Any { __withKnownIssue }
 @Sendable
 private func __withKnownIssue(
@@ -57,9 +51,6 @@ private func __withKnownIssue(
   #endif
 }
 
-#if !os(WASI) && !os(Windows)
-  @_cdecl("IssueReportingTestSupport_CurrentTestIsNotNil")
-#endif
 public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
 @Sendable
 private func __currentTestIsNotNil() -> Bool {

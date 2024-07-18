@@ -16,7 +16,7 @@ func _XCTFail(
   file: StaticString = #filePath,
   line: UInt = #line
 ) {
-  guard let function = function(for: "IssueReportingTestSupport_XCTFail")
+  guard let function = function(for: .xctFail)
   else {
     #if DEBUG
       var pointer: UnsafeMutableRawPointer? {
@@ -41,7 +41,13 @@ func _XCTFail(
       )
       XCTFail(message, file, line)
     #else
-      // TODO: Warn
+      fputs("""
+        \(file):\(line): A failure was recorded without linking the XCTest framework.
+        
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """,
+        stderr
+      )
     #endif
     return
   }
@@ -60,7 +66,7 @@ func _XCTExpectFailure<R>(
   line: UInt,
   failingBlock: () throws -> R
 ) rethrows -> R {
-  guard let function = function(for: "IssueReportingTestSupport_XCTExpectFailure")
+  guard let function = function(for: .xctExpectFailure)
   else {
     #if DEBUG
       guard enabled != false
@@ -104,7 +110,13 @@ func _XCTExpectFailure<R>(
         }
       #endif
     #else
-      // TODO: Warn
+      fputs("""
+        \(file):\(line): An expected failure was recorded without linking the XCTest framework.
+        
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """,
+        stderr
+      )
       return try failingBlock()
     #endif
   }

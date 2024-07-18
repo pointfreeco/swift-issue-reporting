@@ -1,8 +1,6 @@
 import IssueReporting
 import XCTest
 
-struct Failure: Error {}
-
 final class XCTestTests: XCTestCase {
   #if !os(WASI)
     func testIsTesting() {
@@ -48,3 +46,5 @@ final class XCTestTests: XCTestCase {
     }
   #endif
 }
+
+private struct Failure: Error {}

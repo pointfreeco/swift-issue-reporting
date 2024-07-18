@@ -3,8 +3,8 @@ import Testing
 import IssueReporting
 
 @Suite
-struct IssueReporting_SwiftTesting {
-  @Test func testContext() {
+struct SwiftTestingTests {
+  @Test func context() {
     #expect(TestContext.current == .swiftTesting)
   }
 
@@ -64,3 +64,5 @@ struct IssueReporting_SwiftTesting {
   }
 }
 #endif
+
+private struct Failure: Error {}

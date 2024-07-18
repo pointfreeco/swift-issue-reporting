@@ -2,9 +2,6 @@
   import XCTest
 #endif
 
-#if !os(WASI) && !os(Windows)
-  @_cdecl("IssueReportingTestSupport_XCTFail")
-#endif
 public func _XCTFail() -> Any { __XCTFail }
 @Sendable
 private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
@@ -13,9 +10,6 @@ private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
   #endif
 }
 
-#if !os(WASI) && !os(Windows)
-  @_cdecl("IssueReportingTestSupport_XCTExpectFailure")
-#endif
 public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
 @Sendable
 private func __XCTExpectFailure(
@@ -26,13 +20,19 @@ private func __XCTExpectFailure(
 ) rethrows {
   #if canImport(XCTest)
     #if _runtime(_ObjC)
-  try XCTExpectFailure(failureReason, enabled: enabled, strict: strict, failingBlock: failingBlock)
+      try XCTExpectFailure(
+        failureReason,
+        enabled: enabled,
+        strict: strict,
+        failingBlock: failingBlock
+      )
     #else
       XCTFail(
         """
         'XCTExpectFailure' is not available on this platform.
 
-        Consider using Swift Testing and 'withKnownIssue', instead.
+        Omit this test from your suite by wrapping it in '#if canImport(Darwin)', or consider using 
+        Swift Testing and 'withKnownIssue', instead.
         """
       )
       try failingBlock()

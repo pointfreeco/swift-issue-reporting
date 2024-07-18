@@ -26,6 +26,12 @@ let package = Package(
         "IssueReportingTestSupport",
       ]
     ),
+    .testTarget(
+      name: "IssueReportingTestsWithoutTestSupport",
+      dependencies: [
+        "IssueReporting",
+      ]
+    ),
     .target(
       name: "IssueReportingTestSupport"
     ),

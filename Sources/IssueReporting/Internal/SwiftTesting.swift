@@ -8,7 +8,7 @@ func _recordIssue(
   line: Int = #line,
   column: Int = #column
 ) {
-  guard let function = function(for: "IssueReportingTestSupport_RecordIssue")
+  guard let function = function(for: .recordIssue)
   else {
     #if DEBUG
       guard
@@ -56,7 +56,13 @@ func _recordIssue(
         SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
       )
     #else
-      // TODO: Warn
+      fputs("""
+        \(fileID):\(line): An issue was recorded without linking the Testing framework.
+        
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """,
+        stderr
+      )
     #endif
     return
   }
@@ -75,7 +81,7 @@ func _withKnownIssue(
   column: Int = #column,
   _ body: () throws -> Void
 ) {
-  guard let function = function(for: "IssueReportingTestSupport_WithKnownIssue")
+  guard let function = function(for: .withKnownIssue)
   else {
     #if DEBUG
       guard
@@ -111,7 +117,13 @@ func _withKnownIssue(
         body
       )
     #else
-      // TODO: Warn
+    fputs("""
+      \(fileID):\(line): A known issue was recorded without linking the Testing framework.
+      
+      To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+      """,
+      stderr
+    )
     #endif
     return
   }
@@ -122,13 +134,18 @@ func _withKnownIssue(
 
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
-
-  guard let function = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
+  guard let function = function(for: .currentTestIsNotNil)
   else {
     #if DEBUG
       return Test.current != nil
     #else
-      // TODO: Warn?
+      fputs("""
+        'Test.current' was accessed without linking the Testing framework.
+        
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """,
+        stderr
+      )
       return false
     #endif
   }
@@ -244,45 +261,52 @@ func _currentTestIsNotNil() -> Bool {
   }
 #endif
 
-#if os(Linux) || os(Windows)
-  private typealias DynamicFunction = @convention(thin) () -> Any
-#else
-  private typealias DynamicFunction = @convention(c) () -> Any
-#endif
-
 @usableFromInline
-func function(for symbol: String) -> Any? {
+func function(for symbol: Symbol) -> Any? {
   #if os(Linux)
     let symbol = symbolMap[symbol] ?? symbol
     guard
-      let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
+      let handle = dlopen("Testing.so", RTLD_LAZY),
+      let pointer = dlsym(handle, symbol.mangled)
     else { return nil }
     return unsafeBitCast(pointer, to: DynamicFunction.self)()
   #elseif os(Windows)
     let symbol = symbolMap[symbol]
     guard
-      let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
-      let pointer = GetProcAddress(handle, symbol)
+      let handle = LoadLibraryA("Testing.dll"),
+      let pointer = GetProcAddress(handle, symbol.mangled)
     else { return nil }
     return unsafeBitCast(pointer, to: DynamicFunction.self)()
   #else
     guard
       let handle = dlopen(nil, RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
+      let pointer = dlsym(handle, symbol.mangled)
     else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
   #endif
 }
-#if os(Linux) || os(Windows)
-  private let symbolMap: [String: String] = [
-    "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
-    "IssueReportingTestSupport_WithKnownIssue":
-      "$s25IssueReportingTestSupport010_withKnownA0ypyF",
-    "IssueReportingTestSupport_CurrentTestIsNotNil":
-      "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
-    "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
-    "IssueReportingTestSupport_XCTExpectFailure":
-      "$s25IssueReportingTestSupport17_XCTExpectFailureypyF",
-  ]
-#endif
+
+@usableFromInline
+struct Symbol: Sendable {
+  let mangled: String
+  @usableFromInline
+  static let recordIssue = Self(
+    mangled: "$s25IssueReportingTestSupport07_recordA0ypyF"
+  )
+  @usableFromInline
+  static let withKnownIssue = Self(
+    mangled: "$s25IssueReportingTestSupport010_withKnownA0ypyF"
+  )
+  @usableFromInline
+  static let currentTestIsNotNil = Self(
+    mangled: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF"
+  )
+  @usableFromInline
+  static let xctFail = Self(
+    mangled: "$s25IssueReportingTestSupport8_XCTFailypyF"
+  )
+  @usableFromInline
+  static let xctExpectFailure = Self(
+    mangled: "$s25IssueReportingTestSupport17_XCTExpectFailureypyF"
+  )
+}
