@@ -18,12 +18,13 @@ private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
 public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
 private func __XCTExpectFailure(
   _ failureReason: String?,
+  enabled: Bool?,
   strict: Bool?,
   failingBlock: () throws -> Void
 ) rethrows {
   #if canImport(XCTest)
     #if _runtime(_ObjC)
-      try XCTExpectFailure(failureReason, strict: strict, failingBlock: failingBlock)
+  try XCTExpectFailure(failureReason, enabled: enabled, strict: strict, failingBlock: failingBlock)
     #else
       XCTFail(
         """

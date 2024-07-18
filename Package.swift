@@ -12,19 +12,19 @@ let package = Package(
   ],
   products: [
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
+    .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
     .target(
-      name: "IssueReporting",
-      exclude: ["Resources/600"],
-      resources: [
-        .process("Resources/509"),
-      ]
+      name: "IssueReporting"
     ),
     .testTarget(
       name: "IssueReportingTests",
       dependencies: ["IssueReporting"]
+    ),
+    .target(
+      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -36,17 +36,6 @@ let package = Package(
     ),
   ]
 )
-
-#if os(Linux) || os(Windows)
-  package.products.append(
-    .library(
-      name: "IssueReportingTestSupport",
-      type: .dynamic,
-      targets: ["IssueReportingTestSupport"]
-    )
-  )
-  package.targets[0].exclude.append("Resources/509")
-#endif
 
 #if os(macOS)
   package.dependencies.append(contentsOf: [
