@@ -32,7 +32,7 @@
 ///   - line: The source `#line` associated with the issue.
 ///   - column: The source `#column` associated with the issue.
 ///   - body: The function to invoke.
-//@_transparent
+@_transparent
 public func withExpectedIssue(
   _ message: String? = nil,
   isIntermittent: Bool = false,

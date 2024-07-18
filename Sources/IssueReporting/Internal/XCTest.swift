@@ -50,7 +50,7 @@ func _XCTFail(
   XCTFail(message, file, line)
 }
 
-//@_transparent
+@_transparent
 @usableFromInline
 func _XCTExpectFailure<R>(
   _ failureReason: String? = nil,

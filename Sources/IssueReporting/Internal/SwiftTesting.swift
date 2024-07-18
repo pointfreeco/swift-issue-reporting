@@ -65,48 +65,6 @@ func _recordIssue(
   recordIssue(message, fileID, filePath, line, column)
 }
 
-#if os(Linux) || os(Windows)
-  private typealias DynamicFunction = @convention(thin) () -> Any
-#else
-  private typealias DynamicFunction = @convention(c) () -> Any
-#endif
-
-func function(for symbol: String) -> Any? {
-  #if os(Linux)
-    let symbol = symbolMap[symbol] ?? symbol
-    guard
-      let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
-    else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
-  #elseif os(Windows)
-    let symbol = symbolMap[symbol]
-    guard
-      let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
-      let pointer = GetProcAddress(handle, symbol)
-    else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
-  #else
-    guard
-      let handle = dlopen(nil, RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
-    else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
-  #endif
-}
-#if os(Linux) || os(Windows)
-  private let symbolMap: [String: String] = [
-    "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
-    "IssueReportingTestSupport_WithKnownIssue":
-      "$s25IssueReportingTestSupport010_withKnownA0ypyF",
-    "IssueReportingTestSupport_CurrentTestIsNotNil":
-      "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
-    "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
-    "IssueReportingTestSupport_XCTExpectFailure":
-      "$s25IssueReportingTestSupport17_XCTExpectFailureypyF",
-  ]
-#endif
-
 @usableFromInline
 func _withKnownIssue(
   _ message: String? = nil,
@@ -284,4 +242,47 @@ func _currentTestIsNotNil() -> Bool {
     }
     private var isSynthesized = false
   }
+#endif
+
+#if os(Linux) || os(Windows)
+  private typealias DynamicFunction = @convention(thin) () -> Any
+#else
+  private typealias DynamicFunction = @convention(c) () -> Any
+#endif
+
+@usableFromInline
+func function(for symbol: String) -> Any? {
+  #if os(Linux)
+    let symbol = symbolMap[symbol] ?? symbol
+    guard
+      let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #elseif os(Windows)
+    let symbol = symbolMap[symbol]
+    guard
+      let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
+      let pointer = GetProcAddress(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #else
+    guard
+      let handle = dlopen(nil, RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+  #endif
+}
+#if os(Linux) || os(Windows)
+  private let symbolMap: [String: String] = [
+    "IssueReportingTestSupport_RecordIssue": "$s25IssueReportingTestSupport07_recordA0ypyF",
+    "IssueReportingTestSupport_WithKnownIssue":
+      "$s25IssueReportingTestSupport010_withKnownA0ypyF",
+    "IssueReportingTestSupport_CurrentTestIsNotNil":
+      "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF",
+    "IssueReportingTestSupport_XCTFail": "$s25IssueReportingTestSupport8_XCTFailypyF",
+    "IssueReportingTestSupport_XCTExpectFailure":
+      "$s25IssueReportingTestSupport17_XCTExpectFailureypyF",
+  ]
 #endif
