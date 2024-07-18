@@ -13,7 +13,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  macos:
+    strategy:
+      matrix:
+        configuration:
+          - debug
+          - release
     name: macOS
     runs-on: macos-14
     steps:
@@ -21,7 +26,7 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
-      run: make test
+      run: make test-${{ matrix.configuration }}
 
   linux:
     strategy:

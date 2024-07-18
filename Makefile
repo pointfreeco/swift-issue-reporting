@@ -13,7 +13,7 @@ test-debug:
 		&& (echo "$(PASS) $(XCT_FAIL) was called with $(EXPECTED)" && exit) \
 		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
 
-test: test-debug
+test-release:
 	@swift test -c release
 
 test-linux:

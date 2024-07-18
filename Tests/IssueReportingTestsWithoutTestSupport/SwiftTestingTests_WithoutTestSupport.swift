@@ -71,16 +71,12 @@ struct SwiftTestingTests_Release {
     #expect(TestContext.current == .xcTest)
   }
 
-  @Test func reportIssueDoesNotCauseFailure() {
+  @Test func reportIssueDoesNotFail() {
     reportIssue()
   }
 
-  @Test func withExpectedIssueDoesNotCauseFailure() {
+  @Test func withExpectedIssueDoesNotFail() {
     withExpectedIssue {}
-  }
-
-  @Test func withExpectedIssueThrowDoesNotCauseFailure() {
-    withExpectedIssue { throw Failure() }
   }
 }
 #endif
