@@ -8,7 +8,9 @@ func _recordIssue(
   line: Int = #line,
   column: Int = #column
 ) {
-  #if DEBUG
+  guard let function = function(for: "IssueReportingTestSupport_RecordIssue")
+  else {
+#if DEBUG
     guard
       let fromSyntaxNodePtr = dlsym(
         dlopen(nil, RTLD_LAZY),
@@ -55,9 +57,44 @@ func _recordIssue(
       false,
       SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
     )
-  #else
+#else
     // TODO: Warn
-  #endif
+#endif
+    return
+  }
+
+  let recordIssue = function as! @Sendable (String?, String, String, Int, Int) -> Void
+  recordIssue(message, fileID, filePath, line, column)
+}
+
+#if os(Linux) || os(Windows)
+private typealias DynamicFunction = @convention(thin) () -> Any
+#else
+private typealias DynamicFunction = @convention(c) () -> Any
+#endif
+
+func function(for symbol: String) -> Any? {
+#if os(Linux)
+  let symbol = symbolMap[symbol] ?? symbol
+  guard
+    let handle = dlopen("libIssueReportingTestSupport.so", RTLD_LAZY),
+    let pointer = dlsym(handle, symbol)
+  else { return nil }
+  return unsafeBitCast(pointer, to: DynamicFunction.self)()
+#elseif os(Windows)
+  let symbol = symbolMap[symbol]
+  guard
+    let handle = LoadLibraryA("IssueReportingTestSupport.dll"),
+    let pointer = GetProcAddress(handle, symbol)
+  else { return nil }
+  return unsafeBitCast(pointer, to: DynamicFunction.self)()
+#else
+  guard
+    let handle = dlopen(nil, RTLD_LAZY),
+    let pointer = dlsym(handle, symbol)
+  else { return nil }
+  return unsafeBitCast(pointer, to: DynamicFunction.self)()
+#endif
 }
 
 @usableFromInline
@@ -70,7 +107,9 @@ func _withKnownIssue(
   column: Int = #column,
   _ body: () throws -> Void
 ) {
-  #if DEBUG
+  guard let function = function(for: "IssueReportingTestSupport_WithKnownIssue")
+  else {
+#if DEBUG
     guard
       let withKnownIssuePtr = dlsym(
         dlopen(nil, RTLD_LAZY),
@@ -105,19 +144,30 @@ func _withKnownIssue(
       SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
       body
     )
-  #else
+#else
     // TODO: Warn
-  #endif
+#endif
+    return
+  }
+
+  let withKnownIssue = function as! @Sendable (String?, Bool, () throws -> Void) -> Void
+  withKnownIssue(message, isIntermittent, body)
 }
 
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
-  #if DEBUG
-    Test.current != nil
-  #else
+
+  guard let function = function(for: "IssueReportingTestSupport_CurrentTestIsNotNil")
+  else {
+#if DEBUG
+    return Test.current != nil
+#else
     // TODO: Warn?
     return false
-  #endif
+#endif
+  }
+
+  return (function as! @Sendable () -> Bool)()
 }
 
 #if DEBUG

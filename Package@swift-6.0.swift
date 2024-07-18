@@ -12,6 +12,7 @@ let package = Package(
   ],
   products: [
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
+    .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
@@ -20,7 +21,13 @@ let package = Package(
     ),
     .testTarget(
       name: "IssueReportingTests",
-      dependencies: ["IssueReporting"]
+      dependencies: [
+        "IssueReporting",
+        "IssueReportingTestSupport",
+      ]
+    ),
+    .target(
+      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -28,7 +35,10 @@ let package = Package(
     ),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
-      dependencies: ["XCTestDynamicOverlay"]
+      dependencies: [
+        "IssueReportingTestSupport",
+        "XCTestDynamicOverlay"
+      ]
     ),
   ],
   swiftLanguageVersions: [.v6]
