@@ -16,7 +16,7 @@ jobs:
   macos:
     strategy:
       matrix:
-        configuration:
+        config:
           - debug
           - release
     name: macOS
@@ -26,13 +26,16 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
-      run: make test-${{ matrix.configuration }}
+      run: make test-${{ matrix.config }}
 
   linux:
     strategy:
       matrix:
         swift:
           - '5.10'
+        config:
+          - debug
+          - release
     name: Ubuntu (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
     container: swift:${{ matrix.swift }}
@@ -41,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: apt-get update && apt-get install -y build-essential libcurl4-openssl-dev
       - name: Run tests
-        run: make test
+        run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
         run: make build-for-static-stdlib
 
@@ -62,7 +65,9 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        config: ['debug', 'release']
+        config:
+          - debug
+          - release
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
