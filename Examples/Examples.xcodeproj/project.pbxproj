@@ -16,6 +16,7 @@
 		CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */; };
 		CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */; };
 		CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E12C4ABE90005A85F7 /* IssueReporting */; };
+		CADE79E42C4AC8A4005A85F7 /* IssueReportingTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */,
+				CADE79E42C4AC8A4005A85F7 /* IssueReportingTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +137,7 @@
 			name = Examples;
 			packageProductDependencies = (
 				CADE79D92C4A9D3A005A85F7 /* IssueReporting */,
+				CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */,
 			);
 			productName = Examples;
 			productReference = CADE79AA2C4A9D2C005A85F7 /* Examples.app */;
@@ -525,6 +528,10 @@
 		CADE79E12C4ABE90005A85F7 /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
+		};
+		CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IssueReportingTestSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

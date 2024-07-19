@@ -33,6 +33,7 @@ your own custom issue reporter to send issues to OSLog or an external server.
 ### Essentials
 
 - <doc:GettingStarted>
+- <doc:ReleaseMode>
 
 ### Reporting issues
 
