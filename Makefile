@@ -17,7 +17,7 @@ test-release:
 	@swift test -c release
 
 test-examples:
-	#xcrun simctl boot "iPhone 15"
+	xcrun simctl boot "iPhone 15"
 	xcodebuild test \
 		-configuration $(CONFIG) \
 	 	-workspace IssueReporting.xcworkspace \
