@@ -24,9 +24,9 @@
 /// [XCTExpectFailure]: https://developer.apple.com/documentation/xctest/3727246-xctexpectfailure/
 ///
 /// - Parameters:
-///   - message: An optional message describing the known issue.
-///   - isIntermittent: Whether or not the known issue occurs intermittently. If this argument is
-///     `true` and the known issue does not occur, no secondary issue is recorded.
+///   - message: An optional message describing the expected issue.
+///   - isIntermittent: Whether or not the expected issue occurs intermittently. If this argument is
+///     `true` and the expected issue does not occur, no secondary issue is recorded.
 ///   - fileID: The source `#fileID` associated with the issue.
 ///   - filePath: The source `#filePath` associated with the issue.
 ///   - line: The source `#line` associated with the issue.
@@ -100,6 +100,24 @@ public func withExpectedIssue(
   }
 }
 
+/// Invoke an asynchronous function that has an issue that is expected to occur during its
+/// execution.
+///
+/// An asynchronous version of
+/// ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``.
+///
+/// > Warning: The asynchronous version of this function is incompatible with XCTest and will
+/// > unconditionally report an issue when used, instead.
+///
+/// - Parameters:
+///   - message: An optional message describing the expected issue.
+///   - isIntermittent: Whether or not the known expected occurs intermittently. If this argument is
+///     `true` and the expected issue does not occur, no secondary issue is recorded.
+///   - fileID: The source `#fileID` associated with the issue.
+///   - filePath: The source `#filePath` associated with the issue.
+///   - line: The source `#line` associated with the issue.
+///   - column: The source `#column` associated with the issue.
+///   - body: The asynchronous function to invoke.
 @_transparent
 public func withExpectedIssue(
   _ message: String? = nil,

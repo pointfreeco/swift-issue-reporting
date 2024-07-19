@@ -40,7 +40,7 @@ your own custom issue reporter to send issues to OSLog or an external server.
 ### Reporting issues
 
 - ``reportIssue(_:fileID:filePath:line:column:)``
-- ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``
+- ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``
 
 ### Issue reporters
 

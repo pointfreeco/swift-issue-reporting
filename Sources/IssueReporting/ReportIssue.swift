@@ -7,7 +7,7 @@
 /// XCTest's [`XCTFail`][XCTFail] accordingly, which means you can use it to drive custom assertion
 /// helpers that you want to work in both Swift Testing and XCTest.
 ///
-/// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:fileid:filepath:line:column:)
+/// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:sourcelocation:)
 /// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
 ///
 /// - Parameters:
@@ -66,6 +66,25 @@ public func reportIssue(
   }
 }
 
+/// Report a caught error.
+///
+/// A generalized version of Swift Testing's [`Issue.record`][Issue.record] that emits "purple"
+/// warnings to Xcode at runtime and logs fault-level messages to the console.
+///
+/// During test runs, the issue will be sent to Swift Testing's [`Issue.record`][Issue.record] _or_
+/// XCTest's [`XCTFail`][XCTFail] accordingly, which means you can use it to drive custom assertion
+/// helpers that you want to work in both Swift Testing and XCTest.
+///
+/// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:_:sourcelocation:)
+/// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
+///
+/// - Parameters:
+///   - error: The error that caused the issue.
+///   - message: A message describing the expectation.
+///   - fileID: The source `#fileID` associated with the issue.
+///   - filePath: The source `#filePath` associated with the issue.
+///   - line: The source `#line` associated with the issue.
+///   - column: The source `#column` associated with the issue.
 @_transparent
 public func reportIssue(
   _ error: any Error,
