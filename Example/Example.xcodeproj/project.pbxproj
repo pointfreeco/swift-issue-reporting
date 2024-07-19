@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA9464F82C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9464F62C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift */; };
 		CA9464F92C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9464F72C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift */; };
+		CA9464FC2C4A93E500F2386C /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CA9464FB2C4A93E500F2386C /* IssueReporting */; };
 		CAD289D72C48458C0019C39D /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD289D62C48458C0019C39D /* ExampleApp.swift */; };
 		CAD289DB2C48458D0019C39D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD289DA2C48458D0019C39D /* Assets.xcassets */; };
 		CAD289DE2C48458D0019C39D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD289DD2C48458D0019C39D /* Preview Assets.xcassets */; };
@@ -28,7 +29,6 @@
 /* Begin PBXFileReference section */
 		CA9464F62C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTestingTests_WithoutTestSupport.swift; sourceTree = "<group>"; };
 		CA9464F72C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestTests_WithoutTestSupport.swift; sourceTree = "<group>"; };
-		CA9464FA2C4A8F0500F2386C /* Example.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Example.xctestplan; path = WithoutTestSupportTests/Example.xctestplan; sourceTree = "<group>"; };
 		CAD289D32C48458C0019C39D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD289D62C48458C0019C39D /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
 		CAD289DA2C48458D0019C39D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA9464FC2C4A93E500F2386C /* IssueReporting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +61,6 @@
 		CAD289CA2C48458C0019C39D = {
 			isa = PBXGroup;
 			children = (
-				CA9464FA2C4A8F0500F2386C /* Example.xctestplan */,
 				CAD28A002C4845F90019C39D /* xctest-dynamic-overlay */,
 				CAD289D52C48458C0019C39D /* Example */,
 				CAD289E62C48458D0019C39D /* WithoutTestSupportTests */,
@@ -494,6 +494,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CA9464FB2C4A93E500F2386C /* IssueReporting */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IssueReporting;
+		};
 		CAD28A032C4846230019C39D /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
