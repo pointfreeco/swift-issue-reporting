@@ -47,7 +47,7 @@
       }
     }
 
-    @Test func withExpectedAsyncIssue_reportIssue() async {
+    @Test func withExpectedIssue_reportIssue_Async() async {
       await withExpectedIssue {
         await Task.yield()
         reportIssue()
@@ -73,6 +73,16 @@
       }
     }
 
+    @Test func withExpectedIssue_NoMessage_NoIssue_Async() async {
+      await withKnownIssue {
+        await withExpectedIssue {
+          await Task.yield()
+        }
+      } matching: { issue in
+        issue.description == "Known issue was not recorded"
+      }
+    }
+
     @Test func withExpectedIssue_CustomMessage_NoIssue() {
       withKnownIssue {
         withExpectedIssue("This didn't fail") {
@@ -82,8 +92,24 @@
       }
     }
 
-    @Test func withExpectedIssue_IsIntermittent() async throws {
+    @Test func withExpectedIssue_CustomMessage_NoIssue_Async() async {
+      await withKnownIssue {
+        await withExpectedIssue("This didn't fail") {
+          await Task.yield()
+        }
+      } matching: { issue in
+        issue.description == "Known issue was not recorded: This didn't fail"
+      }
+    }
+
+    @Test func withExpectedIssue_IsIntermittent() {
       withExpectedIssue(isIntermittent: true) {
+      }
+    }
+
+    @Test func withExpectedIssue_IsIntermittent_Async() async {
+      await withExpectedIssue(isIntermittent: true) {
+        await Task.yield()
       }
     }
   }
