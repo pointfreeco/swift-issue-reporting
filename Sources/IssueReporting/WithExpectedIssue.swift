@@ -87,7 +87,78 @@ public func withExpectedIssue(
         for reporter in IssueReporters.current {
           reporter.expectIssue(
             error,
-            nil,
+            message,
+            fileID: IssueContext.current?.fileID ?? fileID,
+            filePath: IssueContext.current?.filePath ?? filePath,
+            line: IssueContext.current?.line ?? line,
+            column: IssueContext.current?.column ?? column
+          )
+        }
+      }
+    }
+    return
+  }
+}
+
+@_transparent
+public func withExpectedIssue(
+  _ message: String? = nil,
+  isIntermittent: Bool = false,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  line: UInt = #line,
+  column: UInt = #column,
+  _ body: () async throws -> Void
+) async {
+  switch TestContext.current {
+  case .swiftTesting:
+    await _withKnownIssue(
+      message,
+      isIntermittent: isIntermittent,
+      fileID: fileID.description,
+      filePath: filePath.description,
+      line: Int(line),
+      column: Int(column),
+      body
+    )
+  case .xcTest:
+    // TODO: Fail
+//    _XCTExpectFailure(
+//      message.withAppHostWarningIfNeeded(),
+//      strict: !isIntermittent,
+//      file: filePath,
+//      line: line
+//    ) {
+//      do {
+//        try body()
+//      } catch {
+//        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+//      }
+//    }
+    return
+  case nil:
+    // TODO:
+    guard !isTesting else { return }
+    let observer = FailureObserver()
+    FailureObserver.$current.withValue(observer) {
+      do {
+        try body()
+        if observer.withLock({ $0 == 0 }), !isIntermittent {
+          for reporter in IssueReporters.current {
+            reporter.reportIssue(
+              "Known issue was not recorded\(message.map { ": \($0)" } ?? "")",
+              fileID: IssueContext.current?.fileID ?? fileID,
+              filePath: IssueContext.current?.filePath ?? filePath,
+              line: IssueContext.current?.line ?? line,
+              column: IssueContext.current?.column ?? column
+            )
+          }
+        }
+      } catch {
+        for reporter in IssueReporters.current {
+          reporter.expectIssue(
+            error,
+            message,
             fileID: IssueContext.current?.fileID ?? fileID,
             filePath: IssueContext.current?.filePath ?? filePath,
             line: IssueContext.current?.line ?? line,

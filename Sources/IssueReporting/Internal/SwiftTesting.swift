@@ -185,6 +185,74 @@ func _withKnownIssue(
 }
 
 @usableFromInline
+func _withKnownIssue(
+  _ message: String? = nil,
+  isIntermittent: Bool = false,
+  fileID: String = #fileID,
+  filePath: String = #filePath,
+  line: Int = #line,
+  column: Int = #column,
+  _ body: () async throws -> Void
+) async {
+  guard let function = function(for: "TODO $s25IssueReportingTestSupport010_withKnownA0ypyF")
+  else {
+    #if DEBUG
+      guard
+        // _$s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyYaKXEtYaF
+        // _$s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyYaKXEtYaFTu
+
+        let withKnownIssue = unsafeBitCast(
+          symbol: """
+            $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
+            H0VyyYaKXEtYaFTu
+            """,
+          in: "Testing",
+          to: (@convention(thin) (
+            Any?,
+            Bool,
+            SourceLocation,
+            () async throws -> Void
+          ) async -> Void)
+          .self
+        )
+      else { return }
+
+      var comment: Any?
+      if let message {
+        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+        c.rawValue = message
+        comment = c
+      }
+      await withKnownIssue(
+        comment,
+        isIntermittent,
+        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+        body
+      )
+    #else
+      printError(
+        """
+        \(fileID):\(line): A known issue was recorded without linking the Testing framework.
+
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """
+      )
+    #endif
+    return
+  }
+
+  let withKnownIssue = function as! @Sendable (
+    String?,
+    Bool,
+    String,
+    String,
+    Int,
+    Int,
+    () async throws -> Void
+  ) async -> Void
+  await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
+}
+@usableFromInline
 func _currentTestIsNotNil() -> Bool {
   guard let function = function(for: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF")
   else {

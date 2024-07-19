@@ -88,6 +88,32 @@ private func __withKnownIssue(
   #endif
 }
 
+public func _withKnownIssueAsync() -> Any { __withKnownIssueAsync }
+@Sendable
+private func __withKnownIssueAsync(
+  _ message: String?,
+  isIntermittent: Bool,
+  fileID: String,
+  filePath: String,
+  line: Int,
+  column: Int,
+  _ body: () async throws -> Void
+) async {
+  #if canImport(Testing)
+    await withKnownIssue(
+      message.map(Comment.init(rawValue:)),
+      isIntermittent: isIntermittent,
+      sourceLocation: SourceLocation(
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      ),
+      body
+    )
+  #endif
+}
+
 public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
 @Sendable
 private func __currentTestIsNotNil() -> Bool {

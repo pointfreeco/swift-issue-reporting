@@ -86,6 +86,7 @@ public func reportIssue(
       column: Int(IssueContext.current?.column ?? column)
     )
   case .xcTest:
+    // TODO: Incorporate error into message
     _XCTFail(
       message().withAppHostWarningIfNeeded() ?? "",
       file: IssueContext.current?.filePath ?? filePath,
