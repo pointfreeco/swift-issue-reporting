@@ -7,42 +7,44 @@ import XCTest
       XCTAssertEqual(TestContext.current, .xcTest)
     }
 
-    func testReportIssue_NoMessage() {
-      XCTExpectFailure {
-        reportIssue()
-      } issueMatcher: {
-        $0.compactDescription == "failed"
+    #if _runtime(_ObjC)
+      func testReportIssue_NoMessage() {
+        XCTExpectFailure {
+          reportIssue()
+        } issueMatcher: {
+          $0.compactDescription == "failed"
+        }
       }
-    }
 
-    func testReportIssue_CustomMessage() {
-      XCTExpectFailure {
-        reportIssue("Something went wrong")
-      } issueMatcher: {
-        $0.compactDescription == "failed - Something went wrong"
+      func testReportIssue_CustomMessage() {
+        XCTExpectFailure {
+          reportIssue("Something went wrong")
+        } issueMatcher: {
+          $0.compactDescription == "failed - Something went wrong"
+        }
       }
-    }
 
-    func testWithExpectedIssue_reportIssue() {
-      withExpectedIssue {
-        reportIssue()
+      func testWithExpectedIssue_reportIssue() {
+        withExpectedIssue {
+          reportIssue()
+        }
       }
-    }
 
-    func testWithExpectedIssue_issueRecord() {
-      withExpectedIssue {
-        XCTFail()
+      func testWithExpectedIssue_issueRecord() {
+        withExpectedIssue {
+          XCTFail()
+        }
       }
-    }
 
-    func testWithExpectedIssue_throw() {
-      withExpectedIssue { throw Failure() }
-    }
-
-    func testWithExpectedIssue_IsIntermittent() async throws {
-      withExpectedIssue(isIntermittent: true) {
+      func testWithExpectedIssue_throw() {
+        withExpectedIssue { throw Failure() }
       }
-    }
+
+      func testWithExpectedIssue_IsIntermittent() async throws {
+        withExpectedIssue(isIntermittent: true) {
+        }
+      }
+    #endif
   }
 #else
   // class XCTestTests_Release: XCTestCase {
