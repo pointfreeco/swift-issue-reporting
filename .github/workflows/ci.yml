@@ -31,14 +31,12 @@ jobs:
   linux:
     strategy:
       matrix:
-        swift:
-          - '5.10'
         config:
           - debug
           - release
-    name: Ubuntu
+    name: Linux
     runs-on: ubuntu-latest
-    container: swift:${{ matrix.swift }}
+    container: swift:5.10
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies

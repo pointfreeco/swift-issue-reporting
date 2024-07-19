@@ -276,13 +276,13 @@ func function(for symbol: String) -> Any? {
       let handle = dlopen("libTesting.so", RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
   #elseif os(Windows)
     guard
       let handle = LoadLibraryA("Testing.dll"),
       let pointer = GetProcAddress(handle, symbol)
     else { return nil }
-    return unsafeBitCast(pointer, to: DynamicFunction.self)()
+    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
   #else
     guard
       let handle = dlopen(nil, RTLD_LAZY),
