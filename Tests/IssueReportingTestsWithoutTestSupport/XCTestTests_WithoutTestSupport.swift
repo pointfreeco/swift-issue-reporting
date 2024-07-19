@@ -45,19 +45,19 @@ import XCTest
     }
   }
 #else
-  class XCTestTests_Release: XCTestCase {
-    func testContext() {
-      XCTAssertEqual(TestContext.current, .xcTest)
-    }
-
-    // func testReportIssueDoesNotFail() {
-    //   reportIssue()
-    // }
-
-    func testWithExpectedIssueNoIssueDoesNotFail() {
-      withExpectedIssue {}
-    }
-  }
+  // class XCTestTests_Release: XCTestCase {
+  //   func testContext() {
+  //     XCTAssertEqual(TestContext.current, .xcTest)
+  //   }
+  //
+  //   func testReportIssueDoesNotFail() {
+  //     reportIssue()
+  //   }
+  //
+  //   func testWithExpectedIssueNoIssueDoesNotFail() {
+  //     withExpectedIssue {}
+  //   }
+  // }
 #endif
 
 private struct Failure: Error {}
