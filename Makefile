@@ -18,8 +18,8 @@ test-release:
 
 test-examples:
 	xcodebuild test \
-		-project Example/Example.xcodeproj \
-		-scheme Example \
+		-project Examples/Examples.xcodeproj \
+		-scheme Examples \
 		-destination platform="iOS Simulator,name=iPhone 15" \
 		-configuration $(CONFIG) 
 
