@@ -38,6 +38,30 @@ private func __recordIssue(
   #endif
 }
 
+public func _recordError() -> Any { __recordError }
+@Sendable
+private func __recordError(
+  error: any Error,
+  message: String?,
+  fileID: String,
+  filePath: String,
+  line: Int,
+  column: Int
+) {
+  #if canImport(Testing)
+    Issue.record(
+      error,
+      message.map(Comment.init(rawValue:)),
+      sourceLocation: SourceLocation(
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
+    )
+  #endif
+}
+
 public func _withKnownIssue() -> Any { __withKnownIssue }
 @Sendable
 private func __withKnownIssue(

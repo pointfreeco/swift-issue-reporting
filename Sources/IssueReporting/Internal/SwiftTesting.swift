@@ -70,6 +70,55 @@ func _recordIssue(
 }
 
 @usableFromInline
+func _recordError(
+  error: any Error,
+  message: String?,
+  fileID: String = #fileID,
+  filePath: String = #filePath,
+  line: Int = #line,
+  column: Int = #column
+) {
+  guard let function = function(for: "$s25IssueReportingTestSupport12_recordErrorypyF")
+  else {
+    #if DEBUG
+      guard
+        let record = unsafeBitCast(
+          symbol: """
+            $s7Testing5IssueV6record__14sourceLocationACs5Error_p_AA7CommentVSgAA06SourceE0VtFZ
+            """,
+          in: "Testing",
+          to: (@convention(thin) (any Error, Any?, SourceLocation) -> Any).self
+        )
+      else { return }
+
+      var comment: Any?
+      if let message {
+        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+        c.rawValue = message
+        comment = c
+      }
+      _ = record(
+        error,
+        comment,
+        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+      )
+    #else
+      printError(
+        """
+        \(fileID):\(line): An issue was recorded without linking the Testing framework.
+
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """
+      )
+    #endif
+    return
+  }
+
+  let recordError = function as! @Sendable (any Error, String?, String, String, Int, Int) -> Void
+  recordError(error, message, fileID, filePath, line, column)
+}
+
+@usableFromInline
 func _withKnownIssue(
   _ message: String? = nil,
   isIntermittent: Bool = false,

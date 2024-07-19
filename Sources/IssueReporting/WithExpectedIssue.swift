@@ -63,7 +63,7 @@ public func withExpectedIssue(
       do {
         try body()
       } catch {
-        _XCTFail("Caught error: \(error)", file: filePath, line: line)
+        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
       }
     }
   case nil:
@@ -86,7 +86,8 @@ public func withExpectedIssue(
       } catch {
         for reporter in IssueReporters.current {
           reporter.expectIssue(
-            "Caught error: \(error)",
+            error,
+            nil,
             fileID: IssueContext.current?.fileID ?? fileID,
             filePath: IssueContext.current?.filePath ?? filePath,
             line: IssueContext.current?.line ?? line,

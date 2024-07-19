@@ -65,3 +65,57 @@ public func reportIssue(
     }
   }
 }
+
+@_transparent
+public func reportIssue(
+  _ error: any Error,
+  _ message: @autoclosure () -> String? = nil,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  line: UInt = #line,
+  column: UInt = #column
+) {
+  switch TestContext.current {
+  case .swiftTesting:
+    _recordError(
+      error: error,
+      message: message(),
+      fileID: "\(IssueContext.current?.fileID ?? fileID)",
+      filePath: "\(IssueContext.current?.filePath ?? filePath)",
+      line: Int(IssueContext.current?.line ?? line),
+      column: Int(IssueContext.current?.column ?? column)
+    )
+  case .xcTest:
+    _XCTFail(
+      message().withAppHostWarningIfNeeded() ?? "",
+      file: IssueContext.current?.filePath ?? filePath,
+      line: IssueContext.current?.line ?? line
+    )
+  case nil:
+    guard !isTesting else { return }
+    if let observer = FailureObserver.current {
+      observer.withLock { $0 += 1 }
+      for reporter in IssueReporters.current {
+        reporter.expectIssue(
+          error,
+          message(),
+          fileID: IssueContext.current?.fileID ?? fileID,
+          filePath: IssueContext.current?.filePath ?? filePath,
+          line: IssueContext.current?.line ?? line,
+          column: IssueContext.current?.column ?? column
+        )
+      }
+    } else {
+      for reporter in IssueReporters.current {
+        reporter.reportIssue(
+          error,
+          message(),
+          fileID: IssueContext.current?.fileID ?? fileID,
+          filePath: IssueContext.current?.filePath ?? filePath,
+          line: IssueContext.current?.line ?? line,
+          column: IssueContext.current?.column ?? column
+        )
+      }
+    }
+  }
+}

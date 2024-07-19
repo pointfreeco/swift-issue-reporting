@@ -1,7 +1,7 @@
 /// A type that can report issues.
 public protocol IssueReporter: Sendable {
   /// Called when an issue is reported.
-  /// 
+  ///
   /// - Parameters:
   ///   - message: A message describing the issue.
   ///   - fileID: The source `#fileID` associated with the issue.
@@ -9,6 +9,15 @@ public protocol IssueReporter: Sendable {
   ///   - line: The source `#line` associated with the issue.
   ///   - column: The source `#column` associated with the issue.
   func reportIssue(
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
+
+  func reportIssue(
+    _ error: any Error,
     _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
@@ -33,9 +42,35 @@ public protocol IssueReporter: Sendable {
     line: UInt,
     column: UInt
   )
+
+  func expectIssue(
+    _ error: any Error,
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
 }
 
 extension IssueReporter {
+  public func reportIssue(
+    _ error: any Error,
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    reportIssue(
+      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")",
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+  }
+
   public func expectIssue(
     _ message: @autoclosure () -> String?,
     fileID: StaticString,
@@ -43,6 +78,23 @@ extension IssueReporter {
     line: UInt,
     column: UInt
   ) {}
+
+  public func expectIssue(
+    _ error: any Error,
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    expectIssue(
+      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")",
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+  }
 }
 
 public enum IssueReporters {
