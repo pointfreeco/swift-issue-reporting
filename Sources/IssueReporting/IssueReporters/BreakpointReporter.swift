@@ -24,9 +24,9 @@
       if message.isEmpty {
         message = "Issue reported"
       }
-      warn("\(fileID):\(line): \(message)")
+      printError("\(fileID):\(line): \(message)")
       guard isDebuggerAttached else { return }
-      warn(
+      printError(
         """
 
         Caught debug breakpoint. Type "continue" ("c") to resume execution.

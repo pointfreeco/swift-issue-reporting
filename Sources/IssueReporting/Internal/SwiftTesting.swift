@@ -54,7 +54,7 @@ func _recordIssue(
         SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
       )
     #else
-      warn(
+      printError(
         """
         \(fileID):\(line): An issue was recorded without linking the Testing framework.
         
@@ -112,7 +112,7 @@ func _withKnownIssue(
         body
       )
     #else
-      warn(
+      printError(
         """
         \(fileID):\(line): A known issue was recorded without linking the Testing framework.
 
@@ -142,7 +142,7 @@ func _currentTestIsNotNil() -> Bool {
     #if DEBUG
       return Test.current != nil
     #else
-      warn(
+      printError(
         """
         'Test.current' was accessed without linking the Testing framework.
         

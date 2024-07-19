@@ -70,7 +70,7 @@ public struct RuntimeWarningReporter: IssueReporter {
         "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
       )
     #else
-      warn("\(fileID):\(line): \(message() ?? "")", stderr)
+      printError("\(fileID):\(line): \(message() ?? "")", stderr)
     #endif
   }
 

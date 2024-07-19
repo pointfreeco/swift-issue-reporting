@@ -42,7 +42,7 @@ func _XCTFail(
         return
       }
     #endif
-    warn(
+    printError(
       """
       \(file):\(line): A failure was recorded without linking the XCTest framework.
 
@@ -92,7 +92,7 @@ func _XCTExpectFailure<R>(
           return try result!._rethrowGet()
         }
       #else
-        warn(
+        printError(
           """
           \(file):\(line): An expected failure was recorded without linking the XCTest framework.
           
