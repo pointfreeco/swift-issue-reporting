@@ -36,7 +36,7 @@ jobs:
         config:
           - debug
           - release
-    name: Ubuntu (Swift ${{ matrix.swift }})
+    name: Ubuntu
     runs-on: ubuntu-latest
     container: swift:${{ matrix.swift }}
     steps:
