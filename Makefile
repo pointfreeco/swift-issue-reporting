@@ -16,6 +16,13 @@ test-debug:
 test-release:
 	@swift test -c release
 
+test-examples:
+	xcodebuild test \
+		-project Example/Example.xcodeproj \
+		-scheme Example \
+		-destination platform="iOS Simulator,name=iPhone 15" \
+		-configuration $(CONFIG) 
+
 test-linux:
 	docker run \
 		--rm \
@@ -25,8 +32,7 @@ test-linux:
 		bash -c 'swift test'
 
 build-for-static-stdlib:
-	@swift build -c debug --static-swift-stdlib
-	@swift build -c release --static-swift-stdlib
+	@swift build -c $(CONFIG) --static-swift-stdlib
 
 format:
 	@swift format \

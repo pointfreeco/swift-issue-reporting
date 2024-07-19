@@ -28,6 +28,21 @@ jobs:
     - name: Run tests
       run: make test-${{ matrix.config }}
 
+  examples:
+    strategy:
+      matrix:
+        config:
+          - debug
+          - release
+    name: Examples
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v4
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode_15.4.app
+    - name: Run tests
+      run: CONFIG=${{ matrix.config }} make test-examples
+
   linux:
     strategy:
       matrix:
@@ -44,7 +59,7 @@ jobs:
       - name: Run tests
         run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
-        run: make build-for-static-stdlib
+        run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
 
   # wasm:
   #   name: Wasm

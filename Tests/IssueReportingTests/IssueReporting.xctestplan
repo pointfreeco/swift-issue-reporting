@@ -25,13 +25,6 @@
         "identifier" : "XCTestDynamicOverlayTests",
         "name" : "XCTestDynamicOverlayTests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "IssueReportingTestsWithoutTestSupport",
-        "name" : "IssueReportingTestsWithoutTestSupport"
-      }
     }
   ],
   "version" : 1

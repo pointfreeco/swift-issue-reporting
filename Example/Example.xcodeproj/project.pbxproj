@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA9464F82C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9464F62C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift */; };
+		CA9464F92C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9464F72C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift */; };
 		CAD289D72C48458C0019C39D /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD289D62C48458C0019C39D /* ExampleApp.swift */; };
 		CAD289DB2C48458D0019C39D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD289DA2C48458D0019C39D /* Assets.xcassets */; };
 		CAD289DE2C48458D0019C39D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD289DD2C48458D0019C39D /* Preview Assets.xcassets */; };
-		CAD289E82C48458D0019C39D /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD289E72C48458D0019C39D /* ExampleTests.swift */; };
 		CAD28A042C4846230019C39D /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CAD28A032C4846230019C39D /* IssueReporting */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +26,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA9464F62C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTestingTests_WithoutTestSupport.swift; sourceTree = "<group>"; };
+		CA9464F72C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestTests_WithoutTestSupport.swift; sourceTree = "<group>"; };
+		CA9464FA2C4A8F0500F2386C /* Example.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Example.xctestplan; path = WithoutTestSupportTests/Example.xctestplan; sourceTree = "<group>"; };
 		CAD289D32C48458C0019C39D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD289D62C48458C0019C39D /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
 		CAD289DA2C48458D0019C39D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAD289DD2C48458D0019C39D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CAD289E32C48458D0019C39D /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAD289E72C48458D0019C39D /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
+		CAD289E32C48458D0019C39D /* WithoutTestSupportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WithoutTestSupportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD28A002C4845F90019C39D /* xctest-dynamic-overlay */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "xctest-dynamic-overlay"; path = ..; sourceTree = "<group>"; };
 		CAD28A012C48461C0019C39D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,9 +60,10 @@
 		CAD289CA2C48458C0019C39D = {
 			isa = PBXGroup;
 			children = (
+				CA9464FA2C4A8F0500F2386C /* Example.xctestplan */,
 				CAD28A002C4845F90019C39D /* xctest-dynamic-overlay */,
 				CAD289D52C48458C0019C39D /* Example */,
-				CAD289E62C48458D0019C39D /* ExampleTests */,
+				CAD289E62C48458D0019C39D /* WithoutTestSupportTests */,
 				CAD289D42C48458C0019C39D /* Products */,
 				CAD28A022C4846230019C39D /* Frameworks */,
 			);
@@ -69,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				CAD289D32C48458C0019C39D /* Example.app */,
-				CAD289E32C48458D0019C39D /* ExampleTests.xctest */,
+				CAD289E32C48458D0019C39D /* WithoutTestSupportTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,12 +97,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CAD289E62C48458D0019C39D /* ExampleTests */ = {
+		CAD289E62C48458D0019C39D /* WithoutTestSupportTests */ = {
 			isa = PBXGroup;
 			children = (
-				CAD289E72C48458D0019C39D /* ExampleTests.swift */,
+				CA9464F62C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift */,
+				CA9464F72C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift */,
 			);
-			path = ExampleTests;
+			path = WithoutTestSupportTests;
 			sourceTree = "<group>";
 		};
 		CAD28A022C4846230019C39D /* Frameworks */ = {
@@ -131,9 +136,9 @@
 			productReference = CAD289D32C48458C0019C39D /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CAD289E22C48458D0019C39D /* ExampleTests */ = {
+		CAD289E22C48458D0019C39D /* WithoutTestSupportTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CAD289FA2C48458D0019C39D /* Build configuration list for PBXNativeTarget "ExampleTests" */;
+			buildConfigurationList = CAD289FA2C48458D0019C39D /* Build configuration list for PBXNativeTarget "WithoutTestSupportTests" */;
 			buildPhases = (
 				CAD289DF2C48458D0019C39D /* Sources */,
 				CAD289E02C48458D0019C39D /* Frameworks */,
@@ -144,9 +149,9 @@
 			dependencies = (
 				CAD289E52C48458D0019C39D /* PBXTargetDependency */,
 			);
-			name = ExampleTests;
+			name = WithoutTestSupportTests;
 			productName = ExampleTests;
-			productReference = CAD289E32C48458D0019C39D /* ExampleTests.xctest */;
+			productReference = CAD289E32C48458D0019C39D /* WithoutTestSupportTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -182,7 +187,7 @@
 			projectRoot = "";
 			targets = (
 				CAD289D22C48458C0019C39D /* Example */,
-				CAD289E22C48458D0019C39D /* ExampleTests */,
+				CAD289E22C48458D0019C39D /* WithoutTestSupportTests */,
 			);
 		};
 /* End PBXProject section */
@@ -219,7 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAD289E82C48458D0019C39D /* ExampleTests.swift in Sources */,
+				CA9464F82C4A866E00F2386C /* SwiftTestingTests_WithoutTestSupport.swift in Sources */,
+				CA9464F92C4A866E00F2386C /* XCTestTests_WithoutTestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CAD289FA2C48458D0019C39D /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
+		CAD289FA2C48458D0019C39D /* Build configuration list for PBXNativeTarget "WithoutTestSupportTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CAD289FB2C48458D0019C39D /* Debug */,
