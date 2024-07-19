@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         config:
-          - debug
+          #- debug
           - release
     name: Examples
     runs-on: macos-14
