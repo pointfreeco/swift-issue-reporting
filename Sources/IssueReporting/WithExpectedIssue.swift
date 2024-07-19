@@ -20,6 +20,15 @@
 /// _or_ XCTest's [`XCTExpectFailure`][XCTExpectFailure] accordingly, which means you can use it to
 /// drive custom assertion helpers that you want to work in both Swift Testing and XCTest.
 ///
+/// Errors thrown from the function are automatically caught and reported as issues:
+///
+/// ```swift
+/// withExpectedIssue {
+///   // If this function throws an error, it will be caught and reported as an issue
+///   try functionThatCanFail()
+/// }
+/// ```
+///
 /// [withKnownIssue]: https://developer.apple.com/documentation/testing/withknownissue(_:isintermittent:fileid:filepath:line:column:_:)-30kgk
 /// [XCTExpectFailure]: https://developer.apple.com/documentation/xctest/3727246-xctexpectfailure/
 ///
