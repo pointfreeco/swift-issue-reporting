@@ -70,7 +70,7 @@ public struct RuntimeWarningReporter: IssueReporter {
         "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
       )
     #else
-      fputs("\(fileID):\(line): \(message() ?? "")\n", stderr)
+      warn("\(fileID):\(line): \(message() ?? "")", stderr)
     #endif
   }
 
@@ -96,7 +96,7 @@ public struct RuntimeWarningReporter: IssueReporter {
         "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
       )
     #else
-      fputs("\(fileID):\(line): \(message() ?? "")\n", stdout)
+      print("\(fileID):\(line): \(message() ?? "")")
     #endif
   }
 }

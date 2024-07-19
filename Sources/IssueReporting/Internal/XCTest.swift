@@ -33,21 +33,21 @@ func _XCTFail(
           return nil
         #endif
       }
-      if let pointer {
-        let XCTFail = unsafeBitCast(
-          pointer,
-          to: (@convention(thin) (String, StaticString, UInt) -> Void).self
-        )
+      if let XCTFail = unsafeBitCast(
+        symbol: "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF",
+        in: "XCTest",
+        to: (@convention(thin) (String, StaticString, UInt) -> Void).self
+      ) {
         XCTFail(message, file, line)
         return
       }
     #endif
-    fputs("""
+    warn(
+      """
       \(file):\(line): A failure was recorded without linking the XCTest framework.
 
       To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-      """,
-      stderr
+      """
     )
     return
   }
@@ -92,13 +92,12 @@ func _XCTExpectFailure<R>(
           return try result!._rethrowGet()
         }
       #else
-        fputs(
+        warn(
           """
           \(file):\(line): An expected failure was recorded without linking the XCTest framework.
           
           To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-          """,
-          stderr
+          """
         )
       #endif
       return try failingBlock()

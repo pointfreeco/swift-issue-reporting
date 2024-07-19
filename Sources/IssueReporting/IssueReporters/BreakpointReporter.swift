@@ -24,15 +24,13 @@
       if message.isEmpty {
         message = "Issue reported"
       }
-      fputs("\(fileID):\(line): \(message)\n", stderr)
+      warn("\(fileID):\(line): \(message)")
       guard isDebuggerAttached else { return }
-      fputs(
+      warn(
         """
 
         Caught debug breakpoint. Type "continue" ("c") to resume execution.
-
-        """,
-        stderr
+        """
       )
       raise(SIGTRAP)
     }

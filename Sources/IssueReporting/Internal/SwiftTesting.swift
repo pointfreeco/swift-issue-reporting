@@ -54,12 +54,12 @@ func _recordIssue(
         SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
       )
     #else
-      fputs("""
+      warn(
+        """
         \(fileID):\(line): An issue was recorded without linking the Testing framework.
         
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """,
-        stderr
+        """
       )
     #endif
     return
@@ -112,13 +112,13 @@ func _withKnownIssue(
         body
       )
     #else
-    fputs("""
-      \(fileID):\(line): A known issue was recorded without linking the Testing framework.
-      
-      To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-      """,
-      stderr
-    )
+      warn(
+        """
+        \(fileID):\(line): A known issue was recorded without linking the Testing framework.
+
+        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+        """
+      )
     #endif
     return
   }
@@ -142,12 +142,12 @@ func _currentTestIsNotNil() -> Bool {
     #if DEBUG
       return Test.current != nil
     #else
-      fputs("""
+      warn(
+        """
         'Test.current' was accessed without linking the Testing framework.
         
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """,
-        stderr
+        """
       )
       return false
     #endif
