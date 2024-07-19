@@ -7,8 +7,9 @@ breakpoints, assertions, and more.
 
 This library provides robust tools for reporting issues in your application with a varying degree
 of granularity and severity. In its most basic for you can use the unified 
-``reportIssue(_:fileID:filePath:line:column:)`` function anywhere in your application to flag an
-issue with your code, such as a code path that you think should never be executed:
+[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function anywhere in your
+application to flag an issue with your code, such as a code path that you think should never be
+executed:
 
 ```swift
 guard let lastItem = items.last
