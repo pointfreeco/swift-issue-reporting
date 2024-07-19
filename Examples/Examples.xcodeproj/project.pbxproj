@@ -10,13 +10,11 @@
 		CADE79AE2C4A9D2C005A85F7 /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */; };
 		CADE79B02C4A9D2C005A85F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */; };
 		CADE79B22C4A9D2D005A85F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */; };
-		CADE79B62C4A9D2D005A85F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADE79B52C4A9D2D005A85F7 /* Preview Assets.xcassets */; };
 		CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79D92C4A9D3A005A85F7 /* IssueReporting */; };
 		CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */; };
 		CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */; };
 		CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */; };
 		CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E12C4ABE90005A85F7 /* IssueReporting */; };
-		CADE79E42C4AC8A4005A85F7 /* IssueReportingTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +33,6 @@
 		CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CADE79B32C4A9D2D005A85F7 /* Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Examples.entitlements; sourceTree = "<group>"; };
-		CADE79B52C4A9D2D005A85F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CADE79BB2C4A9D2D005A85F7 /* ExamplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamplesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestingTests.swift; sourceTree = "<group>"; };
 		CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestTests.swift; sourceTree = "<group>"; };
@@ -48,7 +45,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */,
-				CADE79E42C4AC8A4005A85F7 /* IssueReportingTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,17 +85,8 @@
 				CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */,
 				CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */,
 				CADE79B32C4A9D2D005A85F7 /* Examples.entitlements */,
-				CADE79B42C4A9D2D005A85F7 /* Preview Content */,
 			);
 			path = Examples;
-			sourceTree = "<group>";
-		};
-		CADE79B42C4A9D2D005A85F7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				CADE79B52C4A9D2D005A85F7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		CADE79BE2C4A9D2D005A85F7 /* ExamplesTests */ = {
@@ -137,7 +124,6 @@
 			name = Examples;
 			packageProductDependencies = (
 				CADE79D92C4A9D3A005A85F7 /* IssueReporting */,
-				CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */,
 			);
 			productName = Examples;
 			productReference = CADE79AA2C4A9D2C005A85F7 /* Examples.app */;
@@ -207,7 +193,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CADE79B62C4A9D2D005A85F7 /* Preview Assets.xcassets in Resources */,
 				CADE79B22C4A9D2D005A85F7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +359,6 @@
 				CODE_SIGN_ENTITLEMENTS = Examples/Examples.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Examples/Preview Content\"";
 				DEVELOPMENT_TEAM = VFRXY8HC3H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -412,7 +396,6 @@
 				CODE_SIGN_ENTITLEMENTS = Examples/Examples.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Examples/Preview Content\"";
 				DEVELOPMENT_TEAM = VFRXY8HC3H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -528,10 +511,6 @@
 		CADE79E12C4ABE90005A85F7 /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
-		};
-		CADE79E32C4AC8A4005A85F7 /* IssueReportingTestSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = IssueReportingTestSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
