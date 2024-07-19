@@ -123,7 +123,7 @@ func _XCTExpectFailure<R>(
       Swift Testing and 'withKnownIssue', instead.
       """
     )
-    _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
+    try _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
       try failingBlock()
     }
   #endif
