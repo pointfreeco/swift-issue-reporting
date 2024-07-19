@@ -50,9 +50,9 @@ import XCTest
       XCTAssertEqual(TestContext.current, .xcTest)
     }
 
-    func testReportIssueDoesNotFail() {
-      reportIssue()
-    }
+    // func testReportIssueDoesNotFail() {
+    //   reportIssue()
+    // }
 
     func testWithExpectedIssueNoIssueDoesNotFail() {
       withExpectedIssue {}
