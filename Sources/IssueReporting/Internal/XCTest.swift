@@ -22,17 +22,6 @@ func _XCTFail(
   guard let function = function(for: "$s25IssueReportingTestSupport8_XCTFailypyF")
   else {
     #if DEBUG
-      var pointer: UnsafeMutableRawPointer? {
-        let symbol = "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF"
-        #if canImport(Darwin) || canImport(Glibc)
-          return dlsym(dlopen("libXCTest.so", RTLD_NOW) ?? dlopen(nil, RTLD_NOW), symbol)
-        #elseif canImport(WinSDK)
-          guard let dll = LoadLibraryA("XCTest.dll") else { return nil }
-          return GetProcAddress(dll, symbol)
-        #else
-          return nil
-        #endif
-      }
       if let XCTFail = unsafeBitCast(
         symbol: "$s6XCTest7XCTFail_4file4lineySS_s12StaticStringVSutF",
         in: "XCTest",
