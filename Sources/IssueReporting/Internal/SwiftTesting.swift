@@ -8,7 +8,7 @@ func _recordIssue(
   line: Int = #line,
   column: Int = #column
 ) {
-  guard let function = function(for: .recordIssue)
+  guard let function = function(for: "$s25IssueReportingTestSupport07_recordA0ypyF")
   else {
     #if DEBUG
       guard
@@ -81,7 +81,7 @@ func _withKnownIssue(
   column: Int = #column,
   _ body: () throws -> Void
 ) {
-  guard let function = function(for: .withKnownIssue)
+  guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA0ypyF")
   else {
     #if DEBUG
       guard
@@ -134,7 +134,7 @@ func _withKnownIssue(
 
 @usableFromInline
 func _currentTestIsNotNil() -> Bool {
-  guard let function = function(for: .currentTestIsNotNil)
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF")
   else {
     #if DEBUG
       return Test.current != nil
@@ -262,51 +262,24 @@ func _currentTestIsNotNil() -> Bool {
 #endif
 
 @usableFromInline
-func function(for symbol: Symbol) -> Any? {
+func function(for symbol: String) -> Any? {
   #if os(Linux)
-    let symbol = symbolMap[symbol] ?? symbol
     guard
       let handle = dlopen("Testing.so", RTLD_LAZY),
-      let pointer = dlsym(handle, symbol.mangled)
+      let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: DynamicFunction.self)()
   #elseif os(Windows)
-    let symbol = symbolMap[symbol]
     guard
       let handle = LoadLibraryA("Testing.dll"),
-      let pointer = GetProcAddress(handle, symbol.mangled)
+      let pointer = GetProcAddress(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: DynamicFunction.self)()
   #else
     guard
       let handle = dlopen(nil, RTLD_LAZY),
-      let pointer = dlsym(handle, symbol.mangled)
+      let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
   #endif
-}
-
-@usableFromInline
-struct Symbol: Sendable {
-  let mangled: String
-  @usableFromInline
-  static let recordIssue = Self(
-    mangled: "$s25IssueReportingTestSupport07_recordA0ypyF"
-  )
-  @usableFromInline
-  static let withKnownIssue = Self(
-    mangled: "$s25IssueReportingTestSupport010_withKnownA0ypyF"
-  )
-  @usableFromInline
-  static let currentTestIsNotNil = Self(
-    mangled: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF"
-  )
-  @usableFromInline
-  static let xctFail = Self(
-    mangled: "$s25IssueReportingTestSupport8_XCTFailypyF"
-  )
-  @usableFromInline
-  static let xctExpectFailure = Self(
-    mangled: "$s25IssueReportingTestSupport17_XCTExpectFailureypyF"
-  )
 }

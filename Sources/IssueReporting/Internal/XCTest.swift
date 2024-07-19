@@ -16,7 +16,7 @@ func _XCTFail(
   file: StaticString = #filePath,
   line: UInt = #line
 ) {
-  guard let function = function(for: .xctFail)
+  guard let function = function(for: "$s25IssueReportingTestSupport8_XCTFailypyF")
   else {
     #if DEBUG
       var pointer: UnsafeMutableRawPointer? {
@@ -66,7 +66,7 @@ func _XCTExpectFailure<R>(
   line: UInt,
   failingBlock: () throws -> R
 ) rethrows -> R {
-  guard let function = function(for: .xctExpectFailure)
+  guard let function = function(for: "$s25IssueReportingTestSupport17_XCTExpectFailureypyF")
   else {
     #if DEBUG
       guard enabled != false
