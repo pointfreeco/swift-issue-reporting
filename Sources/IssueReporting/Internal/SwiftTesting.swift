@@ -273,7 +273,7 @@ func _currentTestIsNotNil() -> Bool {
 func function(for symbol: String) -> Any? {
   #if os(Linux)
     guard
-      let handle = dlopen("Testing.so", RTLD_LAZY),
+      let handle = dlopen("libTesting.so", RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: DynamicFunction.self)()

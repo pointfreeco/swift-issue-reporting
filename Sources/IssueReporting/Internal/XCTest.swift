@@ -16,6 +16,9 @@ func _XCTFail(
   file: StaticString = #filePath,
   line: UInt = #line
 ) {
+  #if !_runtime(_ObjC)
+    guard !_XCTExpectedFailure.isInFailingBlock else { return }
+  #endif
   guard let function = function(for: "$s25IssueReportingTestSupport8_XCTFailypyF")
   else {
     #if DEBUG
@@ -30,28 +33,24 @@ func _XCTFail(
           return nil
         #endif
       }
-
-      guard
-        !_XCTExpectedFailure.isInFailingBlock,
-        let pointer
-      else { return }
-      let XCTFail = unsafeBitCast(
-        pointer,
-        to: (@convention(thin) (String, StaticString, UInt) -> Void).self
-      )
-      XCTFail(message, file, line)
-    #else
-      fputs("""
-        \(file):\(line): A failure was recorded without linking the XCTest framework.
-        
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """,
-        stderr
-      )
+      if let pointer {
+        let XCTFail = unsafeBitCast(
+          pointer,
+          to: (@convention(thin) (String, StaticString, UInt) -> Void).self
+        )
+        XCTFail(message, file, line)
+        return
+      }
     #endif
+    fputs("""
+      \(file):\(line): A failure was recorded without linking the XCTest framework.
+
+      To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+      """,
+      stderr
+    )
     return
   }
-
   let XCTFail = function as! @Sendable (String, StaticString, UInt) -> Void
   XCTFail(message, file, line)
 }
@@ -66,73 +65,72 @@ func _XCTExpectFailure<R>(
   line: UInt,
   failingBlock: () throws -> R
 ) rethrows -> R {
-  guard let function = function(for: "$s25IssueReportingTestSupport17_XCTExpectFailureypyF")
-  else {
-    #if DEBUG
-      guard enabled != false
-      else {
-        return try failingBlock()
-      }
-      #if _runtime(_ObjC)
-        guard
-          let xctExpectFailureInBlockPtr = dlsym(
-            dlopen(nil, RTLD_NOW),
-            "XCTExpectFailureWithOptionsInBlock"
-          ),
-          let xctExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
+  #if _runtime(_ObjC)
+    guard let function = function(for: "$s25IssueReportingTestSupport17_XCTExpectFailureypyF")
+    else {
+      #if DEBUG
+        guard enabled != false
+        else { return try failingBlock() }
+        if let pointer = dlsym(dlopen(nil, RTLD_NOW), "XCTExpectFailureWithOptionsInBlock"),
+          let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
             as Any as? NSObjectProtocol,
           let options = strict ?? true
-            ? xctExpectedFailureOptions
+            ? XCTExpectedFailureOptions
               .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
               .perform(NSSelectorFromString("init"))?.takeUnretainedValue()
-            : xctExpectedFailureOptions
+            : XCTExpectedFailureOptions
               .perform(NSSelectorFromString("nonStrictOptions"))?.takeUnretainedValue()
-        else {
-          return try failingBlock()
+        {
+          let XCTExpectFailureInBlock = unsafeBitCast(
+            pointer,
+            to: (@convention(c) (String?, AnyObject, () -> Void) -> Void).self
+          )
+          var result: Result<R, any Error>?
+          XCTExpectFailureInBlock(failureReason, options) {
+            result = Result { try failingBlock() }
+          }
+          return try result!._rethrowGet()
         }
-        let xctExpectFailureInBlock = unsafeBitCast(
-          xctExpectFailureInBlockPtr,
-          to: (@convention(c) (String?, AnyObject, () -> Void) -> Void).self
-        )
-        var result: Result<R, any Error>!
-        xctExpectFailureInBlock(failureReason, options) {
-          result = Result { try failingBlock() }
-        }
-        return try result._rethrowGet()
       #else
-        _XCTFail(
-          "XCTest's XCTExpectFailure is unavailable on this platform.",
-          file: file,
-          line: line
+        fputs(
+          """
+          \(file):\(line): An expected failure was recorded without linking the XCTest framework.
+          
+          To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+          """,
+          stderr
         )
-        return try _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
-          try failingBlock()
-        }
       #endif
-    #else
-      fputs("""
-        \(file):\(line): An expected failure was recorded without linking the XCTest framework.
-        
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """,
-        stderr
-      )
       return try failingBlock()
-    #endif
-  }
-
-  let XCTExpectFailure = function as! @Sendable (String?, Bool?, Bool?, () throws -> Void) throws -> Void
-  var result: Result<R, any Error>!
-  do {
-    try XCTExpectFailure(failureReason, enabled, strict) {
-      result = Result { try failingBlock() }
     }
-  } catch {
-    fatalError()
-  }
-  return try result._rethrowGet()
+    let XCTExpectFailure = function
+      as! @Sendable (String?, Bool?, Bool?, () throws -> Void) throws -> Void
+    var result: Result<R, any Error>!
+    do {
+      try XCTExpectFailure(failureReason, enabled, strict) {
+        result = Result { try failingBlock() }
+      }
+    } catch {
+      fatalError()
+    }
+    return try result._rethrowGet()
+  #else
+    _XCTFail(
+      """
+      'XCTExpectFailure' is not available on this platform.
+
+      Omit this test from your suite by wrapping it in '#if canImport(Darwin)', or consider using \
+      Swift Testing and 'withKnownIssue', instead.
+      """
+    )
+    _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
+      try failingBlock()
+    }
+  #endif
 }
 
-public enum _XCTExpectedFailure {
-  @TaskLocal public static var isInFailingBlock = false
-}
+#if !_runtime(_ObjC)
+  private enum _XCTExpectedFailure {
+    @TaskLocal public static var isInFailingBlock = false
+  }
+#endif

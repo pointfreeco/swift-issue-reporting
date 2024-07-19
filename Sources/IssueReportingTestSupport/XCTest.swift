@@ -11,6 +11,7 @@ private func __XCTFail(_ message: String, file: StaticString, line: UInt) {
 }
 
 public func _XCTExpectFailure() -> Any { __XCTExpectFailure }
+@_transparent
 @Sendable
 private func __XCTExpectFailure(
   _ failureReason: String?,
@@ -27,14 +28,6 @@ private func __XCTExpectFailure(
         failingBlock: failingBlock
       )
     #else
-      XCTFail(
-        """
-        'XCTExpectFailure' is not available on this platform.
-
-        Omit this test from your suite by wrapping it in '#if canImport(Darwin)', or consider using 
-        Swift Testing and 'withKnownIssue', instead.
-        """
-      )
       try failingBlock()
     #endif
   #endif
