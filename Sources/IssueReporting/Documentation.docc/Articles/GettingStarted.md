@@ -5,8 +5,8 @@ Learn how to report issues in your application code, and how to customize how is
 ## Reporting issues
 
 The primary tool for reporting an issue in your application code is the 
-``reportIssue(_:fileID:filePath:line:column:)`` function. You can invoke from anywhere with your
-features' code to signal that something happened that should not have:
+[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function. You can invoke from
+anywhere with your features' code to signal that something happened that should not have:
 
 ```swift
 guard let lastItem = items.last
@@ -19,68 +19,69 @@ else {
 
 By default, issues are reported as purple runtime warnings in Xcode when your app is run on a 
 simulator or device, and as test failures when run in a testing context. Further, the test failures
-work in both Swift's native Testing framework, as well as Xcode's older XCTest framework.
+work in both Swift's native Testing framework, as well as Apple's older XCTest framework.
 
-This allows you to report issues in your app that are less obtrusive than asserts, which crash
-your app immediately, but also more noticeable than printing to the console, which is easy to miss.
-And by raising test failures in testing contexts you can even verify certain code paths are
-not executed via unit tests.
+This gives you the ability to report issues in your app that are less obtrusive than `assert`s,
+which crash your app immediately, but also more noticeable than printing to the console, which is
+easy to miss. And by raising test failures in testing contexts you can even automatically verify
+that certain code paths are not executed in your unit tests.
 
 ## Issue reporters
 
 The library comes with a variety of issue reporters that can be used right away:
 
-* ``IssueReporter/runtimeWarning``: Issues are reported as purple runtime warnings in Xcode and
-  printed to the console on all other platforms.
-* ``IssueReporter/breakpoint``: A breakpoint is triggered, stopping execution of your app.
-  This gives you the ability to debug the issue.
-* ``IssueReporter/fatalError``: A fatal error is raised and execution of your app is 
-  permanently stopped.
+  * ``IssueReporter/runtimeWarning``: Issues are reported as purple runtime warnings in Xcode and
+    printed to the console on all other platforms. This is the default reporter.
+  * ``IssueReporter/breakpoint``: A breakpoint is triggered, stopping execution of your app. This
+    gives you the ability to debug the issue.
+  * ``IssueReporter/fatalError``: A fatal error is raised and execution of your app is permanently
+    stopped.
 
 You an also create your own custom issue reporter by defining a type that conforms to the 
-``IssueReporter`` protocol. It has one requirement, 
+``IssueReporter`` protocol. It has one requirement,
 ``IssueReporter/reportIssue(_:fileID:filePath:line:column:)``, which you can implement to report
-the issue in any way you want.
+issues in any way you want.
 
 ## Overridding issue reporters
 
 By default the library uses the ``IssueReporter/runtimeWarning`` reporter, but it is possible to 
 override the reporters used. There are two primary ways:
 
-* You can temporarily override reporters for a lexical scope using
-``withIssueReporters(_:operation:)-91179``. For example, to turn off reporting entirely you can do:
+  * You can temporarily override reporters for a lexical scope using
+    ``withIssueReporters(_:operation:)-91179``. For example, to turn off reporting entirely you can
+    do:
 
-  ```swift
-  withIssueReporters([]) {
-    // Any issues raised here will not be reported.
-  } 
-  ```
-
-  …or to temporarily add a new issue reporter:
-
-  ```swift
-  withIssueReporters(IssueReporters.current + [.breakpoint]) {
-    // Any issues reported here will trigger a breakpoint
-  } 
-  ```
-
-* You can also override the issue reporters globally by setting the ``IssueReporters/current``
-variable. This is typically best done at the entry point of your application:
-
-  ```swift
-  import IssueReporting
-  import SwiftUI 
-
-  @main
-  struct MyApp: App {
-    init() {
-      IssueReporters.current = [.fatalError]
+    ```swift
+    withIssueReporters([]) {
+      // Any issues raised here will not be reported.
     }
-    var body: some Scene {
-      // ...
+    ```
+
+    …or to temporarily add a new issue reporter:
+
+    ```swift
+    withIssueReporters(IssueReporters.current + [.breakpoint]) {
+      // Any issues reported here will trigger a breakpoint
     }
-  }
-  ```
+    ```
+
+  * You can also override the issue reporters globally by setting the ``IssueReporters/current``
+    variable. This is typically best done at the entry point of your application:
+
+    ```swift
+    import IssueReporting
+    import SwiftUI 
+
+    @main
+    struct MyApp: App {
+      init() {
+        IssueReporters.current = [.fatalError]
+      }
+      var body: some Scene {
+        // ...
+      }
+    }
+    ```
 
 ## Unimplemented closures
 
@@ -131,7 +132,7 @@ struct MyApp: App {
   var body: some Scene {
     ParentView(
       model: ParentModel(
-        child: ChildModel(onDelete: { ??? })
+        child: ChildModel(onDelete: { /* ??? */ })
       )
     )
   }
@@ -145,7 +146,7 @@ upon initializing of `ChildModel`:
 @Observable
 class ChildModel {
   var onDelete: () -> Void = {}
-  …
+  // ...
 }
 ```
 
@@ -165,14 +166,14 @@ the `onDelete` closure, which will subtly break your feature.
 
 The fix is to strike a balance between the restrictiveness of requiring the closure and the
 laxness of making it fully optional. By using the library's
-``unimplemented(_:fileID:filePath:function:line:column:)-1hsov`` tool we can mark the closure 
-as unimplemented:
+[`unimplemented`](<doc:unimplemented(_:fileID:filePath:function:line:column:)-1hsov>) tool we can
+mark the closure as unimplemented:
 
 ```swift
 @Observable
 class ChildModel {
   var onDelete: () -> Void = unimplemented("onDelete")
-  …
+  // ...
 }
 ```
 
