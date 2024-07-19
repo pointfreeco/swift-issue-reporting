@@ -14,6 +14,8 @@
 		CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79D92C4A9D3A005A85F7 /* IssueReporting */; };
 		CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */; };
 		CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */; };
+		CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */; };
+		CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E12C4ABE90005A85F7 /* IssueReporting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 		CADE79BB2C4A9D2D005A85F7 /* ExamplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamplesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestingTests.swift; sourceTree = "<group>"; };
 		CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestTests.swift; sourceTree = "<group>"; };
+		CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Examples.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +103,7 @@
 		CADE79BE2C4A9D2D005A85F7 /* ExamplesTests */ = {
 			isa = PBXGroup;
 			children = (
+				CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */,
 				CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */,
 				CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */,
 			);
@@ -149,6 +154,9 @@
 				CADE79BD2C4A9D2D005A85F7 /* PBXTargetDependency */,
 			);
 			name = ExamplesTests;
+			packageProductDependencies = (
+				CADE79E12C4ABE90005A85F7 /* IssueReporting */,
+			);
 			productName = ExamplesTests;
 			productReference = CADE79BB2C4A9D2D005A85F7 /* ExamplesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -205,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +519,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CADE79D92C4A9D3A005A85F7 /* IssueReporting */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IssueReporting;
+		};
+		CADE79E12C4ABE90005A85F7 /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
 		};

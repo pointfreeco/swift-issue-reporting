@@ -19,10 +19,10 @@ test-release:
 test-examples:
 	#xcrun simctl boot "iPhone 15"
 	xcodebuild test \
-	  -workspace IssueReporting.xcworkspace \
+		-configuration $(CONFIG) \
+	 	-workspace IssueReporting.xcworkspace \
 		-scheme Examples \
-		-destination platform="iOS Simulator,name=iPhone 15" \
-		-configuration $(CONFIG) 
+		-destination platform="iOS Simulator,name=iPhone 15"
 
 test-linux:
 	docker run \
