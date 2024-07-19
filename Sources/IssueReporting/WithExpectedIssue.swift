@@ -47,6 +47,10 @@ public func withExpectedIssue(
     _withKnownIssue(
       message,
       isIntermittent: isIntermittent,
+      fileID: fileID.description,
+      filePath: filePath.description,
+      line: Int(line),
+      column: Int(column),
       body
     )
   case .xcTest:

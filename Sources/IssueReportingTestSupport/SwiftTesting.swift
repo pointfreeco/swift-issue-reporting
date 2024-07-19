@@ -43,11 +43,24 @@ public func _withKnownIssue() -> Any { __withKnownIssue }
 private func __withKnownIssue(
   _ message: String?,
   isIntermittent: Bool,
-  // TODO: fileID, filePath, ...
+  fileID: String,
+  filePath: String,
+  line: Int,
+  column: Int,
   _ body: () throws -> Void
 ) {
   #if canImport(Testing)
-    withKnownIssue(message.map(Comment.init(rawValue:)), isIntermittent: isIntermittent, body)
+    withKnownIssue(
+      message.map(Comment.init(rawValue:)),
+      isIntermittent: isIntermittent,
+      sourceLocation: SourceLocation(
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      ),
+      body
+    )
   #endif
 }
 

@@ -128,8 +128,16 @@ func _withKnownIssue(
     return
   }
 
-  let withKnownIssue = function as! @Sendable (String?, Bool, () throws -> Void) -> Void
-  withKnownIssue(message, isIntermittent, body)
+  let withKnownIssue = function as! @Sendable (
+    String?,
+    Bool,
+    String,
+    String,
+    Int,
+    Int,
+    () throws -> Void
+  ) -> Void
+  withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 
 @usableFromInline
