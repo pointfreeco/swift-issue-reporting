@@ -1,4 +1,4 @@
-# Getting Started
+# Getting started
 
 Learn how to report issues in your application code, and how to customize how issues are reported.
 
