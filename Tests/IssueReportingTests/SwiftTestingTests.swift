@@ -47,6 +47,13 @@
       }
     }
 
+    @Test func withExpectedAsyncIssue_reportIssue() async {
+      await withExpectedIssue {
+        await Task.yield()
+        reportIssue()
+      }
+    }
+
     @Test func withExpectedIssue_issueRecord() {
       withExpectedIssue {
         Issue.record()

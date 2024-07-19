@@ -138,12 +138,14 @@ func _withKnownIssue(
             H0VyyKXEtF
             """,
           in: "Testing",
-          to: (@convention(thin) (
-            Any?,
-            Bool,
-            SourceLocation,
-            () throws -> Void
-          ) -> Void)
+          to: (
+            @convention(thin) (
+              Any?,
+              Bool,
+              SourceLocation,
+              () throws -> Void
+            ) -> Void
+          )
           .self
         )
       else { return }
@@ -194,25 +196,24 @@ func _withKnownIssue(
   column: Int = #column,
   _ body: () async throws -> Void
 ) async {
-  guard let function = function(for: "TODO $s25IssueReportingTestSupport010_withKnownA0ypyF")
+  guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA5AsyncypyF")
   else {
     #if DEBUG
       guard
-        // _$s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyYaKXEtYaF
-        // _$s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyYaKXEtYaFTu
-
         let withKnownIssue = unsafeBitCast(
           symbol: """
             $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
             H0VyyYaKXEtYaFTu
             """,
           in: "Testing",
-          to: (@convention(thin) (
-            Any?,
-            Bool,
-            SourceLocation,
-            () async throws -> Void
-          ) async -> Void)
+          to: (
+            @convention(thin) (
+              Any?,
+              Bool,
+              SourceLocation,
+              () async throws -> Void
+            ) async -> Void
+          )
           .self
         )
       else { return }

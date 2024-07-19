@@ -105,7 +105,7 @@ func _XCTExpectFailure<R>(
   #else
     _XCTFail(
       """
-      'XCTExpectFailure' is not available on this platform.
+      Expecting failures is unavailable in XCTest on this platform.
 
       Omit this test from your suite by wrapping it in '#if canImport(Darwin)', or consider using \
       Swift Testing and 'withKnownIssue', instead.

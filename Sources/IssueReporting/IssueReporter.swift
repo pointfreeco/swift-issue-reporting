@@ -16,6 +16,18 @@ public protocol IssueReporter: Sendable {
     column: UInt
   )
 
+  /// Called when an error is caught.
+  ///
+  /// The default implementation of this conformance simply calls
+  /// ``reportIssue(_:fileID:filePath:line:column:)`` with a description of the error.
+  ///
+  /// - Parameters:
+  ///   - error: An error.
+  ///   - message: A message describing the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
   func reportIssue(
     _ error: any Error,
     _ message: @autoclosure () -> String?,
@@ -43,6 +55,17 @@ public protocol IssueReporter: Sendable {
     column: UInt
   )
 
+  /// Called when an expected error is reported.
+  ///
+  /// The default implementation of this conformance simply ignores the error.
+  ///
+  /// - Parameters:
+  ///   - error: An error.
+  ///   - message: A message describing the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
   func expectIssue(
     _ error: any Error,
     _ message: @autoclosure () -> String?,

@@ -122,27 +122,24 @@ public func withExpectedIssue(
       body
     )
   case .xcTest:
-    // TODO: Fail
-//    _XCTExpectFailure(
-//      message.withAppHostWarningIfNeeded(),
-//      strict: !isIntermittent,
-//      file: filePath,
-//      line: line
-//    ) {
-//      do {
-//        try body()
-//      } catch {
-//        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
-//      }
-//    }
-    return
+    reportIssue(
+      """
+      Asynchronously expecting failures is unavailable in XCTest.
+
+      Omit this test from your XCTest suite, or consider using Swift Testing, instead.
+      """,
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+    try? await body()
   case nil:
-    // TODO:
     guard !isTesting else { return }
     let observer = FailureObserver()
-    FailureObserver.$current.withValue(observer) {
+    await FailureObserver.$current.withValue(observer) {
       do {
-        try body()
+        try await body()
         if observer.withLock({ $0 == 0 }), !isIntermittent {
           for reporter in IssueReporters.current {
             reporter.reportIssue(
