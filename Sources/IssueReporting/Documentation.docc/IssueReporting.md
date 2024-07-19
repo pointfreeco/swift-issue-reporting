@@ -35,6 +35,7 @@ your own custom issue reporter to send issues to OSLog or an external server.
 
 - <doc:GettingStarted>
 - <doc:ReleaseMode>
+- <doc:CreatingTestHelpers>
 
 ### Reporting issues
 
