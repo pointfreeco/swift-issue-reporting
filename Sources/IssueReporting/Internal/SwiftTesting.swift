@@ -16,39 +16,33 @@ func _recordIssue(
   else {
     #if DEBUG
       guard
-        let fromSyntaxNodePtr = dlsym(
-          dlopen(nil, RTLD_LAZY),
-          "$s7Testing12__ExpressionV16__fromSyntaxNodeyACSSFZ"
+        let fromSyntaxNode = unsafeBitCast(
+          symbol: "$s7Testing12__ExpressionV16__fromSyntaxNodeyACSSFZ",
+          in: "Testing",
+          to: (@convention(thin) (String) -> __Expression).self
         ),
-        let checkValuePtr = dlsym(
-          dlopen(nil, RTLD_LAZY),
-          """
-          $s7Testing12__checkValue_10expression0D25WithCapturedRuntimeValues26mismatchedErrorDescript\
-          ion10difference8comments10isRequired14sourceLocations6ResultOyyts0J0_pGSb_AA12__ExpressionV\
-          AOSgyXKSSSgyXKAQyXKSayAA7CommentVGyXKSbAA06SourceQ0VtF
-          """
+        let checkValue = unsafeBitCast(
+          symbol: """
+            $s7Testing12__checkValue_10expression0D25WithCapturedRuntimeValues26mismatchedErrorDesc\
+            ription10difference8comments10isRequired14sourceLocations6ResultOyyts0J0_pGSb_AA12__Exp\
+            ressionVAOSgyXKSSSgyXKAQyXKSayAA7CommentVGyXKSbAA06SourceQ0VtF
+            """,
+          in: "Testing",
+          to: (@convention(thin) (
+            Bool,
+            __Expression,
+            @autoclosure () -> __Expression?,
+            @autoclosure () -> String?,
+            @autoclosure () -> String?,
+            @autoclosure () -> [Any],
+            Bool,
+            SourceLocation
+          ) -> Result<Void, any Error>)
+          .self
         )
       else { return }
 
-      let fromSyntaxNode = unsafeBitCast(
-        fromSyntaxNodePtr, to: (@convention(thin) (String) -> __Expression).self
-      )
       let syntaxNode = fromSyntaxNode(message ?? "")
-
-      let checkValue = unsafeBitCast(
-        checkValuePtr,
-        to: (@convention(thin) (
-          Bool,
-          __Expression,
-          @autoclosure () -> __Expression?,
-          @autoclosure () -> String?,
-          @autoclosure () -> String?,
-          @autoclosure () -> [Any],
-          Bool,
-          SourceLocation
-        ) -> Result<Void, any Error>)
-        .self
-      )
       _ = checkValue(
         false,
         syntaxNode,
@@ -89,12 +83,19 @@ func _withKnownIssue(
   else {
     #if DEBUG
       guard
-        let withKnownIssuePtr = dlsym(
-          dlopen(nil, RTLD_LAZY),
-          """
-          $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06SourceH0VyyK\
-          XEtF
-          """
+        let withKnownIssue = unsafeBitCast(
+          symbol: """
+            $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
+            H0VyyKXEtF
+            """,
+          in: "Testing",
+          to: (@convention(thin) (
+            Any?,
+            Bool,
+            SourceLocation,
+            () throws -> Void
+          ) -> Void)
+          .self
         )
       else { return }
 
@@ -104,16 +105,6 @@ func _withKnownIssue(
         c.rawValue = message
         comment = c
       }
-      let withKnownIssue = unsafeBitCast(
-        withKnownIssuePtr,
-        to: (@convention(thin) (
-          Any?,
-          Bool,
-          SourceLocation,
-          () throws -> Void
-        ) -> Void)
-        .self
-      )
       withKnownIssue(
         comment,
         isIntermittent,
@@ -238,14 +229,12 @@ func _currentTestIsNotNil() -> Bool {
   struct Test: @unchecked Sendable {
     static var current: Self? {
       guard
-        let currentPtr = dlsym(
-          dlopen(nil, RTLD_LAZY),
-          """
-          $s7Testing4TestV7currentACSgvgZ
-          """
+        let current = unsafeBitCast(
+          symbol: "$s7Testing4TestV7currentACSgvgZ",
+          in: "Testing",
+          to: (@convention(thin) () -> Test?).self
         )
       else { return nil }
-      let current = unsafeBitCast(currentPtr, to: (@convention(thin) () -> Test?).self)
       return current()
     }
 
@@ -275,23 +264,35 @@ func _currentTestIsNotNil() -> Bool {
 
 @usableFromInline
 func function(for symbol: String) -> Any? {
+  let function = unsafeBitCast(
+    symbol: symbol,
+    in: "IssueReportingTestSupport",
+    to: (@convention(thin) () -> Any).self
+  )
+  return function?()
+}
+
+@usableFromInline
+func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -> F? {
   #if os(Linux)
     guard
-      let handle = dlopen("libTesting.so", RTLD_LAZY),
+      let handle = dlopen("lib\(library).so", RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
-    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
-  #elseif os(Windows)
-    guard
-      let handle = LoadLibraryA("Testing.dll"),
-      let pointer = GetProcAddress(handle, symbol)
-    else { return nil }
-    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
-  #else
+    return unsafeBitCast(pointer, to: F.self)
+  #elseif canImport(Darwin)
     guard
       let handle = dlopen(nil, RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
-    return unsafeBitCast(pointer, to: (@convention(thin) () -> Any).self)()
+    return unsafeBitCast(pointer, to: F.self)
+  #elseif os(Windows)
+    guard
+      let handle = LoadLibraryA("\(library).dll"),
+      let pointer = GetProcAddress(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: F.self)
+  #else
+    return nil
   #endif
 }
