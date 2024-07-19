@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(WinSDK)
+  import WinSDK
+#endif
+
 @usableFromInline
 func _recordIssue(
   message: String?,
