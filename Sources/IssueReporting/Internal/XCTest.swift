@@ -123,14 +123,15 @@ func _XCTExpectFailure<R>(
       Swift Testing and 'withKnownIssue', instead.
       """
     )
-    try _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
+    return try _XCTExpectedFailure.$isInFailingBlock.withValue(true) {
       try failingBlock()
     }
   #endif
 }
 
 #if !_runtime(_ObjC)
-  private enum _XCTExpectedFailure {
+  @usableFromInline
+  enum _XCTExpectedFailure {
     @TaskLocal public static var isInFailingBlock = false
   }
 #endif
