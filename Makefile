@@ -32,3 +32,10 @@ format:
 		--in-place \
 		--recursive \
 		.
+test-linux:
+	docker run \
+		--rm \
+		-v "$(PWD):$(PWD)" \
+		-w "$(PWD)" \
+		swift:5.10 \
+		bash -c 'swift test'

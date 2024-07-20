@@ -12,7 +12,9 @@ extension IssueReporter where Self == RuntimeWarningReporter {
   ///
   /// If this issue reporter receives an expected issue, it will log an info-level message to the
   /// console, instead.
+#if canImport(Darwin)
   @_transparent
+#endif
   public static var runtimeWarning: Self { Self() }
 }
 
@@ -23,10 +25,14 @@ extension IssueReporter where Self == RuntimeWarningReporter {
 public struct RuntimeWarningReporter: IssueReporter {
   #if canImport(os)
     @UncheckedSendable
+  #if canImport(Darwin)
   @_transparent
+  #endif
     @usableFromInline var dso: UnsafeRawPointer
 
+#if canImport(Darwin)
   @_transparent
+#endif
   @usableFromInline
     init() {
       // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
@@ -35,6 +41,7 @@ public struct RuntimeWarningReporter: IssueReporter {
       //
       // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
       let count = _dyld_image_count()
+      self.dso = #dsohandle
       for i in 0..<count {
         if let name = _dyld_get_image_name(i) {
           let swiftString = String(cString: name)
@@ -46,7 +53,6 @@ public struct RuntimeWarningReporter: IssueReporter {
           }
         }
       }
-      self.dso = #dsohandle
     }
   #endif
 
