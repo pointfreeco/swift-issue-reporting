@@ -25,7 +25,7 @@ We have two main uses cases for IssueReporting in our libraries:
 allows one to test their features. It allows you to send actions to the store and assert on how 
 state changes, and further assert how effects feed data back into the system. These testing tools
 need to invoke `XCTFail` (or `Issue.record`), but instead they can simply invoke
-``reportIssue(_:fileID:filePath:line:column:)``. This will trigger a test failure in tests, all
+[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>). This will trigger a test failure in tests, all
 without needing a dedicated "ComposableArchitectureTestSupport" library.
 
 * In our [Dependencies][deps-gh] library, we like to trigger a test failure when dependencies are 
@@ -39,7 +39,7 @@ and then everything works just fine.
 
 To build more robust testing tools for your libraries, or to be able to report issues from your 
 library that are very customizable, simply depend on "IssueReporting" and use the 
-``reportIssue(_:fileID:filePath:line:column:)`` tool.
+ [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool.
 
 
 [tca-gh]: https://github.com/pointfreeco/swift-composable-architecture

@@ -14,17 +14,27 @@ else {
   reportIssue("'items' should never be empty.")
   return 
 }
-…
+// Use 'lastItem'
 ```
 
-By default, issues are reported as purple runtime warnings in Xcode when your app is run on a 
-simulator or device, and as test failures when run in a testing context. Further, the test failures
-work in both Swift's native Testing framework, as well as Apple's older XCTest framework.
+By default, [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) will trigger an
+unobtrusive, purple runtime warning when running your app in Xcode (simulator and device):
 
-This gives you the ability to report issues in your app that are less obtrusive than `assert`s,
-which crash your app immediately, but also more noticeable than printing to the console, which is
-easy to miss. And by raising test failures in testing contexts you can even automatically verify
-that certain code paths are not executed in your unit tests.
+![A purple runtime warning in Xcode showing that an issue has been reported.](runtime-warning)
+
+This provides a very visible way to see when an issue has occured in your application without
+stopping the app's execution and interrupting your workflow.
+
+The [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool can also be customized
+to allow for other ways of reporting issues. It can be configured to trigger a breakpoint if you
+want to do some debugging when an issue is reported, or a precondition or fatal error if you want
+to truly stop execution. And you can create your own custom issue reporter to send issues to OSLog 
+or an external server. 
+
+Further, when running your code in a testing context (both XCTest and Swift's native Testing
+framework), all reported issues become _test failures_. This helps you get test coverage that
+problematic code paths are not executed, and makes it possible to build testing tools for libraries
+that ship in the same target as the library itself.
 
 ## Issue reporters
 

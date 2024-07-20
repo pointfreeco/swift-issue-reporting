@@ -27,9 +27,8 @@ comes with this package:
 With that library linked the "IssueReporting" library will now be able to trigger test failures
 even in release mode.
 
-> Important: Do not link the "IssueReportingTestSupport" product to any of your non-test targets,
-such as SPM libraries, Xcode frameworks, or Xcode app targets. This will result in a variety of
-linker errors such as:
+> Important: Do not link the "IssueReportingTestSupport" product to any target that is intended to
+be used in an app target. This will result in a variety of linker errors such as:
 > 
 > ```
 > Undefined symbol: __swift_FORCE_LOAD_$_XCTestSwiftSupport

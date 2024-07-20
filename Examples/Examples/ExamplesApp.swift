@@ -1,17 +1,28 @@
-//
-//  ExamplesApp.swift
-//  Examples
-//
-//  Created by Brandon Williams on 7/19/24.
-//
-
+import IssueReporting
 import SwiftUI
 
 @main
 struct ExamplesApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  let model = ItemsModel()
+
+  var body: some Scene {
+    WindowGroup {
+      Text(model.lastItem?.description ?? "No last item")
     }
+  }
+}
+
+@Observable
+class ItemsModel {
+  var items: [Int] = []
+
+  var lastItem: Int? {
+    guard let lastItem = items.last
+    else {
+      reportIssue("'items' should never be empty.")
+      return nil
+    }
+
+    return lastItem
+  }
 }

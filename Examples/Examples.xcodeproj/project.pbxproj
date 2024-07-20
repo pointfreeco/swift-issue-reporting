@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CADE79AE2C4A9D2C005A85F7 /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */; };
-		CADE79B02C4A9D2C005A85F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */; };
 		CADE79B22C4A9D2D005A85F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */; };
 		CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79D92C4A9D3A005A85F7 /* IssueReporting */; };
 		CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */; };
@@ -30,7 +29,6 @@
 /* Begin PBXFileReference section */
 		CADE79AA2C4A9D2C005A85F7 /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesApp.swift; sourceTree = "<group>"; };
-		CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CADE79B32C4A9D2D005A85F7 /* Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Examples.entitlements; sourceTree = "<group>"; };
 		CADE79BB2C4A9D2D005A85F7 /* ExamplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamplesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */,
-				CADE79AF2C4A9D2C005A85F7 /* ContentView.swift */,
 				CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */,
 				CADE79B32C4A9D2D005A85F7 /* Examples.entitlements */,
 			);
@@ -212,7 +209,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CADE79B02C4A9D2C005A85F7 /* ContentView.swift in Sources */,
 				CADE79AE2C4A9D2C005A85F7 /* ExamplesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
