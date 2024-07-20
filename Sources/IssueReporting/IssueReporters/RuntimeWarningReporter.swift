@@ -12,6 +12,7 @@ extension IssueReporter where Self == RuntimeWarningReporter {
   ///
   /// If this issue reporter receives an expected issue, it will log an info-level message to the
   /// console, instead.
+  @_transparent
   public static var runtimeWarning: Self { Self() }
 }
 
@@ -22,8 +23,11 @@ extension IssueReporter where Self == RuntimeWarningReporter {
 public struct RuntimeWarningReporter: IssueReporter {
   #if canImport(os)
     @UncheckedSendable
+  @_transparent
     @usableFromInline var dso: UnsafeRawPointer
 
+  @_transparent
+  @usableFromInline
     init() {
       // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
       //     breakpoints, but Apple provides no means of creating custom runtime warnings ourselves.
