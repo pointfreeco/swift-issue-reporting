@@ -61,17 +61,18 @@ jobs:
       - name: Build for static-stdlib
         run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
 
-  wasm:
-    name: Wasm
-    runs-on: macos-14
-    steps:
-      - uses: actions/checkout@v4
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.4.app
-      - name: Select Swift version
-        run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
-      - name: Build
-        run: swift run carton bundle
+  # NB: Downloading the toolchain gets rate-limited by GitHub
+  # wasm:
+  #   name: Wasm
+  #   runs-on: macos-14
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       run: sudo xcode-select -s /Applications/Xcode_15.4.app
+  #     - name: Select Swift version
+  #       run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
+  #     - name: Build
+  #       run: swift run carton bundle
 
   windows:
     name: Windows
