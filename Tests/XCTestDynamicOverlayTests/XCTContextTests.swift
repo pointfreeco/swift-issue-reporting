@@ -5,7 +5,7 @@
   public final class XCTContextTests: XCTestCase {
     func testContext() {
       XCTExpectFailure {
-        $0.compactDescription == "Failed"
+        $0.compactDescription == "failed - Failed"
           && $0.sourceCodeContext.location
             == XCTSourceCodeLocation(filePath: "unknown", lineNumber: 1)
       }

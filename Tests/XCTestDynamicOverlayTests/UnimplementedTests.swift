@@ -7,9 +7,9 @@
         f00()
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f00 …
+          failed - Unimplemented: f00 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:99
 
             Invoked with:
@@ -21,9 +21,9 @@
         f01("")
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f01 …
+          failed - Unimplemented: f01 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:100
 
             Invoked with:
@@ -35,9 +35,9 @@
         f02("", 42)
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f02 …
+          failed - Unimplemented: f02 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:101
 
             Invoked with:
@@ -49,9 +49,9 @@
         f03("", 42, 1.2)
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f03 …
+          failed - Unimplemented: f03 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:102
 
             Invoked with:
@@ -63,9 +63,9 @@
         f04("", 42, 1.2, [1, 2])
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f04 …
+          failed - Unimplemented: f04 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:103
 
             Invoked with:
@@ -79,9 +79,9 @@
         )
       } issueMatcher: {
         $0.compactDescription == """
-          Unimplemented: f05 …
+          failed - Unimplemented: f05 …
 
-            Defined at:
+            Defined in 'XCTestDynamicOverlayTests' at:
               XCTestDynamicOverlayTests/TestHelpers.swift:104
 
             Invoked with:

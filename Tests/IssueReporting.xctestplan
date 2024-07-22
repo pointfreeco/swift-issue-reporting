@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "A4B6699D-624A-42BB-A98E-F210B2D25DAC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "IssueReportingTests",
+        "name" : "IssueReportingTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "XCTestDynamicOverlayTests",
+        "name" : "XCTestDynamicOverlayTests"
+      }
+    }
+  ],
+  "version" : 1
+}

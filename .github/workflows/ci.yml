@@ -13,7 +13,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  macos:
+    strategy:
+      matrix:
+        config:
+          - debug
+          - release
     name: macOS
     runs-on: macos-14
     steps:
@@ -21,45 +26,62 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
-      run: make test
+      run: make test-${{ matrix.config }}
+
+  examples:
+    strategy:
+      matrix:
+        config:
+          - Debug
+          - Release
+    name: Examples
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v4
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode_15.4.app
+    - name: Run tests
+      run: CONFIG=${{ matrix.config }} make test-examples
 
   linux:
     strategy:
       matrix:
-        swift:
-          - '5.10'
-    name: Ubuntu (Swift ${{ matrix.swift }})
+        config:
+          - debug
+          - release
+    name: Linux
     runs-on: ubuntu-latest
-    container: swift:${{ matrix.swift }}
+    container: swift:5.10
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: apt-get update && apt-get install -y build-essential libcurl4-openssl-dev
       - name: Run tests
-        run: make test
+        run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
-        run: make build-for-static-stdlib
+        run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
 
-  wasm:
-     name: Wasm
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v4
-       - uses: bytecodealliance/actions/wasmtime/setup@v1
-       - uses: swiftwasm/setup-swiftwasm@v1
-         with:
-           swift-version: "wasm-5.9.2-RELEASE"
-       - name: Build tests
-         run: swift build --triple wasm32-unknown-wasi --build-tests
-       - name: Run tests
-         run: wasmtime --dir . .build/debug/xctest-dynamic-overlayPackageTests.wasm
+  # NB: Downloading the toolchain gets rate-limited by GitHub
+  # wasm:
+  #   name: Wasm
+  #   runs-on: macos-14
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       run: sudo xcode-select -s /Applications/Xcode_15.4.app
+  #     - name: Select Swift version
+  #       run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
+  #     - name: Build
+  #       run: swift run carton bundle
 
   windows:
     name: Windows
     strategy:
       matrix:
         os: [windows-latest]
-        config: ['debug', 'release']
+        config:
+          - debug
+          - release
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -67,6 +89,8 @@ jobs:
         with:
           branch: swift-5.10-release
           tag: 5.10-RELEASE
+      - name: Set long paths
+        run: git config --system core.longpaths true
       - uses: actions/checkout@v4
       - name: Build
         run: swift build -c ${{ matrix.config }}

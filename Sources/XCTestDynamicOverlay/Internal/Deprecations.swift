@@ -1,54 +1,334 @@
+import Foundation
+
+#if canImport(FoundationNetworking)
+  import FoundationNetworking
+#endif
+
 // NB: Deprecated after 1.1.2
+
+@_disfavoredOverload
+@available(iOS, deprecated: 9999, renamed: "fail")
+@available(macOS, deprecated: 9999, renamed: "fail")
+@available(tvOS, deprecated: 9999, renamed: "fail")
+@available(watchOS, deprecated: 9999, renamed: "fail")
+public func XCTFail(_ message: String = "", file: StaticString = #filePath, line: UInt = #line) {
+  reportIssue(
+    message,
+    filePath: XCTFailContext.current?.file ?? file,
+    line: XCTFailContext.current?.line ?? line
+  )
+}
+
+@available(iOS, deprecated: 9999, renamed: "IssueContext")
+@available(macOS, deprecated: 9999, renamed: "IssueContext")
+@available(tvOS, deprecated: 9999, renamed: "IssueContext")
+@available(watchOS, deprecated: 9999, renamed: "IssueContext")
+public struct XCTFailContext: Sendable {
+  @TaskLocal public static var current: Self?
+
+  public var file: StaticString
+  public var line: UInt
+
+  public init(file: StaticString, line: UInt) {
+    self.file = file
+    self.line = line
+  }
+}
+
+@available(iOS, deprecated: 9999, renamed: "isTesting")
+@available(macOS, deprecated: 9999, renamed: "isTesting")
+@available(tvOS, deprecated: 9999, renamed: "isTesting")
+@available(watchOS, deprecated: 9999, renamed: "isTesting")
+public var _XCTIsTesting: Bool {
+  isTesting
+}
+
+#if _runtime(_ObjC)
+  @_disfavoredOverload
+  @available(iOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(macOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(tvOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(watchOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  public func XCTExpectFailure<R>(
+    _ failureReason: String? = nil,
+    enabled: Bool? = nil,
+    strict: Bool? = nil,
+    failingBlock: () throws -> R,
+    issueMatcher: ((_XCTIssue) -> Bool)? = nil
+  ) rethrows -> R {
+    guard enabled ?? true
+    else { return try failingBlock() }
+    guard
+      let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
+        as Any as? NSObjectProtocol,
+      let options = strict ?? true
+        ? XCTExpectedFailureOptions
+          .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
+          .perform(NSSelectorFromString("init"))?.takeUnretainedValue()
+        : XCTExpectedFailureOptions
+          .perform(NSSelectorFromString("nonStrictOptions"))?.takeUnretainedValue(),
+      let functionBlockPointer = dlsym(dlopen(nil, RTLD_LAZY), "XCTExpectFailureWithOptionsInBlock")
+    else {
+      let errorString =
+        dlerror().map { charPointer in String(cString: charPointer) }
+        ?? "Unknown error"
+      assertionFailure(
+        "Failed to get symbol for XCTExpectFailureWithOptionsInBlock with error: \(errorString)."
+      )
+      return try failingBlock()
+    }
+
+    if let issueMatcher {
+      let issueMatcher: @convention(block) (AnyObject) -> Bool = { issue in
+        issueMatcher(_XCTIssue(issue))
+      }
+      options.setValue(issueMatcher, forKey: "issueMatcher")
+    }
+
+    let XCTExpectFailureWithOptionsInBlock = unsafeBitCast(
+      functionBlockPointer,
+      to: (@convention(c) (String?, AnyObject, () -> Void) -> Void).self
+    )
+
+    var result: Result<R, Error>!
+    XCTExpectFailureWithOptionsInBlock(failureReason, options) {
+      result = Result { try failingBlock() }
+    }
+    return try result._rethrowGet()
+  }
+
+  @rethrows
+  @usableFromInline
+  protocol _ErrorMechanism {
+    associatedtype Output
+    func get() throws -> Output
+  }
+  extension _ErrorMechanism {
+    func _rethrowError() rethrows -> Never {
+      _ = try _rethrowGet()
+      fatalError()
+    }
+    @usableFromInline
+    func _rethrowGet() rethrows -> Output {
+      return try get()
+    }
+  }
+  extension Result: _ErrorMechanism {}
+
+  @_disfavoredOverload
+  @available(iOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(macOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(tvOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  @available(watchOS, deprecated: 9999, message: "Use 'withKnownFailure', instead.")
+  public func XCTExpectFailure(
+    _ failureReason: String? = nil,
+    enabled: Bool? = nil,
+    strict: Bool? = nil,
+    issueMatcher: ((_XCTIssue) -> Bool)? = nil
+  ) {
+    guard enabled ?? true
+    else { return }
+    guard
+      let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
+        as Any as? NSObjectProtocol,
+      let options = strict ?? true
+        ? XCTExpectedFailureOptions
+          .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
+          .perform(NSSelectorFromString("init"))?.takeUnretainedValue()
+        : XCTExpectedFailureOptions
+          .perform(NSSelectorFromString("nonStrictOptions"))?.takeUnretainedValue(),
+      let functionBlockPointer = dlsym(dlopen(nil, RTLD_LAZY), "XCTExpectFailureWithOptions")
+    else {
+      let errorString =
+        dlerror().map { charPointer in String(cString: charPointer) }
+        ?? "Unknown error"
+      assertionFailure(
+        "Failed to get symbol for XCTExpectFailureWithOptionsInBlock with error: \(errorString)."
+      )
+      return
+    }
+
+    if let issueMatcher {
+      let issueMatcher: @convention(block) (AnyObject) -> Bool = { issue in
+        issueMatcher(_XCTIssue(issue))
+      }
+      options.setValue(issueMatcher, forKey: "issueMatcher")
+    }
+
+    let XCTExpectFailureWithOptions = unsafeBitCast(
+      functionBlockPointer,
+      to: (@convention(c) (String?, AnyObject) -> Void).self
+    )
+
+    XCTExpectFailureWithOptions(failureReason, options)
+  }
+
+  @available(iOS, deprecated: 9999)
+  @available(macOS, deprecated: 9999)
+  @available(tvOS, deprecated: 9999)
+  @available(watchOS, deprecated: 9999)
+  public struct _XCTIssue: /*CustomStringConvertible, */ Equatable, Hashable {
+    public var type: IssueType
+    public var compactDescription: String
+    public var detailedDescription: String?
+
+    // NB: This surface are has been left unimplemented for now. We can consider adopting more of it
+    //     in the future:
+    //
+    // var sourceCodeContext: XCTSourceCodeContext
+    // var associatedError: Error?
+    // var attachments: [XCTAttachment]
+    // mutating func add(XCTAttachment)
+    //
+    // public var description: String {
+    //   """
+    //   \(self.type.description) \
+    //   at \
+    //   \(self.sourceCodeContext.location.fileURL.lastPathComponent):\
+    //   \(self.sourceCodeContext.location.lineNumber): \
+    //   \(self.compactDescription)
+    //   """
+    // }
+
+    init(_ issue: AnyObject) {
+      self.type = IssueType(rawValue: issue.value(forKey: "type") as! Int)!
+      self.compactDescription = issue.value(forKey: "compactDescription") as! String
+      self.detailedDescription = issue.value(forKey: "detailedDescription") as? String
+    }
+
+    public enum IssueType: Int, Sendable {
+      case assertionFailure = 0
+      case performanceRegression = 3
+      case system = 4
+      case thrownError = 1
+      case uncaughtException = 2
+      case unmatchedExpectedFailure = 5
+
+      var description: String {
+        switch self {
+        case .assertionFailure:
+          return "Assertion Failure"
+        case .performanceRegression:
+          return "Performance Regression"
+        case .system:
+          return "System Error"
+        case .thrownError:
+          return "Thrown Error"
+        case .uncaughtException:
+          return "Uncaught Exception"
+        case .unmatchedExpectedFailure:
+          return "Unmatched ExpectedFailure"
+        }
+      }
+    }
+  }
+#endif
+
+@_spi(CurrentTestCase)
+@available(iOS, deprecated: 9999)
+@available(macOS, deprecated: 9999)
+@available(tvOS, deprecated: 9999)
+@available(watchOS, deprecated: 9999)
+public var XCTCurrentTestCase: AnyObject? {
+  #if _runtime(_ObjC)
+    guard
+      let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
+      let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
+      let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
+        .takeUnretainedValue(),
+      let observers = shared.perform(Selector(("observers")))?
+        .takeUnretainedValue() as? [AnyObject],
+      let observer =
+        observers
+        .first(where: { NSStringFromClass(type(of: $0)) == "XCTestMisuseObserver" }),
+      let currentTestCase = observer.perform(Selector(("currentTestCase")))?
+        .takeUnretainedValue()
+    else { return nil }
+    return currentTestCase
+  #else
+    return nil
+  #endif
+}
 
 @_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
+  file filePath: StaticString = #filePath,
   fileID: StaticString = #fileID,
-  line: UInt = #line
+  function: StaticString = #function,
+  line: UInt = #line,
+  column: UInt = #column
 ) -> Result {
   let description = description()
-  _fail(description, nil, fileID: fileID, line: line)
+  _fail(
+    description,
+    nil,
+    fileID: fileID,
+    filePath: filePath,
+    function: function,
+    line: line,
+    column: column
+  )
   do {
     return try _generatePlaceholder()
   } catch {
-    _unimplementedFatalError(description, file: file, line: line)
+    _unimplementedFatalError(description, file: filePath, line: line)
   }
 }
 
+@_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
+  file filePath: StaticString = #filePath,
   fileID: StaticString = #fileID,
+  function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
-    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
+    _fail(
+      description,
+      (repeat each argument),
+      fileID: fileID,
+      filePath: filePath,
+      function: function,
+      line: line,
+      column: 0
+    )
     do {
       return try _generatePlaceholder()
     } catch {
-      _unimplementedFatalError(description, file: file, line: line)
+      _unimplementedFatalError(description, file: filePath, line: line)
     }
   }
 }
 
+@_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
-public func unimplemented<each A, Result>(
+public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
+  file filePath: StaticString = #filePath,
   fileID: StaticString = #fileID,
+  function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) async -> Result {
-  return { (arg: repeat each A) in
+) -> @Sendable (repeat each Argument) async -> Result {
+  return { (argument: repeat each Argument) in
     let description = description()
-    _fail(description, (repeat (each arg)), fileID: fileID, line: line)
+    _fail(
+      description,
+      (repeat each argument),
+      fileID: fileID,
+      filePath: filePath,
+      function: function,
+      line: line,
+      column: 0
+    )
     do {
       return try _generatePlaceholder()
     } catch {
-      _unimplementedFatalError(description, file: file, line: line)
+      _unimplementedFatalError(description, file: filePath, line: line)
     }
   }
 }
@@ -147,53 +427,149 @@ func _generatePlaceholder<Result>() throws -> Result {
   return try _optionalPlaceholder()
 }
 
-@_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (repeat each A) -> Result {
-  unimplemented(description(), placeholder: placeholder())
+@available(*, deprecated)
+private protocol _DefaultInitializable {
+  init()
 }
+
+@available(*, deprecated) extension Array: _DefaultInitializable {}
+@available(*, deprecated) extension Bool: _DefaultInitializable {}
+@available(*, deprecated) extension Character: _DefaultInitializable { init() { self.init(" ") } }
+@available(*, deprecated) extension Dictionary: _DefaultInitializable {}
+@available(*, deprecated) extension Double: _DefaultInitializable {}
+@available(*, deprecated) extension Float: _DefaultInitializable {}
+@available(*, deprecated) extension Int: _DefaultInitializable {}
+@available(*, deprecated) extension Int8: _DefaultInitializable {}
+@available(*, deprecated) extension Int16: _DefaultInitializable {}
+@available(*, deprecated) extension Int32: _DefaultInitializable {}
+@available(*, deprecated) extension Int64: _DefaultInitializable {}
+@available(*, deprecated) extension Set: _DefaultInitializable {}
+@available(*, deprecated) extension String: _DefaultInitializable {}
+@available(*, deprecated) extension Substring: _DefaultInitializable {}
+@available(*, deprecated) extension UInt: _DefaultInitializable {}
+@available(*, deprecated) extension UInt8: _DefaultInitializable {}
+@available(*, deprecated) extension UInt16: _DefaultInitializable {}
+@available(*, deprecated) extension UInt32: _DefaultInitializable {}
+@available(*, deprecated) extension UInt64: _DefaultInitializable {}
+
+@available(*, deprecated)
+extension AsyncStream: _DefaultInitializable {
+  init() { self.init { $0.finish() } }
+}
+
+@available(*, deprecated)
+extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
+  init() { self.init { $0.finish(throwing: CancellationError()) } }
+}
+
+#if canImport(Foundation)
+  @available(*, deprecated)extension Data: _DefaultInitializable {}
+  @available(*, deprecated)extension Date: _DefaultInitializable {}
+  @available(*, deprecated)extension Decimal: _DefaultInitializable {}
+  @available(*, deprecated)extension UUID: _DefaultInitializable {}
+  @available(*, deprecated)extension URL: _DefaultInitializable {
+    init() { self.init(string: "/")! }
+  }
+#endif
 
 @_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
+  line: UInt = #line,
+  column: UInt = #column
+) -> @Sendable (repeat each Argument) -> Result {
+  unimplemented(
+    description(),
+    placeholder: placeholder(),
+    fileID: fileID,
+    filePath: filePath,
+    function: function,
+    line: line,
+    column: column
+  )
+}
+
+@_disfavoredOverload
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each Argument, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) -> Result {
-  unimplemented(description(), file: file, line: line)
+) -> @Sendable (repeat each Argument) -> Result {
+  unimplemented(
+    description(),
+    file: filePath,
+    fileID: fileID,
+    function: function,
+    line: line
+  )
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
-  _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (repeat each A) throws -> Result {
-  unimplemented(description())
-}
-
-@available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result
-) -> @Sendable (repeat each A) async -> Result {
-  unimplemented(description(), placeholder: placeholder())
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
+  line: UInt = #line,
+  column: UInt = #column
+) -> @Sendable (repeat each Argument) throws -> Result {
+  unimplemented(
+    description(),
+    fileID: fileID,
+    filePath: filePath,
+    function: function,
+    line: line,
+    column: column
+  )
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  file: StaticString = #file,
+  placeholder: @autoclosure @escaping @Sendable () -> Result,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
   line: UInt = #line
-) -> @Sendable (repeat each A) async -> Result {
-  unimplemented(description(), file: file, line: line)
+) -> @Sendable (repeat each Argument) async -> Result {
+  unimplemented(
+    description(),
+    file: filePath,
+    fileID: fileID,
+    function: function,
+    line: line
+  )
 }
 
 @available(*, deprecated, renamed: "unimplemented")
-public func XCTUnimplemented<each A, Result>(
+public func XCTUnimplemented<each Argument, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
+  line: UInt = #line
+) -> @Sendable (repeat each Argument) async -> Result {
+  unimplemented(
+    description(),
+    file: filePath,
+    fileID: fileID,
+    function: function,
+    line: line
+  )
+}
+
+@available(*, deprecated, renamed: "unimplemented")
+public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @Sendable (repeat each A) async throws -> Result {
+) -> @Sendable (repeat each Argument) async throws -> Result {
   unimplemented(description())
 }
 
