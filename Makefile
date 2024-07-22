@@ -19,9 +19,14 @@ test-release:
 test-examples:
 	xcodebuild test \
 		-configuration $(CONFIG) \
-	 	-workspace IssueReporting.xcworkspace \
+		-workspace IssueReporting.xcworkspace \
 		-scheme Examples \
 		-destination platform="iOS Simulator,name=iPhone 15"
+
+test-wasm:
+	echo wasm-DEVELOPMENT-SNAPSHOT-2024-07-16-a > .swift-version
+	swift run carton bundle
+	rm .swift-version
 
 build-for-static-stdlib:
 	@swift build -c $(CONFIG) --static-swift-stdlib
