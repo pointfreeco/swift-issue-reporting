@@ -54,7 +54,7 @@ You an also create your own custom issue reporter by defining a type that confor
 ``IssueReporter/reportIssue(_:fileID:filePath:line:column:)``, which you can implement to report
 issues in any way you want.
 
-## Overridding issue reporters
+## Overriding issue reporters
 
 By default the library uses the ``IssueReporter/runtimeWarning`` reporter, but it is possible to 
 override the reporters used. There are two primary ways:
