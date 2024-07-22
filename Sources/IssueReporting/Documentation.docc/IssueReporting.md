@@ -1,7 +1,7 @@
 # ``IssueReporting``
 
 Report issues in your application and library code as Xcode runtime warnings, breakpoints, 
-assertions, and more.
+assertions, and do so in a testable manner.
 
 ## Overview
 
@@ -72,4 +72,4 @@ that ship in the same target as the library itself.
 
 ### Unimplemented
 
-- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-34tpp``
+- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-3hygi``

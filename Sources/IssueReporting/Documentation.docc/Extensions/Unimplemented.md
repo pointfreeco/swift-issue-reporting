@@ -1,4 +1,4 @@
-# ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-34tpp``
+# ``IssueReporting/unimplemented(_:placeholder:fileID:filePath:function:line:column:)-3hygi``
 
 ## Topics
 
@@ -7,7 +7,7 @@
 - ``unimplemented(_:fileID:filePath:function:line:column:)-2ae22``
 - ``unimplemented(_:fileID:filePath:function:line:column:)-1hsov``
 - ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-6ts5j``
-- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-3hygi``
+- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-34tpp``
 
 ### Structures
 

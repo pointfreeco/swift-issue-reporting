@@ -1,5 +1,9 @@
 /// Returns a closure that reports an issue when invoked.
 ///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
+///
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.
 ///   - placeholder: A placeholder value returned from the closure when left unimplemented.
@@ -34,6 +38,10 @@ public func unimplemented<each Argument, Result>(
 
 /// Returns a throwing closure that reports an issue and throws an error when invoked.
 ///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
+///
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.
 ///   - fileID: The fileID.
@@ -66,6 +74,10 @@ public func unimplemented<each Argument, Result>(
 }
 
 /// Returns an asynchronous closure that reports an issue when invoked.
+///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
 ///
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.
@@ -100,6 +112,10 @@ public func unimplemented<each Argument, Result>(
 }
 
 /// Returns a throwing, asynchronous closure that reports an issue and throws an error when invoked.
+///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
 ///
 /// - Parameters:
 ///   - description: An optional description of the unimplemented closure.

@@ -1,11 +1,19 @@
 /// Report an issue.
 ///
-/// A generalized version of Swift Testing's [`Issue.record`][Issue.record] that emits "purple"
-/// warnings to Xcode at runtime and logs fault-level messages to the console.
+/// Invoking this function has two different behaviors depending on the context:
 ///
-/// During test runs, the issue will be sent to Swift Testing's [`Issue.record`][Issue.record] _or_
-/// XCTest's [`XCTFail`][XCTFail] accordingly, which means you can use it to drive custom assertion
-/// helpers that you want to work in both Swift Testing and XCTest.
+/// * When running your code in a non-testing context, this method will loop over the
+/// collection of issue reports registered and invoke them. The default issue reporter for the
+/// library is ``IssueReporter/runtimeWarning``, which emits a purple, runtime warning in Xcode:
+///
+///   ![A purple runtime warning in Xcode showing that an issue has been reported.](https://pointfreeco-blog.s3.amazonaws.com/posts/0147-issue-reporting/runtime-warning.png)
+///
+///   But you can there are also [other issue reports](<doc:GettingStarted#Issue-reporters>) you
+///   can use, and you can create your own.
+///
+/// * When running your app in tests (both XCTest and Swift's native Testing framework), it will
+/// emit a test failure. This allows you to get test coverage on your reported issues, both expected
+/// and unexpected ones.
 ///
 /// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:sourcelocation:)
 /// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
@@ -68,15 +76,8 @@ public func reportIssue(
 
 /// Report a caught error.
 ///
-/// A generalized version of Swift Testing's [`Issue.record`][Issue.record] that emits "purple"
-/// warnings to Xcode at runtime and logs fault-level messages to the console.
-///
-/// During test runs, the issue will be sent to Swift Testing's [`Issue.record`][Issue.record] _or_
-/// XCTest's [`XCTFail`][XCTFail] accordingly, which means you can use it to drive custom assertion
-/// helpers that you want to work in both Swift Testing and XCTest.
-///
-/// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:_:sourcelocation:)
-/// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
+/// This function behaves similarly to ``reportIssue(_:fileID:filePath:line:column:)``, but for
+/// reporting errors.
 ///
 /// - Parameters:
 ///   - error: The error that caused the issue.

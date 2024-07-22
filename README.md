@@ -4,57 +4,60 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
 
-Report issues in your application and library code as Xcode runtime warnings, test failures, and
-more.
+Report issues in your application and library code as Xcode runtime warnings, breakpoints, 
+assertions, and do so in a testable manner.
 
 ## Overview
 
-Swift Issue Reporting lets you generate your own "purple" Xcode runtime warnings in application and
-library code:
+This library provides robust tools for reporting issues in your application with a customizable
+degree of granularity and severity. In its most basic for you use the unified 
+[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function anywhere in your
+application to flag an issue with your code, such as a code path that you think should never be
+executed:
 
-[![](todo://image-of-runtime-warnings)]
+```swift
+guard let lastItem = items.last
+else {
+  reportIssue("'items' should never be empty.")
+  return 
+}
+…
+```
 
-Further, if one of these runtime warnings is emitted from a unit test, it will automatically be
-recorded as a test failure:
+By default, [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) will trigger an
+unobtrusive, purple runtime warning when running your app in Xcode (simulator and device):
 
-[![](todo://image-of-test-failure)]
+![A purple runtime warning in Xcode showing that an issue has been reported.](runtime-warning)
 
-And so the benefits are twofold: reporting issues will help you catch bugs during debug _and_ test
-sessions.
+This provides a very visible way to see when an issue has occured in your application without
+stopping the app's execution and interrupting your workflow.
 
-While this is incredibly useful on its own, it only scratches the library's surface. This
-functionality is built on top of a highly flexible issue reporting system that can be used in a
-variety of ways.
+The [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool can also be customized
+to allow for other ways of reporting issues. It can be configured to trigger a breakpoint if you
+want to do some debugging when an issue is reported, or a precondition or fatal error if you want
+to truly stop execution. And you can create your own custom issue reporter to send issues to OSLog 
+or an external server. 
 
-### Custom issue reporting
+Further, when running your code in a testing context (both XCTest and Swift's native Testing
+framework), all reported issues become _test failures_. This helps you get test coverage that
+problematic code paths are not executed, and makes it possible to build testing tools for libraries
+that ship in the same target as the library itself.
 
-<!-- TODO -->
+// TODO: test failure image
 
-### Custom test helpers
-
-<!-- TODO -->
+// TODO: link to get started article
 
 ## Case studies
 
 There are many popular libraries out there using Swift Issue Reporting. To name a few:
 
 <!-- TODO: Order? -->
-
-  * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
-    comes with powerful testing tools that support both Swift Testing and XCTest out of the box
-    thanks to Swift Issue Reporting. In addition, the library is heavily instrumented with issue
-    reporting to help developers catch bugs in their code early.
+<!-- TODO: Rewrite for SwiftUI Navigation if Swift Issue Reporting is released first -->
 
   * [**Perception**](https://github.com/pointfreeco/swift-perception) is a back-port of Swift's
     Observation framework that can be deployed all the way back to the iOS 13 generation of devices.
     It provides a special SwiftUI view that can observe changes to objects annotated with the macro,
     and uses Swift Issue Reporting to warn developers when this view is missing.
-
-  <!-- TODO: Rewrite for SwiftUI Navigation if Swift Issue Reporting is released first -->
-
-  * [**Swift Navigation**](https://github.com/pointfreeco/swiftui-navigation) provides concise
-    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
-    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
 
   * [**Swift Dependencies**](https://github.com/pointfreeco/swift-dependencies) is a general purpose
     dependency injection tool inspired by SwiftUI's environment. It uses Swift Issue Reporting to
@@ -62,15 +65,14 @@ There are many popular libraries out there using Swift Issue Reporting. To name 
     to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
     existing tests will fail until they account for it.
 
-  * [**Swift Snapshot Testing**](https://github.com/pointfreeco/swift-snapshot-testing) provides
-    test helpers that can automatically record failures to disk, or inline into tests when possible.
-    These helpers are powered by Swift Issue Reporting and are automatically supported in both
-    Swift Testing and XCTest.
+  * [**Swift Navigation**](https://github.com/pointfreeco/swiftui-navigation) provides concise
+    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
+    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
 
-  * [**Swift Macro Testing**](https://github.com/pointfreeco/swift-macro-testing) builds upon
-    [Swift Snapshot Testing](https://github.com/pointfreeco/swift-snapshot-testing), but
-    specifically for macros. It uses the same issue reporting mechanism to provide test helpers to
-    both Swift Testing and XCTest.
+  * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
+    comes with powerful testing tools that support both Swift Testing and XCTest out of the box
+    thanks to Swift Issue Reporting. In addition, the library is heavily instrumented with issue
+    reporting to help developers catch bugs in their code early.
 
   * [**Swift Custom Dump**](https://github.com/pointfreeco/swift-custom-dump) is an improved version
     of Swift's `dump` function, and a whole lot more. It provides well-formatted dumps of data types
