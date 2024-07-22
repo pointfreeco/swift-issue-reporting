@@ -10,10 +10,9 @@ assertions, and do so in a testable manner.
 ## Overview
 
 This library provides robust tools for reporting issues in your application with a customizable
-degree of granularity and severity. In its most basic for you use the unified 
-[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function anywhere in your
-application to flag an issue with your code, such as a code path that you think should never be
-executed:
+degree of granularity and severity. In its most basic form you use the `reportIssue` function
+anywhere in your application to flag an issue in your code, such as a code path that you think
+should never be executed:
 
 ```swift
 guard let lastItem = items.last
@@ -24,8 +23,8 @@ else {
 …
 ```
 
-By default, [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) will trigger an
-unobtrusive, purple runtime warning when running your app in Xcode (simulator and device):
+By default, this will trigger an unobtrusive, purple runtime warning when running your app in Xcode
+(simulator and device):
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning~dark.png">
@@ -33,17 +32,16 @@ unobtrusive, purple runtime warning when running your app in Xcode (simulator an
   <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning.png">
 </picture>
 
-This provides a very visible way to see when an issue has occurred in your application without
-stopping the app's execution and interrupting your workflow.
+This provides a very visual way of seeing when an issue has occurred in your application without
+stopping the app's execution or interrupting your workflow.
 
-The [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool can also be customized
-to allow for other ways of reporting issues. It can be configured to trigger a breakpoint if you
-want to do some debugging when an issue is reported, or a precondition or fatal error if you want
-to truly stop execution. And you can create your own custom issue reporter to send issues to OSLog 
-or an external server. 
+The `reportIssue` tool can also be customized to allow for other ways of reporting issues. It can be
+configured to trigger a breakpoint if you want to do some debugging when an issue is reported, or a
+precondition or fatal error if you want to truly stop execution. And you can create your own custom
+issue reporter to send issues to OSLog or an external server. 
 
-Further, when running your code in a testing context (both XCTest and Swift's native Testing
-framework), all reported issues become _test failures_. This helps you get test coverage that
+Further, when running your code in a testing context (both Swift's native Testing framework as well
+as XCTest), all reported issues become _test failures_. This helps you get test coverage that
 problematic code paths are not executed, and makes it possible to build testing tools for libraries
 that ship in the same target as the library itself.
 
@@ -53,7 +51,7 @@ that ship in the same target as the library itself.
   <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
 </picture>
 
-// TODO: link to get started article
+<!-- TODO: link to get started article -->
 
 ## Case studies
 

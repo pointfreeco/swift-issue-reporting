@@ -6,9 +6,9 @@ assertions, and do so in a testable manner.
 ## Overview
 
 This library provides robust tools for reporting issues in your application with a customizable
-degree of granularity and severity. In its most basic for you use the unified 
+degree of granularity and severity. In its most basic form you use the unified
 [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function anywhere in your
-application to flag an issue with your code, such as a code path that you think should never be
+application to flag an issue in your code, such as a code path that you think should never be
 executed:
 
 ```swift
