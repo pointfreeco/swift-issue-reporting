@@ -31,6 +31,13 @@ test-wasm:
 build-for-static-stdlib:
 	@swift build -c $(CONFIG) --static-swift-stdlib
 
+build-for-library-evolution:
+	swift build \
+		-c release \
+		--target IssueReporting \
+		-Xswiftc -emit-module-interface \
+		-Xswiftc -enable-library-evolution
+
 format:
 	@swift format \
 		--ignore-unparsable-files \
