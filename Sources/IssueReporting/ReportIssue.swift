@@ -6,7 +6,7 @@
 /// collection of issue reports registered and invoke them. The default issue reporter for the
 /// library is ``IssueReporter/runtimeWarning``, which emits a purple, runtime warning in Xcode:
 ///
-///   ![A purple runtime warning in Xcode showing that an issue has been reported.](https://pointfreeco-blog.s3.amazonaws.com/posts/0147-issue-reporting/runtime-warning.png)
+///   ![A purple runtime warning in Xcode showing that an issue has been reported.](runtime-warning)
 ///
 ///   But you can there are also [other issue reports](<doc:GettingStarted#Issue-reporters>) you
 ///   can use, and you can create your own.
@@ -14,6 +14,8 @@
 /// * When running your app in tests (both XCTest and Swift's native Testing framework), it will
 /// emit a test failure. This allows you to get test coverage on your reported issues, both expected
 /// and unexpected ones.
+///
+///   ![A test failure in Xcode where an issue has been reported.](test-failure)
 ///
 /// [Issue.record]: https://developer.apple.com/documentation/testing/issue/record(_:sourcelocation:)
 /// [XCTFail]: https://developer.apple.com/documentation/xctest/1500970-xctfail/
