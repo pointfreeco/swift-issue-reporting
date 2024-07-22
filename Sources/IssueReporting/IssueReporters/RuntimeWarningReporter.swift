@@ -8,7 +8,7 @@ extension IssueReporter where Self == RuntimeWarningReporter {
   /// An issue reporter that emits "purple" runtime warnings to Xcode and logs fault-level messages
   /// to the console.
   ///
-  /// This is the default issue reporter.
+  /// This is the default issue reporter. On non-Apple platforms it logs messages to `stderr`.
   ///
   /// If this issue reporter receives an expected issue, it will log an info-level message to the
   /// console, instead.
