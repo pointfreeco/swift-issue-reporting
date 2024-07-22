@@ -39,6 +39,8 @@ framework), all reported issues become _test failures_. This helps you get test 
 problematic code paths are not executed, and makes it possible to build testing tools for libraries
 that ship in the same target as the library itself.
 
+![A test failure in Xcode where an issue has been reported.](test-failure)
+
 ## Topics
 
 ### Essentials
