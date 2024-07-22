@@ -28,9 +28,9 @@ By default, [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) w
 unobtrusive, purple runtime warning when running your app in Xcode (simulator and device):
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Resources/runtime-warning~dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Resources/runtime-warning.png">
-  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Resources/runtime-warning.png">
+  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning~dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning.png">
+  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning.png">
 </picture>
 
 This provides a very visible way to see when an issue has occurred in your application without
@@ -48,9 +48,9 @@ problematic code paths are not executed, and makes it possible to build testing 
 that ship in the same target as the library itself.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Resources/test-failure~dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Resources/test-failure.png">
-  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Resources/test-failure.png">
+  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure~dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
+  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
 </picture>
 
 // TODO: link to get started article
