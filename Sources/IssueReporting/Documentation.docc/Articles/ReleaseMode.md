@@ -11,7 +11,7 @@ are not safe for release builds (or App Store submissions), and so they are hidd
 `#if DEBUG` flag. This means that test failures will not be triggered properly when running your
 tests in release mode.
 
-To fix this, you can have your test targets depend on the "IssueReportingTestSupport" library that
+To fix this, you can have your _test targets_ depend on the "IssueReportingTestSupport" library that
 comes with this package:
 
 ```swift
@@ -27,7 +27,7 @@ comes with this package:
 With that library linked the "IssueReporting" library will now be able to trigger test failures
 even in release mode.
 
-> Important: Do not link the "IssueReportingTestSupport" product to any target that is intended to
+> Important: **Do not** link the "IssueReportingTestSupport" product to any target that is intended to
 be used in an app target. This will result in a variety of linker errors such as:
 > 
 > ```
