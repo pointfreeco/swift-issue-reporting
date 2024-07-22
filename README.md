@@ -67,7 +67,8 @@ There are many popular libraries out there using Issue Reporting. To name a few:
 
   * [**Dependencies**](https://github.com/pointfreeco/swift-dependencies) is a general purpose
     dependency injection library inspired by SwiftUI's environment. It uses Swift Issue Reporting to
-    notify users when they haven't asserted against how a dependency is used. This forces each test
+    notify users when they access dependencies without overridding them. This results in runtime
+    warnings when running in the simulator, and test failures when testing. It forces each test
     to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
     existing tests will fail until they account for it.
 
