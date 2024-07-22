@@ -58,7 +58,7 @@ public struct RuntimeWarningReporter: IssueReporter {
 
   @_transparent
   public func reportIssue(
-    _ message: @autoclosure () -> String?, // TODO: Handle `nil`/`""` better
+    _ message: @autoclosure () -> String?,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,

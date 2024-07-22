@@ -22,6 +22,4 @@ public struct FatalErrorReporter: IssueReporter {
     }
     Swift.fatalError(message, file: filePath, line: line)
   }
-
-  // TODO: Should this reporter do anything with *expected* issues?
 }
