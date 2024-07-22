@@ -14,7 +14,7 @@ else {
   reportIssue("'items' should never be empty.")
   return 
 }
-// Use 'lastItem'
+// ...
 ```
 
 By default, [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) will trigger an
