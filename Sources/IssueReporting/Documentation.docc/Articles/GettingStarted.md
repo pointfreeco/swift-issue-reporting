@@ -5,8 +5,8 @@ Learn how to report issues in your application code, and how to customize how is
 ## Reporting issues
 
 The primary tool for reporting an issue in your application code is the 
-[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function. You can invoke from
-anywhere with your features' code to signal that something happened that should not have:
+[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function. You can invoke it from
+anywhere in your features' code to signal that something happened that should not have:
 
 ```swift
 guard let lastItem = items.last
