@@ -1,6 +1,6 @@
 # Creating testing tools
 
-Learn how to build testing tools in your libraries using IssueReporting.
+Learn how to build testing tools in your libraries using Issue Reporting.
 
 ## Overview
 
@@ -9,7 +9,7 @@ library. One can use this library to power those testing tools, and that comes w
 benefits:
 
   * Your testing tools will simultaneously work in both XCTest and [swift-testing][testing-gh] with
-    no further work from you. The IssueReporting library detects which testing framework is being
+    no further work from you. The Issue Reporting library detects which testing framework is being
     used, and correctly invokes either `XCTFail` or `Issue.record`.
 
   * You can put your testing tools in the same library as the core tools, without the need of a
@@ -20,7 +20,7 @@ benefits:
 
 ## Case studies
 
-We have two main uses cases for IssueReporting in our libraries:
+We have two main uses cases for Issue Reporting in our libraries:
 
   * In the [Composable Architecture][tca-gh] we provide a `TestStore` tool that allows one to test
     their features. It allows you to send actions to the store and assert on how state changes, and
