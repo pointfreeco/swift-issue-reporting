@@ -25,7 +25,7 @@ unobtrusive, purple runtime warning when running your app in Xcode (simulator an
 
 ![A purple runtime warning in Xcode showing that an issue has been reported.](runtime-warning)
 
-This provides a very visible way to see when an issue has occured in your application without
+This provides a very visible way to see when an issue has occurred in your application without
 stopping the app's execution and interrupting your workflow.
 
 The [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool can also be customized
