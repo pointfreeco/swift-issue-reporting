@@ -48,7 +48,7 @@ that ship in the same target as the library itself.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure~dark.png">
   <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
-  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
+  <img alt="A test failure in Xcode where an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
 </picture>
 
 Issue Reporting comes with a number of reporters, custom reporting functionality, and more. To learn
