@@ -7,10 +7,10 @@ import Foundation
 // NB: Deprecated after 1.1.2
 
 @_disfavoredOverload
-@available(iOS, deprecated: 9999, renamed: "fail")
-@available(macOS, deprecated: 9999, renamed: "fail")
-@available(tvOS, deprecated: 9999, renamed: "fail")
-@available(watchOS, deprecated: 9999, renamed: "fail")
+@available(iOS, deprecated: 9999, renamed: "reportIssue")
+@available(macOS, deprecated: 9999, renamed: "reportIssue")
+@available(tvOS, deprecated: 9999, renamed: "reportIssue")
+@available(watchOS, deprecated: 9999, renamed: "reportIssue")
 public func XCTFail(_ message: String = "", file: StaticString = #filePath, line: UInt = #line) {
   reportIssue(
     message,
