@@ -30,9 +30,10 @@ public struct RuntimeWarningReporter: IssueReporter {
     #endif
     @usableFromInline var dso: UnsafeRawPointer
 
-  #if canImport(Darwin)
-    @_transparent
-  #endif
+  init(dso: UnsafeRawPointer) {
+    self.dso = dso
+  }
+
   @usableFromInline
     init() {
       // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
@@ -41,18 +42,18 @@ public struct RuntimeWarningReporter: IssueReporter {
       //
       // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
       let count = _dyld_image_count()
-      self.dso = #dsohandle
       for i in 0..<count {
         if let name = _dyld_get_image_name(i) {
           let swiftString = String(cString: name)
           if swiftString.hasSuffix("/SwiftUI") {
             if let header = _dyld_get_image_header(i) {
-              self.dso = UnsafeRawPointer(header)
+              self.init(dso: UnsafeRawPointer(header))
               return
             }
           }
         }
       }
+      self.init(dso: #dsohandle)
     }
   #endif
 
