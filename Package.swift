@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "swift-issue-reporting",
+  name: "xctest-dynamic-overlay",
   platforms: [
     .iOS(.v13),
     .macOS(.v10_15),
