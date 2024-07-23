@@ -116,4 +116,3 @@
 
   private struct Failure: Error {}
 #endif
-

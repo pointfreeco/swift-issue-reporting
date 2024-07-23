@@ -41,7 +41,9 @@ extension String {
         https://pointfreeco.github.io/swift-dependencies/main/documentation/dependencies/testing#Testing-gotchas
         """
 
-      return isEmpty ? warning : """
+      return isEmpty
+        ? warning
+        : """
         \(self)
 
         ━━┉┅
@@ -71,7 +73,7 @@ extension String {
       .map {
         (_typeByName(String(self[$0])) as? NSObject.Type)?.isSubclass(of: xcTestCase) ?? false
       }
-      ?? false
+        ?? false
     }
   #endif
 }

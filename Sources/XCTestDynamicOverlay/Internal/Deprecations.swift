@@ -463,11 +463,11 @@ extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
 }
 
 #if canImport(Foundation)
-  @available(*, deprecated)extension Data: _DefaultInitializable {}
-  @available(*, deprecated)extension Date: _DefaultInitializable {}
-  @available(*, deprecated)extension Decimal: _DefaultInitializable {}
-  @available(*, deprecated)extension UUID: _DefaultInitializable {}
-  @available(*, deprecated)extension URL: _DefaultInitializable {
+  @available(*, deprecated) extension Data: _DefaultInitializable {}
+  @available(*, deprecated) extension Date: _DefaultInitializable {}
+  @available(*, deprecated) extension Decimal: _DefaultInitializable {}
+  @available(*, deprecated) extension UUID: _DefaultInitializable {}
+  @available(*, deprecated) extension URL: _DefaultInitializable {
     init() { self.init(string: "/")! }
   }
 #endif

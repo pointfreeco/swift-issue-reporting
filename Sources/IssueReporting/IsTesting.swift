@@ -25,8 +25,8 @@
   /// To detect if the current task is running inside a test, use ``TestContext/current``, instead.
   public let isTesting = ProcessInfo.processInfo.isTesting
 
-  private extension ProcessInfo {
-    var isTesting: Bool {
+  extension ProcessInfo {
+    fileprivate var isTesting: Bool {
       if environment.keys.contains("XCTestBundlePath") { return true }
       if environment.keys.contains("XCTestConfigurationFilePath") { return true }
       if environment.keys.contains("XCTestSessionIdentifier") { return true }

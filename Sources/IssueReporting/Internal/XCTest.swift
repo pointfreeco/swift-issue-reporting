@@ -84,14 +84,15 @@ func _XCTExpectFailure<R>(
         printError(
           """
           \(file):\(line): An expected failure was recorded without linking the XCTest framework.
-          
+
           To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
           """
         )
       #endif
       return try failingBlock()
     }
-    let XCTExpectFailure = function
+    let XCTExpectFailure =
+      function
       as! @Sendable (String?, Bool?, Bool?, () throws -> Void) throws -> Void
     var result: Result<R, any Error>!
     do {

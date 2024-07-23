@@ -37,7 +37,7 @@ let package = Package(
       name: "XCTestDynamicOverlayTests",
       dependencies: [
         "IssueReportingTestSupport",
-        "XCTestDynamicOverlay"
+        "XCTestDynamicOverlay",
       ]
     ),
   ]

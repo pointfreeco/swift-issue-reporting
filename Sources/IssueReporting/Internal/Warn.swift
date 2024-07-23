@@ -1,7 +1,7 @@
 #if os(Linux)
-@preconcurrency import Foundation
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 #if canImport(WinSDK)

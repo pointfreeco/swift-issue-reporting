@@ -30,11 +30,11 @@ public struct RuntimeWarningReporter: IssueReporter {
     #endif
     @usableFromInline var dso: UnsafeRawPointer
 
-  init(dso: UnsafeRawPointer) {
-    self.dso = dso
-  }
+    init(dso: UnsafeRawPointer) {
+      self.dso = dso
+    }
 
-  @usableFromInline
+    @usableFromInline
     init() {
       // NB: Xcode runtime warnings offer a much better experience than traditional assertions and
       //     breakpoints, but Apple provides no means of creating custom runtime warnings ourselves.

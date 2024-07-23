@@ -57,7 +57,7 @@ func _recordIssue(
       printError(
         """
         \(fileID):\(line): An issue was recorded without linking the Testing framework.
-        
+
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
         """
       )
@@ -138,14 +138,12 @@ func _withKnownIssue(
             H0VyyKXEtF
             """,
           in: "Testing",
-          to: (
-            @convention(thin) (
-              Any?,
-              Bool,
-              SourceLocation,
-              () throws -> Void
-            ) -> Void
-          )
+          to: (@convention(thin) (
+            Any?,
+            Bool,
+            SourceLocation,
+            () throws -> Void
+          ) -> Void)
           .self
         )
       else { return }
@@ -174,15 +172,17 @@ func _withKnownIssue(
     return
   }
 
-  let withKnownIssue = function as! @Sendable (
-    String?,
-    Bool,
-    String,
-    String,
-    Int,
-    Int,
-    () throws -> Void
-  ) -> Void
+  let withKnownIssue =
+    function
+    as! @Sendable (
+      String?,
+      Bool,
+      String,
+      String,
+      Int,
+      Int,
+      () throws -> Void
+    ) -> Void
   withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 
@@ -206,14 +206,12 @@ func _withKnownIssue(
             H0VyyYaKXEtYaFTu
             """,
           in: "Testing",
-          to: (
-            @convention(thin) (
-              Any?,
-              Bool,
-              SourceLocation,
-              () async throws -> Void
-            ) async -> Void
-          )
+          to: (@convention(thin) (
+            Any?,
+            Bool,
+            SourceLocation,
+            () async throws -> Void
+          ) async -> Void)
           .self
         )
       else { return }
@@ -242,15 +240,17 @@ func _withKnownIssue(
     return
   }
 
-  let withKnownIssue = function as! @Sendable (
-    String?,
-    Bool,
-    String,
-    String,
-    Int,
-    Int,
-    () async throws -> Void
-  ) async -> Void
+  let withKnownIssue =
+    function
+    as! @Sendable (
+      String?,
+      Bool,
+      String,
+      String,
+      Int,
+      Int,
+      () async throws -> Void
+    ) async -> Void
   await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 @usableFromInline
@@ -263,7 +263,7 @@ func _currentTestIsNotNil() -> Bool {
       printError(
         """
         'Test.current' was accessed without linking the Testing framework.
-        
+
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
         """
       )
