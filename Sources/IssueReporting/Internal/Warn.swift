@@ -1,4 +1,4 @@
-import Foundation
+@preconcurrency import Foundation
 
 #if canImport(WinSDK)
   import WinSDK
