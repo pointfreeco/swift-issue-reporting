@@ -3,4 +3,3 @@ builder:
   configs:
   - documentation_targets:
     - IssueReporting
-    - XCTestDynamicOverlay

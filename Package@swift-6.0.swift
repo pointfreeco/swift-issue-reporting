@@ -11,32 +11,22 @@ let package = Package(
     .watchOS(.v6),
   ],
   products: [
-    .library(name: "IssueReporting", targets: ["IssueReporting"]),
-    .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/pointfreeco/swift-issue-reporting-preview", branch: "main"),
   ],
   targets: [
     .target(
-      name: "IssueReporting"
-    ),
-    .testTarget(
-      name: "IssueReportingTests",
-      dependencies: [
-        "IssueReporting",
-        "IssueReportingTestSupport",
-      ]
-    ),
-    .target(
-      name: "IssueReportingTestSupport"
-    ),
-    .target(
       name: "XCTestDynamicOverlay",
-      dependencies: ["IssueReporting"]
+      dependencies: [
+        .product(name: "IssueReporting", package: "swift-issue-reporting-preview"),
+      ]
     ),
     .testTarget(
       name: "XCTestDynamicOverlayTests",
       dependencies: [
-        "IssueReportingTestSupport",
+        .product(name: "IssueReportingTestSupport", package: "swift-issue-reporting-preview"),
         "XCTestDynamicOverlay",
       ]
     ),
@@ -53,14 +43,5 @@ let package = Package(
 #if os(macOS)
   package.dependencies.append(contentsOf: [
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-    .package(url: "https://github.com/swiftwasm/carton", from: "1.0.0"),
   ])
-  package.targets.append(
-    .executableTarget(
-      name: "WasmTests",
-      dependencies: [
-        "IssueReporting"
-      ]
-    )
-  )
 #endif
