@@ -361,14 +361,22 @@ func _currentTestIsNotNil() -> Bool {
     private var displayName: String?
     private var traits: [any Trait]
     private var sourceLocation: SourceLocation
+    #if swift(>=5.10)
     private var containingTypeInfo: TypeInfo?
+    #else
+    private var containingType: Any.Type?
+    #endif
     private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
+    #if swift(>=6)
     fileprivate enum TestCasesState: @unchecked Sendable {
       case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
       case evaluated(_ testCases: AnySequence<Test.Case>)
       case failed(_ error: any Error)
     }
     fileprivate var testCasesState: TestCasesState?
+    #else
+    private var _testCases: UncheckedSendable<AnySequence<Test.Case>>?
+    #endif
     private var parameters: [Parameter]?
     private struct Parameter: Sendable {
       var index: Int
@@ -376,7 +384,9 @@ func _currentTestIsNotNil() -> Bool {
       var secondName: String?
       var typeInfo: TypeInfo
     }
+    #if swift(>=5.10)
     private var isSynthesized = false
+    #endif
   }
 #endif
 
