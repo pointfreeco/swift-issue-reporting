@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(Testing)
+  import Testing
+#endif
+
 #if canImport(WinSDK)
   import WinSDK
 #endif
@@ -258,7 +262,11 @@ func _currentTestIsNotNil() -> Bool {
   guard let function = function(for: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF")
   else {
     #if DEBUG
+      #if canImport(Testing)
       return Test.current != nil
+      #else
+      return false
+      #endif
     #else
       printError(
         """
@@ -343,41 +351,6 @@ func _currentTestIsNotNil() -> Bool {
   }
 
   private protocol Trait: Sendable {}
-
-  struct Test: @unchecked Sendable {
-    static var current: Self? {
-      guard
-        let current = unsafeBitCast(
-          symbol: "$s7Testing4TestV7currentACSgvgZ",
-          in: "Testing",
-          to: (@convention(thin) () -> Test?).self
-        )
-      else { return nil }
-      return current()
-    }
-
-    struct Case {}
-    private var name: String
-    private var displayName: String?
-    private var traits: [any Trait]
-    private var sourceLocation: SourceLocation
-    private var containingTypeInfo: TypeInfo?
-    private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
-    fileprivate enum TestCasesState: @unchecked Sendable {
-      case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
-      case evaluated(_ testCases: AnySequence<Test.Case>)
-      case failed(_ error: any Error)
-    }
-    fileprivate var testCasesState: TestCasesState?
-    private var parameters: [Parameter]?
-    private struct Parameter: Sendable {
-      var index: Int
-      var firstName: String
-      var secondName: String?
-      var typeInfo: TypeInfo
-    }
-    private var isSynthesized = false
-  }
 #endif
 
 @usableFromInline
