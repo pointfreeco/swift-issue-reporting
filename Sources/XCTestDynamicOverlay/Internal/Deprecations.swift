@@ -260,21 +260,21 @@ public func unimplemented<Result>(
   line: UInt = #line,
   column: UInt = #column
 ) -> Result {
-  let description = description()
-  _fail(
-    description,
-    nil,
+  unimplemented(
+    description(),
+    placeholder: {
+      do {
+        return try _generatePlaceholder()
+      } catch {
+        _unimplementedFatalError(description(), file: filePath, line: line)
+      }
+    }(),
     fileID: fileID,
     filePath: filePath,
     function: function,
     line: line,
     column: column
   )
-  do {
-    return try _generatePlaceholder()
-  } catch {
-    _unimplementedFatalError(description, file: filePath, line: line)
-  }
 }
 
 @_disfavoredOverload
@@ -286,23 +286,21 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line
 ) -> @Sendable (repeat each Argument) -> Result {
-  return { (argument: repeat each Argument) in
-    let description = description()
-    _fail(
-      description,
-      (repeat each argument),
-      fileID: fileID,
-      filePath: filePath,
-      function: function,
-      line: line,
-      column: 0
-    )
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: filePath, line: line)
-    }
-  }
+  unimplemented(
+    description(),
+    placeholder: {
+      do {
+        return try _generatePlaceholder()
+      } catch {
+        _unimplementedFatalError(description(), file: filePath, line: line)
+      }
+    }(),
+    fileID: fileID,
+    filePath: filePath,
+    function: function,
+    line: line,
+    column: 0
+  )
 }
 
 @_disfavoredOverload
@@ -314,23 +312,21 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line
 ) -> @Sendable (repeat each Argument) async -> Result {
-  return { (argument: repeat each Argument) in
-    let description = description()
-    _fail(
-      description,
-      (repeat each argument),
-      fileID: fileID,
-      filePath: filePath,
-      function: function,
-      line: line,
-      column: 0
-    )
-    do {
-      return try _generatePlaceholder()
-    } catch {
-      _unimplementedFatalError(description, file: filePath, line: line)
-    }
-  }
+  unimplemented(
+    description(),
+    placeholder: {
+      do {
+        return try _generatePlaceholder()
+      } catch {
+        _unimplementedFatalError(description(), file: filePath, line: line)
+      }
+    }(),
+    fileID: fileID,
+    filePath: filePath,
+    function: function,
+    line: line,
+    column: 0
+  )
 }
 
 @available(*, deprecated)
