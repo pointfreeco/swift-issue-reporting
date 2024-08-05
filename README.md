@@ -1,8 +1,8 @@
 # Swift Issue Reporting
 
 [![CI](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/pointfreeco/swift-issue-reporting/actions/workflows/ci.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting)
 
 Report issues in your application and library code as Xcode runtime warnings, breakpoints, 
 assertions, and do so in a testable manner.
