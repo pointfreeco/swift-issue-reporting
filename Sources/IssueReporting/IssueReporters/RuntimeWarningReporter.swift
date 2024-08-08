@@ -4,7 +4,7 @@ import Foundation
   import os
 #endif
 
-extension IssueReporter where Self == RuntimeWarningReporter {
+extension IssueReporter where Self == _RuntimeWarningReporter {
   /// An issue reporter that emits "purple" runtime warnings to Xcode and logs fault-level messages
   /// to the console.
   ///
@@ -22,7 +22,7 @@ extension IssueReporter where Self == RuntimeWarningReporter {
 /// fault-level messages to the console.
 ///
 /// Use ``IssueReporter/runtimeWarning`` to create one of these values.
-public struct RuntimeWarningReporter: IssueReporter {
+public struct _RuntimeWarningReporter: IssueReporter {
   #if canImport(os)
     @UncheckedSendable
     #if canImport(Darwin)
