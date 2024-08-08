@@ -1,7 +1,7 @@
 #if canImport(Darwin)
   import Darwin
 
-  extension IssueReporter where Self == BreakpointReporter {
+  extension IssueReporter where Self == _BreakpointReporter {
     /// An issue reporter that pauses program execution when a debugger is attached.
     ///
     /// Logs a warning to the console and raises `SIGTRAP` when an issue is received.
@@ -12,7 +12,7 @@
   /// attached.
   ///
   /// Use ``IssueReporter/breakpoint`` to create one of these values.
-  public struct BreakpointReporter: IssueReporter {
+  public struct _BreakpointReporter: IssueReporter {
     public func reportIssue(
       _ message: @autoclosure () -> String?,
       fileID: StaticString,
