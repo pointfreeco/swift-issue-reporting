@@ -104,6 +104,9 @@ struct User { let id: UUID }
 @MainActor let f05: (String, Int, Double, [Int], User) -> Int = unimplemented(
   "f05", placeholder: 42)
 
+let fm00: () -> Int = unimplemented("fm00")
+let fm01: @MainActor () -> Int = unimplemented("fm01")
+
 @available(*, deprecated)
 private struct Autoclosing {
   init(

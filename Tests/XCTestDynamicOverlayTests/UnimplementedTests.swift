@@ -2,6 +2,12 @@
   import XCTest
 
   final class UnimplementedTests: XCTestCase {
+    
+    func testXCTReferencingUnimplementedClosureDoesNotEvaluateIt() async throws {
+      _ = fm00;
+      _ = fm01;
+    }
+
     func testXCTFailShouldFail() async throws {
       _ = XCTExpectFailure {
         f00()
