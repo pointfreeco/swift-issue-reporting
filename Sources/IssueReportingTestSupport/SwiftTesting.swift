@@ -12,21 +12,8 @@ private func __recordIssue(
   column: Int
 ) {
   #if canImport(Testing)
-    // NB: https://github.com/apple/swift-testing/issues/490
-    // Issue.record(
-    //   message.map(Comment.init(rawValue:)),
-    //   sourceLocation: SourceLocation(
-    //     fileID: fileID,
-    //     filePath: filePath,
-    //     line: line,
-    //     column: column
-    //   )
-    // )
-    __checkValue(
-      false,
-      expression: .__fromSyntaxNode(message ?? ""),
-      comments: [],
-      isRequired: false,
+    Issue.record(
+      message.map(Comment.init(rawValue:)),
       sourceLocation: SourceLocation(
         fileID: fileID,
         filePath: filePath,
@@ -34,7 +21,6 @@ private func __recordIssue(
         column: column
       )
     )
-    .__expected()
   #endif
 }
 
