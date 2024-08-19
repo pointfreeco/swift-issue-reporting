@@ -15,7 +15,7 @@
         model.callback(42)
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -37,7 +37,7 @@
         model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -59,7 +59,7 @@
         _ = model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -81,7 +81,7 @@
         _ = try model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -107,7 +107,7 @@
           _ = try model.callback()
         } matching: { issue in
           issue.description == """
-            Expectation failed: Unimplemented …
+            Issue recorded: Unimplemented …
 
               Defined in 'Model' at:
                 IssueReportingTests/UnimplementedTests.swift:\(model.line)
