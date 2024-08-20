@@ -313,8 +313,8 @@ func _currentTestIsNotNil() -> Bool {
   }
 
   private struct Confirmation: Sendable {
-    protocol ExpectedCount: Sendable, RangeExpression<Int> {}
   }
+  private protocol ExpectedCount: Sendable, RangeExpression<Int> {}
 
   private struct Expectation: Sendable {
     var evaluatedExpression: __Expression
@@ -331,7 +331,7 @@ func _currentTestIsNotNil() -> Bool {
       case unconditional
       indirect case expectationFailed(_ expectation: Expectation)
       indirect case confirmationMiscounted(actual: Int, expected: Int)
-      indirect case confirmationOutOfRange(actual: Int, expected: any Confirmation.ExpectedCount)
+      indirect case confirmationOutOfRange(actual: Int, expected: any ExpectedCount)
       indirect case errorCaught(_ error: any Error)
       indirect case timeLimitExceeded(timeLimitComponents: (seconds: Int64, attoseconds: Int64))
       case knownIssueNotRecorded
