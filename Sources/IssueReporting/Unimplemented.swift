@@ -73,6 +73,7 @@ public func unimplemented<each Argument, Result>(
   }
 }
 
+#if compiler(>=6)
 /// Returns a throwing closure that reports an issue and throws a given error when invoked.
 ///
 /// Useful for creating closures that need to be overridden by users of your API, and if it is
@@ -111,6 +112,7 @@ public func unimplemented<each Argument, Failure: Error, Result>(
     throw failure()
   }
 }
+#endif
 
 /// Returns an asynchronous closure that reports an issue when invoked.
 ///
@@ -188,6 +190,7 @@ public func unimplemented<each Argument, Result>(
   }
 }
 
+#if compiler(>=6)
 /// Returns a throwing, asynchronous closure that reports an issue and throws a given error when
 /// invoked.
 ///
@@ -228,6 +231,7 @@ public func unimplemented<each Argument, Failure: Error, Result>(
     throw failure()
   }
 }
+#endif
 
 @_disfavoredOverload
 public func unimplemented<Result>(
