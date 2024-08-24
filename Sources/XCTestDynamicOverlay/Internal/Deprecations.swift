@@ -277,6 +277,7 @@ public func unimplemented<Result>(
   }
 }
 
+@_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
