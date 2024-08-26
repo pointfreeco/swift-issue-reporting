@@ -96,7 +96,7 @@ jobs:
       - name: Select Swift version
         run: echo '${{ matrix.toolchain }}' > .swift-version
       - name: Build
-        run: swift run carton bundle
+        run: swift run carton bundle --debug
 
   # wasm:
   #   name: SwiftWasm
