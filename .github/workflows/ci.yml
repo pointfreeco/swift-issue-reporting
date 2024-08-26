@@ -79,17 +79,22 @@ jobs:
   wasm:
     name: Wasm
     runs-on: macos-14
+    strategy:
+      matrix:
+        toolchain:
+          - wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a
     steps:
-      - name: Cache Gradle packages
+      - name: Cache toolchains
         uses: actions/cache@v3
         with:
           path: |
             ~/Library/Developer/Toolchains
+          key: ${{ matrix.toolchain }}
       - uses: actions/checkout@v4
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_15.4.app
       - name: Select Swift version
-        run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
+        run: echo '${{ matrix.toolchain }}' > .swift-version
       - name: Build
         run: swift run carton bundle
 
