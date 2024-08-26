@@ -1,4 +1,3 @@
-#if canImport(Foundation)
 #if _runtime(_ObjC)
   import Foundation
 #endif
@@ -124,5 +123,4 @@ func _XCTExpectFailure<R>(
   enum _XCTExpectedFailure {
     @TaskLocal public static var isInFailingBlock = false
   }
-#endif
 #endif

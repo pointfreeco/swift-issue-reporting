@@ -1,4 +1,3 @@
-#if canImport(Foundation)
 import Foundation
 
 @usableFromInline
@@ -20,4 +19,3 @@ final class LockIsolated<Value>: @unchecked Sendable {
     return try operation(&value)
   }
 }
-#endif

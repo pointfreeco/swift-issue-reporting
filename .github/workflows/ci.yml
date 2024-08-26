@@ -76,31 +76,36 @@ jobs:
   #       run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
 
   # NB: Downloading the toolchain gets rate-limited by GitHub
+  wasm:
+    name: Wasm
+    runs-on: macos-14
+    steps:
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Developer/Toolchains
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+      - name: Select Swift version
+        run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
+      - name: Build
+        run: swift run carton bundle
+
   # wasm:
-  #   name: Wasm
-  #   runs-on: macos-14
+  #   name: SwiftWasm
+  #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v4
-  #     - name: Select Xcode
-  #       run: sudo xcode-select -s /Applications/Xcode_15.4.app
-  #     - name: Select Swift version
-  #       run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
-  #     - name: Build
-  #       run: swift run carton bundle
-
-  wasm:
-    name: SwiftWasm
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: bytecodealliance/actions/wasmtime/setup@v1
-      - uses: swiftwasm/setup-swiftwasm@v1
-        with:
-          swift-version: "wasm-DEVELOPMENT-SNAPSHOT-2024-07-16-a"
-      - name: Build tests
-        run: swift build --triple wasm32-unknown-wasi --build-tests
-      - name: Run tests
-        run: wasmtime .build/debug/swift-custom-dumpPackageTests.wasm
+  #     - uses: bytecodealliance/actions/wasmtime/setup@v1
+  #     - uses: swiftwasm/setup-swiftwasm@v1
+  #       with:
+  #         swift-version: "wasm-DEVELOPMENT-SNAPSHOT-2024-07-16-a"
+  #     - name: Build tests
+  #       run: swift build --triple wasm32-unknown-wasi --build-tests
+  #     - name: Run tests
+  #       run: wasmtime .build/debug/swift-custom-dumpPackageTests.wasm
 
   # windows:
   #   name: Windows

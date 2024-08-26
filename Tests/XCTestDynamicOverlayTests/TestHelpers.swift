@@ -1,3 +1,4 @@
+import Foundation
 import XCTestDynamicOverlay
 
 func MyXCTFail(_ message: String) {
