@@ -1,3 +1,4 @@
+#if canImport(Foundation)
 import Foundation
 
 extension String? {
@@ -77,3 +78,4 @@ extension String {
     }
   #endif
 }
+#endif

@@ -1,5 +1,3 @@
-import Foundation
-
 #if canImport(WinSDK)
   import WinSDK
 #endif
