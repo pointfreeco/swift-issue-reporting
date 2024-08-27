@@ -75,26 +75,28 @@ jobs:
         run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
 
   wasm:
-    name: Wasm
-    runs-on: macos-14
+    name: SwiftWasm
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         toolchain:
+          - wasm-5.9.2-RELEASE
           - wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a
     steps:
       - name: Cache toolchains
         uses: actions/cache@v3
         with:
-          path: |
-            ~/Library/Developer/Toolchains
+          path: ~/Library/Developer/Toolchains
           key: ${{ matrix.toolchain }}
       - uses: actions/checkout@v4
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.4.app
-      - name: Select Swift version
-        run: echo '${{ matrix.toolchain }}' > .swift-version
-      - name: Build
-        run: swift run carton bundle --debug
+      - uses: bytecodealliance/actions/wasmtime/setup@v1
+      - uses: swiftwasm/setup-swiftwasm@v1
+        with:
+          swift-version: ${{ matrix.toolchain }}
+      - name: Build tests
+        run: swift build --triple wasm32-unknown-wasi --build-tests -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
+      - name: Run tests
+        run: wasmtime .build/debug/swift-custom-dumpPackageTests.wasm
 
   windows:
     name: Windows
