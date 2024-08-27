@@ -96,7 +96,7 @@ jobs:
       - name: Build tests
         run: swift build --triple wasm32-unknown-wasi --build-tests -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
       - name: Run tests
-        run: wasmtime .build/debug/swift-custom-dumpPackageTests.wasm
+        run: wasmtime .build/debug/swift-issue-reportingPackageTests.wasm
 
   windows:
     name: Windows
