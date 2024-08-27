@@ -81,7 +81,7 @@ jobs:
       matrix:
         toolchain:
           - wasm-5.9.2-RELEASE
-          - wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a
+          - wasm-5.10.0-RELEASE 
     steps:
       - name: Cache toolchains
         uses: actions/cache@v3
