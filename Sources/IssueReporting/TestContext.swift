@@ -29,7 +29,7 @@ public enum TestContext {
   }
 
   public struct Testing {
-    public let test: Test?
+    public let test: Test
 
     public struct Test: Hashable, Identifiable, Sendable {
       public let id: ID
