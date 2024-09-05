@@ -73,7 +73,12 @@
     @Suite
     struct SwiftTestingTests_Release {
       @Test func context() {
-        #expect(TestContext.current == .xcTest)
+        switch TestContext.current {
+        case .xcTest:
+          #expect(true)
+        default:
+          Issue.record()
+        }
       }
 
       @Test func reportIssueDoesNotFail() {
