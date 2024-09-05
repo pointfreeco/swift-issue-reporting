@@ -247,7 +247,7 @@ func _currentTestID() -> AnyHashable? {
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
         """
       )
-      return false
+      return nil
     #endif
   }
 
