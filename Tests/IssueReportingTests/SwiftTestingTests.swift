@@ -7,7 +7,7 @@
     @Test func context() {
       switch TestContext.current {
       case .swiftTesting:
-        #expect(true)
+        #expect(Bool(true))
       default:
         Issue.record()
       }

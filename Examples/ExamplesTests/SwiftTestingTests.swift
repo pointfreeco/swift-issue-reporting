@@ -8,7 +8,7 @@
       @Test func context() {
         switch TestContext.current {
         case .xcTest:
-          #expect(true)
+          #expect(Bool(true))
         default:
           Issue.record()
         }
@@ -75,7 +75,7 @@
       @Test func context() {
         switch TestContext.current {
         case .xcTest:
-          #expect(true)
+          #expect(Bool(true))
         default:
           Issue.record()
         }

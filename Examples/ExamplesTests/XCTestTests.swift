@@ -54,7 +54,12 @@ import XCTest
 #else
   class XCTestTests_Release: XCTestCase {
     func testContext() {
-      XCTAssertEqual(TestContext.current, .xcTest)
+      switch TestContext.current {
+      case .xcTest:
+        XCTAssert(true)
+      default:
+        XCTFail()
+      }
     }
 
     func testReportIssueDoesNotFail() {
