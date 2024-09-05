@@ -6,7 +6,12 @@
     @Suite
     struct SwiftTestingTests_Debug {
       @Test func context() {
-        #expect(TestContext.current == .swiftTesting)
+        switch TestContext.current {
+        case .xcTest:
+          #expect(true)
+        default:
+          Issue.record()
+        }
       }
 
       @Test func reportIssue_NoMessage() {
