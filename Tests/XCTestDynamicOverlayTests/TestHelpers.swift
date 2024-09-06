@@ -110,12 +110,11 @@ struct User { let id: UUID }
 @available(*, deprecated)
 @MainActor let fm01: @MainActor () -> Int = unimplemented("fm01")
 
-@available(*, deprecated)
 private struct Autoclosing {
   init(
-    _: @autoclosure () -> Int = unimplemented(),
-    _: @autoclosure () async -> Int = unimplemented(),
-    _: @autoclosure () throws -> Int = unimplemented(),
-    _: @autoclosure () async throws -> Int = unimplemented()
+    _: @autoclosure () -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () async -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () throws -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () async throws -> Int = unimplemented(placeholder: 0)
   ) async {}
 }
