@@ -390,7 +390,8 @@ func _currentTestID() -> AnyHashable? {
       containingTypeInfo != nil && testCasesState == nil
     }
     fileprivate var id: ID {
-      var result = containingTypeInfo.map(ID.init)
+      var result =
+        containingTypeInfo.map(ID.init)
         ?? ID(moduleName: sourceLocation.moduleName, nameComponents: [], sourceLocation: nil)
 
       if !isSuite {
@@ -432,9 +433,10 @@ func _currentTestID() -> AnyHashable? {
     }
     var _kind: _Kind
 
-    static let _fullyQualifiedNameComponentsCache: LockIsolated<
-      [ObjectIdentifier: [String]]
-    > = LockIsolated([:])
+    static let _fullyQualifiedNameComponentsCache:
+      LockIsolated<
+        [ObjectIdentifier: [String]]
+      > = LockIsolated([:])
     var fullyQualifiedNameComponents: [String] {
       switch _kind {
       case let .type(type):
