@@ -15,6 +15,11 @@ let package = Package(
     .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
+  dependencies: [
+    // On Apple platforms this is included but not including it will not work on other platforms
+    // see section https://swiftpackageindex.com/swiftlang/swift-testing/main/documentation/testing/temporarygettingstarted#Adding-the-testing-library-as-a-dependency
+    .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
+  ],
   targets: [
     .target(
       name: "IssueReporting"
@@ -27,7 +32,8 @@ let package = Package(
       ]
     ),
     .target(
-      name: "IssueReportingTestSupport"
+      name: "IssueReportingTestSupport",
+      dependencies: [.product(name: "Testing", package: "swift-testing")]
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -43,12 +49,6 @@ let package = Package(
   ],
   swiftLanguageVersions: [.v6]
 )
-
-#if os(Linux) || os(Windows)
-  package.dependencies.append(
-    .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
-  )
-#endif
 
 #if os(macOS)
   package.dependencies.append(contentsOf: [
