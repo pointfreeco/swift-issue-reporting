@@ -240,13 +240,6 @@ func _currentTestID() -> AnyHashable? {
     #if DEBUG
       return Test.current?.id
     #else
-      printError(
-        """
-        'Test.current' was accessed without linking the Testing framework.
-
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """
-      )
       return nil
     #endif
   }
