@@ -359,7 +359,6 @@ func _currentTestID() -> AnyHashable? {
     }
   }
 
-  @usableFromInline
   struct Test: @unchecked Sendable {
     static var current: Self? {
       guard
