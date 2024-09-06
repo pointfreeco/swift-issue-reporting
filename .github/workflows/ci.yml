@@ -45,8 +45,8 @@ jobs:
     strategy:
       matrix:
         config:
-          - Debug
-          - Release
+          - DEBUG
+          - RELEASE
     name: Examples
     runs-on: macos-14
     steps:
