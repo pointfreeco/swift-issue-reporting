@@ -8,7 +8,12 @@ final class XCTestTests: XCTestCase {
     }
 
     func testTestContext() {
-      XCTAssertEqual(TestContext.current, .xcTest)
+      switch TestContext.current {
+      case .xcTest:
+        XCTAssert(true)
+      default:
+        XCTFail()
+      }
     }
   #endif
 

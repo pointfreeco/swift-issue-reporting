@@ -100,12 +100,12 @@ private func __withKnownIssueAsync(
   #endif
 }
 
-public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
+public func _currentTestID() -> Any { __currentTestID }
 @Sendable
-private func __currentTestIsNotNil() -> Bool {
+private func __currentTestID() -> AnyHashable? {
   #if canImport(Testing)
-    return Test.current != nil
+    return Test.current?.id
   #else
-    return false
+    return nil
   #endif
 }

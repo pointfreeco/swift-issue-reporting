@@ -54,7 +54,7 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
-      run: CONFIG=${{ matrix.config }} make test-examples
+      run: make CONFIG=${{ matrix.config }} test-examples
 
   linux:
     strategy:
@@ -72,7 +72,7 @@ jobs:
       - name: Run tests
         run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
-        run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
+        run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
 
   wasm:
     name: SwiftWasm

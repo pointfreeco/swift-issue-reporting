@@ -1,4 +1,5 @@
 XCODE_PATH := $(shell xcode-select -p)
+CONFIG := debug
 
 # NB: We can't rely on `XCTExpectFailure` because it doesn't exist in `swift-corelibs-foundation`
 PASS = \033[1;7;32m PASS \033[0m
@@ -50,4 +51,4 @@ test-linux:
 		-v "$(PWD):$(PWD)" \
 		-w "$(PWD)" \
 		swift:5.10 \
-		bash -c 'swift test'
+		bash -c 'swift test -c $(CONFIG)'

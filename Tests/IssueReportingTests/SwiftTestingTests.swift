@@ -5,7 +5,12 @@
   @Suite
   struct SwiftTestingTests {
     @Test func context() {
-      #expect(TestContext.current == .swiftTesting)
+      switch TestContext.current {
+      case .swiftTesting:
+        #expect(Bool(true))
+      default:
+        Issue.record()
+      }
     }
 
     @Test func reportIssue_NoMessage() {

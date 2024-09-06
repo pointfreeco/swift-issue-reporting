@@ -234,24 +234,17 @@ func _withKnownIssue(
   await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 @usableFromInline
-func _currentTestIsNotNil() -> Bool {
-  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF")
+func _currentTestID() -> AnyHashable? {
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
   else {
     #if DEBUG
-      return Test.current != nil
+      return Test.current?.id
     #else
-      printError(
-        """
-        'Test.current' was accessed without linking the Testing framework.
-
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """
-      )
-      return false
+      return nil
     #endif
   }
 
-  return (function as! @Sendable () -> Bool)()
+  return (function as! @Sendable () -> AnyHashable?)()
 }
 
 #if DEBUG
@@ -348,11 +341,15 @@ func _currentTestIsNotNil() -> Bool {
     var sourceLocation: SourceLocation?
   }
 
-  private struct SourceLocation: Sendable {
+  private struct SourceLocation: Hashable, Sendable {
     var fileID: String
     var _filePath: String
     var line: Int
     var column: Int
+    var moduleName: String {
+      let firstSlash = fileID.firstIndex(of: "/")!
+      return String(fileID[..<firstSlash])
+    }
   }
 
   struct Test: @unchecked Sendable {
@@ -388,6 +385,42 @@ func _currentTestIsNotNil() -> Bool {
       var typeInfo: TypeInfo
     }
     private var isSynthesized = false
+
+    private var isSuite: Bool {
+      containingTypeInfo != nil && testCasesState == nil
+    }
+    fileprivate var id: ID {
+      var result = containingTypeInfo.map(ID.init)
+        ?? ID(moduleName: sourceLocation.moduleName, nameComponents: [], sourceLocation: nil)
+
+      if !isSuite {
+        result.nameComponents.append(name)
+        result.sourceLocation = sourceLocation
+      }
+
+      return result
+    }
+    fileprivate struct ID: Hashable {
+      var moduleName: String
+      var nameComponents: [String]
+      var sourceLocation: SourceLocation?
+      init(moduleName: String, nameComponents: [String], sourceLocation: SourceLocation?) {
+        self.moduleName = moduleName
+        self.nameComponents = nameComponents
+        self.sourceLocation = sourceLocation
+      }
+      init(_ fullyQualifiedNameComponents: some Collection<String>) {
+        moduleName = fullyQualifiedNameComponents.first ?? ""
+        if fullyQualifiedNameComponents.count > 0 {
+          nameComponents = Array(fullyQualifiedNameComponents.dropFirst())
+        } else {
+          nameComponents = []
+        }
+      }
+      init(typeInfo: TypeInfo) {
+        self.init(typeInfo.fullyQualifiedNameComponents)
+      }
+    }
   }
 
   private protocol Trait: Sendable {}
@@ -398,6 +431,34 @@ func _currentTestIsNotNil() -> Bool {
       case nameOnly(fullyQualifiedComponents: [String], unqualified: String, mangled: String?)
     }
     var _kind: _Kind
+
+    static let _fullyQualifiedNameComponentsCache: LockIsolated<
+      [ObjectIdentifier: [String]]
+    > = LockIsolated([:])
+    var fullyQualifiedNameComponents: [String] {
+      switch _kind {
+      case let .type(type):
+        if let cachedResult = Self
+          ._fullyQualifiedNameComponentsCache.withLock({ $0[ObjectIdentifier(type)] })
+        {
+          return cachedResult
+        }
+        var result = String(reflecting: type)
+          .split(separator: ".")
+          .map(String.init)
+        if let firstComponent = result.first, firstComponent.starts(with: "(extension in ") {
+          result[0] = String(firstComponent.split(separator: ":", maxSplits: 1).last!)
+        }
+        result = result.filter { !$0.starts(with: "(unknown context at") }
+        Self._fullyQualifiedNameComponentsCache.withLock { [result] in
+          $0[ObjectIdentifier(type)] = result
+        }
+        return result
+
+      case let .nameOnly(fullyQualifiedComponents, _, _):
+        return fullyQualifiedComponents
+      }
+    }
   }
 #endif
 
