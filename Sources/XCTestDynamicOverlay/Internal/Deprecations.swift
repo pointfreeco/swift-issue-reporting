@@ -251,7 +251,7 @@ public var XCTCurrentTestCase: AnyObject? {
 }
 
 @_disfavoredOverload
-@available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
+@available(*, unavailable, renamed: "unimplemented(_:placeholder:)")
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
   file filePath: StaticString = #filePath,
@@ -260,23 +260,10 @@ public func unimplemented<Result>(
   line: UInt = #line,
   column: UInt = #column
 ) -> Result {
-  let description = description()
-  _fail(
-    description,
-    nil,
-    fileID: fileID,
-    filePath: filePath,
-    function: function,
-    line: line,
-    column: column
-  )
-  do {
-    return try _generatePlaceholder()
-  } catch {
-    _unimplementedFatalError(description, file: filePath, line: line)
-  }
+  fatalError()
 }
 
+@_disfavoredOverload
 @available(*, deprecated, renamed: "unimplemented(_:placeholder:)")
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",

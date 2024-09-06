@@ -18,7 +18,7 @@
         withKnownIssue {
           reportIssue()
         } matching: { issue in
-          issue.description == "Expectation failed: "
+          issue.description == "Issue recorded"
         }
       }
 
@@ -26,7 +26,7 @@
         withKnownIssue {
           reportIssue("Something went wrong")
         } matching: { issue in
-          issue.description == "Expectation failed: Something went wrong"
+          issue.description == "Issue recorded: Something went wrong"
         }
       }
 
