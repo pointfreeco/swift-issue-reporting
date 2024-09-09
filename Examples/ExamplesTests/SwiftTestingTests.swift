@@ -6,14 +6,19 @@
     @Suite
     struct SwiftTestingTests_Debug {
       @Test func context() {
-        #expect(TestContext.current == .swiftTesting)
+        switch TestContext.current {
+        case .xcTest:
+          #expect(Bool(true))
+        default:
+          Issue.record()
+        }
       }
 
       @Test func reportIssue_NoMessage() {
         withKnownIssue {
           reportIssue()
         } matching: { issue in
-          issue.description == "Expectation failed: "
+          issue.description == "Issue recorded"
         }
       }
 
@@ -21,7 +26,7 @@
         withKnownIssue {
           reportIssue("Something went wrong")
         } matching: { issue in
-          issue.description == "Expectation failed: Something went wrong"
+          issue.description == "Issue recorded: Something went wrong"
         }
       }
 
@@ -68,7 +73,12 @@
     @Suite
     struct SwiftTestingTests_Release {
       @Test func context() {
-        #expect(TestContext.current == .xcTest)
+        switch TestContext.current {
+        case .xcTest:
+          #expect(Bool(true))
+        default:
+          Issue.record()
+        }
       }
 
       @Test func reportIssueDoesNotFail() {

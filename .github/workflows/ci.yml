@@ -19,12 +19,15 @@ jobs:
         config:
           - debug
           - release
+        xcode:
+          - 15.4
+          - 15.2
     name: macOS
     runs-on: macos-14
     steps:
     - uses: actions/checkout@v4
     - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode_15.4.app
+      run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
     - name: Run tests
       run: make test-${{ matrix.config }}
 
@@ -51,7 +54,7 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
     - name: Run tests
-      run: CONFIG=${{ matrix.config }} make test-examples
+      run: make CONFIG=${{ matrix.config }} test-examples
 
   linux:
     strategy:
@@ -69,20 +72,31 @@ jobs:
       - name: Run tests
         run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
-        run: CONFIG=${{ matrix.config }} make build-for-static-stdlib
+        run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
 
-  # NB: Downloading the toolchain gets rate-limited by GitHub
-  # wasm:
-  #   name: Wasm
-  #   runs-on: macos-14
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Select Xcode
-  #       run: sudo xcode-select -s /Applications/Xcode_15.4.app
-  #     - name: Select Swift version
-  #       run: echo 'wasm-DEVELOPMENT-SNAPSHOT-2024-07-08-a' > .swift-version
-  #     - name: Build
-  #       run: swift run carton bundle
+  wasm:
+    name: SwiftWasm
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain:
+          - wasm-5.9.2-RELEASE
+          - wasm-5.10.0-RELEASE 
+    steps:
+      - name: Cache toolchains
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Toolchains
+          key: ${{ matrix.toolchain }}
+      - uses: actions/checkout@v4
+      - uses: bytecodealliance/actions/wasmtime/setup@v1
+      - uses: swiftwasm/setup-swiftwasm@v1
+        with:
+          swift-version: ${{ matrix.toolchain }}
+      - name: Build tests
+        run: swift build --triple wasm32-unknown-wasi --build-tests -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
+      - name: Run tests
+        run: wasmtime .build/debug/xctest-dynamic-overlayPackageTests.wasm
 
   windows:
     name: Windows

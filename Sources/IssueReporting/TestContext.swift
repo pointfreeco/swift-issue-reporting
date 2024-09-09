@@ -1,8 +1,8 @@
-/// A type representing the context in which a test is being run, i.e. either in Swift's native
+/// A type representing the context in which a test is being run, _i.e._ either in Swift's native
 /// Testing framework, or Xcode's XCTest framework.
 public enum TestContext {
   /// The Swift Testing framework.
-  case swiftTesting
+  case swiftTesting(Testing)
 
   /// The XCTest framework.
   case xcTest
@@ -21,10 +21,28 @@ public enum TestContext {
   /// If executed outside of a test process, this will return `nil`.
   public static var current: Self? {
     guard isTesting else { return nil }
-    if _currentTestIsNotNil() {
-      return .swiftTesting
+    if let currentTestID = _currentTestID() {
+      return .swiftTesting(Testing(id: currentTestID))
     } else {
       return .xcTest
     }
+  }
+
+  public struct Testing {
+    public let test: Test
+
+    public struct Test: Hashable, Identifiable, Sendable {
+      public let id: ID
+
+      public struct ID: Hashable, @unchecked Sendable {
+        fileprivate let rawValue: AnyHashable
+      }
+    }
+  }
+}
+
+extension TestContext.Testing {
+  fileprivate init(id: AnyHashable) {
+    self.init(test: Test(id: Test.ID(rawValue: id)))
   }
 }

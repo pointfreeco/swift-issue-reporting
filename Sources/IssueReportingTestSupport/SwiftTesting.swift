@@ -12,21 +12,8 @@ private func __recordIssue(
   column: Int
 ) {
   #if canImport(Testing)
-    // NB: https://github.com/apple/swift-testing/issues/490
-    // Issue.record(
-    //   message.map(Comment.init(rawValue:)),
-    //   sourceLocation: SourceLocation(
-    //     fileID: fileID,
-    //     filePath: filePath,
-    //     line: line,
-    //     column: column
-    //   )
-    // )
-    __checkValue(
-      false,
-      expression: .__fromSyntaxNode(message ?? ""),
-      comments: [],
-      isRequired: false,
+    Issue.record(
+      message.map(Comment.init(rawValue:)),
       sourceLocation: SourceLocation(
         fileID: fileID,
         filePath: filePath,
@@ -34,7 +21,6 @@ private func __recordIssue(
         column: column
       )
     )
-    .__expected()
   #endif
 }
 
@@ -114,12 +100,12 @@ private func __withKnownIssueAsync(
   #endif
 }
 
-public func _currentTestIsNotNil() -> Any { __currentTestIsNotNil }
+public func _currentTestID() -> Any { __currentTestID }
 @Sendable
-private func __currentTestIsNotNil() -> Bool {
+private func __currentTestID() -> AnyHashable? {
   #if canImport(Testing)
-    return Test.current != nil
+    return Test.current?.id
   #else
-    return false
+    return nil
   #endif
 }

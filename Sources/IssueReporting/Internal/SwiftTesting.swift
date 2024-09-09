@@ -16,41 +16,21 @@ func _recordIssue(
   else {
     #if DEBUG
       guard
-        let fromSyntaxNode = unsafeBitCast(
-          symbol: "$s7Testing12__ExpressionV16__fromSyntaxNodeyACSSFZ",
+        let record = unsafeBitCast(
+          symbol: "$s7Testing5IssueV6record_14sourceLocationAcA7CommentVSg_AA06SourceE0VtFZ",
           in: "Testing",
-          to: (@convention(thin) (String) -> __Expression).self
-        ),
-        let checkValue = unsafeBitCast(
-          symbol: """
-            $s7Testing12__checkValue_10expression0D25WithCapturedRuntimeValues26mismatchedErrorDesc\
-            ription10difference8comments10isRequired14sourceLocations6ResultOyyts0J0_pGSb_AA12__Exp\
-            ressionVAOSgyXKSSSgyXKAQyXKSayAA7CommentVGyXKSbAA06SourceQ0VtF
-            """,
-          in: "Testing",
-          to: (@convention(thin) (
-            Bool,
-            __Expression,
-            @autoclosure () -> __Expression?,
-            @autoclosure () -> String?,
-            @autoclosure () -> String?,
-            @autoclosure () -> [Any],
-            Bool,
-            SourceLocation
-          ) -> Result<Void, any Error>)
-          .self
+          to: (@convention(thin) (Any?, SourceLocation) -> Issue).self
         )
       else { return }
 
-      let syntaxNode = fromSyntaxNode(message ?? "")
-      _ = checkValue(
-        false,
-        syntaxNode,
-        nil,
-        nil,
-        nil,
-        [],
-        false,
+      var comment: Any?
+      if let message {
+        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+        c.rawValue = message
+        comment = c
+      }
+      _ = record(
+        comment,
         SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
       )
     #else
@@ -87,7 +67,7 @@ func _recordError(
             $s7Testing5IssueV6record__14sourceLocationACs5Error_p_AA7CommentVSgAA06SourceE0VtFZ
             """,
           in: "Testing",
-          to: (@convention(thin) (any Error, Any?, SourceLocation) -> Any).self
+          to: (@convention(thin) (any Error, Any?, SourceLocation) -> Issue).self
         )
       else { return }
 
@@ -254,24 +234,17 @@ func _withKnownIssue(
   await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 @usableFromInline
-func _currentTestIsNotNil() -> Bool {
-  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC8IsNotNilypyF")
+func _currentTestID() -> AnyHashable? {
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
   else {
     #if DEBUG
-      return Test.current != nil
+      return Test.current?.id
     #else
-      printError(
-        """
-        'Test.current' was accessed without linking the Testing framework.
-
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """
-      )
-      return false
+      return nil
     #endif
   }
 
-  return (function as! @Sendable () -> Bool)()
+  return (function as! @Sendable () -> AnyHashable?)()
 }
 
 #if DEBUG
@@ -310,19 +283,9 @@ func _currentTestIsNotNil() -> Bool {
     var runtimeValue: Value?
   }
 
-  private struct TypeInfo: Sendable {
-    enum _Kind: Sendable {
-      case type(_ type: Any.Type)
-      case nameOnly(fullyQualifiedComponents: [String], unqualified: String, mangled: String?)
-    }
-    var _kind: _Kind
-  }
-
-  private struct SourceLocation: Sendable {
-    var fileID: String
-    var _filePath: String
-    var line: Int
-    var column: Int
+  private struct Backtrace: Sendable {
+    typealias Address = UInt64
+    var addresses: [Address]
   }
 
   private struct Comment: RawRepresentable, Sendable {
@@ -342,7 +305,52 @@ func _currentTestIsNotNil() -> Bool {
     var kind: Kind?
   }
 
-  private protocol Trait: Sendable {}
+  private struct Confirmation: Sendable {
+  }
+  private protocol ExpectedCount: Sendable, RangeExpression<Int> {}
+
+  private struct Expectation: Sendable {
+    var evaluatedExpression: __Expression
+    var mismatchedErrorDescription: String?
+    var differenceDescription: String?
+    var mismatchedExitConditionDescription: String?
+    var isPassing: Bool
+    var isRequired: Bool
+    var sourceLocation: SourceLocation
+  }
+
+  private struct Issue: Sendable {
+    enum Kind: Sendable {
+      case unconditional
+      indirect case expectationFailed(_ expectation: Expectation)
+      indirect case confirmationMiscounted(actual: Int, expected: Int)
+      indirect case confirmationOutOfRange(actual: Int, expected: any ExpectedCount)
+      indirect case errorCaught(_ error: any Error)
+      indirect case timeLimitExceeded(timeLimitComponents: (seconds: Int64, attoseconds: Int64))
+      case knownIssueNotRecorded
+      case apiMisused
+      case system
+    }
+    var kind: Kind
+    var comments: [Comment]
+    var sourceContext: SourceContext
+  }
+
+  private struct SourceContext: Sendable {
+    var backtrace: Backtrace?
+    var sourceLocation: SourceLocation?
+  }
+
+  private struct SourceLocation: Hashable, Sendable {
+    var fileID: String
+    var _filePath: String
+    var line: Int
+    var column: Int
+    var moduleName: String {
+      let firstSlash = fileID.firstIndex(of: "/")!
+      return String(fileID[..<firstSlash])
+    }
+  }
 
   struct Test: @unchecked Sendable {
     static var current: Self? {
@@ -377,6 +385,82 @@ func _currentTestIsNotNil() -> Bool {
       var typeInfo: TypeInfo
     }
     private var isSynthesized = false
+
+    private var isSuite: Bool {
+      containingTypeInfo != nil && testCasesState == nil
+    }
+    fileprivate var id: ID {
+      var result =
+        containingTypeInfo.map(ID.init)
+        ?? ID(moduleName: sourceLocation.moduleName, nameComponents: [], sourceLocation: nil)
+
+      if !isSuite {
+        result.nameComponents.append(name)
+        result.sourceLocation = sourceLocation
+      }
+
+      return result
+    }
+    fileprivate struct ID: Hashable {
+      var moduleName: String
+      var nameComponents: [String]
+      var sourceLocation: SourceLocation?
+      init(moduleName: String, nameComponents: [String], sourceLocation: SourceLocation?) {
+        self.moduleName = moduleName
+        self.nameComponents = nameComponents
+        self.sourceLocation = sourceLocation
+      }
+      init(_ fullyQualifiedNameComponents: some Collection<String>) {
+        moduleName = fullyQualifiedNameComponents.first ?? ""
+        if fullyQualifiedNameComponents.count > 0 {
+          nameComponents = Array(fullyQualifiedNameComponents.dropFirst())
+        } else {
+          nameComponents = []
+        }
+      }
+      init(typeInfo: TypeInfo) {
+        self.init(typeInfo.fullyQualifiedNameComponents)
+      }
+    }
+  }
+
+  private protocol Trait: Sendable {}
+
+  private struct TypeInfo: Sendable {
+    enum _Kind: Sendable {
+      case type(_ type: Any.Type)
+      case nameOnly(fullyQualifiedComponents: [String], unqualified: String, mangled: String?)
+    }
+    var _kind: _Kind
+
+    static let _fullyQualifiedNameComponentsCache:
+      LockIsolated<
+        [ObjectIdentifier: [String]]
+      > = LockIsolated([:])
+    var fullyQualifiedNameComponents: [String] {
+      switch _kind {
+      case let .type(type):
+        if let cachedResult = Self
+          ._fullyQualifiedNameComponentsCache.withLock({ $0[ObjectIdentifier(type)] })
+        {
+          return cachedResult
+        }
+        var result = String(reflecting: type)
+          .split(separator: ".")
+          .map(String.init)
+        if let firstComponent = result.first, firstComponent.starts(with: "(extension in ") {
+          result[0] = String(firstComponent.split(separator: ":", maxSplits: 1).last!)
+        }
+        result = result.filter { !$0.starts(with: "(unknown context at") }
+        Self._fullyQualifiedNameComponentsCache.withLock { [result] in
+          $0[ObjectIdentifier(type)] = result
+        }
+        return result
+
+      case let .nameOnly(fullyQualifiedComponents, _, _):
+        return fullyQualifiedComponents
+      }
+    }
   }
 #endif
 

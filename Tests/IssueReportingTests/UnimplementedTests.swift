@@ -15,7 +15,7 @@
         model.callback(42)
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -37,7 +37,7 @@
         model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -59,7 +59,7 @@
         _ = model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -81,7 +81,7 @@
         _ = try model.callback()
       } matching: { issue in
         issue.description == """
-          Expectation failed: Unimplemented …
+          Issue recorded: Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -107,7 +107,36 @@
           _ = try model.callback()
         } matching: { issue in
           issue.description == """
-            Expectation failed: Unimplemented …
+            Issue recorded: Unimplemented …
+
+              Defined in 'Model' at:
+                IssueReportingTests/UnimplementedTests.swift:\(model.line)
+
+              Invoked with:
+                ()
+            """
+        }
+      } matching: { issue in
+        issue.description == """
+          Caught error: UnimplementedFailure(description: "")
+          """
+      }
+    }
+
+    @MainActor
+    @Test func mainActor() throws {
+      final class Model: Sendable {
+        let line = #line + 1
+        let callback: @Sendable @MainActor () throws -> Void = IssueReporting.unimplemented()
+      }
+
+      let model = Model()
+      try withKnownIssue {
+        try withKnownIssue {
+          _ = try model.callback()
+        } matching: { issue in
+          issue.description == """
+            Issue recorded: Unimplemented …
 
               Defined in 'Model' at:
                 IssueReportingTests/UnimplementedTests.swift:\(model.line)
