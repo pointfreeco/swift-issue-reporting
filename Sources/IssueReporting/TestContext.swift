@@ -60,7 +60,9 @@ extension TestContext: Equatable {
       return true
     case (.swiftTesting(let lhs), .swiftTesting(let rhs)):
       return lhs == rhs
-    default:
+    case (.swiftTesting, .xcTest), (.xcTest, .swiftTesting):
+      return false
+    @unknown default:
       return false
     }
   }
