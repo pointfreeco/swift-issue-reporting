@@ -50,12 +50,7 @@ public enum TestContext {
   }
 }
 
-extension TestContext.Testing {
-  fileprivate init(id: AnyHashable) {
-    self.init(test: Test(id: Test.ID(rawValue: id)))
-  }
-}
-
+@available(*, deprecated, message: "Test for '.swiftTesting' using pattern matching, instead.")
 extension TestContext: Equatable {
   public static func == (lhs: Self, rhs: Self) -> Bool {
     switch (lhs, rhs) {
@@ -70,8 +65,13 @@ extension TestContext: Equatable {
     }
   }
 
-  @available(*, deprecated, message: "Test for '.swiftTesting' using pattern matching, instead.")
   public static var swiftTesting: Self {
     .swiftTesting(nil)
+  }
+}
+
+extension TestContext.Testing {
+  fileprivate init(id: AnyHashable) {
+    self.init(test: Test(id: Test.ID(rawValue: id)))
   }
 }
