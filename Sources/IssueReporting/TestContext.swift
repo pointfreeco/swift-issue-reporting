@@ -1,8 +1,8 @@
 /// A type representing the context in which a test is being run, _i.e._ either in Swift's native
 /// Testing framework, or Xcode's XCTest framework.
-public enum TestContext: Equatable {
+public enum TestContext {
   /// The Swift Testing framework.
-  case swiftTesting(Testing)
+  case swiftTesting(Testing?)
 
   /// The XCTest framework.
   case xcTest
@@ -53,5 +53,25 @@ public enum TestContext: Equatable {
 extension TestContext.Testing {
   fileprivate init(id: AnyHashable) {
     self.init(test: Test(id: Test.ID(rawValue: id)))
+  }
+}
+
+extension TestContext: Equatable {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
+    switch (lhs, rhs) {
+    case (.swiftTesting(nil), .swiftTesting),
+      (.swiftTesting, .swiftTesting(nil)),
+      (.xcTest, .xcTest):
+      return true
+    case (.swiftTesting(let lhs), .swiftTesting(let rhs)):
+      return lhs == rhs
+    default:
+      return false
+    }
+  }
+
+  @available(*, deprecated, message: "Test for '.swiftTesting' using pattern matching, instead.")
+  public static var swiftTesting: Self {
+    .swiftTesting(nil)
   }
 }
