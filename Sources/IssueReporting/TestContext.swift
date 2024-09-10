@@ -40,16 +40,16 @@ public enum TestContext: Equatable {
   public struct Testing: Equatable {
     public let test: Test
 
-    public struct Test: Hashable, Identifiable, Sendable {
+    public struct Test: Equatable, Hashable, Identifiable, Sendable {
       public let id: ID
 
-      public struct ID: Hashable, @unchecked Sendable {
+      public struct ID: Equatable, Hashable, @unchecked Sendable {
         fileprivate let rawValue: AnyHashable
       }
     }
   }
 
-  @available(*, deprecated, message: "Test for '.swiftTesting' using pattern matching, instead.")
+  @available(*, deprecated, message: "Test using pattern matching, instead.")
   public static func == (lhs: Self, rhs: Self) -> Bool {
     switch (lhs, rhs) {
     case (.swiftTesting(nil), .swiftTesting),
@@ -63,7 +63,10 @@ public enum TestContext: Equatable {
     }
   }
 
-  @available(*, deprecated, message: "Test for '.swiftTesting' using pattern matching, instead.")
+  @available(
+    *, deprecated,
+    message: "Test for '.swiftTesting' using pattern matching or 'isSwiftTesting', instead."
+  )
   public static var swiftTesting: Self {
     .swiftTesting(nil)
   }
