@@ -1,6 +1,6 @@
 /// A type representing the context in which a test is being run, _i.e._ either in Swift's native
 /// Testing framework, or Xcode's XCTest framework.
-public enum TestContext {
+public enum TestContext: Equatable {
   /// The Swift Testing framework.
   case swiftTesting(Testing)
 
@@ -12,8 +12,10 @@ public enum TestContext {
   /// How the test context is detected depends on the framework:
   ///
   ///   * If Swift Testing is running, _and_ this is called from the current test's task, this will
-  ///     return ``swiftTesting``. In this way, `TestContext.current == .swiftTesting` is equivalent
-  ///     to checking `Test.current != nil`, but safe to do from library and application code.
+  ///     return ``swiftTesting`` with an associated value of the current test. You can invoke
+  ///     ``isSwiftTesting`` to detect if the test is currently in the Swift Testing framework,
+  ///     which is equivalent to checking `Test.current != nil`, but safe to do from library and
+  ///     application code.
   ///
   ///   * If XCTest is running, _and_ this is called during the execution of a test _regardless_ of
   ///     task, this will return ``xcTest``.
@@ -27,8 +29,15 @@ public enum TestContext {
       return .xcTest
     }
   }
+  
+  /// Determines if the test context is Swift's native Testing framework.
+  public var isSwiftTesting: Bool {
+    guard case .swiftTesting = self
+    else { return false }
+    return true
+  }
 
-  public struct Testing {
+  public struct Testing: Equatable {
     public let test: Test
 
     public struct Test: Hashable, Identifiable, Sendable {
