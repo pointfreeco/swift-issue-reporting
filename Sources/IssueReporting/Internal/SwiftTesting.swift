@@ -234,17 +234,19 @@ func _withKnownIssue(
   await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 @usableFromInline
-func _currentTestID() -> AnyHashable? {
-  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
+func _currentTestData() -> (id: AnyHashable, isParameterized: Bool)? {
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC4DataypyF")
   else {
     #if DEBUG
-      return Test.current?.id
+      guard let id = Test.current?.id, let isParameterized = Test.Case.current?.isParameterized
+      else { return nil }
+      return (id, isParameterized)
     #else
       return nil
     #endif
   }
 
-  return (function as! @Sendable () -> AnyHashable?)()
+  return (function as! @Sendable () -> (id: AnyHashable, isParameterized: Bool)?)()
 }
 
 #if DEBUG
@@ -352,8 +354,8 @@ func _currentTestID() -> AnyHashable? {
     }
   }
 
-  struct Test: @unchecked Sendable {
-    static var current: Self? {
+  private struct Test: @unchecked Sendable {
+    fileprivate static var current: Self? {
       guard
         let current = unsafeBitCast(
           symbol: "$s7Testing4TestV7currentACSgvgZ",
@@ -364,7 +366,30 @@ func _currentTestID() -> AnyHashable? {
       return current()
     }
 
-    struct Case {}
+    fileprivate struct Case {
+      static var current: Self? {
+        guard
+          let current = unsafeBitCast(
+            symbol: "$s7Testing4TestV4CaseV7currentAESgvgZ",
+            in: "Testing",
+            to: (@convention(thin) () -> Test.Case?).self
+          )
+        else { return nil }
+        return current()
+      }
+
+      private var arguments: [Argument]
+      private var body: @Sendable () async throws -> Void
+
+      fileprivate var isParameterized: Bool {
+        !arguments.isEmpty
+      }
+
+      private struct Argument: Sendable {
+        var value: any Sendable
+        var parameter: Parameter
+      }
+    }
     private var name: String
     private var displayName: String?
     private var traits: [any Trait]
