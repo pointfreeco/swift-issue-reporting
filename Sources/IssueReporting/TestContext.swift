@@ -23,8 +23,8 @@ public enum TestContext: Equatable {
   /// If executed outside of a test process, this will return `nil`.
   public static var current: Self? {
     guard isTesting else { return nil }
-    if let currentTestID = _currentTestID() {
-      return .swiftTesting(Testing(id: currentTestID))
+    if case let (id, isParameterized)? = _currentTestData() {
+      return .swiftTesting(Testing(id: id, isParameterized: isParameterized))
     } else {
       return .xcTest
     }
@@ -42,7 +42,11 @@ public enum TestContext: Equatable {
 
     public struct Test: Equatable, Hashable, Identifiable, Sendable {
       public let id: ID
+      public let `case`: Test.Case
 
+      public struct Case: Equatable, Hashable, Sendable {
+        public let isParameterized: Bool
+      }
       public struct ID: Equatable, Hashable, @unchecked Sendable {
         fileprivate let rawValue: AnyHashable
       }
@@ -73,7 +77,12 @@ public enum TestContext: Equatable {
 }
 
 extension TestContext.Testing {
-  fileprivate init(id: AnyHashable) {
-    self.init(test: Test(id: Test.ID(rawValue: id)))
+  fileprivate init(id: AnyHashable, isParameterized: Bool) {
+    self.init(
+      test: Test(
+        id: Test.ID(rawValue: id),
+        case: Test.Case(isParameterized: isParameterized)
+      )
+    )
   }
 }
