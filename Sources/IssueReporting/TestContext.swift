@@ -1,6 +1,6 @@
 /// A type representing the context in which a test is being run, _i.e._ either in Swift's native
 /// Testing framework, or Xcode's XCTest framework.
-public enum TestContext: Equatable {
+public enum TestContext: Equatable, Sendable {
   /// The Swift Testing framework.
   case swiftTesting(Testing?)
 
@@ -37,14 +37,14 @@ public enum TestContext: Equatable {
     return true
   }
 
-  public struct Testing: Equatable {
+  public struct Testing: Equatable, Sendable {
     public let test: Test
 
     public struct Test: Equatable, Hashable, Identifiable, Sendable {
       public let id: ID
 
       public struct ID: Equatable, Hashable, @unchecked Sendable {
-        fileprivate let rawValue: AnyHashable
+        public let rawValue: AnyHashable
       }
     }
   }

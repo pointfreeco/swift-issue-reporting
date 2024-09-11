@@ -7,7 +7,7 @@
     struct SwiftTestingTests_Debug {
       @Test func context() {
         switch TestContext.current {
-        case .xcTest:
+        case .swiftTesting:
           #expect(Bool(true))
         default:
           Issue.record()
