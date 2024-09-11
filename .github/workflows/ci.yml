@@ -49,8 +49,8 @@ jobs:
           - Debug
           - Release
         xcode:
-          - '15.4'
-          - '16_beta_6'
+          - 15.4
+          - 16_beta_6
     name: Examples
     runs-on: macos-14
     steps:
