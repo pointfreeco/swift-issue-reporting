@@ -234,19 +234,17 @@ func _withKnownIssue(
   await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 @usableFromInline
-func _currentTestData() -> (id: AnyHashable, isParameterized: Bool)? {
-  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC4DataypyF")
+func _currentTestID() -> AnyHashable? {
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
   else {
     #if DEBUG
-      guard let id = Test.current?.id, let isParameterized = Test.Case.current?.isParameterized
-      else { return nil }
-      return (id, isParameterized)
+      return Test.current?.id
     #else
       return nil
     #endif
   }
 
-  return (function as! @Sendable () -> (id: AnyHashable, isParameterized: Bool)?)()
+  return (function as! @Sendable () -> AnyHashable?)()
 }
 
 #if DEBUG
@@ -354,8 +352,8 @@ func _currentTestData() -> (id: AnyHashable, isParameterized: Bool)? {
     }
   }
 
-  private struct Test: @unchecked Sendable {
-    fileprivate static var current: Self? {
+  struct Test: @unchecked Sendable {
+    static var current: Self? {
       guard
         let current = unsafeBitCast(
           symbol: "$s7Testing4TestV7currentACSgvgZ",
@@ -366,30 +364,7 @@ func _currentTestData() -> (id: AnyHashable, isParameterized: Bool)? {
       return current()
     }
 
-    fileprivate struct Case {
-      static var current: Self? {
-        guard
-          let current = unsafeBitCast(
-            symbol: "$s7Testing4TestV4CaseV7currentAESgvgZ",
-            in: "Testing",
-            to: (@convention(thin) () -> Test.Case?).self
-          )
-        else { return nil }
-        return current()
-      }
-
-      private var arguments: [Argument]
-      private var body: @Sendable () async throws -> Void
-
-      fileprivate var isParameterized: Bool {
-        !arguments.isEmpty
-      }
-
-      private struct Argument: Sendable {
-        var value: any Sendable
-        var parameter: Parameter
-      }
-    }
+    struct Case {}
     private var name: String
     private var displayName: String?
     private var traits: [any Trait]

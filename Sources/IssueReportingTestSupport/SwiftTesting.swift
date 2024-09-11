@@ -100,13 +100,11 @@ private func __withKnownIssueAsync(
   #endif
 }
 
-public func _currentTestData() -> Any { __currentTestData }
+public func _currentTestID() -> Any { __currentTestID }
 @Sendable
-private func __currentTestData() -> (id: AnyHashable, isParameterized: Bool)? {
+private func __currentTestID() -> AnyHashable? {
   #if canImport(Testing)
-    guard let id = Test.current?.id, let isParameterized = Test.Case.current?.isParameterized
-    else { return nil }
-    return (id, isParameterized)
+    return Test.current?.id
   #else
     return nil
   #endif
