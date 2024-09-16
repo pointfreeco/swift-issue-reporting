@@ -22,7 +22,7 @@ jobs:
         xcode:
           - 15.2
           - 15.4
-          - 16_beta_6
+          - '16.0'
     name: macOS
     runs-on: macos-14
     steps:
@@ -50,7 +50,7 @@ jobs:
           - Release
         xcode:
           - 15.4
-          - 16_beta_6
+          - '16.0'
     name: Examples
     runs-on: macos-14
     steps:
