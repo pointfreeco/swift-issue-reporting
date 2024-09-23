@@ -34,22 +34,7 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
-  switch TestContext.current {
-  case .swiftTesting:
-    _recordIssue(
-      message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
-    )
-  case .xcTest:
-    _XCTFail(
-      message().withAppHostWarningIfNeeded() ?? "",
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
-    )
-  case nil:
+  guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
       observer.withLock { $0 += 1 }
@@ -73,6 +58,25 @@ public func reportIssue(
         )
       }
     }
+    return
+  }
+
+  switch context {
+  case .swiftTesting:
+    _recordIssue(
+      message: message(),
+      fileID: "\(IssueContext.current?.fileID ?? fileID)",
+      filePath: "\(IssueContext.current?.filePath ?? filePath)",
+      line: Int(IssueContext.current?.line ?? line),
+      column: Int(IssueContext.current?.column ?? column)
+    )
+  case .xcTest:
+    _XCTFail(
+      message().withAppHostWarningIfNeeded() ?? "",
+      file: IssueContext.current?.filePath ?? filePath,
+      line: IssueContext.current?.line ?? line
+    )
+  @unknown default: break
   }
 }
 
@@ -97,23 +101,7 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
-  switch TestContext.current {
-  case .swiftTesting:
-    _recordError(
-      error: error,
-      message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
-    )
-  case .xcTest:
-    _XCTFail(
-      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
-    )
-  case nil:
+  guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
       observer.withLock { $0 += 1 }
@@ -139,5 +127,25 @@ public func reportIssue(
         )
       }
     }
+    return
+  }
+
+  switch context {
+  case .swiftTesting:
+    _recordError(
+      error: error,
+      message: message(),
+      fileID: "\(IssueContext.current?.fileID ?? fileID)",
+      filePath: "\(IssueContext.current?.filePath ?? filePath)",
+      line: Int(IssueContext.current?.line ?? line),
+      column: Int(IssueContext.current?.column ?? column)
+    )
+  case .xcTest:
+    _XCTFail(
+      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
+      file: IssueContext.current?.filePath ?? filePath,
+      line: IssueContext.current?.line ?? line
+    )
+  @unknown default: break
   }
 }

@@ -51,31 +51,7 @@ public func withExpectedIssue(
   column: UInt = #column,
   _ body: () throws -> Void
 ) {
-  switch TestContext.current {
-  case .swiftTesting:
-    _withKnownIssue(
-      message,
-      isIntermittent: isIntermittent,
-      fileID: fileID.description,
-      filePath: filePath.description,
-      line: Int(line),
-      column: Int(column),
-      body
-    )
-  case .xcTest:
-    _XCTExpectFailure(
-      message.withAppHostWarningIfNeeded(),
-      strict: !isIntermittent,
-      file: filePath,
-      line: line
-    ) {
-      do {
-        try body()
-      } catch {
-        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
-      }
-    }
-  case nil:
+  guard let context = TestContext.current else {
     guard !isTesting else { return }
     let observer = FailureObserver()
     FailureObserver.$current.withValue(observer) {
@@ -107,6 +83,33 @@ public func withExpectedIssue(
     }
     return
   }
+
+  switch context {
+  case .swiftTesting:
+    _withKnownIssue(
+      message,
+      isIntermittent: isIntermittent,
+      fileID: fileID.description,
+      filePath: filePath.description,
+      line: Int(line),
+      column: Int(column),
+      body
+    )
+  case .xcTest:
+    _XCTExpectFailure(
+      message.withAppHostWarningIfNeeded(),
+      strict: !isIntermittent,
+      file: filePath,
+      line: line
+    ) {
+      do {
+        try body()
+      } catch {
+        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+      }
+    }
+  @unknown default: break
+  }
 }
 
 /// Invoke an asynchronous function that has an issue that is expected to occur during its
@@ -137,31 +140,8 @@ public func withExpectedIssue(
   column: UInt = #column,
   _ body: () async throws -> Void
 ) async {
-  switch TestContext.current {
-  case .swiftTesting:
-    await _withKnownIssue(
-      message,
-      isIntermittent: isIntermittent,
-      fileID: fileID.description,
-      filePath: filePath.description,
-      line: Int(line),
-      column: Int(column),
-      body
-    )
-  case .xcTest:
-    reportIssue(
-      """
-      Asynchronously expecting failures is unavailable in XCTest.
 
-      Omit this test from your XCTest suite, or consider using Swift Testing, instead.
-      """,
-      fileID: fileID,
-      filePath: filePath,
-      line: line,
-      column: column
-    )
-    try? await body()
-  case nil:
+  guard let context = TestContext.current else {
     guard !isTesting else { return }
     let observer = FailureObserver()
     await FailureObserver.$current.withValue(observer) {
@@ -192,5 +172,32 @@ public func withExpectedIssue(
       }
     }
     return
+  }
+
+  switch context {
+  case .swiftTesting:
+    await _withKnownIssue(
+      message,
+      isIntermittent: isIntermittent,
+      fileID: fileID.description,
+      filePath: filePath.description,
+      line: Int(line),
+      column: Int(column),
+      body
+    )
+  case .xcTest:
+    reportIssue(
+      """
+      Asynchronously expecting failures is unavailable in XCTest.
+      
+      Omit this test from your XCTest suite, or consider using Swift Testing, instead.
+      """,
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+    try? await body()
+  @unknown default: break
   }
 }
