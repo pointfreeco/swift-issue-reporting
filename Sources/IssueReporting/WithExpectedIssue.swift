@@ -189,7 +189,7 @@ public func withExpectedIssue(
     reportIssue(
       """
       Asynchronously expecting failures is unavailable in XCTest.
-      
+
       Omit this test from your XCTest suite, or consider using Swift Testing, instead.
       """,
       fileID: fileID,
