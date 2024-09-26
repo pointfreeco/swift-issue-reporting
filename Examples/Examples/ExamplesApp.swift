@@ -27,7 +27,9 @@ class ItemsModel {
   }
 }
 
-#Preview {
-  let model = ItemsModel()
-  Text(model.lastItem?.description ?? "No last item")
+struct Previews: PreviewProvider {
+  static var previews: some View {
+    let model = ItemsModel()
+    Text(model.lastItem?.description ?? "No last item")
+  }
 }
