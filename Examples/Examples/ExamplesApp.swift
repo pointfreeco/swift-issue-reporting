@@ -26,3 +26,8 @@ class ItemsModel {
     return lastItem
   }
 }
+
+#Preview {
+  let model = ItemsModel()
+  Text(model.lastItem?.description ?? "No last item")
+}
