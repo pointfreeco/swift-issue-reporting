@@ -26,3 +26,10 @@ class ItemsModel {
     return lastItem
   }
 }
+
+struct Previews: PreviewProvider {
+  static var previews: some View {
+    let model = ItemsModel()
+    Text(model.lastItem?.description ?? "No last item")
+  }
+}
