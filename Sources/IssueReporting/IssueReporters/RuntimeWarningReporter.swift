@@ -66,11 +66,11 @@ public struct _RuntimeWarningReporter: IssueReporter {
     column: UInt
   ) {
     #if canImport(os)
-    guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
-    else {
-      print("🟣 \(fileID):\(line): \(message() ?? "")")
-      return
-    }
+      guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
+      else {
+        print("🟣 \(fileID):\(line): \(message() ?? "")")
+        return
+      }
       let moduleName = String(
         Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
       )
