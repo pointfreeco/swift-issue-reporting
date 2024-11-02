@@ -1,4 +1,4 @@
-#if !os(Linux) && !os(WASI) && !os(Windows)
+#if !os(Linux) && !os(WASI) && !os(Windows) && !os(Android)
   import XCTest
   import XCTestDynamicOverlay
 
