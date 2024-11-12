@@ -77,6 +77,7 @@ public protocol IssueReporter: Sendable {
 }
 
 extension IssueReporter {
+  @_transparent
   public func reportIssue(
     _ error: any Error,
     _ message: @autoclosure () -> String?,
