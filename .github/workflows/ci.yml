@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  macos:
+  macos-15:
     strategy:
       matrix:
         config:
@@ -30,7 +30,7 @@ jobs:
     - name: Run tests
       run: make test-${{ matrix.config }}
 
-  macos:
+  macos-14:
     strategy:
       matrix:
         config:
