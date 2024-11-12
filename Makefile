@@ -22,7 +22,7 @@ test-examples:
 		-configuration $(CONFIG) \
 		-workspace IssueReporting.xcworkspace \
 		-scheme Examples \
-		-destination platform="iOS Simulator,name=iPhone 15"
+		-destination platform="iOS Simulator,name=iPhone 16"
 
 test-wasm:
 	echo wasm-DEVELOPMENT-SNAPSHOT-2024-07-16-a > .swift-version
