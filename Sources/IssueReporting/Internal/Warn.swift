@@ -1,4 +1,4 @@
-#if os(Linux)
+#if os(Linux) || os(Android)
   @preconcurrency import Foundation
 #else
   import Foundation
