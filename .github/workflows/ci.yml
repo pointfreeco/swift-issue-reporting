@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -139,3 +140,9 @@ jobs:
         run: swift build -c ${{ matrix.config }}
       - name: Run tests (debug only)
         run: swift test
+
+  android:
+    name: Android
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: johankool/swift-android-test-action@v1
