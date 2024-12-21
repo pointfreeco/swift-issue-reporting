@@ -142,8 +142,7 @@ jobs:
         run: swift test
 
   android:
-    name: Android (Swift 6.0.2)
+    name: Android
     runs-on: ubuntu-22.04
     steps:
-      - name: Test on Android
-        uses: johankool/swift-android-test-action@v1
+      - uses: johankool/swift-android-test-action@v1
