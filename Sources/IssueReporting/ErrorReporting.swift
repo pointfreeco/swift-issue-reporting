@@ -44,7 +44,7 @@ public func withErrorReporting<R>(
 ///   - filePath: The source `#filePath` associated with the error reporting.
 ///   - line: The source `#line` associated with the error reporting.
 ///   - column: The source `#column` associated with the error reporting.
-///   - body: A synchronous operation.
+///   - body: An asynchronous operation.
 /// - Returns: The optional result of the operation, or `nil` if an error was thrown.
 @_transparent
 public func withErrorReporting<R>(
