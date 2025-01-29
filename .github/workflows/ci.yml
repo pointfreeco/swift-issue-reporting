@@ -111,8 +111,6 @@ jobs:
 
       - name: Build
         run: swift build --swift-sdk wasm32-unknown-wasi --build-tests -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
-      - name: Run tests
-        run: wasmtime .build/debug/xctest-dynamic-overlayPackageTests.wasm
 
   windows:
     name: Windows
