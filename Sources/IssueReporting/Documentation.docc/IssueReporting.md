@@ -53,7 +53,7 @@ that ship in the same target as the library itself.
 
 - ``reportIssue(_:fileID:filePath:line:column:)``
 - ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``
-- ``withErrorReporting(_:fileID:filePath:line:column:catching:)-3k8o``
+- ``withErrorReporting(_:to:fileID:filePath:line:column:catching:)-89omf``
 
 ### Issue reporters
 

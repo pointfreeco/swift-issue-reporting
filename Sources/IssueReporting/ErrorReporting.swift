@@ -1,6 +1,7 @@
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
 /// - Parameters:
+///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
 ///   - fileID: The source `#fileID` associated with the error reporting.
 ///   - filePath: The source `#filePath` associated with the error reporting.
@@ -10,7 +11,8 @@
 /// - Returns: The optional result of the operation, or `nil` if an error was thrown.
 @_transparent
 public func withErrorReporting<R>(
-  _ reporters: [any IssueReporter]? = nil,
+  _ message: @autoclosure () -> String? = nil,
+  to reporters: [any IssueReporter]? = nil,
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   line: UInt = #line,
@@ -22,7 +24,14 @@ public func withErrorReporting<R>(
       do {
         return try body()
       } catch {
-        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+        reportIssue(
+          error,
+          message(),
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
         return nil
       }
     }
@@ -30,7 +39,14 @@ public func withErrorReporting<R>(
     do {
       return try body()
     } catch {
-      reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+      reportIssue(
+        error,
+        message(),
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
       return nil
     }
   }
@@ -39,6 +55,7 @@ public func withErrorReporting<R>(
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
 /// - Parameters:
+///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
 ///   - fileID: The source `#fileID` associated with the error reporting.
 ///   - filePath: The source `#filePath` associated with the error reporting.
@@ -48,7 +65,8 @@ public func withErrorReporting<R>(
 /// - Returns: The optional result of the operation, or `nil` if an error was thrown.
 @_transparent
 public func withErrorReporting<R>(
-  _ reporters: [any IssueReporter]? = nil,
+  _ message: @autoclosure () -> String? = nil,
+  to reporters: [any IssueReporter]? = nil,
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   line: UInt = #line,

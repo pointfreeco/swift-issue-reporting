@@ -12,6 +12,14 @@
       } matching: { issue in
         issue.description == "Caught error: SomeError()"
       }
+
+      withKnownIssue {
+        withErrorReporting("Failed") {
+          throw SomeError()
+        }
+      } matching: { issue in
+        issue.description == "Caught error: SomeError(): Failed"
+      }
     }
   }
 
