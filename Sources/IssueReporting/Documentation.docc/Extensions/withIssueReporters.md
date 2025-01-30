@@ -1,7 +1,7 @@
-# ``IssueReporting/withIssueReporters(_:operation:)-91179``
+# ``IssueReporting/withIssueReporters(_:operation:)``
 
 ## Topics
 
 ### Overloads
 
-- ``withIssueReporters(_:operation:)-6xjha``
+- ``withIssueReporters(_:isolation:operation:)``
