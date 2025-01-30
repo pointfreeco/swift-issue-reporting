@@ -21,7 +21,7 @@ jobs:
           - debug
           - release
         xcode:
-          - '16.0'
+          - '16.2'
     name: macOS 15
     runs-on: macos-15
     steps:
@@ -55,7 +55,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.0.app
+      run: sudo xcode-select -s /Applications/Xcode_16.2.app
     - name: Run tests
       run: make build-for-library-evolution
 
@@ -66,7 +66,7 @@ jobs:
           - Debug
           - Release
         xcode:
-          - '16.0'
+          - '16.2'
     name: Examples
     runs-on: macos-15
     steps:
@@ -125,8 +125,8 @@ jobs:
     steps:
       - uses: compnerd/gha-setup-swift@main
         with:
-          branch: swift-5.10-release
-          tag: 5.10-RELEASE
+          branch: swift-6.0.3-release
+          tag: 6.0.3-RELEASE
       - name: Set long paths
         run: git config --system core.longpaths true
       - uses: actions/checkout@v4
