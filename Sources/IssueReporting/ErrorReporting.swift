@@ -97,7 +97,13 @@ public func withErrorReporting<R>(
         return try await body()
       } catch {
         reportIssue(
-          error, message(), fileID: fileID, filePath: filePath, line: line, column: column)
+          error,
+          message(),
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
         return nil
       }
     }
@@ -135,7 +141,13 @@ public func withErrorReporting<R>(
         return try await body()
       } catch {
         reportIssue(
-          error, message(), fileID: fileID, filePath: filePath, line: line, column: column)
+          error,
+          message(),
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
         return nil
       }
     }
