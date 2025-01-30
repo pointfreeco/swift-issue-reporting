@@ -78,7 +78,14 @@ public func withErrorReporting<R>(
       do {
         return try await body()
       } catch {
-        reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+        reportIssue(
+          error,
+          message(),
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
         return nil
       }
     }
@@ -86,7 +93,7 @@ public func withErrorReporting<R>(
     do {
       return try await body()
     } catch {
-      reportIssue(error, fileID: fileID, filePath: filePath, line: line, column: column)
+      reportIssue(error, message(), fileID: fileID, filePath: filePath, line: line, column: column)
       return nil
     }
   }
