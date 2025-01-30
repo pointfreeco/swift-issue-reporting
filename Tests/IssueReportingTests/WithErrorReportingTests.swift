@@ -54,4 +54,3 @@
 
   private struct SomeError: Error {}
 #endif
-
