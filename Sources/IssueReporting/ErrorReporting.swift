@@ -52,7 +52,7 @@ public func withErrorReporting<R>(
   }
 }
 
-#if swift(>=6)
+#if compiler(>=6)
   /// Evaluates a throwing closure and automatically catches and reports any error thrown.
   ///
   /// - Parameters:

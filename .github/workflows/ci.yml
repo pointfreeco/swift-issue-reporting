@@ -125,8 +125,8 @@ jobs:
     steps:
       - uses: compnerd/gha-setup-swift@main
         with:
-          branch: swift-5.10-release
-          tag: 5.10-RELEASE
+          branch: swift-6.0.3-release
+          tag: 6.0.3-RELEASE
       - name: Set long paths
         run: git config --system core.longpaths true
       - uses: actions/checkout@v4
