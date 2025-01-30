@@ -183,7 +183,7 @@ public func withIssueReporters<R>(
   try IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
 }
 
-#if compiler(>=6)
+#if swift(>=6)
   /// Overrides the task's issue reporters for the duration of the asynchronous operation.
   ///
   /// An asynchronous version of ``withIssueReporters(_:operation:)-91179``.
