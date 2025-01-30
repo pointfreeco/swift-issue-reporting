@@ -192,6 +192,7 @@ public func withIssueReporters<R>(
 ///   - operation: An asynchronous operation.
 public func withIssueReporters<R>(
   _ reporters: [any IssueReporter],
+  isolation: isolated (any Actor)? = #isolation,
   operation: () async throws -> R
 ) async rethrows -> R {
   try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)

@@ -71,7 +71,8 @@ public func withErrorReporting<R>(
   filePath: StaticString = #filePath,
   line: UInt = #line,
   column: UInt = #column,
-  catching body: () async throws -> R
+  isolation: isolated (any Actor)? = #isolation,
+  catching body: () async throws -> sending R
 ) async -> R? {
   if let reporters {
     return await withIssueReporters(reporters) {

@@ -39,7 +39,19 @@
         issue.description == "Caught error: SomeError(): Failed"
       }
     }
+
+    @MainActor
+    @Test func isolation() async {
+      await withKnownIssue {
+        await withErrorReporting { () async throws in
+          throw SomeError()
+        }
+      } matching: { issue in
+        issue.description == "Caught error: SomeError()"
+      }
+    }
   }
 
   private struct SomeError: Error {}
 #endif
+
