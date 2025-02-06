@@ -113,7 +113,7 @@ public func withEmitsFailureOnReportIssue<R>(
   }
 #else
   @_unsafeInheritExecutor
-  public func withIssueReporters<R>(
+  public func withEmitsFailureOnReportIssue<R>(
     _ value: Bool,
     operation: () async throws -> R
   ) async rethrows -> R {
