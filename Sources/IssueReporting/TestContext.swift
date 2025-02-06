@@ -96,14 +96,6 @@ public func withEmitsFailureOnReportIssue<R>(
 }
 
 #if compiler(>=6)
-  /// Overrides the task's issue reporters for the duration of the asynchronous operation.
-  ///
-  /// An asynchronous version of ``withIssueReporters(_:operation:)-91179``.
-  ///
-  /// - Parameters:
-  ///   - reporters: Issue reporters to notify during the operation.
-  ///   - isolation: The isolation associated with the operation.
-  ///   - operation: An asynchronous operation.
   public func withEmitsFailureOnReportIssue<R>(
     _ value: Bool,
     isolation: isolated (any Actor)? = #isolation,
