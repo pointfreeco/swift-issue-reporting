@@ -60,23 +60,25 @@ public func reportIssue(
     }
     return
   }
-
-  switch context {
-  case .swiftTesting:
-    _recordIssue(
-      message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
-    )
-  case .xcTest:
-    _XCTFail(
-      message().withAppHostWarningIfNeeded() ?? "",
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
-    )
-  @unknown default: break
+  
+  if TestContext.emitsFailureOnReportIssue {
+    switch context {
+    case .swiftTesting:
+      _recordIssue(
+        message: message(),
+        fileID: "\(IssueContext.current?.fileID ?? fileID)",
+        filePath: "\(IssueContext.current?.filePath ?? filePath)",
+        line: Int(IssueContext.current?.line ?? line),
+        column: Int(IssueContext.current?.column ?? column)
+      )
+    case .xcTest:
+      _XCTFail(
+        message().withAppHostWarningIfNeeded() ?? "",
+        file: IssueContext.current?.filePath ?? filePath,
+        line: IssueContext.current?.line ?? line
+      )
+    @unknown default: break
+    }
   }
 }
 
@@ -130,22 +132,24 @@ public func reportIssue(
     return
   }
 
-  switch context {
-  case .swiftTesting:
-    _recordError(
-      error: error,
-      message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
-    )
-  case .xcTest:
-    _XCTFail(
-      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
-    )
-  @unknown default: break
+  if TestContext.emitsFailureOnReportIssue {
+    switch context {
+    case .swiftTesting:
+      _recordError(
+        error: error,
+        message: message(),
+        fileID: "\(IssueContext.current?.fileID ?? fileID)",
+        filePath: "\(IssueContext.current?.filePath ?? filePath)",
+        line: Int(IssueContext.current?.line ?? line),
+        column: Int(IssueContext.current?.column ?? column)
+      )
+    case .xcTest:
+      _XCTFail(
+        "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
+        file: IssueContext.current?.filePath ?? filePath,
+        line: IssueContext.current?.line ?? line
+      )
+    @unknown default: break
+    }
   }
 }

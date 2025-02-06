@@ -77,3 +77,46 @@ extension TestContext.Testing {
     self.init(test: Test(id: Test.ID(rawValue: id)))
   }
 }
+
+extension TestContext {
+  /// Indicates whether or not test failures should be emitted by default when an issue is reported.
+  public static var emitsFailureOnReportIssue: Bool {
+    get { _emitsFailureOnReportIssue.withLock { $0 } }
+    set { _emitsFailureOnReportIssue.withLock { $0 = newValue } }
+  }
+
+  @TaskLocal fileprivate static var _emitsFailureOnReportIssue = LockIsolated<Bool>(true)
+}
+
+public func withEmitsFailureOnReportIssue<R>(
+  _ value: Bool,
+  operation: () throws -> R
+) rethrows -> R {
+  try TestContext.$_emitsFailureOnReportIssue.withValue(LockIsolated(value), operation: operation)
+}
+
+#if compiler(>=6)
+  /// Overrides the task's issue reporters for the duration of the asynchronous operation.
+  ///
+  /// An asynchronous version of ``withIssueReporters(_:operation:)-91179``.
+  ///
+  /// - Parameters:
+  ///   - reporters: Issue reporters to notify during the operation.
+  ///   - isolation: The isolation associated with the operation.
+  ///   - operation: An asynchronous operation.
+  public func withEmitsFailureOnReportIssue<R>(
+    _ value: Bool,
+    isolation: isolated (any Actor)? = #isolation,
+    operation: () async throws -> R
+  ) async rethrows -> R {
+    try await TestContext.$_emitsFailureOnReportIssue.withValue(LockIsolated(value), operation: operation)
+  }
+#else
+  @_unsafeInheritExecutor
+  public func withIssueReporters<R>(
+    _ value: Bool,
+    operation: () async throws -> R
+  ) async rethrows -> R {
+    try await TestContext.$_emitsFailureOnReportIssue.withValue(LockIsolated(value), operation: operation)
+  }
+#endif
