@@ -166,73 +166,150 @@ func _withKnownIssue(
   withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
 }
 
-@usableFromInline
-func _withKnownIssue(
-  _ message: String? = nil,
-  isIntermittent: Bool = false,
-  fileID: String = #fileID,
-  filePath: String = #filePath,
-  line: Int = #line,
-  column: Int = #column,
-  _ body: () async throws -> Void
-) async {
-  guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA5AsyncypyF")
-  else {
-    #if DEBUG
-      guard
-        let withKnownIssue = unsafeBitCast(
-          symbol: """
-            $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
-            H0VyyYaKXEtYaFTu
-            """,
-          in: "Testing",
-          to: (@convention(thin) (
-            Any?,
-            Bool,
-            SourceLocation,
-            () async throws -> Void
-          ) async -> Void)
-          .self
+#if compiler(>=6.0.2)
+  @usableFromInline
+  func _withKnownIssue(
+    _ message: String?,
+    isIntermittent: Bool,
+    isolation: isolated (any Actor)?,
+    fileID: String,
+    filePath: String,
+    line: Int,
+    column: Int,
+    _ body: () async throws -> Void
+  ) async {
+    guard
+      let function = function(for: "$s25IssueReportingTestSupport010_withKnownA13AsyncIsolatedypyF")
+    else {
+      #if DEBUG
+        guard
+          let withKnownIssue = unsafeBitCast(
+            symbol: """
+              $s7Testing14withKnownIssue_14isIntermittent9isolation14sourceLocation_yAA7CommentVSg_\
+              SbScA_pSgYiAA06SourceI0VyyYaKXEtYaF
+              """,
+            in: "Testing",
+            to: (@convention(thin) (
+              Any?,
+              Bool,
+              isolated (any Actor)?,
+              SourceLocation,
+              () async throws -> Void
+            ) async -> Void)
+            .self
+          )
+        else { return }
+
+        var comment: Any?
+        if let message {
+          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+          c.rawValue = message
+          comment = c
+        }
+        await withKnownIssue(
+          comment,
+          isIntermittent,
+          isolation,
+          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+          body
         )
-      else { return }
+      #else
+        printError(
+          """
+          \(fileID):\(line): A known issue was recorded without linking the Testing framework.
 
-      var comment: Any?
-      if let message {
-        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-        c.rawValue = message
-        comment = c
-      }
-      await withKnownIssue(
-        comment,
-        isIntermittent,
-        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
-        body
-      )
-    #else
-      printError(
-        """
-        \(fileID):\(line): A known issue was recorded without linking the Testing framework.
+          To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+          """
+        )
+      #endif
+      return
+    }
 
-        To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
-        """
-      )
-    #endif
-    return
+    let withKnownIssue =
+      function
+      as! @Sendable (
+        String?,
+        Bool,
+        isolated (any Actor)?,
+        String,
+        String,
+        Int,
+        Int,
+        () async throws -> Void
+      ) async -> Void
+    await withKnownIssue(message, isIntermittent, isolation, fileID, filePath, line, column, body)
+  }
+#else
+  @usableFromInline
+  func _withKnownIssue(
+    _ message: String?,
+    isIntermittent: Bool,
+    fileID: String,
+    filePath: String,
+    line: Int,
+    column: Int,
+    _ body: () async throws -> Void
+  ) async {
+    guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA5AsyncypyF")
+    else {
+      #if DEBUG
+        guard
+          let withKnownIssue = unsafeBitCast(
+            symbol: """
+              $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Sour\
+              ceH0VyyYaKXEtYaFTu
+              """,
+            in: "Testing",
+            to: (@convention(thin) (
+              Any?,
+              Bool,
+              SourceLocation,
+              () async throws -> Void
+            ) async -> Void)
+            .self
+          )
+        else { return }
+
+        var comment: Any?
+        if let message {
+          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+          c.rawValue = message
+          comment = c
+        }
+        await withKnownIssue(
+          comment,
+          isIntermittent,
+          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
+          body
+        )
+      #else
+        printError(
+          """
+          \(fileID):\(line): A known issue was recorded without linking the Testing framework.
+
+          To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
+          """
+        )
+      #endif
+      return
+    }
+
+    let withKnownIssue =
+      function
+      as! @Sendable (
+        String?,
+        Bool,
+        String,
+        String,
+        Int,
+        Int,
+        () async throws -> Void
+      ) async -> Void
+    await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
   }
 
-  let withKnownIssue =
-    function
-    as! @Sendable (
-      String?,
-      Bool,
-      String,
-      String,
-      Int,
-      Int,
-      () async throws -> Void
-    ) async -> Void
-  await withKnownIssue(message, isIntermittent, fileID, filePath, line, column, body)
-}
+#endif
+
 @usableFromInline
 func _currentTestID() -> AnyHashable? {
   guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
