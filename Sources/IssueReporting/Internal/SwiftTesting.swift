@@ -148,6 +148,7 @@ func _withKnownIssue(
         To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
         """
       )
+      try? body()
     #endif
     return
   }
@@ -221,6 +222,7 @@ func _withKnownIssue(
           To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
           """
         )
+        try? await body()
       #endif
       return
     }
