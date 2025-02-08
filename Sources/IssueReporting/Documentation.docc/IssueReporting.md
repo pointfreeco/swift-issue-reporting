@@ -53,7 +53,7 @@ that ship in the same target as the library itself.
 
 - ``reportIssue(_:fileID:filePath:line:column:)``
 - ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``
-- ``withErrorReporting(_:to:fileID:filePath:line:column:catching:)-89omf``
+- ``withErrorReporting(_:to:fileID:filePath:line:column:catching:)``
 
 ### Issue reporters
 
@@ -64,7 +64,7 @@ that ship in the same target as the library itself.
 ### Custom reporting
 
 - ``IssueReporter``
-- ``withIssueReporters(_:operation:)-91179``
+- ``withIssueReporters(_:operation:)``
 - ``withIssueContext(fileID:filePath:line:column:operation:)-97lux``
 - ``IssueReporters``
 
