@@ -33,7 +33,8 @@ func _XCTFail(
     #endif
     printError(
       """
-      \(file):\(line): A failure was recorded without linking the XCTest framework.
+      \(file):\(line): A failure was recorded without linking the XCTest framework\
+      \(message.isEmpty ? "" : ": \(message)")
 
       To fix this, add "IssueReportingTestSupport" as a dependency to your test target.
       """
