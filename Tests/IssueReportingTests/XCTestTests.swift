@@ -33,6 +33,12 @@ final class XCTestTests: XCTestCase {
         $0.compactDescription == "failed - Something went wrong"
       }
     }
+  
+    func testReportIssue_EmitFailureDisabled() {
+      withEmitsFailureOnReportIssue(false) {
+        reportIssue()
+      }
+    }
 
     func testWithExpectedIssue() {
       withExpectedIssue {

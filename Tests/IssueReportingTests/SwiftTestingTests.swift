@@ -45,6 +45,12 @@
         issue.description == "Caught error: Failure(): Something went wrong"
       }
     }
+    
+    @Test func reportIssue_EmitFailureDisabled() {
+      withEmitsFailureOnReportIssue(false) {
+        reportIssue()
+      }
+    }
 
     @Test func withExpectedIssue_reportIssue() {
       withExpectedIssue {
