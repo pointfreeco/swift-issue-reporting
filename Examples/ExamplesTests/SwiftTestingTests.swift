@@ -88,9 +88,14 @@
       @Test func withExpectedIssueDoesNotFail() {
         withExpectedIssue {}
       }
+
+      @Test func withExpectedIssueDoesNotFailAsync() async {
+        await withExpectedIssue {
+          await Task.yield()
+        }
+      }
     }
   #endif
-
 #endif
 
 private struct Failure: Error {}

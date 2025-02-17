@@ -74,7 +74,9 @@ private func __withKnownIssue(
   #endif
 }
 
-public func _withKnownIssueAsync() -> Any { __withKnownIssueAsync }
+public func _withKnownIssueAsync() -> Any {
+  __withKnownIssueAsync(_:isIntermittent:fileID:filePath:line:column:_:)
+}
 @Sendable
 private func __withKnownIssueAsync(
   _ message: String?,
@@ -99,6 +101,38 @@ private func __withKnownIssueAsync(
     )
   #endif
 }
+
+#if compiler(>=6.0.2)
+  public func _withKnownIssueAsyncIsolated() -> Any {
+    __withKnownIssueAsync(_:isIntermittent:isolation:fileID:filePath:line:column:_:)
+  }
+  @Sendable
+  private func __withKnownIssueAsync(
+    _ message: String?,
+    isIntermittent: Bool,
+    isolation: isolated (any Actor)?,
+    fileID: String,
+    filePath: String,
+    line: Int,
+    column: Int,
+    _ body: () async throws -> Void
+  ) async {
+    #if canImport(Testing)
+      await withKnownIssue(
+        message.map(Comment.init(rawValue:)),
+        isIntermittent: isIntermittent,
+        isolation: isolation,
+        sourceLocation: SourceLocation(
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        ),
+        body
+      )
+    #endif
+  }
+#endif
 
 public func _currentTestID() -> Any { __currentTestID }
 @Sendable

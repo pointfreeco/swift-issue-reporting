@@ -38,7 +38,7 @@ extension String {
 
         For more information (and workarounds), see "Testing gotchas":
 
-        https://pointfreeco.github.io/swift-dependencies/main/documentation/dependencies/testing#Testing-gotchas
+        https://swiftpackageindex.com/pointfreeco/swift-dependencies/main/documentation/dependencies/testing#Testing-gotchas
         """
 
       return isEmpty
