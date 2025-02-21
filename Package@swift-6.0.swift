@@ -2,6 +2,12 @@
 
 import PackageDescription
 
+#if os(Android) || os(Linux) || os(Windows)
+  let isTestSupportDynamic = true
+#else
+  let isTestSupportDynamic = false
+#endif
+
 let package = Package(
   name: "xctest-dynamic-overlay",
   platforms: [
@@ -47,12 +53,6 @@ let package = Package(
   ],
   swiftLanguageModes: [.v6]
 )
-
-#if os(Android) || os(Linux) || os(Windows)
-  let isTestSupportDynamic = true
-#else
-  let isTestSupportDynamic = false
-#endif
 
 #if os(macOS)
   package.dependencies.append(contentsOf: [
