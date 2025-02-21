@@ -14,7 +14,7 @@ let package = Package(
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
     .library(
       name: "IssueReportingTestSupport",
-      type: .dynamic,
+      type: isTestSupportDynamic ? .dynamic : .static,
       targets: ["IssueReportingTestSupport"]
     ),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
@@ -27,23 +27,7 @@ let package = Package(
       name: "IssueReportingTests",
       dependencies: [
         "IssueReporting",
-        .target(
-          name: "IssueReportingTestSupport",
-          condition: .when(
-            platforms: [
-              .android,
-              .driverKit,
-              .iOS,
-              .linux,
-              .macCatalyst,
-              .macOS,
-              .openbsd,
-              .tvOS,
-              .watchOS,
-              .windows,
-            ]
-          )
-        )
+        "IssueReportingTestSupport",
       ]
     ),
     .target(
@@ -63,6 +47,12 @@ let package = Package(
   ],
   swiftLanguageModes: [.v6]
 )
+
+#if os(Android) || os(Linux) || os(Windows)
+  let isTestSupportDynamic = true
+#else
+  let isTestSupportDynamic = false
+#endif
 
 #if os(macOS)
   package.dependencies.append(contentsOf: [
