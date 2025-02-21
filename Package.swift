@@ -13,7 +13,11 @@ let package = Package(
   ],
   products: [
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
-    .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
+    .library(
+      name: "IssueReportingTestSupport",
+      type: .dynamic,
+      targets: ["IssueReportingTestSupport"]
+    ),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
