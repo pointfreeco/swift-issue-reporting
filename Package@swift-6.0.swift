@@ -27,7 +27,23 @@ let package = Package(
       name: "IssueReportingTests",
       dependencies: [
         "IssueReporting",
-        "IssueReportingTestSupport",
+        .target(
+          name: "IssueReportingTestSupport",
+          condition: .when(
+            platforms: [
+              .android,
+              .driverKit,
+              .iOS,
+              .linux,
+              .macCatalyst,
+              .macOS,
+              .openbsd,
+              .tvOS,
+              .watchOS,
+              .windows,
+            ]
+          )
+        )
       ]
     ),
     .target(
