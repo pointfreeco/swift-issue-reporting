@@ -14,7 +14,7 @@ func _recordIssue(
 ) {
   guard let function = function(for: "$s25IssueReportingTestSupport07_recordA0ypyF")
   else {
-    #if DEBUG && (os(iOS) || os(macOS) || os(tvOS) || os(visionOS) || os(watchOS))
+    #if DEBUG && canImport(Darwin)
       guard
         let record = unsafeBitCast(
           symbol: "$s7Testing5IssueV6record_14sourceLocationAcA7CommentVSg_AA06SourceE0VtFZ",
@@ -60,7 +60,7 @@ func _recordError(
 ) {
   guard let function = function(for: "$s25IssueReportingTestSupport12_recordErrorypyF")
   else {
-    #if DEBUG && (os(iOS) || os(macOS) || os(tvOS) || os(visionOS) || os(watchOS))
+    #if DEBUG && canImport(Darwin)
       guard
         let record = unsafeBitCast(
           symbol: """
@@ -110,7 +110,7 @@ func _withKnownIssue(
 ) {
   guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA0ypyF")
   else {
-    #if DEBUG && (os(iOS) || os(macOS) || os(tvOS) || os(visionOS) || os(watchOS))
+    #if DEBUG && canImport(Darwin)
       guard
         let withKnownIssue = unsafeBitCast(
           symbol: """
@@ -182,7 +182,7 @@ func _withKnownIssue(
     guard
       let function = function(for: "$s25IssueReportingTestSupport010_withKnownA13AsyncIsolatedypyF")
     else {
-      #if DEBUG && (os(iOS) || os(macOS) || os(tvOS) || os(visionOS) || os(watchOS))
+      #if DEBUG && canImport(Darwin)
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """
@@ -254,7 +254,7 @@ func _withKnownIssue(
   ) async {
     guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA5AsyncypyF")
     else {
-      #if DEBUG && (os(iOS) || os(macOS) || os(tvOS) || os(visionOS) || os(watchOS))
+      #if DEBUG && canImport(Darwin)
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """

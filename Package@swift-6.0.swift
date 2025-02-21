@@ -2,12 +2,6 @@
 
 import PackageDescription
 
-#if os(Android) || os(Linux) || os(Windows)
-  let isTestSupportDynamic = true
-#else
-  let isTestSupportDynamic = false
-#endif
-
 let package = Package(
   name: "xctest-dynamic-overlay",
   platforms: [
@@ -20,7 +14,7 @@ let package = Package(
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
     .library(
       name: "IssueReportingTestSupport",
-      type: isTestSupportDynamic ? .dynamic : .static,
+      type: .dynamic,
       targets: ["IssueReportingTestSupport"]
     ),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
