@@ -45,10 +45,11 @@ format:
 		--in-place \
 		--recursive \
 		.
+
 test-linux:
 	docker run \
 		--rm \
 		-v "$(PWD):$(PWD)" \
 		-w "$(PWD)" \
-		swift:5.10 \
+		swift:6.0.3-focal \
 		bash -c 'swift test -c $(CONFIG)'

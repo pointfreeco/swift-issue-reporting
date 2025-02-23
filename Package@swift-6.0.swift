@@ -12,7 +12,11 @@ let package = Package(
   ],
   products: [
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
-    .library(name: "IssueReportingTestSupport", targets: ["IssueReportingTestSupport"]),
+    .library(
+      name: "IssueReportingTestSupport",
+      type: .dynamic,
+      targets: ["IssueReportingTestSupport"]
+    ),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
@@ -43,12 +47,6 @@ let package = Package(
   ],
   swiftLanguageModes: [.v6]
 )
-
-#if os(Linux) || os(Windows)
-  package.dependencies.append(
-    .package(url: "https://github.com/apple/swift-testing", from: "0.11.0")
-  )
-#endif
 
 #if os(macOS)
   package.dependencies.append(contentsOf: [

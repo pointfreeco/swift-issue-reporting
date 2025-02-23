@@ -84,7 +84,7 @@ jobs:
           - release
     name: Linux
     runs-on: ubuntu-latest
-    container: swift:5.10
+    container: swift:6.0.3
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -110,7 +110,7 @@ jobs:
           echo "$PREFIX/usr/bin" >> $GITHUB_PATH
 
       - name: Build
-        run: swift build --swift-sdk wasm32-unknown-wasi --build-tests -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
+        run: swift build --target IssueReporting --swift-sdk wasm32-unknown-wasi -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
 
   windows:
     name: Windows
