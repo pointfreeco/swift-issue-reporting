@@ -9,6 +9,14 @@ assertions, and do so in a testable manner.
 
 ## Overview
 
+> [!Important]
+> Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
+> to use this library you must depend on the old repository URL:
+>
+> ```
+> https://github.com/pointfreeco/xctest-dynamic-overlay
+> ```
+
 This library provides robust tools for reporting issues in your application with a customizable
 degree of granularity and severity. In its most basic form you use the `reportIssue` function
 anywhere in your application to flag an issue in your code, such as a code path that you think
@@ -72,9 +80,9 @@ There are many popular libraries out there using Issue Reporting. To name a few:
     to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
     existing tests will fail until they account for it.
 
-<!--  * [**Swift Navigation**](https://github.com/pointfreeco/swiftui-navigation) provides concise-->
-<!--    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift-->
-<!--    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.-->
+  * [**Swift Navigation**](https://github.com/pointfreeco/swift-navigation) provides concise
+    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
+    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
 
   * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
     comes with powerful testing tools that support both Swift Testing and XCTest out of the box
