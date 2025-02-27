@@ -9,7 +9,8 @@ assertions, and do so in a testable manner.
 
 ## Overview
 
-> Important: Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
+> [!Important]
+> Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
 > to use this library you must depend on the old repository URL, which is
 >
 > ```
