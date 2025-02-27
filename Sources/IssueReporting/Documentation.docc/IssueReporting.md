@@ -5,6 +5,14 @@ assertions, and do so in a testable manner.
 
 ## Overview
 
+> Important:
+> Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
+> to use this library you must depend on the old repository URL, which is
+>
+> ```
+> https://github.com/pointfreeco/xctest-dynamic-overlay
+> ```
+
 This library provides robust tools for reporting issues in your application with a customizable
 degree of granularity and severity. In its most basic form you use the unified
 [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function anywhere in your
