@@ -11,7 +11,7 @@ assertions, and do so in a testable manner.
 
 > [!Important]
 > Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
-> to use this library you must depend on the old repository URL, which is
+> to use this library you must depend on the old repository URL:
 >
 > ```
 > https://github.com/pointfreeco/xctest-dynamic-overlay
