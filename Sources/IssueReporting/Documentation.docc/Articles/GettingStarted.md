@@ -18,6 +18,17 @@ And if you are using an SPM Package.swift file you will specify the dependency l
 .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "1.5.0"),
 ```
 
+…and add the dependency product to your target like so:
+
+```swift
+.target(
+  "MyTarget",
+  dependencies: [
+    .product(name: "IssueReporting", package: "xctest-dynamic-overlay")
+  ]
+)
+```
+
 ## Reporting issues
 
 The primary tool for reporting an issue in your application code is the 
