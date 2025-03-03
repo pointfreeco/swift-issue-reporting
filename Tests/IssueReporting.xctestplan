@@ -14,6 +14,20 @@
   "testTargets" : [
     {
       "target" : {
+        "containerPath" : "container:Examples\/Examples.xcodeproj",
+        "identifier" : "CADE79BA2C4A9D2D005A85F7",
+        "name" : "ExamplesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "XCTestDynamicOverlayTests",
+        "name" : "XCTestDynamicOverlayTests"
+      }
+    },
+    {
+      "target" : {
         "containerPath" : "container:",
         "identifier" : "IssueReportingTests",
         "name" : "IssueReportingTests"
@@ -22,8 +36,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "XCTestDynamicOverlayTests",
-        "name" : "XCTestDynamicOverlayTests"
+        "identifier" : "IssueReportingTestsNoSupport",
+        "name" : "IssueReportingTestsNoSupport"
       }
     }
   ],
