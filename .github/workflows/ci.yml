@@ -134,7 +134,7 @@ jobs:
       - name: Build
         run: swift build -c ${{ matrix.config }}
       - name: Run tests (debug only)
-        run: swift test -windows-sdk-version 10.0.26100.0
+        run: swift test -windows-sdk-version 10.0.22621.1778
 
   # android:
   #   name: Android
