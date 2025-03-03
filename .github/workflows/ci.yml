@@ -132,9 +132,9 @@ jobs:
         run: git config --system core.longpaths true
       - uses: actions/checkout@v4
       - name: Build
-        run: swift build -c ${{ matrix.config }} -windows-sdk-version 10.0.22621.1778
+        run: swift build -c ${{ matrix.config }} --windows-sdk-version 10.0.22621.1778
       - name: Run tests (debug only)
-        run: swift test -windows-sdk-version 10.0.22621.1778
+        run: swift test --windows-sdk-version 10.0.22621.1778
 
   # android:
   #   name: Android
