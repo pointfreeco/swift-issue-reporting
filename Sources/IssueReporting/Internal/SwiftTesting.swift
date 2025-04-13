@@ -324,7 +324,7 @@ func _currentTest() -> _Test? {
     #endif
   }
 
-  return (function as! @Sendable () -> _Test?)()
+  return unsafeBitCast(function, to: (@Sendable () -> _Test?).self)()
 }
 
 #if DEBUG
