@@ -1,9 +1,9 @@
-//import Foundation
-//import XCTestDynamicOverlay
-//
-//func MyXCTFail(_ message: String) {
-//  XCTFail(message)
-//}
+import Foundation
+import XCTestDynamicOverlay
+
+func MyXCTFail(_ message: String) {
+  XCTFail(message)
+}
 //
 //#if canImport(ObjectiveC)
 //  func MyXCTExpectFailure(
