@@ -325,7 +325,7 @@ func _currentTest() -> _Test? {
   }
 
   return withUnsafePointer(to: function) {
-    $0.withMemoryRebound(to: (() -> _Test?).self, capacity: 1) {
+    $0.withMemoryRebound(to: (@Sendable () -> _Test?).self, capacity: 1) {
       $0.pointee()
     }
   }
