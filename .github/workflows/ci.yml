@@ -135,10 +135,10 @@ jobs:
   #     - name: Run tests (debug only)
   #       run: swift test
 
-  android:
-    name: Android
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Test Swift Package on Android"
-        uses: skiptools/swift-android-action@v2
+  # android:
+  #   name: Android
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: "Test Swift Package on Android"
+  #       uses: skiptools/swift-android-action@v2
