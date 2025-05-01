@@ -50,9 +50,9 @@ final class XCTestTests: XCTestCase {
       withExpectedIssue { throw Failure() }
     }
 
-  func testOverrideReportIssueContext() {
+  func testOverrideIssueContext() {
     XCTExpectFailure {
-      $reportIssueContext.withValue(ReportIssueContext()) {
+      withIssueContext(fileID: #fileID, filePath: #filePath, line: #line, column: #column) {
         reportIssue("Something went wrong")
       }
     } issueMatcher: { issue in
