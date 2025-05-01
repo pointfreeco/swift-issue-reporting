@@ -49,6 +49,18 @@ final class XCTestTests: XCTestCase {
     func testWithExpectedIssue_Throwing() {
       withExpectedIssue { throw Failure() }
     }
+
+  func testOverrideReportIssueContext() {
+    XCTExpectFailure {
+      $reportIssueContext.withValue(ReportIssueContext()) {
+        reportIssue("Something went wrong")
+      }
+    } issueMatcher: { issue in
+      let expectedReportingLine = #line - 4
+      return issue.sourceCodeContext.location?.lineNumber == expectedReportingLine
+      && issue.compactDescription == "failed - Something went wrong"
+    }
+  }
   #endif
 }
 

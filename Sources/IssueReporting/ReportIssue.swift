@@ -1,3 +1,22 @@
+public struct ReportIssueContext: Sendable {
+  public let column: UInt
+  public let fileID: StaticString
+  public let filePath: StaticString
+  public let line: UInt
+  public init(
+    fileID: StaticString = #fileID,
+    filePath: StaticString = #filePath,
+    line: UInt = #line,
+    column: UInt = #column
+  ) {
+    self.column = column
+    self.fileID = fileID
+    self.filePath = filePath
+    self.line = line
+  }
+}
+@TaskLocal public var reportIssueContext: ReportIssueContext?
+
 /// Report an issue.
 ///
 /// Invoking this function has two different behaviors depending on the context:
@@ -34,6 +53,12 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  let (fileID, filePath, line, column) = (
+    reportIssueContext?.fileID ?? fileID,
+    reportIssueContext?.filePath ?? filePath,
+    reportIssueContext?.line ?? line,
+    reportIssueContext?.column ?? column
+  )
   guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
@@ -101,6 +126,12 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  let (fileID, filePath, line, column) = (
+    reportIssueContext?.fileID ?? fileID,
+    reportIssueContext?.filePath ?? filePath,
+    reportIssueContext?.line ?? line,
+    reportIssueContext?.column ?? column
+  )
   guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {

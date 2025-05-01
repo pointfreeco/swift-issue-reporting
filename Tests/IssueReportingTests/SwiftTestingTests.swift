@@ -117,6 +117,20 @@
         await Task.yield()
       }
     }
+
+    @Test func overrideReportIssueContext() {
+      withKnownIssue {
+        $reportIssueContext.withValue(ReportIssueContext()) {
+          reportIssue("Something went wrong")
+        }
+      } matching: { issue in
+        let expectedReportingLine = #line - 4
+        print("issue.sourceLocation?.line", issue.sourceLocation?.line)
+        print("expectedReportingLine", expectedReportingLine)
+        return issue.sourceLocation?.line == expectedReportingLine
+          && issue.description == "Issue recorded: Something went wrong"
+      }
+    }
   }
 
   private struct Failure: Error {}
