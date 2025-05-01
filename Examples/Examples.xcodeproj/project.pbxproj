@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1972D72DB1836900351823 /* TraitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1972D62DB1836900351823 /* TraitTests.swift */; };
+		CA1972D92DB1847200351823 /* ExampleTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1972D82DB1847200351823 /* ExampleTrait.swift */; };
 		CADE79AE2C4A9D2C005A85F7 /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */; };
 		CADE79B22C4A9D2D005A85F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */; };
 		CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79D92C4A9D3A005A85F7 /* IssueReporting */; };
 		CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */; };
 		CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */; };
 		CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */; };
-		CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = CADE79E12C4ABE90005A85F7 /* IssueReporting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,7 +27,32 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CA1972DD2DB1854600351823 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1972E12DB186BC00351823 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		CA1972D62DB1836900351823 /* TraitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitTests.swift; sourceTree = "<group>"; };
+		CA1972D82DB1847200351823 /* ExampleTrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTrait.swift; sourceTree = "<group>"; };
 		CADE79AA2C4A9D2C005A85F7 /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesApp.swift; sourceTree = "<group>"; };
 		CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,7 +76,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CADE79E22C4ABE90005A85F7 /* IssueReporting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				CADE79AD2C4A9D2C005A85F7 /* ExamplesApp.swift */,
+				CA1972D82DB1847200351823 /* ExampleTrait.swift */,
 				CADE79B12C4A9D2D005A85F7 /* Assets.xcassets */,
 				CADE79B32C4A9D2D005A85F7 /* Examples.entitlements */,
 			);
@@ -92,6 +118,7 @@
 				CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */,
 				CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */,
 				CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */,
+				CA1972D62DB1836900351823 /* TraitTests.swift */,
 			);
 			path = ExamplesTests;
 			sourceTree = "<group>";
@@ -113,6 +140,7 @@
 				CADE79A62C4A9D2C005A85F7 /* Sources */,
 				CADE79A72C4A9D2C005A85F7 /* Frameworks */,
 				CADE79A82C4A9D2C005A85F7 /* Resources */,
+				CA1972E12DB186BC00351823 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +161,7 @@
 				CADE79B72C4A9D2D005A85F7 /* Sources */,
 				CADE79B82C4A9D2D005A85F7 /* Frameworks */,
 				CADE79B92C4A9D2D005A85F7 /* Resources */,
+				CA1972DD2DB1854600351823 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,7 +170,6 @@
 			);
 			name = ExamplesTests;
 			packageProductDependencies = (
-				CADE79E12C4ABE90005A85F7 /* IssueReporting */,
 			);
 			productName = ExamplesTests;
 			productReference = CADE79BB2C4A9D2D005A85F7 /* ExamplesTests.xctest */;
@@ -210,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADE79AE2C4A9D2C005A85F7 /* ExamplesApp.swift in Sources */,
+				CA1972D92DB1847200351823 /* ExampleTrait.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +248,7 @@
 			files = (
 				CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */,
 				CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */,
+				CA1972D72DB1836900351823 /* TraitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,10 +531,6 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CADE79D92C4A9D3A005A85F7 /* IssueReporting */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = IssueReporting;
-		};
-		CADE79E12C4ABE90005A85F7 /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
 		};
