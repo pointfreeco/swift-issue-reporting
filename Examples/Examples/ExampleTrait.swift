@@ -2,7 +2,7 @@ import IssueReporting
 
 public struct ExampleTrait: Sendable {
   public init() {}
-  
+
   public static func hasTrait() -> Bool {
     switch TestContext.current {
     case .none, .some(.xcTest):

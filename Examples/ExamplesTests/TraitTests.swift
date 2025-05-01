@@ -1,6 +1,6 @@
+import Examples
 import IssueReporting
 import Testing
-import Examples
 
 extension ExampleTrait: @retroactive SuiteTrait, @retroactive TestTrait {
 }
@@ -9,9 +9,9 @@ extension ExampleTrait: @retroactive SuiteTrait, @retroactive TestTrait {
 struct TraitTests {
   @Test(ExampleTrait()) func hasTrait() {
     #if DEBUG
-    #expect(ExampleTrait.hasTrait())
+      #expect(ExampleTrait.hasTrait())
     #else
-    #expect(ExampleTrait.hasTrait() == false)
+      #expect(ExampleTrait.hasTrait() == false)
     #endif
   }
 
