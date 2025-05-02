@@ -34,6 +34,12 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  let (fileID, filePath, line, column) = (
+    IssueContext.current?.fileID ?? fileID,
+    IssueContext.current?.filePath ?? filePath,
+    IssueContext.current?.line ?? line,
+    IssueContext.current?.column ?? column
+  )
   guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
@@ -41,20 +47,20 @@ public func reportIssue(
       for reporter in IssueReporters.current {
         reporter.expectIssue(
           message(),
-          fileID: IssueContext.current?.fileID ?? fileID,
-          filePath: IssueContext.current?.filePath ?? filePath,
-          line: IssueContext.current?.line ?? line,
-          column: IssueContext.current?.column ?? column
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
         )
       }
     } else {
       for reporter in IssueReporters.current {
         reporter.reportIssue(
           message(),
-          fileID: IssueContext.current?.fileID ?? fileID,
-          filePath: IssueContext.current?.filePath ?? filePath,
-          line: IssueContext.current?.line ?? line,
-          column: IssueContext.current?.column ?? column
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
         )
       }
     }
@@ -65,16 +71,16 @@ public func reportIssue(
   case .swiftTesting:
     _recordIssue(
       message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
+      fileID: "\(fileID)",
+      filePath: "\(filePath)",
+      line: Int(line),
+      column: Int(column)
     )
   case .xcTest:
     _XCTFail(
       message().withAppHostWarningIfNeeded() ?? "",
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
+      file: filePath,
+      line: line
     )
   @unknown default: break
   }
@@ -101,6 +107,12 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  let (fileID, filePath, line, column) = (
+    IssueContext.current?.fileID ?? fileID,
+    IssueContext.current?.filePath ?? filePath,
+    IssueContext.current?.line ?? line,
+    IssueContext.current?.column ?? column
+  )
   guard let context = TestContext.current else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
@@ -109,10 +121,10 @@ public func reportIssue(
         reporter.expectIssue(
           error,
           message(),
-          fileID: IssueContext.current?.fileID ?? fileID,
-          filePath: IssueContext.current?.filePath ?? filePath,
-          line: IssueContext.current?.line ?? line,
-          column: IssueContext.current?.column ?? column
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
         )
       }
     } else {
@@ -120,10 +132,10 @@ public func reportIssue(
         reporter.reportIssue(
           error,
           message(),
-          fileID: IssueContext.current?.fileID ?? fileID,
-          filePath: IssueContext.current?.filePath ?? filePath,
-          line: IssueContext.current?.line ?? line,
-          column: IssueContext.current?.column ?? column
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
         )
       }
     }
@@ -135,16 +147,16 @@ public func reportIssue(
     _recordError(
       error: error,
       message: message(),
-      fileID: "\(IssueContext.current?.fileID ?? fileID)",
-      filePath: "\(IssueContext.current?.filePath ?? filePath)",
-      line: Int(IssueContext.current?.line ?? line),
-      column: Int(IssueContext.current?.column ?? column)
+      fileID: "\(fileID)",
+      filePath: "\(filePath)",
+      line: Int(line),
+      column: Int(column)
     )
   case .xcTest:
     _XCTFail(
       "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
-      file: IssueContext.current?.filePath ?? filePath,
-      line: IssueContext.current?.line ?? line
+      file: filePath,
+      line: line
     )
   @unknown default: break
   }

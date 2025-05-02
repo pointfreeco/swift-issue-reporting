@@ -117,6 +117,18 @@
         await Task.yield()
       }
     }
+
+    @Test func overrideIssueContext() {
+      withKnownIssue {
+        withIssueContext(fileID: #fileID, filePath: #filePath, line: #line, column: #column) {
+          reportIssue("Something went wrong")
+        }
+      } matching: { issue in
+        let expectedReportingLine = #line - 4
+        return issue.sourceLocation?.line == expectedReportingLine
+          && issue.description == "Issue recorded: Something went wrong"
+      }
+    }
   }
 
   private struct Failure: Error {}
