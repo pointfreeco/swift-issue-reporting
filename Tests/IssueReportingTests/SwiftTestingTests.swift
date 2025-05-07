@@ -129,6 +129,34 @@
           && issue.description == "Issue recorded: Something went wrong"
       }
     }
+
+    @Test
+    func emptyMessage() {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_async() async {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_throws() throws {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_asyncThrows() async throws {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
   }
 
   private struct Failure: Error {}
