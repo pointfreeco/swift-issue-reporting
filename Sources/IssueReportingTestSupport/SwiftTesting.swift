@@ -14,6 +14,7 @@ private func __recordIssue(
   column: Int
 ) {
   #if canImport(Testing)
+    let message = message == "" ? nil : message
     Issue.record(
       message.map(Comment.init(rawValue:)),
       sourceLocation: SourceLocation(
