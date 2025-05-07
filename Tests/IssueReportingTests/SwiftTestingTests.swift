@@ -133,7 +133,7 @@
     @Test
     func emptyMessage() {
       withKnownIssue {
-        reportIssue("hey")
+        reportIssue("")
       }
     }
 
@@ -141,14 +141,14 @@
     func emptyMessage_async() async {
       await withKnownIssue {
         await Task.yield()
-        reportIssue("hey")
+        reportIssue("")
       }
     }
 
     @Test
     func emptyMessage_throws() throws {
       withKnownIssue {
-        reportIssue("hey")
+        reportIssue("")
       }
     }
 
