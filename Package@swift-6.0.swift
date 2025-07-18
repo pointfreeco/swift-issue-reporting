@@ -39,7 +39,7 @@ let package = Package(
     .testTarget(
       name: "IssueReportingTestsNoSupport",
       dependencies: [
-        "IssueReporting",
+        "IssueReporting"
       ]
     ),
     .target(
