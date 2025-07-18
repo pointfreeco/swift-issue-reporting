@@ -1,4 +1,4 @@
-// swift-format-ignore
+// swift-format-ignore-file
 // Note: Whitespace changes are used to workaround compiler bug
 // https://github.com/swiftlang/swift/issues/79285
 
