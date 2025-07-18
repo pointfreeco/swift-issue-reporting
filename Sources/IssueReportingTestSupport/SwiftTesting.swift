@@ -1,3 +1,5 @@
+import IssueReportingPackageSupport
+
 #if canImport(Testing)
   import Testing
 #endif
@@ -12,6 +14,7 @@ private func __recordIssue(
   column: Int
 ) {
   #if canImport(Testing)
+    let message = message == "" ? nil : message
     Issue.record(
       message.map(Comment.init(rawValue:)),
       sourceLocation: SourceLocation(
@@ -134,11 +137,11 @@ private func __withKnownIssueAsync(
   }
 #endif
 
-public func _currentTestID() -> Any { __currentTestID }
+public func _currentTest() -> Any { __currentTest }
 @Sendable
-private func __currentTestID() -> AnyHashable? {
+private func __currentTest() -> _Test? {
   #if canImport(Testing)
-    return Test.current?.id
+    return Test.current.map { _Test(id: $0.id, traits: $0.traits) }
   #else
     return nil
   #endif

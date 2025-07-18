@@ -1,4 +1,5 @@
 import Foundation
+import IssueReportingPackageSupport
 
 #if canImport(WinSDK)
   import WinSDK
@@ -313,17 +314,21 @@ func _withKnownIssue(
 #endif
 
 @usableFromInline
-func _currentTestID() -> AnyHashable? {
-  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC2IDypyF")
+func _currentTest() -> _Test? {
+  guard let function = function(for: "$s25IssueReportingTestSupport08_currentC0ypyF")
   else {
     #if DEBUG
-      return Test.current?.id
+      return Test.current.map { _Test(id: $0.id, traits: $0.traits) }
     #else
       return nil
     #endif
   }
 
-  return (function as! @Sendable () -> AnyHashable?)()
+  return withUnsafePointer(to: function) {
+    $0.withMemoryRebound(to: (@Sendable () -> _Test?).self, capacity: 1) {
+      $0.pointee()
+    }
+  }
 }
 
 #if DEBUG
@@ -446,7 +451,7 @@ func _currentTestID() -> AnyHashable? {
     struct Case {}
     private var name: String
     private var displayName: String?
-    private var traits: [any Trait]
+    fileprivate var traits: [any Trait]
     private var sourceLocation: SourceLocation
     private var containingTypeInfo: TypeInfo?
     private var xcTestCompatibleSelector: __XCTestCompatibleSelector?

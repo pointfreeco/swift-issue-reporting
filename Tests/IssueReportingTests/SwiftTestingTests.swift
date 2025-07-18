@@ -117,6 +117,48 @@
         await Task.yield()
       }
     }
+
+    @Test func overrideIssueContext() {
+      withKnownIssue {
+        withIssueContext(fileID: #fileID, filePath: #filePath, line: #line, column: #column) {
+          reportIssue("Something went wrong")
+        }
+      } matching: { issue in
+        let expectedReportingLine = #line - 4
+        return issue.sourceLocation?.line == expectedReportingLine
+          && issue.description == "Issue recorded: Something went wrong"
+      }
+    }
+
+    @Test
+    func emptyMessage() {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_async() async {
+      await withKnownIssue {
+        await Task.yield()
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_throws() throws {
+      withKnownIssue {
+        reportIssue("")
+      }
+    }
+
+    @Test
+    func emptyMessage_asyncThrows() async throws {
+      await withKnownIssue {
+        await Task.yield()
+        reportIssue("")
+      }
+    }
   }
 
   private struct Failure: Error {}

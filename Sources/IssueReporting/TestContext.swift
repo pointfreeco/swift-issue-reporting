@@ -23,8 +23,8 @@ public enum TestContext: Equatable, Sendable {
   /// If executed outside of a test process, this will return `nil`.
   public static var current: Self? {
     guard isTesting else { return nil }
-    if let currentTestID = _currentTestID() {
-      return .swiftTesting(Testing(id: currentTestID))
+    if let currentTest = _currentTest() {
+      return .swiftTesting(Testing(id: currentTest.id, traits: currentTest.traits))
     } else {
       return .xcTest
     }
@@ -42,9 +42,18 @@ public enum TestContext: Equatable, Sendable {
 
     public struct Test: Equatable, Hashable, Identifiable, Sendable {
       public let id: ID
+      public let traits: [any Sendable]
 
       public struct ID: Equatable, Hashable, @unchecked Sendable {
         public let rawValue: AnyHashable
+      }
+
+      public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+      }
+
+      public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
       }
     }
   }
@@ -73,7 +82,7 @@ public enum TestContext: Equatable, Sendable {
 }
 
 extension TestContext.Testing {
-  fileprivate init(id: AnyHashable) {
-    self.init(test: Test(id: Test.ID(rawValue: id)))
+  fileprivate init(id: AnyHashable, traits: [any Sendable]) {
+    self.init(test: Test(id: Test.ID(rawValue: id), traits: traits))
   }
 }

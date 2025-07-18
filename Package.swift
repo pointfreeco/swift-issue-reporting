@@ -22,7 +22,13 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "IssueReporting"
+      name: "IssueReportingPackageSupport"
+    ),
+    .target(
+      name: "IssueReporting",
+      dependencies: [
+        "IssueReportingPackageSupport"
+      ]
     ),
     .testTarget(
       name: "IssueReportingTests",
@@ -38,7 +44,10 @@ let package = Package(
       ]
     ),
     .target(
-      name: "IssueReportingTestSupport"
+      name: "IssueReportingTestSupport",
+      dependencies: [
+        "IssueReportingPackageSupport"
+      ]
     ),
     .target(
       name: "XCTestDynamicOverlay",
