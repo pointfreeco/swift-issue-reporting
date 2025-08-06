@@ -42,7 +42,8 @@
       withKnownIssue {
         reportIssue(Failure(), "Something went wrong")
       } matching: { issue in
-        issue.description == "Caught error: Failure()\(issueDescriptionSuffix): Something went wrong"
+        issue.description
+          == "Caught error: Failure()\(issueDescriptionSuffix): Something went wrong"
       }
     }
 
@@ -93,7 +94,8 @@
         withExpectedIssue("This didn't fail") {
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
+        issue.description
+          == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
       }
     }
 
@@ -103,7 +105,8 @@
           await Task.yield()
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
+        issue.description
+          == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
       }
     }
 
