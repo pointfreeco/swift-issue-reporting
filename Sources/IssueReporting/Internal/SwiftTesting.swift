@@ -16,24 +16,49 @@ func _recordIssue(
   guard let function = function(for: "$s25IssueReportingTestSupport07_recordA0ypyF")
   else {
     #if DEBUG && canImport(Darwin)
-      guard
-        let record = unsafeBitCast(
-          symbol: "$s7Testing5IssueV6record_14sourceLocationAcA7CommentVSg_AA06SourceE0VtFZ",
-          in: "Testing",
-          to: (@convention(thin) (Any?, SourceLocation) -> Issue).self
-        )
-      else { return }
+      #if compiler(>=6.2)
+        guard
+          let record = unsafeBitCast(
+            symbol: """
+              $s7Testing5IssueV6record_8severity14sourceLocationAcA7CommentVSg_AC8SeverityOAA06Sour\
+              ceF0VtFZ
+              """,
+            in: "Testing",
+            to: (@convention(thin) (Any?, Any, SourceLocation) -> Issue).self
+          )
+        else { return }
 
-      var comment: Any?
-      if let message {
-        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-        c.rawValue = message
-        comment = c
-      }
-      _ = record(
-        comment,
-        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
-      )
+        var comment: Any?
+        if let message {
+          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+          c.rawValue = message
+          comment = c
+        }
+        _ = record(
+          comment,
+          Issue.Severity.error,  // TODO: Support other severities?
+          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+        )
+      #else
+        guard
+          let record = unsafeBitCast(
+            symbol: "$s7Testing5IssueV6record_14sourceLocationAcA7CommentVSg_AA06SourceE0VtFZ",
+            in: "Testing",
+            to: (@convention(thin) (Any?, SourceLocation) -> Issue).self
+          )
+        else { return }
+
+        var comment: Any?
+        if let message {
+          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
+          c.rawValue = message
+          comment = c
+        }
+        _ = record(
+          comment,
+          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+        )
+      #endif
     #else
       printError(
         """
@@ -188,7 +213,7 @@ func _withKnownIssue(
           let withKnownIssue = unsafeBitCast(
             symbol: """
               $s7Testing14withKnownIssue_14isIntermittent9isolation14sourceLocation_yAA7CommentVSg_\
-              SbScA_pSgYiAA06SourceI0VyyYaKXEtYaF
+              SbScA_pSgYiAA06SourceI0VyyYaKXEtYaFTu
               """,
             in: "Testing",
             to: (@convention(thin) (
@@ -350,7 +375,9 @@ func _currentTest() -> _Test? {
         var value: __Expression
       }
       indirect case functionCall(
-        value: __Expression?, functionName: String, arguments: [FunctionCallArgument]
+        value: __Expression?,
+        functionName: String,
+        arguments: [FunctionCallArgument]
       )
       indirect case propertyAccess(value: __Expression, keyPath: __Expression)
       indirect case negation(_ expression: __Expression, isParenthetical: Bool)
@@ -407,8 +434,12 @@ func _currentTest() -> _Test? {
     enum Kind: Sendable {
       case unconditional
       indirect case expectationFailed(_ expectation: Expectation)
-      indirect case confirmationMiscounted(actual: Int, expected: Int)
-      indirect case confirmationOutOfRange(actual: Int, expected: any ExpectedCount)
+      #if compiler(>=6.2)
+        indirect case confirmationMiscounted(actual: Int, expected: any RangeExpression & Sendable)
+      #else
+        indirect case confirmationMiscounted(actual: Int, expected: Int)
+        indirect case confirmationOutOfRange(actual: Int, expected: any ExpectedCount)
+      #endif
       indirect case errorCaught(_ error: any Error)
       indirect case timeLimitExceeded(timeLimitComponents: (seconds: Int64, attoseconds: Int64))
       case knownIssueNotRecorded
@@ -416,8 +447,21 @@ func _currentTest() -> _Test? {
       case system
     }
     var kind: Kind
+    #if compiler(>=6.2)
+      enum Severity: Sendable {
+        case warning
+        case error
+      }
+      var severity: Severity
+    #endif
     var comments: [Comment]
     var sourceContext: SourceContext
+    #if compiler(>=6.2)
+      struct KnownIssueContext: Sendable {
+        public var comment: Comment?
+      }
+      var knownIssueContext: KnownIssueContext? = nil
+    #endif
   }
 
   private struct SourceContext: Sendable {
@@ -523,7 +567,7 @@ func _currentTest() -> _Test? {
       > = LockIsolated([:])
     var fullyQualifiedNameComponents: [String] {
       switch _kind {
-      case let .type(type):
+      case .type(let type):
         if let cachedResult = Self
           ._fullyQualifiedNameComponentsCache.withLock({ $0[ObjectIdentifier(type)] })
         {
@@ -541,7 +585,7 @@ func _currentTest() -> _Test? {
         }
         return result
 
-      case let .nameOnly(fullyQualifiedComponents, _, _):
+      case .nameOnly(let fullyQualifiedComponents, _, _):
         return fullyQualifiedComponents
       }
     }

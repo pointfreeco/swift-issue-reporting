@@ -15,7 +15,7 @@
         model.callback(42)
       } matching: { issue in
         issue.description == """
-          Issue recorded: Unimplemented …
+          Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -37,7 +37,7 @@
         model.callback()
       } matching: { issue in
         issue.description == """
-          Issue recorded: Unimplemented …
+          Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -59,7 +59,7 @@
         _ = model.callback()
       } matching: { issue in
         issue.description == """
-          Issue recorded: Unimplemented …
+          Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -81,7 +81,7 @@
         _ = try model.callback()
       } matching: { issue in
         issue.description == """
-          Issue recorded: Unimplemented …
+          Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
             Defined in 'Model' at:
               IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -90,7 +90,7 @@
               ()
           """
           || issue.description == """
-            Caught error: UnimplementedFailure(description: "")
+            Caught error: UnimplementedFailure(description: "")\(issueDescriptionSuffix)
             """
       }
     }
@@ -107,7 +107,7 @@
           _ = try model.callback()
         } matching: { issue in
           issue.description == """
-            Issue recorded: Unimplemented …
+            Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
               Defined in 'Model' at:
                 IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -118,7 +118,7 @@
         }
       } matching: { issue in
         issue.description == """
-          Caught error: UnimplementedFailure(description: "")
+          Caught error: UnimplementedFailure(description: "")\(issueDescriptionSuffix)
           """
       }
     }
@@ -136,7 +136,7 @@
           _ = try model.callback()
         } matching: { issue in
           issue.description == """
-            Issue recorded: Unimplemented …
+            Issue recorded\(issueDescriptionSuffix): Unimplemented …
 
               Defined in 'Model' at:
                 IssueReportingTests/UnimplementedTests.swift:\(model.line)
@@ -147,7 +147,7 @@
         }
       } matching: { issue in
         issue.description == """
-          Caught error: UnimplementedFailure(description: "")
+          Caught error: UnimplementedFailure(description: "")\(issueDescriptionSuffix)
           """
       }
     }

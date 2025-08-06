@@ -10,7 +10,7 @@
           throw SomeError()
         }
       } matching: { issue in
-        issue.description == "Caught error: SomeError()"
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix)"
       }
 
       withKnownIssue {
@@ -18,7 +18,7 @@
           throw SomeError()
         }
       } matching: { issue in
-        issue.description == "Caught error: SomeError(): Failed"
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix): Failed"
       }
     }
 
@@ -28,7 +28,7 @@
           throw SomeError()
         }
       } matching: { issue in
-        issue.description == "Caught error: SomeError()"
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix)"
       }
 
       await withKnownIssue {
@@ -36,20 +36,22 @@
           throw SomeError()
         }
       } matching: { issue in
-        issue.description == "Caught error: SomeError(): Failed"
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix): Failed"
       }
     }
 
-    @MainActor
-    @Test func isolation() async {
-      await withKnownIssue {
-        await withErrorReporting { () async throws in
-          throw SomeError()
+    #if compiler(<6.2)
+      @MainActor
+      @Test func isolation() async {
+        await withKnownIssue {
+          await withErrorReporting { () async throws in
+            throw SomeError()
+          }
+        } matching: { issue in
+          issue.description == "Caught error: SomeError()"
         }
-      } matching: { issue in
-        issue.description == "Caught error: SomeError()"
       }
-    }
+    #endif
   }
 
   private struct SomeError: Error {}

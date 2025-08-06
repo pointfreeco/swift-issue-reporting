@@ -17,7 +17,7 @@
       withKnownIssue {
         reportIssue()
       } matching: { issue in
-        issue.description == "Issue recorded"
+        issue.description == "Issue recorded\(issueDescriptionSuffix)"
       }
     }
 
@@ -26,7 +26,7 @@
       withKnownIssue {
         reportIssue(Failure())
       } matching: { issue in
-        issue.description == "Caught error: Failure()"
+        issue.description == "Caught error: Failure()\(issueDescriptionSuffix)"
       }
     }
 
@@ -34,7 +34,7 @@
       withKnownIssue {
         reportIssue("Something went wrong")
       } matching: { issue in
-        issue.description == "Issue recorded: Something went wrong"
+        issue.description == "Issue recorded\(issueDescriptionSuffix): Something went wrong"
       }
     }
 
@@ -42,7 +42,7 @@
       withKnownIssue {
         reportIssue(Failure(), "Something went wrong")
       } matching: { issue in
-        issue.description == "Caught error: Failure(): Something went wrong"
+        issue.description == "Caught error: Failure()\(issueDescriptionSuffix): Something went wrong"
       }
     }
 
@@ -74,7 +74,7 @@
         withExpectedIssue {
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded"
+        issue.description == "Known issue was not recorded\(issueDescriptionSuffix)"
       }
     }
 
@@ -84,7 +84,7 @@
           await Task.yield()
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded"
+        issue.description == "Known issue was not recorded\(issueDescriptionSuffix)"
       }
     }
 
@@ -93,7 +93,7 @@
         withExpectedIssue("This didn't fail") {
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded: This didn't fail"
+        issue.description == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
       }
     }
 
@@ -103,7 +103,7 @@
           await Task.yield()
         }
       } matching: { issue in
-        issue.description == "Known issue was not recorded: This didn't fail"
+        issue.description == "Known issue was not recorded\(issueDescriptionSuffix): This didn't fail"
       }
     }
 
@@ -126,7 +126,7 @@
       } matching: { issue in
         let expectedReportingLine = #line - 4
         return issue.sourceLocation?.line == expectedReportingLine
-          && issue.description == "Issue recorded: Something went wrong"
+          && issue.description == "Issue recorded\(issueDescriptionSuffix): Something went wrong"
       }
     }
 
