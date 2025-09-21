@@ -1,170 +1,113 @@
-# XCTest Dynamic Overlay
+# Swift Issue Reporting
 
-[![CI](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fxctest-dynamic-overlay%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/xctest-dynamic-overlay)
+[![CI](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/pointfreeco/swift-issue-reporting/actions/workflows/ci.yml)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpointfreeco%2Fswift-issue-reporting%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting)
 
-Define XCTest assertion helpers directly in your application and library code.
+Report issues in your application and library code as Xcode runtime warnings, breakpoints, 
+assertions, and do so in a testable manner.
 
-## Motivation
+## Overview
 
-It is very common to write test support code for libraries and applications. This often comes in the form of little domain-specific functions or helpers that make it easier for users of your code to formulate assertions on behavior.
-
-Currently there are only two options for writing test support code:
-
-* Put it in a test target, but then you can't access it from multiple other test targets. For whatever reason test targets cannot be imported, and so the test support code will only be available in that one single test target.
-* Create a dedicated test support module that ships just the test-specific code. Then you can import this module into as many test targets as you want, while never letting the module interact with your regular, production code.
-
-Neither of these options is ideal. In the first case you cannot share your test support, and the second case will lead you to a proliferation of modules. For each feature you potentially need 3 modules: `MyFeature`, `MyFeatureTests` and `MyFeatureTestSupport`. SPM makes managing this quite easy, but it's still a burden.
-
-It would be far better if we could ship the test support code right along side or actual library or application code. After all, they are intimately related. You can even fence off the test support code in `#if DEBUG ... #endif` if you are worried about leaking test code into production.
-
-However, as soon as you add `import XCTest` to a source file in your application or a library it loads, the target becomes unbuildable:
-
-```swift
-import XCTest
-```
-
-> 🛑 ld: warning: Could not find or use auto-linked library 'XCTestSwiftSupport'
+> [!Important]
+> Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
+> to use this library you must depend on the old repository URL:
 >
-> 🛑 ld: warning: Could not find or use auto-linked framework 'XCTest'
+> ```
+> https://github.com/pointfreeco/xctest-dynamic-overlay
+> ```
 
-This is due to a confluence of problems, including test header search paths, linker issues, and more. XCTest just doesn't seem to be built to be loaded alongside your application or library code.
-
-## Solution
-
-That doesn't mean we can't try! XCTest Dynamic Overlay is a microlibrary that exposes an `XCTFail` function that can be invoked from anywhere. It dynamically loads XCTest functionality at runtime, which means your code will continue to compile just fine.
-
-```swift
-import XCTestDynamicOverlay // ✅
-```
-
-## Example
-
-A real world example of using this is in our library, the [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). That library vends a `TestStore` type whose purpose is to make it easy to write tests for your application's logic. The `TestStore` uses `XCTFail` internally, and so that forces us to move the code to a dedicated test support module. However, due to how SPM works you cannot currently have that module in the same package as the main module, and so we would be forced to extract it to a separate _repo_. By loading `XCTFail` dynamically we can keep the code where it belongs.
-
-As another example, let's say you have an analytics dependency that is used all over your application:
+This library provides robust tools for reporting issues in your application with a customizable
+degree of granularity and severity. In its most basic form you use the `reportIssue` function
+anywhere in your application to flag an issue in your code, such as a code path that you think
+should never be executed:
 
 ```swift
-struct AnalyticsClient {
-  var track: (Event) -> Void
-
-  struct Event: Equatable {
-    var name: String
-    var properties: [String: String]
-  }
+guard let lastItem = items.last
+else {
+  reportIssue("'items' should never be empty.")
+  return 
 }
+…
 ```
 
-If you are disciplined about injecting dependencies, you probably have a lot of objects that take an analytics client as an argument (or maybe some other fancy form of DI):
+By default, this will trigger an unobtrusive, purple runtime warning when running your app in Xcode
+(simulator and device):
 
-```swift
-class LoginViewModel: ObservableObject {
-  ...
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning~dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning.png">
+  <img alt="A purple runtime warning in Xcode showing that an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/runtime-warning.png">
+</picture>
 
-  init(analytics: AnalyticsClient) {
-    ...
-  }
+This provides a very visual way of seeing when an issue has occurred in your application without
+stopping the app's execution or interrupting your workflow.
 
-  ...
-}
-```
+The `reportIssue` tool can also be customized to allow for other ways of reporting issues. It can be
+configured to trigger a breakpoint if you want to do some debugging when an issue is reported, or a
+precondition or fatal error if you want to truly stop execution. And you can create your own custom
+issue reporter to send issues to OSLog or an external server. 
 
-When testing this view model you will need to provide an analytics client. Typically this means you will construct some kind of "test" analytics client that buffers events into an array, rather than sending live events to a server, so that you can assert on what events were tracked during a test:
+Further, when running your code in a testing context (both Swift's native Testing framework as well
+as XCTest), all reported issues become _test failures_. This helps you get test coverage that
+problematic code paths are not executed, and makes it possible to build testing tools for libraries
+that ship in the same target as the library itself.
 
-```swift
-func testLogin() {
-  var events: [AnalyticsClient.Event] = []
-  let viewModel = LoginViewModel(
-    analytics: .test { events.append($0) }
-  )
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure~dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
+  <img alt="A test failure in Xcode where an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
+</picture>
 
-  ...
+Issue Reporting comes with a number of reporters, custom reporting functionality, and more. To learn
+about these features, see
+[Getting started](Sources/IssueReporting/Documentation.docc/Articles/GettingStarted.md).
 
-  XCTAssertEqual(events, [.init(name: "Login Success")])
-}
-```
+## Case studies
 
-This works really well, and it's a great way to get test coverage on something that is notoriously difficult to test.
+There are many popular libraries out there using Issue Reporting. To name a few:
 
-However, some tests may not use analytics at all. It would make the test suite stronger if the tests that don't use the client could prove that it's never used. This would mean when new events are tracked you could be instantly notified of which test cases need to be updated.
+  * [**Perception**](https://github.com/pointfreeco/swift-perception) is a back-port of Swift's
+    Observation framework that can be deployed all the way back to the iOS 13 generation of devices,
+    but requires a special SwiftUI view to observe changes to objects annotated with the macro. When
+    the library detects this view is missing, it uses Issue Reporting to warn developers with a
+    trace pointing to the view.
 
-One way to do this is to create an instance of the `AnalyticsClient` type that simply performs an `XCTFail` inside the `track` endpoint:
+  * [**Dependencies**](https://github.com/pointfreeco/swift-dependencies) is a general purpose
+    dependency injection library inspired by SwiftUI's environment. It uses Swift Issue Reporting to
+    notify users when they access dependencies without overridding them. This results in runtime
+    warnings when running in the simulator, and test failures when testing. It forces each test
+    to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
+    existing tests will fail until they account for it.
 
-```swift
-import XCTest
+  * [**Swift Navigation**](https://github.com/pointfreeco/swift-navigation) provides concise
+    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
+    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
 
-extension AnalyticsClient {
-  static let unimplemented = Self(
-    track: { _ in XCTFail("\(Self.self).track is unimplemented.") }
-  )
-}
-```
+  * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
+    comes with powerful testing tools that support both Swift Testing and XCTest out of the box
+    thanks to Swift Issue Reporting. In addition, the library is heavily instrumented with issue
+    reporting to help developers catch bugs in their code early.
 
-With this you can write a test that proves analytics are never tracked, and even better you don't have to worry about buffering events into an array anymore:
+  * [**Custom Dump**](https://github.com/pointfreeco/swift-custom-dump) is an improved version of
+    Swift's `dump` function, and a whole lot more. It provides well-formatted dumps of data types
+    that read like Swift code, as well as well-formatted diffs when data types are compared. It also
+    ships several test helpers powered by Swift Issue Reporting, including drop-in replacements for
+    `#expect(_ == _)` and `XCTAssertEqual` that render failures as concise diffs, as well as helpers
+    that allow you to assert against changes to data structures over time.
 
-```swift
-func testValidation() {
-  let viewModel = LoginViewModel(
-    analytics: .unimplemented
-  )
+  * [**Swift Clocks**](https://github.com/pointfreeco/swift-clocks) and
+    [**Combine Schedulers**](https://github.com/pointfreeco/combine-schedulers) are sibling packages
+    that use issue reporting to drive their "test" and "unimplemented" clocks and schedulers. "Test" 
+    clocks/schedulers allow you to _control time_ in tests, and will emit failures when expectations
+    aren't met. "Unimplemented" clocks/schedulers record unexpected usage as issues.
 
-  ...
-}
-```
+Have another case study to share? [Let us know!](edit/main/README.md)
 
-However, you cannot ship this code with the target that defines `AnalyticsClient`. You either need to extract it out to a test support module (which means `AnalyticsClient` must also be extracted), or the code must be confined to a test target and thus not shareable.
+## Documentation 
 
-However, with XCTest Dynamic Overlay we can have our cake and eat it too 😋. We can define both the client type and the unimplemented instance right next to each in application code without needing to extract out needless modules or targets:
-
-```swift
-struct AnalyticsClient {
-  var track: (Event) -> Void
-
-  struct Event: Equatable {
-    var name: String
-    var properties: [String: String]
-  }
-}
-
-import XCTestDynamicOverlay
-
-extension AnalyticsClient {
-  static let unimplemented = Self(
-    track: { _ in XCTFail("\(Self.self).track is unimplemented.") }
-  )
-}
-```
-
-XCTest Dynamic Overlay also comes with a helper that simplifies this exact pattern: `XCTUnimplemented`. It creates failing closures for you:
-
-```swift
-extension AnalyticsClient {
-  static let unimplemented = Self(
-    track: XCTUnimplemented("\(Self.self).track")
-  )
-}
-```
-
-And it can simplify the work of more complex dependency endpoints, which can throw or need to return a value:
-
-```swift
-struct AppDependencies {
-  var date: () -> Date = Date.init,
-  var fetchUser: (User.ID) async throws -> User,
-  var uuid: () -> UUID = UUID.init
-}
-
-extension AppDependencies {
-  static let unimplemented = Self(
-    date: XCTUnimplemented("\(Self.self).date", placeholder: Date()),
-    fetchUser: XCTUnimplemented("\(Self.self).fetchUser"),
-    uuid: XCTUnimplemented("\(Self.self).uuid", placeholder: UUID())
-  )
-}
-```
-
-The above `placeholder` parameters can be left off, but will fatal error when the endpoint is called.
+Full documentation can be found
+[here](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting/main/documentation).
 
 ## License
 

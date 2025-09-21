@@ -1,9 +1,43 @@
+import Foundation
 import XCTestDynamicOverlay
 
 func MyXCTFail(_ message: String) {
   XCTFail(message)
 }
 
+#if canImport(ObjectiveC)
+  func MyXCTExpectFailure(
+    _ failureReason: String,
+    enabled: Bool = true,
+    strict: Bool = true,
+    failingBlock: () -> Void,
+    issueMatcher: ((_XCTIssue) -> Bool)? = nil
+  ) {
+    XCTExpectFailure(
+      failureReason,
+      enabled: enabled,
+      strict: strict,
+      failingBlock: failingBlock,
+      issueMatcher: issueMatcher
+    )
+  }
+
+  func MyXCTExpectFailure(
+    _ failureReason: String,
+    enabled: Bool = true,
+    strict: Bool = true,
+    issueMatcher: ((_XCTIssue) -> Bool)? = nil
+  ) {
+    XCTExpectFailure(
+      failureReason,
+      enabled: enabled,
+      strict: strict,
+      issueMatcher: issueMatcher
+    )
+  }
+#endif
+
+@available(*, deprecated)
 struct Client {
   var p00: () -> Int
   var p01: () throws -> Int
@@ -30,32 +64,57 @@ struct Client {
   var p22: (Int, Int, Int, Int, Int) async -> Int
   var p23: (Int, Int, Int, Int, Int) async throws -> Int
 
-  static var unimplemented: Self {
+  static var testValue: Self {
     Self(
-      p00: XCTUnimplemented("\(Self.self).p00"),
-      p01: XCTUnimplemented("\(Self.self).p01"),
-      p02: XCTUnimplemented("\(Self.self).p02"),
-      p03: XCTUnimplemented("\(Self.self).p03"),
-      p04: XCTUnimplemented("\(Self.self).p04"),
-      p05: XCTUnimplemented("\(Self.self).p05"),
-      p06: XCTUnimplemented("\(Self.self).p06"),
-      p07: XCTUnimplemented("\(Self.self).p07"),
-      p08: XCTUnimplemented("\(Self.self).p08"),
-      p09: XCTUnimplemented("\(Self.self).p09"),
-      p10: XCTUnimplemented("\(Self.self).p10"),
-      p11: XCTUnimplemented("\(Self.self).p11"),
-      p12: XCTUnimplemented("\(Self.self).p12"),
-      p13: XCTUnimplemented("\(Self.self).p13"),
-      p14: XCTUnimplemented("\(Self.self).p14"),
-      p15: XCTUnimplemented("\(Self.self).p15"),
-      p16: XCTUnimplemented("\(Self.self).p16"),
-      p17: XCTUnimplemented("\(Self.self).p17"),
-      p18: XCTUnimplemented("\(Self.self).p18"),
-      p19: XCTUnimplemented("\(Self.self).p19"),
-      p20: XCTUnimplemented("\(Self.self).p20"),
-      p21: XCTUnimplemented("\(Self.self).p21"),
-      p22: XCTUnimplemented("\(Self.self).p22"),
-      p23: XCTUnimplemented("\(Self.self).p23")
+      p00: unimplemented("\(Self.self).p00"),
+      p01: unimplemented("\(Self.self).p01"),
+      p02: unimplemented("\(Self.self).p02"),
+      p03: unimplemented("\(Self.self).p03"),
+      p04: unimplemented("\(Self.self).p04"),
+      p05: unimplemented("\(Self.self).p05"),
+      p06: unimplemented("\(Self.self).p06"),
+      p07: unimplemented("\(Self.self).p07"),
+      p08: unimplemented("\(Self.self).p08"),
+      p09: unimplemented("\(Self.self).p09"),
+      p10: unimplemented("\(Self.self).p10"),
+      p11: unimplemented("\(Self.self).p11"),
+      p12: unimplemented("\(Self.self).p12"),
+      p13: unimplemented("\(Self.self).p13"),
+      p14: unimplemented("\(Self.self).p14"),
+      p15: unimplemented("\(Self.self).p15"),
+      p16: unimplemented("\(Self.self).p16"),
+      p17: unimplemented("\(Self.self).p17"),
+      p18: unimplemented("\(Self.self).p18"),
+      p19: unimplemented("\(Self.self).p19"),
+      p20: unimplemented("\(Self.self).p20"),
+      p21: unimplemented("\(Self.self).p21"),
+      p22: unimplemented("\(Self.self).p22"),
+      p23: unimplemented("\(Self.self).p23")
     )
   }
+}
+
+struct User { let id: UUID }
+
+@MainActor let f00: () -> Int = unimplemented("f00", placeholder: 42)
+@MainActor let f01: (String) -> Int = unimplemented("f01", placeholder: 42)
+@MainActor let f02: (String, Int) -> Int = unimplemented("f02", placeholder: 42)
+@MainActor let f03: (String, Int, Double) -> Int = unimplemented("f03", placeholder: 42)
+@MainActor let f04: (String, Int, Double, [Int]) -> Int = unimplemented("f04", placeholder: 42)
+@MainActor let f05: (String, Int, Double, [Int], User) -> Int = unimplemented(
+  "f05", placeholder: 42)
+
+@available(*, deprecated)
+@MainActor let fm00: () -> Int = unimplemented("fm00")
+
+@available(*, deprecated)
+@MainActor let fm01: @MainActor () -> Int = unimplemented("fm01")
+
+private struct Autoclosing {
+  init(
+    _: @autoclosure () -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () async -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () throws -> Int = unimplemented(placeholder: 0),
+    _: @autoclosure () async throws -> Int = unimplemented(placeholder: 0)
+  ) async {}
 }
