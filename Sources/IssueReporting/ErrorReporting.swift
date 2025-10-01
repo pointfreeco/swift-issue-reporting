@@ -280,4 +280,29 @@ public func withErrorReporting<R>(
     }
   }
 }
+
+@_transparent
+@_unsafeInheritExecutor
+public func withErrorReporting<R>(
+  _ message: @autoclosure () -> String? = nil,
+  to reporters: [any IssueReporter]? = nil,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  line: UInt = #line,
+  column: UInt = #column,
+  // DO NOT FIX THE WHITESPACE IN THE NEXT LINE UNTIL 5.10 IS UNSUPPORTED
+  // https://github.com/swiftlang/swift/issues/79285
+  catching body: () async throws -> sending R?) async -> R? {
+    (
+      await withErrorReporting(
+        message(),
+        to: reporters,
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column,
+        catching: body
+      ) as R??
+    ) ?? nil
+  }
 #endif
