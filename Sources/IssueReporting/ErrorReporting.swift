@@ -77,45 +77,17 @@ public func withErrorReporting<R>(
   column: UInt = #column,
   catching body: () throws -> R?
 ) -> R? {
-  if let reporters {
-    return withIssueReporters(reporters) {
-      do {
-        if let body = try body() {
-          return body
-        } else {
-          return nil
-        }
-      } catch {
-        reportIssue(
-          error,
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-        return nil
-      }
-    }
-  } else {
-    do {
-      if let body = try body() {
-        return body
-      } else {
-        return nil
-      }
-    } catch {
-      reportIssue(
-        error,
-        message(),
-        fileID: fileID,
-        filePath: filePath,
-        line: line,
-        column: column
-      )
-      return nil
-    }
-  }
+  (
+    withErrorReporting(
+      message(),
+      to: reporters,
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column,
+      catching: body
+    ) as R??
+  ) ?? nil
 }
 
 #if compiler(>=6)
@@ -200,46 +172,18 @@ public func withErrorReporting<R>(
   // DO NOT FIX THE WHITESPACE IN THE NEXT LINE UNTIL 5.10 IS UNSUPPORTED
   // https://github.com/swiftlang/swift/issues/79285
   catching body: () async throws -> sending R?) async -> R? {
-  if let reporters {
-    return await withIssueReporters(reporters) {
-      do {
-        if let body = try body() {
-          return body
-        } else {
-          return nil
-        }
-      } catch {
-        reportIssue(
-          error,
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-        return nil
-      }
-    }
-  } else {
-    do {
-      if let body = try body() {
-        return body
-      } else {
-        return nil
-      }
-    } catch {
-      reportIssue(
-        error,
+    (
+      await withErrorReporting(
         message(),
+        to: reporters,
         fileID: fileID,
         filePath: filePath,
         line: line,
-        column: column
-      )
-      return nil
-    }
+        column: column,
+        catching: body
+      ) as R??
+    ) ?? nil
   }
-}
 #else
   @_transparent
   @_unsafeInheritExecutor
