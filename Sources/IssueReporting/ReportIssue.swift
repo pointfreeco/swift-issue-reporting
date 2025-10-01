@@ -26,7 +26,7 @@
 ///   - filePath: The source `#filePath` associated with the issue.
 ///   - line: The source `#line` associated with the issue.
 ///   - column: The source `#column` associated with the issue.
-@_transparent
+//@_transparent
 public func reportIssue(
   _ message: @autoclosure () -> String? = nil,
   fileID: StaticString = #fileID,
@@ -66,24 +66,19 @@ public func reportIssue(
     }
     return
   }
-
-  switch context {
-  case .swiftTesting:
-    _recordIssue(
-      message: message(),
-      fileID: "\(fileID)",
-      filePath: "\(filePath)",
-      line: Int(line),
-      column: Int(column)
-    )
-  case .xcTest:
-    _XCTFail(
-      message().withAppHostWarningIfNeeded() ?? "",
-      file: filePath,
-      line: line
-    )
-  @unknown default: break
-  }
+  
+  _recordIssue(
+    message: message(),
+    fileID: "\(fileID)",
+    filePath: "\(filePath)",
+    line: Int(line),
+    column: Int(column)
+  )
+  _XCTFail(
+    message().withAppHostWarningIfNeeded() ?? "",
+    file: filePath,
+    line: line
+  )
 }
 
 /// Report a caught error.
@@ -98,7 +93,7 @@ public func reportIssue(
 ///   - filePath: The source `#filePath` associated with the issue.
 ///   - line: The source `#line` associated with the issue.
 ///   - column: The source `#column` associated with the issue.
-@_transparent
+//@_transparent
 public func reportIssue(
   _ error: any Error,
   _ message: @autoclosure () -> String? = nil,
