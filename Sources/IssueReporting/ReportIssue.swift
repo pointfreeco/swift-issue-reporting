@@ -40,7 +40,7 @@ public func reportIssue(
     IssueContext.current?.line ?? line,
     IssueContext.current?.column ?? column
   )
-  guard let context = TestContext.current else {
+  guard TestContext.current != nil else {
     guard !isTesting else { return }
     if let observer = FailureObserver.current {
       observer.withLock { $0 += 1 }
@@ -66,24 +66,18 @@ public func reportIssue(
     }
     return
   }
-
-  switch context {
-  case .swiftTesting:
-    _recordIssue(
-      message: message(),
-      fileID: "\(fileID)",
-      filePath: "\(filePath)",
-      line: Int(line),
-      column: Int(column)
-    )
-  case .xcTest:
-    _XCTFail(
-      message().withAppHostWarningIfNeeded() ?? "",
-      file: filePath,
-      line: line
-    )
-  @unknown default: break
-  }
+  _recordIssue(
+    message: message(),
+    fileID: "\(fileID)",
+    filePath: "\(filePath)",
+    line: Int(line),
+    column: Int(column)
+  )
+  _XCTFail(
+    message().withAppHostWarningIfNeeded() ?? "",
+    file: filePath,
+    line: line
+  )
 }
 
 /// Report a caught error.
