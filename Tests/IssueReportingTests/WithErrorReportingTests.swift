@@ -40,6 +40,28 @@
       }
     }
 
+    @Test func squashOptionalSync() async {
+      withKnownIssue {
+        let _: Int? = withErrorReporting { () -> Int? in
+          throw SomeError()
+        }
+      } matching: { issue in
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix)"
+      }
+    }
+
+
+    @Test func squashOptionalAsync() async {
+      await withKnownIssue {
+        let _: Int? = await withErrorReporting { () -> Int? in
+          await Task.yield()
+          throw SomeError()
+        }
+      } matching: { issue in
+        issue.description == "Caught error: SomeError()\(issueDescriptionSuffix)"
+      }
+    }
+
     #if compiler(<6.2)
       @MainActor
       @Test func isolation() async {
