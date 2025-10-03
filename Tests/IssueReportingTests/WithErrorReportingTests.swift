@@ -50,7 +50,6 @@
       }
     }
 
-
     @Test func squashOptionalAsync() async {
       await withKnownIssue {
         let _: Int? = await withErrorReporting { () -> Int? in
