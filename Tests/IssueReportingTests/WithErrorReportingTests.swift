@@ -61,6 +61,13 @@
       }
     }
 
+    @Test func cancellation() async {
+      await withErrorReporting {
+        await Task.yield()
+        throw CancellationError()
+      }
+    }
+
     #if compiler(<6.2)
       @MainActor
       @Test func isolation() async {
