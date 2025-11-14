@@ -8,6 +8,9 @@ extension IssueReporter where Self == _DefaultReporter {
   public static var runtimeWarning: Self { Self() }
 }
 
+@available(*, unavailable, renamed: "_DefaultReporter")
+public typealias _RuntimeWarningReporter = _DefaultReporter
+
 // NB: Deprecated after 1.2.2
 
 #if canImport(Darwin)
