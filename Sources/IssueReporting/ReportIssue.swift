@@ -34,50 +34,35 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  guard !IssueReporters.current.isEmpty else { return }
   let (fileID, filePath, line, column) = (
     IssueContext.current?.fileID ?? fileID,
     IssueContext.current?.filePath ?? filePath,
     IssueContext.current?.line ?? line,
     IssueContext.current?.column ?? column
   )
-  guard TestContext.current != nil else {
-    guard !isTesting else { return }
-    if let observer = FailureObserver.current {
-      observer.withLock { $0 += 1 }
-      for reporter in IssueReporters.current {
-        reporter.expectIssue(
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-      }
-    } else {
-      for reporter in IssueReporters.current {
-        reporter.reportIssue(
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-      }
+  if let observer = FailureObserver.current {
+    observer.withLock { $0 += 1 }
+    for reporter in IssueReporters.current {
+      reporter.expectIssue(
+        message(),
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
     }
-    return
+  } else {
+    for reporter in IssueReporters.current {
+      reporter.reportIssue(
+        message(),
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
+    }
   }
-  _recordIssue(
-    message: message(),
-    fileID: "\(fileID)",
-    filePath: "\(filePath)",
-    line: Int(line),
-    column: Int(column)
-  )
-  _XCTFail(
-    message().withAppHostWarningIfNeeded() ?? "",
-    file: filePath,
-    line: line
-  )
 }
 
 /// Report a caught error.
@@ -101,57 +86,35 @@ public func reportIssue(
   line: UInt = #line,
   column: UInt = #column
 ) {
+  guard !IssueReporters.current.isEmpty else { return }
   let (fileID, filePath, line, column) = (
     IssueContext.current?.fileID ?? fileID,
     IssueContext.current?.filePath ?? filePath,
     IssueContext.current?.line ?? line,
     IssueContext.current?.column ?? column
   )
-  guard let context = TestContext.current else {
-    guard !isTesting else { return }
-    if let observer = FailureObserver.current {
-      observer.withLock { $0 += 1 }
-      for reporter in IssueReporters.current {
-        reporter.expectIssue(
-          error,
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-      }
-    } else {
-      for reporter in IssueReporters.current {
-        reporter.reportIssue(
-          error,
-          message(),
-          fileID: fileID,
-          filePath: filePath,
-          line: line,
-          column: column
-        )
-      }
+  if let observer = FailureObserver.current {
+    observer.withLock { $0 += 1 }
+    for reporter in IssueReporters.current {
+      reporter.expectIssue(
+        error,
+        message(),
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
     }
-    return
-  }
-
-  switch context {
-  case .swiftTesting:
-    _recordError(
-      error: error,
-      message: message(),
-      fileID: "\(fileID)",
-      filePath: "\(filePath)",
-      line: Int(line),
-      column: Int(column)
-    )
-  case .xcTest:
-    _XCTFail(
-      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
-      file: filePath,
-      line: line
-    )
-  @unknown default: break
+  } else {
+    for reporter in IssueReporters.current {
+      reporter.reportIssue(
+        error,
+        message(),
+        fileID: fileID,
+        filePath: filePath,
+        line: line,
+        column: column
+      )
+    }
   }
 }

@@ -4,25 +4,25 @@ import Foundation
   import os
 #endif
 
-extension IssueReporter where Self == _RuntimeWarningReporter {
+extension IssueReporter where Self == _DefaultReporter {
   /// An issue reporter that emits "purple" runtime warnings to Xcode and logs fault-level messages
   /// to the console.
   ///
   /// This is the default issue reporter. On non-Apple platforms it logs messages to `stderr`.
+  /// During test runs it emits test failures, instead.
   ///
   /// If this issue reporter receives an expected issue, it will log an info-level message to the
   /// console, instead.
   #if canImport(Darwin)
     @_transparent
   #endif
-  public static var runtimeWarning: Self { Self() }
+  public static var `default`: Self { Self() }
 }
 
-/// A type representing an issue reporter that emits "purple" runtime warnings to Xcode and logs
-/// fault-level messages to the console.
+/// A type representing an issue reporter that emits "purple" runtime warnings and test failures.
 ///
 /// Use ``IssueReporter/runtimeWarning`` to create one of these values.
-public struct _RuntimeWarningReporter: IssueReporter {
+public struct _DefaultReporter: IssueReporter {
   #if canImport(os)
     @UncheckedSendable
     #if canImport(Darwin)
@@ -65,29 +65,54 @@ public struct _RuntimeWarningReporter: IssueReporter {
     line: UInt,
     column: UInt
   ) {
-    #if canImport(os)
-      guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
-      else {
-        print("🟣 \(fileID):\(line): \(message() ?? "")")
-        return
-      }
-      let moduleName = String(
-        Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
+    guard !isTesting else {
+      _recordIssue(
+        message: message(),
+        fileID: "\(fileID)",
+        filePath: "\(filePath)",
+        line: Int(line),
+        column: Int(column)
       )
-      var message = message() ?? ""
-      if message.isEmpty {
-        message = "Issue reported"
-      }
-      os_log(
-        .fault,
-        dso: dso,
-        log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
-        "%@",
-        "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
+      _XCTFail(
+        message().withAppHostWarningIfNeeded() ?? "",
+        file: filePath,
+        line: line
       )
-    #else
-      printError("\(fileID):\(line): \(message() ?? "")")
-    #endif
+      return
+    }
+    runtimeWarn(message(), fileID: fileID, line: line)
+  }
+
+  @_transparent
+  public func reportIssue(
+    _ error: any Error,
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    guard !isTesting else {
+      _recordError(
+        error: error,
+        message: message(),
+        fileID: "\(fileID)",
+        filePath: "\(filePath)",
+        line: Int(line),
+        column: Int(column)
+      )
+      _XCTFail(
+        "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
+        file: filePath,
+        line: line
+      )
+      return
+    }
+    runtimeWarn(
+      "Caught error: \(error)\(message().map { ": \($0)" } ?? "")",
+      fileID: fileID,
+      line: line
+    )
   }
 
   public func expectIssue(
@@ -114,5 +139,38 @@ public struct _RuntimeWarningReporter: IssueReporter {
     #else
       print("\(fileID):\(line): \(message() ?? "")")
     #endif
+  }
+
+  @_transparent
+  @inlinable
+  func runtimeWarn(
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    line: UInt
+  ) {
+    #if canImport(os)
+      guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
+      else {
+        print("🟣 \(fileID):\(line): \(message() ?? "")")
+        return
+      }
+      let moduleName = String(
+        Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
+      )
+      var message = message() ?? ""
+      if message.isEmpty {
+        message = "Issue reported"
+      }
+      os_log(
+        .fault,
+        dso: dso,
+        log: OSLog(subsystem: "com.apple.runtime-issues", category: moduleName),
+        "%@",
+        "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
+      )
+    #else
+      printError("\(fileID):\(line): \(message() ?? "")")
+    #endif
+
   }
 }
