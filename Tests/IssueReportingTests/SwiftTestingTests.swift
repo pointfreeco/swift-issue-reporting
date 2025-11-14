@@ -162,6 +162,13 @@
         reportIssue("")
       }
     }
+
+    @Test
+    func emptyReporters() async throws {
+      withIssueReporters([]) {
+        reportIssue("This should not fail")
+      }
+    }
   }
 
   private struct Failure: Error {}
