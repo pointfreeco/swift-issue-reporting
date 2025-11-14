@@ -1,7 +1,3 @@
-// swift-format-ignore-file
-// Note: Whitespace changes are used to workaround compiler bug
-// https://github.com/swiftlang/swift/issues/79285
-
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
 /// - Parameters:
@@ -27,6 +23,7 @@ public func withErrorReporting<R>(
     return withIssueReporters(reporters) {
       do {
         return try body()
+      } catch is CancellationError {
       } catch {
         reportIssue(
           error,
@@ -36,12 +33,13 @@ public func withErrorReporting<R>(
           line: line,
           column: column
         )
-        return nil
       }
+      return nil
     }
   } else {
     do {
       return try body()
+    } catch is CancellationError {
     } catch {
       reportIssue(
         error,
@@ -51,8 +49,8 @@ public func withErrorReporting<R>(
         line: line,
         column: column
       )
-      return nil
     }
+    return nil
   }
 }
 
@@ -110,13 +108,13 @@ public func withErrorReporting<R>(
     line: UInt = #line,
     column: UInt = #column,
     isolation: isolated (any Actor)? = #isolation,
-    // DO NOT FIX THE WHITESPACE IN THE NEXT LINE UNTIL 5.10 IS UNSUPPORTED
-    // https://github.com/swiftlang/swift/issues/79285
-    catching body: () async throws -> sending R) async -> R? {
+    catching body: () async throws -> sending R
+  ) async -> R? {
     if let reporters {
       return await withIssueReporters(reporters) {
         do {
           return try await body()
+        } catch is CancellationError {
         } catch {
           reportIssue(
             error,
@@ -126,12 +124,13 @@ public func withErrorReporting<R>(
             line: line,
             column: column
           )
-          return nil
         }
+        return nil
       }
     } else {
       do {
         return try await body()
+      } catch is CancellationError {
       } catch {
         reportIssue(
           error,
@@ -141,8 +140,8 @@ public func withErrorReporting<R>(
           line: line,
           column: column
         )
-        return nil
       }
+      return nil
     }
   }
 
@@ -167,8 +166,6 @@ public func withErrorReporting<R>(
     line: UInt = #line,
     column: UInt = #column,
     isolation: isolated (any Actor)? = #isolation,
-    // DO NOT FIX THE WHITESPACE IN THE NEXT LINE UNTIL 5.10 IS UNSUPPORTED
-    // https://github.com/swiftlang/swift/issues/79285
     catching body: () async throws -> sending R?
   ) async -> R? {
     (await withErrorReporting(
@@ -197,6 +194,7 @@ public func withErrorReporting<R>(
       return await withIssueReporters(reporters) {
         do {
           return try await body()
+        } catch is CancellationError {
         } catch {
           reportIssue(
             error,
@@ -206,12 +204,13 @@ public func withErrorReporting<R>(
             line: line,
             column: column
           )
-          return nil
         }
+        return nil
       }
     } else {
       do {
         return try await body()
+      } catch is CancellationError {
       } catch {
         reportIssue(
           error,
@@ -221,8 +220,8 @@ public func withErrorReporting<R>(
           line: line,
           column: column
         )
-        return nil
       }
+      return nil
     }
   }
 
