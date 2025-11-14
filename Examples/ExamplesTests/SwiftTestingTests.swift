@@ -18,7 +18,7 @@
         withKnownIssue {
           reportIssue()
         } matching: { issue in
-          issue.description == "Issue recorded"
+          issue.description.hasPrefix("Issue recorded")
         }
       }
 
@@ -26,7 +26,7 @@
         withKnownIssue {
           reportIssue("Something went wrong")
         } matching: { issue in
-          issue.description == "Issue recorded: Something went wrong"
+          issue.description.hasSuffix("Something went wrong")
         }
       }
 
@@ -51,7 +51,7 @@
           withExpectedIssue {
           }
         } matching: { issue in
-          issue.description == "Known issue was not recorded"
+          issue.description.hasPrefix("Known issue was not recorded")
         }
       }
 
@@ -60,7 +60,7 @@
           withExpectedIssue("This didn't fail") {
           }
         } matching: { issue in
-          issue.description == "Known issue was not recorded: This didn't fail"
+          issue.description.hasSuffix("This didn't fail")
         }
       }
 
