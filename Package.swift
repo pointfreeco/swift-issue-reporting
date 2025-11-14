@@ -1,9 +1,8 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 
 import PackageDescription
 
 let package = Package(
-  // NB: Keep this for backwards compatibility. Will rename to 'swift-issue-reporting' in 2.0.
   name: "xctest-dynamic-overlay",
   platforms: [
     .iOS(.v13),
@@ -60,7 +59,8 @@ let package = Package(
         "XCTestDynamicOverlay",
       ]
     ),
-  ]
+  ],
+  swiftLanguageModes: [.v6]
 )
 
 #if os(macOS)
