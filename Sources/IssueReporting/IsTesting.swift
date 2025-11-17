@@ -28,6 +28,7 @@
   extension ProcessInfo {
     fileprivate var isTesting: Bool {
       if environment.keys.contains("XCTestBundlePath") { return true }
+      if environment.keys.contains("XCTestBundleInjectPath") { return true }
       if environment.keys.contains("XCTestConfigurationFilePath") { return true }
       if environment.keys.contains("XCTestSessionIdentifier") { return true }
 

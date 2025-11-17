@@ -152,7 +152,7 @@ public enum IssueReporters {
     set { _current.withLock { $0 = newValue } }
   }
 
-  @TaskLocal fileprivate static var _current = LockIsolated<[any IssueReporter]>([.runtimeWarning])
+  @TaskLocal fileprivate static var _current = LockIsolated<[any IssueReporter]>([.default])
 }
 
 /// Overrides the task's issue reporters for the duration of the synchronous operation.
