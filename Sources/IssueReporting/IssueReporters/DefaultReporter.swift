@@ -66,15 +66,16 @@ public struct _DefaultReporter: IssueReporter {
     column: UInt
   ) {
     guard !isTesting else {
+      let message = message()
       _recordIssue(
-        message: message(),
+        message: message,
         fileID: "\(fileID)",
         filePath: "\(filePath)",
         line: Int(line),
         column: Int(column)
       )
       _XCTFail(
-        message().withAppHostWarningIfNeeded() ?? "",
+        message.withAppHostWarningIfNeeded() ?? "",
         file: filePath,
         line: line
       )
