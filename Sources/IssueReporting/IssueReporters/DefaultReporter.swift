@@ -67,18 +67,37 @@ public struct _DefaultReporter: IssueReporter {
   ) {
     guard !isTesting else {
       let message = message()
-      _recordIssue(
-        message: message,
-        fileID: "\(fileID)",
-        filePath: "\(filePath)",
-        line: Int(line),
-        column: Int(column)
-      )
-      _XCTFail(
-        message.withAppHostWarningIfNeeded() ?? "",
-        file: filePath,
-        line: line
-      )
+      #if compiler(>=6.3)
+        switch TestContext.current {
+        case .swiftTesting, nil:
+          _recordIssue(
+            message: message,
+            fileID: "\(fileID)",
+            filePath: "\(filePath)",
+            line: Int(line),
+            column: Int(column)
+          )
+        case .xcTest:
+          _XCTFail(
+            message.withAppHostWarningIfNeeded() ?? "",
+            file: filePath,
+            line: line
+          )
+        }
+      #else
+        _recordIssue(
+          message: message,
+          fileID: "\(fileID)",
+          filePath: "\(filePath)",
+          line: Int(line),
+          column: Int(column)
+        )
+        _XCTFail(
+          message.withAppHostWarningIfNeeded() ?? "",
+          file: filePath,
+          line: line
+        )
+      #endif
       return
     }
     runtimeWarn(message(), fileID: fileID, line: line)
