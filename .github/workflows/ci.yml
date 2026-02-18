@@ -70,7 +70,7 @@ jobs:
           - '6.2'
     name: Linux
     runs-on: ubuntu-latest
-    container: swift:${{ swift-version }}
+    container: swift:${{ matrix.swift-version }}
     steps:
       - uses: actions/checkout@v5
       - name: Install dependencies
