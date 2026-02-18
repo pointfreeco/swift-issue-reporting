@@ -29,8 +29,8 @@
 /// }
 /// ```
 ///
-/// [withKnownIssue]: https://developer.apple.com/documentation/testing/withknownissue(_:isintermittent:fileid:filepath:line:column:_:)-30kgk
-/// [XCTExpectFailure]: https://developer.apple.com/documentation/xctest/3727246-xctexpectfailure/
+/// [withKnownIssue]: https://developer.apple.com/documentation/testing/withknownissue(_:isintermittent:sourcelocation:_:)
+/// [XCTExpectFailure]: https://developer.apple.com/documentation/xctest/xctexpectfailure(_:options:failingblock:)
 ///
 /// - Parameters:
 ///   - message: An optional message describing the expected issue.
@@ -117,15 +117,15 @@ public func withExpectedIssue(
   /// execution.
   ///
   /// An asynchronous version of
-  /// ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``.
+  /// ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``.
   ///
   /// > Warning: The asynchronous version of this function is incompatible with XCTest and will
   /// > unconditionally report an issue when used, instead.
   ///
   /// - Parameters:
   ///   - message: An optional message describing the expected issue.
-  ///   - isIntermittent: Whether or not the known expected occurs intermittently. If this argument is
-  ///     `true` and the expected issue does not occur, no secondary issue is recorded.
+  ///   - isIntermittent: Whether or not the known expected occurs intermittently. If this argument
+  ///     is `true` and the expected issue does not occur, no secondary issue is recorded.
   ///   - fileID: The source `#fileID` associated with the issue.
   ///   - filePath: The source `#filePath` associated with the issue.
   ///   - line: The source `#line` associated with the issue.

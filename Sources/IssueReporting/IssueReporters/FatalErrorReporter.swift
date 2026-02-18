@@ -11,6 +11,7 @@ extension IssueReporter where Self == _FatalErrorReporter {
 public struct _FatalErrorReporter: IssueReporter {
   public func reportIssue(
     _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,

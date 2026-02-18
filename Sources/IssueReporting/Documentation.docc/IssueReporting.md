@@ -59,8 +59,8 @@ that ship in the same target as the library itself.
 
 ### Reporting issues
 
-- ``reportIssue(_:fileID:filePath:line:column:)``
-- ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)-9pinm``
+- ``reportIssue(_:severity:fileID:filePath:line:column:)``
+- ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``
 - ``withErrorReporting(_:to:fileID:filePath:line:column:catching:)``
 
 ### Issue reporters
@@ -73,7 +73,7 @@ that ship in the same target as the library itself.
 
 - ``IssueReporter``
 - ``withIssueReporters(_:operation:)``
-- ``withIssueContext(fileID:filePath:line:column:operation:)-97lux``
+- ``withIssueContext(fileID:filePath:line:column:operation:)``
 - ``IssueReporters``
 
 ### Testing
@@ -83,4 +83,4 @@ that ship in the same target as the library itself.
 
 ### Unimplemented
 
-- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)-3hygi``
+- ``unimplemented(_:placeholder:fileID:filePath:function:line:column:)``

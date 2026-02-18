@@ -15,6 +15,7 @@
   public struct _BreakpointReporter: IssueReporter {
     public func reportIssue(
       _ message: @autoclosure () -> String?,
+      severity: IssueSeverity,
       fileID: StaticString,
       filePath: StaticString,
       line: UInt,

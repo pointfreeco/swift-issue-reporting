@@ -30,6 +30,23 @@
         }
       }
 
+      @Test func reportError_NoMessage() {
+        struct Oops: Error {}
+        withKnownIssue {
+          reportIssue(Oops())
+        }
+      }
+
+      #if compiler(>=6.2)
+        @Test func reportIssue_CustomSeverity() {
+          withKnownIssue {
+            reportIssue("Something went less wrong", severity: .warning)
+          } matching: { issue in
+            issue.description.hasSuffix("Something went less wrong")
+          }
+        }
+      #endif
+
       @Test func withExpectedIssue_reportIssue() {
         withExpectedIssue {
           reportIssue()

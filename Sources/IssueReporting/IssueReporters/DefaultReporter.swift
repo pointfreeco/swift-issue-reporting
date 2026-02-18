@@ -60,6 +60,7 @@ public struct _DefaultReporter: IssueReporter {
   @_transparent
   public func reportIssue(
     _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
@@ -72,6 +73,7 @@ public struct _DefaultReporter: IssueReporter {
         case .swiftTesting, nil:
           _recordIssue(
             message: message,
+            severity: severity,
             fileID: "\(fileID)",
             filePath: "\(filePath)",
             line: Int(line),
@@ -87,6 +89,7 @@ public struct _DefaultReporter: IssueReporter {
       #else
         _recordIssue(
           message: message,
+          severity: severity,
           fileID: "\(fileID)",
           filePath: "\(filePath)",
           line: Int(line),
