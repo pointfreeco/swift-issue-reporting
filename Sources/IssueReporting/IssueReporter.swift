@@ -1,5 +1,23 @@
 /// A type that can report issues.
 public protocol IssueReporter: Sendable {
+  /// Called when an issue is reported.
+  ///
+  /// - Parameters:
+  ///   - message: A message describing the issue.
+  ///   - severity: The severity of the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
+  func reportIssue(
+    _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
+
   /// Called when an error is caught.
   ///
   /// The default implementation of this conformance simply calls
@@ -54,27 +72,6 @@ public protocol IssueReporter: Sendable {
   func expectIssue(
     _ error: any Error,
     _ message: @autoclosure () -> String?,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  )
-
-  /// Called when an issue is reported.
-  ///
-  /// > Important: This requirement has been deprecated in favor of
-  /// > ``IssueReporter/reportIssue(_:severity:fileID:filePath:line:column:)``.
-  ///
-  /// - Parameters:
-  ///   - message: A message describing the issue.
-  ///   - severity: The severity of the issue.
-  ///   - fileID: The source `#fileID` associated with the issue.
-  ///   - filePath: The source `#filePath` associated with the issue.
-  ///   - line: The source `#line` associated with the issue.
-  ///   - column: The source `#column` associated with the issue.
-  func reportIssue(
-    _ message: @autoclosure () -> String?,
-    severity: IssueSeverity,
     fileID: StaticString,
     filePath: StaticString,
     line: UInt,
