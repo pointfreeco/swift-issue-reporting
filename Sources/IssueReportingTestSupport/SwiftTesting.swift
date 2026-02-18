@@ -16,7 +16,7 @@ private func __recordIssue(
 ) {
   #if canImport(Testing)
     let message = message == "" ? nil : message
-    #if compiler(>=6.2)
+    #if compiler(>=6.3)
       let issueSeverity: Issue.Severity = severity == 0 ? .warning : .error
       Issue.record(
         message.map(Comment.init(rawValue:)),
