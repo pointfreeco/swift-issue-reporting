@@ -87,19 +87,18 @@ func _recordError(
       if let message {
         comment = Comment(rawValue: message)
       }
-      let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+      let sourceLocation = SourceLocation(
+        fileID: fileID, _filePath: filePath, line: line, column: column)
 
       #if compiler(>=6.2)
-        if
-          let record = unsafeBitCast(
-            symbol: """
-              $s7Testing5IssueV6record__8severity14sourceLocationACs5Error_p_AA7CommentVSgAC8Severi\
-              tyOAA06SourceF0VtFZ
-              """,
-            in: "Testing",
-            to: (@convention(thin) (any Error, Any?, Any, SourceLocation) -> Issue).self
-          )
-        {
+        if let record = unsafeBitCast(
+          symbol: """
+            $s7Testing5IssueV6record__8severity14sourceLocationACs5Error_p_AA7CommentVSgAC8Severi\
+            tyOAA06SourceF0VtFZ
+            """,
+          in: "Testing",
+          to: (@convention(thin) (any Error, Any?, Any, SourceLocation) -> Issue).self
+        ) {
           _ = record(
             error,
             comment,
@@ -154,24 +153,23 @@ func _withKnownIssue(
       if let message {
         comment = Comment(rawValue: message)
       }
-      let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+      let sourceLocation = SourceLocation(
+        fileID: fileID, _filePath: filePath, line: line, column: column)
 
-      if
-        let withKnownIssue = unsafeBitCast(
-          symbol: """
-            $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
-            H0VyyKXEtF
-            """,
-          in: "Testing",
-          to: (@convention(thin) (
-            Any?,
-            Bool,
-            SourceLocation,
-            () throws -> Void
-          ) -> Void)
-          .self
-        )
-      {
+      if let withKnownIssue = unsafeBitCast(
+        symbol: """
+          $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
+          H0VyyKXEtF
+          """,
+        in: "Testing",
+        to: (@convention(thin) (
+          Any?,
+          Bool,
+          SourceLocation,
+          () throws -> Void
+        ) -> Void)
+        .self
+      ) {
         withKnownIssue(comment, isIntermittent, sourceLocation, body)
         return
       }
@@ -223,7 +221,8 @@ func _withKnownIssue(
         if let message {
           comment = Comment(rawValue: message)
         }
-        let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+        let sourceLocation = SourceLocation(
+          fileID: fileID, _filePath: filePath, line: line, column: column)
 
         guard
           let withKnownIssue = unsafeBitCast(
@@ -288,7 +287,8 @@ func _withKnownIssue(
         if let message {
           comment = Comment(rawValue: message)
         }
-        let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+        let sourceLocation = SourceLocation(
+          fileID: fileID, _filePath: filePath, line: line, column: column)
 
         guard
           let withKnownIssue = unsafeBitCast(
@@ -498,7 +498,8 @@ func _currentTest() -> _Test? {
     private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
     fileprivate enum TestCasesState: @unchecked Sendable {
       #if compiler(>=6.3)
-        case unevaluated(_ function: @Sendable () async throws -> any Sequence<Test.Case> & Sendable)
+        case unevaluated(
+          _ function: @Sendable () async throws -> any Sequence<Test.Case> & Sendable)
         case evaluated(_ testCases: any Sequence<Test.Case> & Sendable)
       #else
         case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
