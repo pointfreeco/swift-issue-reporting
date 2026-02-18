@@ -1,10 +1,6 @@
 import Foundation
 import IssueReportingPackageSupport
 
-#if canImport(Darwin)
-  import Darwin
-#endif
-
 #if canImport(WinSDK)
   import WinSDK
 #endif
@@ -358,9 +354,10 @@ func _currentTest() -> _Test? {
 }
 
 @usableFromInline
-func _isSwiftTestingContext() -> Bool {
-  let isSwiftTestingCallStack = Thread.callStackReturnAddresses.contains { address in
-    #if canImport(Darwin)
+func isSwiftTestingContext() -> Bool {
+  let isSwiftTestingCallStack: Bool
+  #if canImport(Darwin)
+    isSwiftTestingCallStack = Thread.callStackReturnAddresses.contains { address in
       guard let pointer = UnsafeRawPointer(bitPattern: UInt(truncating: address))
       else { return false }
 
@@ -380,10 +377,14 @@ func _isSwiftTestingContext() -> Bool {
       default:
         return false
       }
-    #else
-      return false
-    #endif
-  }
+    }
+  #else
+    isSwiftTestingCallStack = Thread.callStackSymbols.contains { symbol in
+      symbol.contains("$s7Testing")
+        || symbol.contains(" Testing.")
+        || symbol.contains("`Testing.")
+    }
+  #endif
 
   return (
     ProcessInfo.processInfo.arguments.contains("--testing-library")

@@ -32,13 +32,13 @@ public enum TestContext: Equatable, Sendable {
     if hasSwiftTestingSupport {
       if let currentTest = _currentTest() {
         return .swiftTesting(Testing(id: currentTest.id, traits: currentTest.traits))
-      } else if _isSwiftTestingContext() {
+      } else if isSwiftTestingContext() {
         // Swift Testing can execute helpers from tasks where `Test.current` is unavailable.
         return .swiftTesting(nil)
       } else {
         return .xcTest
       }
-    } else if _isSwiftTestingContext() {
+    } else if isSwiftTestingContext() {
       // This happens for targets that intentionally do not link IssueReportingTestSupport.
       return .swiftTesting(nil)
     } else {
