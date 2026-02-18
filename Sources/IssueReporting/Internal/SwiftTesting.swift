@@ -369,10 +369,17 @@ func _isSwiftTestingContext() -> Bool {
         let imagePathCString = info.dli_fname
       else { return false }
 
-      let imagePath = String(cString: imagePathCString).lowercased()
-      return imagePath.contains("/testing.framework/")
-        || imagePath.hasSuffix("/testing")
-        || imagePath.hasSuffix("/libtesting.dylib")
+      let imagePath = String(cString: imagePathCString)
+      let imagePathURL = URL(fileURLWithPath: imagePath)
+      if imagePathURL.pathComponents.contains("Testing.framework") {
+        return true
+      }
+      switch imagePathURL.lastPathComponent {
+      case "Testing", "libTesting.dylib":
+        return true
+      default:
+        return false
+      }
     #else
       return false
     #endif
