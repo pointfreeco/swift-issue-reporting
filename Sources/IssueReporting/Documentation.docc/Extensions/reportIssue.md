@@ -1,6 +1,10 @@
-# ``IssueReporting/reportIssue(_:fileID:filePath:line:column:)``
+# ``IssueReporting/reportIssue(_:severity:fileID:filePath:line:column:)``
 
 ## Topics
+
+### Severity
+
+- ``IssueSeverity``
 
 ### Reporting errors
 

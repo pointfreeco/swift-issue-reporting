@@ -1,25 +1,10 @@
 /// A type that can report issues.
 public protocol IssueReporter: Sendable {
-  /// Called when an issue is reported.
-  ///
-  /// - Parameters:
-  ///   - message: A message describing the issue.
-  ///   - fileID: The source `#fileID` associated with the issue.
-  ///   - filePath: The source `#filePath` associated with the issue.
-  ///   - line: The source `#line` associated with the issue.
-  ///   - column: The source `#column` associated with the issue.
-  func reportIssue(
-    _ message: @autoclosure () -> String?,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  )
-
   /// Called when an error is caught.
   ///
   /// The default implementation of this conformance simply calls
-  /// ``reportIssue(_:fileID:filePath:line:column:)`` with a description of the error.
+  /// ``reportIssue(_:severity:fileID:filePath:line:column:)`` with a description of the error and
+  /// `.error` severity.
   ///
   /// - Parameters:
   ///   - error: An error.
@@ -74,9 +59,67 @@ public protocol IssueReporter: Sendable {
     line: UInt,
     column: UInt
   )
+
+  /// Called when an issue is reported.
+  ///
+  /// > Important: This requirement has been deprecated in favor of
+  /// > ``IssueReporter/reportIssue(_:severity:fileID:filePath:line:column:)``.
+  ///
+  /// - Parameters:
+  ///   - message: A message describing the issue.
+  ///   - severity: The severity of the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
+  func reportIssue(
+    _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
+
+  /// Called when an issue is reported.
+  ///
+  /// > Important: This requirement has been deprecated in favor of
+  /// > ``IssueReporter/reportIssue(_:severity:fileID:filePath:line:column:)``.
+  ///
+  /// - Parameters:
+  ///   - message: A message describing the issue.
+  ///   - fileID: The source `#fileID` associated with the issue.
+  ///   - filePath: The source `#filePath` associated with the issue.
+  ///   - line: The source `#line` associated with the issue.
+  ///   - column: The source `#column` associated with the issue.
+  func reportIssue(
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  )
 }
 
 extension IssueReporter {
+  @_transparent
+  public func reportIssue(
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    reportIssue(
+      message(),
+      severity: .error,
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+  }
+
   @_transparent
   public func reportIssue(
     _ error: any Error,
@@ -88,6 +131,7 @@ extension IssueReporter {
   ) {
     reportIssue(
       "Caught error: \(error)\(message().map { ": \($0)" } ?? "")",
+      severity: .error,
       fileID: fileID,
       filePath: filePath,
       line: line,
@@ -146,7 +190,7 @@ public enum IssueReporters {
   /// Issue reporters are fed issues in order.
   ///
   /// To override the task's issue reporters for a scoped operation, prefer
-  /// ``withIssueReporters(_:operation:)-91179``.
+  /// ``withIssueReporters(_:operation:)``.
   public static var current: [any IssueReporter] {
     get { _current.withLock { $0 } }
     set { _current.withLock { $0 = newValue } }
@@ -186,7 +230,7 @@ public func withIssueReporters<R>(
 #if compiler(>=6)
   /// Overrides the task's issue reporters for the duration of the asynchronous operation.
   ///
-  /// An asynchronous version of ``withIssueReporters(_:operation:)-91179``.
+  /// An asynchronous version of ``withIssueReporters(_:operation:)``.
   ///
   /// - Parameters:
   ///   - reporters: Issue reporters to notify during the operation.

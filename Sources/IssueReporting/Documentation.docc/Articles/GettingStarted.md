@@ -76,10 +76,10 @@ The library comes with a variety of issue reporters that can be used right away:
   * ``IssueReporter/fatalError``: A fatal error is raised and execution of your app is permanently
     stopped.
 
-You an also create your own custom issue reporter by defining a type that conforms to the 
-``IssueReporter`` protocol. It has one requirement,
-``IssueReporter/reportIssue(_:fileID:filePath:line:column:)``, which you can implement to report
-issues in any way you want.
+You can create your own custom issue reporter by defining a type that conforms to the
+``IssueReporter`` protocol. Its primary requirement is
+``IssueReporter/reportIssue(_:severity:fileID:filePath:line:column:)``, which you can implement to
+report issues in any way you want.
 
 ## Overriding issue reporters
 
@@ -87,8 +87,7 @@ By default the library uses the ``IssueReporter/runtimeWarning`` reporter, but i
 override the reporters used. There are two primary ways:
 
   * You can temporarily override reporters for a lexical scope using
-    ``withIssueReporters(_:operation:)-91179``. For example, to turn off reporting entirely you can
-    do:
+    ``withIssueReporters(_:operation:)``. For example, to turn off reporting entirely you can do:
 
     ```swift
     withIssueReporters([]) {
@@ -205,7 +204,7 @@ the `onDelete` closure, which will subtly break your feature.
 
 The fix is to strike a balance between the restrictiveness of requiring the closure and the
 laxness of making it fully optional. By using the library's
-[`unimplemented`](<doc:unimplemented(_:fileID:filePath:function:line:column:)-1hsov>) tool we can
+[`unimplemented`](<doc:unimplemented(_:fileID:filePath:function:line:column:)>) tool we can
 mark the closure as unimplemented:
 
 ```swift

@@ -8,6 +8,7 @@ import IssueReportingPackageSupport
 @usableFromInline
 func _recordIssue(
   message: String?,
+  severity: IssueSeverity = .error,
   fileID: String = #fileID,
   filePath: String = #filePath,
   line: Int = #line,
@@ -32,9 +33,18 @@ func _recordIssue(
         if let message {
           comment = Comment(rawValue: message)
         }
+        let issueSeverity: Any
+        switch severity {
+        #if compiler(>=6.2)
+          case .warning:
+            issueSeverity = Issue.Severity.warning
+        #endif
+        case .error:
+          issueSeverity = Issue.Severity.error
+        }
         _ = record(
           comment,
-          Issue.Severity.error,  // TODO: Support other severities?
+          issueSeverity,
           SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
         )
       #else
@@ -67,6 +77,10 @@ func _recordIssue(
     return
   }
 
+  if let recordIssue = function as? @Sendable (String?, Int, String, String, Int, Int) -> Void {
+    recordIssue(message, severity.rawValue, fileID, filePath, line, column)
+    return
+  }
   let recordIssue = function as! @Sendable (String?, String, String, Int, Int) -> Void
   recordIssue(message, fileID, filePath, line, column)
 }
@@ -88,7 +102,11 @@ func _recordError(
         comment = Comment(rawValue: message)
       }
       let sourceLocation = SourceLocation(
-        fileID: fileID, _filePath: filePath, line: line, column: column)
+        fileID: fileID,
+        _filePath: filePath,
+        line: line,
+        column: column
+      )
 
       #if compiler(>=6.2)
         if let record = unsafeBitCast(
@@ -102,7 +120,7 @@ func _recordError(
           _ = record(
             error,
             comment,
-            Issue.Severity.error,  // TODO: Support other severities?
+            Issue.Severity.error,
             sourceLocation
           )
           return
@@ -154,7 +172,11 @@ func _withKnownIssue(
         comment = Comment(rawValue: message)
       }
       let sourceLocation = SourceLocation(
-        fileID: fileID, _filePath: filePath, line: line, column: column)
+        fileID: fileID,
+        _filePath: filePath,
+        line: line,
+        column: column
+      )
 
       if let withKnownIssue = unsafeBitCast(
         symbol: """
@@ -222,7 +244,11 @@ func _withKnownIssue(
           comment = Comment(rawValue: message)
         }
         let sourceLocation = SourceLocation(
-          fileID: fileID, _filePath: filePath, line: line, column: column)
+          fileID: fileID,
+          _filePath: filePath,
+          line: line,
+          column: column
+        )
 
         guard
           let withKnownIssue = unsafeBitCast(
@@ -288,7 +314,11 @@ func _withKnownIssue(
           comment = Comment(rawValue: message)
         }
         let sourceLocation = SourceLocation(
-          fileID: fileID, _filePath: filePath, line: line, column: column)
+          fileID: fileID,
+          _filePath: filePath,
+          line: line,
+          column: column
+        )
 
         guard
           let withKnownIssue = unsafeBitCast(
@@ -499,7 +529,8 @@ func _currentTest() -> _Test? {
     fileprivate enum TestCasesState: @unchecked Sendable {
       #if compiler(>=6.3)
         case unevaluated(
-          _ function: @Sendable () async throws -> any Sequence<Test.Case> & Sendable)
+          _ function: @Sendable () async throws -> any Sequence<Test.Case> & Sendable
+        )
         case evaluated(_ testCases: any Sequence<Test.Case> & Sendable)
       #else
         case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
@@ -628,4 +659,13 @@ func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -
   #else
     return nil
   #endif
+}
+
+extension IssueSeverity {
+  fileprivate var rawValue: Int {
+    switch self {
+    case .warning: return 0
+    case .error: return 1
+    }
+  }
 }

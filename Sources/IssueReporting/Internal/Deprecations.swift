@@ -1,3 +1,30 @@
+// NB: Deprecated after 1.8.1
+
+extension IssueReporter {
+  @_transparent
+  @available(
+    *,
+     deprecated,
+     message: "Implement 'reportIssue(_:severity:fileID:filePath:line:column:)' instead."
+  )
+  public func reportIssue(
+    _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    reportIssue(
+      message(),
+      fileID: fileID,
+      filePath: filePath,
+      line: line,
+      column: column
+    )
+  }
+}
+
 // NB: Deprecated after 1.7.0
 
 extension IssueReporter where Self == _DefaultReporter {

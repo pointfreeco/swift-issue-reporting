@@ -1,6 +1,8 @@
 #if canImport(Testing) && !os(Windows)
+  import Foundation
   import Testing
   import IssueReporting
+  import Synchronization
 
   @Suite
   struct SwiftTestingTests {
@@ -38,6 +40,12 @@
       }
     }
 
+    @Test func reportIssue_CustomMessage_WarningSeverity() {
+      withIssueReporters([]) {
+        reportIssue("Something went wrong", severity: .warning)
+      }
+    }
+
     @Test func reportError_CustomMessage() {
       withKnownIssue {
         reportIssue(Failure(), "Something went wrong")
@@ -45,6 +53,15 @@
         issue.description
           == "Caught error: Failure()\(issueDescriptionSuffix): Something went wrong"
       }
+    }
+
+    @available(iOS 18, macOS 15, watchOS 11, tvOS 18, *)
+    @Test func severityIsForwardedToReporter() {
+      let reporter = SeverityReporter()
+      withIssueReporters([reporter]) {
+        reportIssue("Something went wrong", severity: .warning)
+      }
+      #expect(reporter.severity.withLock { $0 } == .warning)
     }
 
     @Test func withExpectedIssue_reportIssue() {
@@ -172,4 +189,20 @@
   }
 
   private struct Failure: Error {}
+
+  @available(iOS 18, macOS 15, watchOS 11, tvOS 18, *)
+  private final class SeverityReporter: IssueReporter {
+    let severity = Mutex<IssueSeverity?>(nil)
+
+    func reportIssue(
+      _ message: @autoclosure () -> String?,
+      severity: IssueSeverity,
+      fileID: StaticString,
+      filePath: StaticString,
+      line: UInt,
+      column: UInt
+    ) {
+      self.severity.withLock { $0 = severity }
+    }
+  }
 #endif

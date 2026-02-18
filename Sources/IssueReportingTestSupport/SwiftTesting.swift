@@ -8,6 +8,7 @@ public func _recordIssue() -> Any { __recordIssue }
 @Sendable
 private func __recordIssue(
   message: String?,
+  severity: Int,
   fileID: String,
   filePath: String,
   line: Int,
@@ -15,15 +16,29 @@ private func __recordIssue(
 ) {
   #if canImport(Testing)
     let message = message == "" ? nil : message
-    Issue.record(
-      message.map(Comment.init(rawValue:)),
-      sourceLocation: SourceLocation(
-        fileID: fileID,
-        filePath: filePath,
-        line: line,
-        column: column
+    #if compiler(>=6.2)
+      let issueSeverity: Issue.Severity = severity == 0 ? .warning : .error
+      Issue.record(
+        message.map(Comment.init(rawValue:)),
+        severity: issueSeverity,
+        sourceLocation: SourceLocation(
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
       )
-    )
+    #else
+      Issue.record(
+        message.map(Comment.init(rawValue:)),
+        sourceLocation: SourceLocation(
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
+      )
+    #endif
   #endif
 }
 

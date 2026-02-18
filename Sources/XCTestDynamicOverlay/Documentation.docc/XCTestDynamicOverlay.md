@@ -67,8 +67,8 @@ to prevent App Store rejections due to runtime loading of symbols.
 
 ### Unimplemented dependencies
 
-- ``unimplemented(_:placeholder:fileID:line:)-70bno``
-- ``unimplemented(_:fileID:line:)-7znj2``
+- ``unimplemented(_:placeholder:fileID:line:)``
+- ``unimplemented(_:fileID:line:)``
 
 ### Deprecated interfaces
 

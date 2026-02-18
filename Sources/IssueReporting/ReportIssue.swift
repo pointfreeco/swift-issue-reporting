@@ -22,6 +22,7 @@
 ///
 /// - Parameters:
 ///   - message: A message describing the issue.
+///   - severity: The severity of the issue.
 ///   - fileID: The source `#fileID` associated with the issue.
 ///   - filePath: The source `#filePath` associated with the issue.
 ///   - line: The source `#line` associated with the issue.
@@ -29,6 +30,7 @@
 @_transparent
 public func reportIssue(
   _ message: @autoclosure () -> String? = nil,
+  severity: IssueSeverity = .error,
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   line: UInt = #line,
@@ -56,6 +58,7 @@ public func reportIssue(
     for reporter in IssueReporters.current {
       reporter.reportIssue(
         message(),
+        severity: severity,
         fileID: fileID,
         filePath: filePath,
         line: line,

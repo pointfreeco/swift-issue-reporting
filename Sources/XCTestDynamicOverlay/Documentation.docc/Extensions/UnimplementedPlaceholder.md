@@ -1,11 +1,6 @@
-# ``XCTestDynamicOverlay/unimplemented(_:placeholder:fileID:line:)-70bno``
+# ``XCTestDynamicOverlay/unimplemented(_:placeholder:fileID:line:)``
 
 ## Topics
-
-### Overloads
-
-- ``XCTestDynamicOverlay/unimplemented(_:placeholder:fileID:line:)-41gxp``
-- ``XCTestDynamicOverlay/unimplemented(_:placeholder:fileID:line:)-9tt2k``
 
 ### Failure
 
