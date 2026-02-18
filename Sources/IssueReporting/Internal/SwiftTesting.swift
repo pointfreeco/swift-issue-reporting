@@ -353,45 +353,6 @@ func _currentTest() -> _Test? {
   }
 }
 
-@usableFromInline
-func isSwiftTestingContext() -> Bool {
-  let isSwiftTestingCallStack: Bool
-  #if canImport(Darwin)
-    isSwiftTestingCallStack = Thread.callStackReturnAddresses.contains { address in
-      guard let pointer = UnsafeRawPointer(bitPattern: UInt(truncating: address))
-      else { return false }
-
-      var info = Dl_info()
-      guard dladdr(pointer, &info) != 0,
-        let imagePathCString = info.dli_fname
-      else { return false }
-
-      let imagePath = String(cString: imagePathCString)
-      let imagePathURL = URL(fileURLWithPath: imagePath)
-      if imagePathURL.pathComponents.contains("Testing.framework") {
-        return true
-      }
-      switch imagePathURL.lastPathComponent {
-      case "Testing", "libTesting.dylib":
-        return true
-      default:
-        return false
-      }
-    }
-  #else
-    isSwiftTestingCallStack = Thread.callStackSymbols.contains { symbol in
-      symbol.contains("$s7Testing")
-        || symbol.contains(" Testing.")
-        || symbol.contains("`Testing.")
-    }
-  #endif
-
-  return (
-    ProcessInfo.processInfo.arguments.contains("--testing-library")
-      || isSwiftTestingCallStack
-  ) && !Thread.callStackSymbols.contains(where: \.isTestFrame)
-}
-
 #if DEBUG
   #if _runtime(_ObjC)
     import ObjectiveC
@@ -536,8 +497,13 @@ func isSwiftTestingContext() -> Bool {
     private var containingTypeInfo: TypeInfo?
     private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
     fileprivate enum TestCasesState: @unchecked Sendable {
-      case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
-      case evaluated(_ testCases: AnySequence<Test.Case>)
+      #if compiler(>=6.3)
+        case unevaluated(_ function: @Sendable () async throws -> any Sequence<Test.Case> & Sendable)
+        case evaluated(_ testCases: any Sequence<Test.Case> & Sendable)
+      #else
+        case unevaluated(_ function: @Sendable () async throws -> AnySequence<Test.Case>)
+        case evaluated(_ testCases: AnySequence<Test.Case>)
+      #endif
       case failed(_ error: any Error)
     }
     fileprivate var testCasesState: TestCasesState?
