@@ -1,6 +1,10 @@
 import Foundation
 import IssueReportingPackageSupport
 
+#if canImport(Darwin)
+  import Darwin
+#endif
+
 #if canImport(WinSDK)
   import WinSDK
 #endif
@@ -30,9 +34,7 @@ func _recordIssue(
 
         var comment: Any?
         if let message {
-          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-          c.rawValue = message
-          comment = c
+          comment = Comment(rawValue: message)
         }
         _ = record(
           comment,
@@ -50,9 +52,7 @@ func _recordIssue(
 
         var comment: Any?
         if let message {
-          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-          c.rawValue = message
-          comment = c
+          comment = Comment(rawValue: message)
         }
         _ = record(
           comment,
@@ -87,6 +87,33 @@ func _recordError(
   guard let function = function(for: "$s25IssueReportingTestSupport12_recordErrorypyF")
   else {
     #if DEBUG && canImport(Darwin)
+      var comment: Any?
+      if let message {
+        comment = Comment(rawValue: message)
+      }
+      let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+
+      #if compiler(>=6.2)
+        if
+          let record = unsafeBitCast(
+            symbol: """
+              $s7Testing5IssueV6record__8severity14sourceLocationACs5Error_p_AA7CommentVSgAC8Severi\
+              tyOAA06SourceF0VtFZ
+              """,
+            in: "Testing",
+            to: (@convention(thin) (any Error, Any?, Any, SourceLocation) -> Issue).self
+          )
+        {
+          _ = record(
+            error,
+            comment,
+            Issue.Severity.error,  // TODO: Support other severities?
+            sourceLocation
+          )
+          return
+        }
+      #endif
+
       guard
         let record = unsafeBitCast(
           symbol: """
@@ -97,17 +124,7 @@ func _recordError(
         )
       else { return }
 
-      var comment: Any?
-      if let message {
-        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-        c.rawValue = message
-        comment = c
-      }
-      _ = record(
-        error,
-        comment,
-        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
-      )
+      _ = record(error, comment, sourceLocation)
     #else
       printError(
         """
@@ -137,7 +154,13 @@ func _withKnownIssue(
   guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA0ypyF")
   else {
     #if DEBUG && canImport(Darwin)
-      guard
+      var comment: Any?
+      if let message {
+        comment = Comment(rawValue: message)
+      }
+      let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+
+      if
         let withKnownIssue = unsafeBitCast(
           symbol: """
             $s7Testing14withKnownIssue_14isIntermittent14sourceLocation_yAA7CommentVSg_SbAA06Source\
@@ -152,20 +175,11 @@ func _withKnownIssue(
           ) -> Void)
           .self
         )
-      else { return }
-
-      var comment: Any?
-      if let message {
-        var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-        c.rawValue = message
-        comment = c
+      {
+        withKnownIssue(comment, isIntermittent, sourceLocation, body)
+        return
       }
-      withKnownIssue(
-        comment,
-        isIntermittent,
-        SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
-        body
-      )
+
     #else
       printError(
         """
@@ -209,6 +223,12 @@ func _withKnownIssue(
       let function = function(for: "$s25IssueReportingTestSupport010_withKnownA13AsyncIsolatedypyF")
     else {
       #if DEBUG && canImport(Darwin)
+        var comment: Any?
+        if let message {
+          comment = Comment(rawValue: message)
+        }
+        let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """
@@ -226,20 +246,7 @@ func _withKnownIssue(
             .self
           )
         else { return }
-
-        var comment: Any?
-        if let message {
-          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-          c.rawValue = message
-          comment = c
-        }
-        await withKnownIssue(
-          comment,
-          isIntermittent,
-          isolation,
-          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
-          body
-        )
+        await withKnownIssue(comment, isIntermittent, isolation, sourceLocation, body)
       #else
         printError(
           """
@@ -281,6 +288,12 @@ func _withKnownIssue(
     guard let function = function(for: "$s25IssueReportingTestSupport010_withKnownA5AsyncypyF")
     else {
       #if DEBUG && canImport(Darwin)
+        var comment: Any?
+        if let message {
+          comment = Comment(rawValue: message)
+        }
+        let sourceLocation = SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column)
+
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """
@@ -297,19 +310,7 @@ func _withKnownIssue(
             .self
           )
         else { return }
-
-        var comment: Any?
-        if let message {
-          var c = UnsafeMutablePointer<Comment>.allocate(capacity: 1).pointee
-          c.rawValue = message
-          comment = c
-        }
-        await withKnownIssue(
-          comment,
-          isIntermittent,
-          SourceLocation(fileID: fileID, _filePath: filePath, line: line, column: column),
-          body
-        )
+        await withKnownIssue(comment, isIntermittent, sourceLocation, body)
       #else
         printError(
           """
@@ -354,6 +355,33 @@ func _currentTest() -> _Test? {
       $0.pointee()
     }
   }
+}
+
+@usableFromInline
+func _isSwiftTestingContext() -> Bool {
+  let isSwiftTestingCallStack = Thread.callStackReturnAddresses.contains { address in
+    #if canImport(Darwin)
+      guard let pointer = UnsafeRawPointer(bitPattern: UInt(truncating: address))
+      else { return false }
+
+      var info = Dl_info()
+      guard dladdr(pointer, &info) != 0,
+        let imagePathCString = info.dli_fname
+      else { return false }
+
+      let imagePath = String(cString: imagePathCString).lowercased()
+      return imagePath.contains("/testing.framework/")
+        || imagePath.hasSuffix("/testing")
+        || imagePath.hasSuffix("/libtesting.dylib")
+    #else
+      return false
+    #endif
+  }
+
+  return (
+    ProcessInfo.processInfo.arguments.contains("--testing-library")
+      || isSwiftTestingCallStack
+  ) && !Thread.callStackSymbols.contains(where: \.isTestFrame)
 }
 
 #if DEBUG

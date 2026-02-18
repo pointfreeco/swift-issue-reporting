@@ -23,8 +23,24 @@ public enum TestContext: Equatable, Sendable {
   /// If executed outside of a test process, this will return `nil`.
   public static var current: Self? {
     guard isTesting else { return nil }
-    if let currentTest = _currentTest() {
-      return .swiftTesting(Testing(id: currentTest.id, traits: currentTest.traits))
+    let hasSwiftTestingSupport =
+      unsafeBitCast(
+        symbol: "$s25IssueReportingTestSupport08_currentC0ypyF",
+        in: "IssueReportingTestSupport",
+        to: (@convention(thin) () -> Any).self
+      ) != nil
+    if hasSwiftTestingSupport {
+      if let currentTest = _currentTest() {
+        return .swiftTesting(Testing(id: currentTest.id, traits: currentTest.traits))
+      } else if _isSwiftTestingContext() {
+        // Swift Testing can execute helpers from tasks where `Test.current` is unavailable.
+        return .swiftTesting(nil)
+      } else {
+        return .xcTest
+      }
+    } else if _isSwiftTestingContext() {
+      // This happens for targets that intentionally do not link IssueReportingTestSupport.
+      return .swiftTesting(nil)
     } else {
       return .xcTest
     }

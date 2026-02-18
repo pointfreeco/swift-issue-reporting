@@ -5,13 +5,13 @@
   @Suite struct WithExpectedIssueTests {
     @Test func sync() {
       withExpectedIssue {
-        reportIssue()
+        reportIssue("Oops!")
       }
     }
 
     @Test func syncThrows() throws {
       withExpectedIssue {
-        reportIssue()
+        reportIssue("Oops!")
         throw SomeError()
       }
     }
@@ -19,13 +19,13 @@
     @Test func asyncAwaitBefore() async {
       await withExpectedIssue {
         await Task.yield()
-        reportIssue()
+        reportIssue("Oops!")
       }
     }
 
     @Test func asyncAwaitAfter() async {
       await withExpectedIssue {
-        reportIssue()
+        reportIssue("Oops!")
         await Task.yield()
       }
     }
@@ -33,14 +33,14 @@
     @Test func asyncAwaitBeforeThrows() async throws {
       await withExpectedIssue {
         await Task.yield()
-        reportIssue()
+        reportIssue("Oops!")
         throw SomeError()
       }
     }
 
     @Test func asyncAwaitAfterThrows() async throws {
       await withExpectedIssue {
-        reportIssue()
+        reportIssue("Oops!")
         await Task.yield()
         throw SomeError()
       }
