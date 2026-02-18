@@ -64,13 +64,9 @@ jobs:
         config:
           - debug
           - release
-        swift-version:
-          - '6.0'
-          - '6.1'
-          - '6.2'
     name: Linux
     runs-on: ubuntu-latest
-    container: swift:${{ matrix.swift-version }}
+    container: swift:6.0.3
     steps:
       - uses: actions/checkout@v5
       - name: Install dependencies
