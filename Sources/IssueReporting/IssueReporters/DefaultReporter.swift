@@ -67,18 +67,37 @@ public struct _DefaultReporter: IssueReporter {
   ) {
     guard !isTesting else {
       let message = message()
-      _recordIssue(
-        message: message,
-        fileID: "\(fileID)",
-        filePath: "\(filePath)",
-        line: Int(line),
-        column: Int(column)
-      )
-      _XCTFail(
-        message.withAppHostWarningIfNeeded() ?? "",
-        file: filePath,
-        line: line
-      )
+      #if compiler(>=6.3)
+        switch TestContext.current {
+        case .swiftTesting, nil:
+          _recordIssue(
+            message: message,
+            fileID: "\(fileID)",
+            filePath: "\(filePath)",
+            line: Int(line),
+            column: Int(column)
+          )
+        case .xcTest:
+          _XCTFail(
+            message.withAppHostWarningIfNeeded() ?? "",
+            file: filePath,
+            line: line
+          )
+        }
+      #else
+        _recordIssue(
+          message: message,
+          fileID: "\(fileID)",
+          filePath: "\(filePath)",
+          line: Int(line),
+          column: Int(column)
+        )
+        _XCTFail(
+          message.withAppHostWarningIfNeeded() ?? "",
+          file: filePath,
+          line: line
+        )
+      #endif
       return
     }
     runtimeWarn(message(), fileID: fileID, line: line)
@@ -94,19 +113,40 @@ public struct _DefaultReporter: IssueReporter {
     column: UInt
   ) {
     guard !isTesting else {
-      _recordError(
-        error: error,
-        message: message(),
-        fileID: "\(fileID)",
-        filePath: "\(filePath)",
-        line: Int(line),
-        column: Int(column)
-      )
-      _XCTFail(
-        "Caught error: \(error)\(message().map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
-        file: filePath,
-        line: line
-      )
+      let message = message()
+      #if compiler(>=6.3)
+        switch TestContext.current {
+        case .swiftTesting, nil:
+          _recordError(
+            error: error,
+            message: message,
+            fileID: "\(fileID)",
+            filePath: "\(filePath)",
+            line: Int(line),
+            column: Int(column)
+          )
+        case .xcTest:
+          _XCTFail(
+            "Caught error: \(error)\(message.map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
+            file: filePath,
+            line: line
+          )
+        }
+      #else
+        _recordError(
+          error: error,
+          message: message,
+          fileID: "\(fileID)",
+          filePath: "\(filePath)",
+          line: Int(line),
+          column: Int(column)
+        )
+        _XCTFail(
+          "Caught error: \(error)\(message.map { ": \($0)" } ?? "")".withAppHostWarningIfNeeded(),
+          file: filePath,
+          line: line
+        )
+      #endif
       return
     }
     runtimeWarn(
@@ -172,6 +212,5 @@ public struct _DefaultReporter: IssueReporter {
     #else
       printError("\(fileID):\(line): \(message() ?? "")")
     #endif
-
   }
 }
