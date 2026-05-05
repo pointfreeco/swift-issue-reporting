@@ -2,11 +2,6 @@
 
 extension IssueReporter {
   @_transparent
-  @available(
-    *,
-    deprecated,
-    message: "Implement 'reportIssue(_:severity:fileID:filePath:line:column:)' instead."
-  )
   public func reportIssue(
     _ message: @autoclosure () -> String?,
     severity: IssueSeverity,

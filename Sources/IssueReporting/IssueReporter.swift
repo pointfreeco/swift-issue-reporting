@@ -89,6 +89,11 @@ public protocol IssueReporter: Sendable {
   ///   - filePath: The source `#filePath` associated with the issue.
   ///   - line: The source `#line` associated with the issue.
   ///   - column: The source `#column` associated with the issue.
+  @available(
+    *,
+    deprecated,
+    message: "Implement 'reportIssue(_:severity:fileID:filePath:line:column:)' instead."
+  )
   func reportIssue(
     _ message: @autoclosure () -> String?,
     fileID: StaticString,
@@ -100,6 +105,11 @@ public protocol IssueReporter: Sendable {
 
 extension IssueReporter {
   @_transparent
+  @available(
+    *,
+    deprecated,
+    message: "Implement 'reportIssue(_:severity:fileID:filePath:line:column:)' instead."
+  )
   public func reportIssue(
     _ message: @autoclosure () -> String?,
     fileID: StaticString,
