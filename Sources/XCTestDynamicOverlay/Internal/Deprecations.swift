@@ -1,8 +1,11 @@
 import Foundation
 
-#if canImport(FoundationNetworking)
-  import FoundationNetworking
-#endif
+// Note: this file does not reference any `FoundationNetworking`-specific
+// types — `URL` is in `Foundation` proper, even on swift-corelibs-Foundation
+// platforms. The previous `#if canImport(FoundationNetworking) / import
+// FoundationNetworking` block was a no-op import that nonetheless caused the
+// linker to add `libFoundationNetworking.so` to `DT_NEEDED` (~16 MB) for
+// Android cross-compile consumers. Removed entirely.
 
 // NB: Deprecated after 1.1.2
 
