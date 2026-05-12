@@ -1,8 +1,5 @@
 import Foundation
 
-#if canImport(FoundationNetworking)
-  import FoundationNetworking
-#endif
 
 // NB: Deprecated after 1.1.2
 
