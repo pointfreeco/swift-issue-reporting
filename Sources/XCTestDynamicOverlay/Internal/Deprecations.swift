@@ -1,6 +1,5 @@
 import Foundation
 
-
 // NB: Deprecated after 1.1.2
 
 @_disfavoredOverload
