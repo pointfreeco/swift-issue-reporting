@@ -1,5 +1,6 @@
 // swift-tools-version: 6.0
 
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -77,3 +78,15 @@ let package = Package(
     )
   )
 #endif
+
+// Set `OMIT_DYNAMIC_TEST_SUPPORT=1` to drop the `IssueReportingTestSupport`
+// dynamic-library product. Required when targeting platforms without dynamic
+// linking (`wasm32-unknown-wasip1`), where SwiftPM's auto-link of `.dynamic`
+// products into test build plans fails.
+if ProcessInfo.processInfo.environment["OMIT_DYNAMIC_TEST_SUPPORT"] != nil {
+  package.products.removeAll { $0.name == "IssueReportingTestSupport" }
+  package.targets.removeAll {
+    ["IssueReportingTestSupport", "IssueReportingTests", "XCTestDynamicOverlayTests"]
+      .contains($0.name)
+  }
+}

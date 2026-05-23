@@ -94,6 +94,11 @@ jobs:
       - name: Build
         run: swift build --target IssueReporting --swift-sdk wasm32-unknown-wasi -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
 
+      - name: Build tests
+        env:
+          OMIT_DYNAMIC_TEST_SUPPORT: "1"
+        run: swift build --build-tests --swift-sdk wasm32-unknown-wasi -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
+
   # windows:
   #   name: Windows
   #   strategy:
