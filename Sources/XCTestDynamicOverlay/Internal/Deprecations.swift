@@ -1,4 +1,5 @@
 import Foundation
+import IssueReporting
 
 // NB: Deprecated after 1.1.2
 
