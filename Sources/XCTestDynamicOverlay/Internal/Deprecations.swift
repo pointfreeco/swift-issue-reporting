@@ -1,5 +1,5 @@
 import Foundation
-import IssueReporting
+public import IssueReporting
 
 // NB: Deprecated after 1.1.2
 
@@ -57,7 +57,7 @@ public var _XCTIsTesting: Bool {
     else { return try failingBlock() }
     guard
       let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
-        as Any as? NSObjectProtocol,
+        as Any as? (any NSObjectProtocol),
       let options = strict ?? true
         ? XCTExpectedFailureOptions
           .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
@@ -87,7 +87,7 @@ public var _XCTIsTesting: Bool {
       to: (@convention(c) (String?, AnyObject, () -> Void) -> Void).self
     )
 
-    var result: Result<R, Error>!
+    var result: Result<R, any Error>!
     XCTExpectFailureWithOptionsInBlock(failureReason, options) {
       result = Result { try failingBlock() }
     }
@@ -127,7 +127,7 @@ public var _XCTIsTesting: Bool {
     else { return }
     guard
       let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
-        as Any as? NSObjectProtocol,
+        as Any as? (any NSObjectProtocol),
       let options = strict ?? true
         ? XCTExpectedFailureOptions
           .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
@@ -230,7 +230,7 @@ public var XCTCurrentTestCase: AnyObject? {
   #if _runtime(_ObjC)
     guard
       let XCTestObservationCenter = NSClassFromString("XCTestObservationCenter"),
-      let XCTestObservationCenter = XCTestObservationCenter as Any as? NSObjectProtocol,
+      let XCTestObservationCenter = XCTestObservationCenter as Any as? (any NSObjectProtocol),
       let shared = XCTestObservationCenter.perform(Selector(("sharedTestObservationCenter")))?
         .takeUnretainedValue(),
       let observers = shared.perform(Selector(("observers")))?
@@ -346,7 +346,7 @@ private protocol _OptionalProtocol { static var none: Self { get } }
 extension Optional: _OptionalProtocol {}
 @available(*, deprecated)
 private func _optionalPlaceholder<Result>() throws -> Result {
-  if let result = (Result.self as? _OptionalProtocol.Type) {
+  if let result = (Result.self as? (any _OptionalProtocol.Type)) {
     return result.none as! Result
   }
   throw PlaceholderGenerationFailure()
@@ -355,7 +355,7 @@ private func _optionalPlaceholder<Result>() throws -> Result {
 @available(*, deprecated)
 private func _placeholder<Result>() -> Result? {
   switch Result.self {
-  case let type as _DefaultInitializable.Type: return type.placeholder as? Result
+  case let type as any _DefaultInitializable.Type: return type.placeholder as? Result
   case is Void.Type: return () as? Result
   case let type as any RangeReplaceableCollection.Type: return type.placeholder as? Result
   case let type as any AdditiveArithmetic.Type: return type.placeholder as? Result
@@ -441,7 +441,7 @@ extension AsyncStream: _DefaultInitializable {
 }
 
 @available(*, deprecated)
-extension AsyncThrowingStream: _DefaultInitializable where Failure == Error {
+extension AsyncThrowingStream: _DefaultInitializable where Failure == any Error {
   init() { self.init { $0.finish(throwing: CancellationError()) } }
 }
 

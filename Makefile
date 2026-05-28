@@ -9,13 +9,13 @@ EXPECTED_STRING = This is expected to fail!
 EXPECTED = \033[31m\"$(EXPECTED_STRING)\"\033[0m
 
 test-debug:
-	@swift build --build-tests \
+	@swift build --build-tests -Xswiftc -D -Xswiftc EXCLUDE_EXPORTS \
 		&& TEST_FAILURE=true swift test 2>&1 | grep '$(EXPECTED_STRING)' > /dev/null \
 		&& (echo "$(PASS) $(XCT_FAIL) was called with $(EXPECTED)" && exit) \
 		|| (echo "$(FAIL) expected $(XCT_FAIL) to be called with $(EXPECTED)" >&2 && exit 1)
 
 test-release:
-	@swift test -c release
+	@swift test -c release -Xswiftc -D -Xswiftc EXCLUDE_EXPORTS
 
 test-examples:
 	xcodebuild test \

@@ -1,5 +1,5 @@
 #if !os(Linux) && !os(WASI) && !os(Windows) && !os(Android)
-  import XCTest
+  public import XCTest
   import XCTestDynamicOverlay
 
   public final class XCTContextTests: XCTestCase {

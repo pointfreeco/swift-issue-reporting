@@ -1,4 +1,5 @@
 import XCTest
+import XCTestDynamicOverlay
 
 #if canImport(ObjectiveC)
   final class XCTExpectFailureTests: XCTestCase {

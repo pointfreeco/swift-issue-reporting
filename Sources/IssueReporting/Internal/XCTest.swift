@@ -1,9 +1,17 @@
 #if _runtime(_ObjC)
-  import Foundation
+  #if DEBUG
+    public import Foundation
+  #else
+    import Foundation
+  #endif
 #endif
 
 #if canImport(Darwin)
-  import Darwin
+  #if DEBUG
+    public import Darwin
+  #else
+    import Darwin
+  #endif
 #elseif canImport(Glibc)
   import Glibc
 #elseif canImport(WinSDK)
