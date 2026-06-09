@@ -1,3 +1,26 @@
+// NB: We can drop this when we bump to swift-tools-version 6.2
+#if hasFeature(NonisolatedNonsendingByDefault)
+  public typealias _UnimplementedAsyncClosure<each Argument, Result> =
+    @concurrent @Sendable (repeat each Argument) async -> Result
+  public typealias _UnimplementedAsyncThrowingClosure<each Argument, Result> =
+    @concurrent @Sendable (repeat each Argument) async throws -> Result
+#else
+  public typealias _UnimplementedAsyncClosure<each Argument, Result> =
+    @Sendable (repeat each Argument) async -> Result
+  public typealias _UnimplementedAsyncThrowingClosure<each Argument, Result> =
+    @Sendable (repeat each Argument) async throws -> Result
+#endif
+
+#if compiler(>=6)
+  #if hasFeature(NonisolatedNonsendingByDefault)
+    public typealias _UnimplementedAsyncTypedThrowingClosure<each Argument, Failure: Error, Result> =
+      @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result
+  #else
+    public typealias _UnimplementedAsyncTypedThrowingClosure<each Argument, Failure: Error, Result> =
+      @Sendable (repeat each Argument) async throws(Failure) -> Result
+  #endif
+#endif
+
 /// Returns a closure that reports an issue when invoked.
 ///
 /// Useful for creating closures that need to be overridden by users of your API, and if it is
@@ -137,7 +160,7 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) async -> Result {
+) -> _UnimplementedAsyncClosure<repeat each Argument, Result> {
   return { (argument: repeat each Argument) in
     _fail(
       description(),
@@ -174,7 +197,7 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) async throws -> Result {
+) -> _UnimplementedAsyncThrowingClosure<repeat each Argument, Result> {
   return { (argument: repeat each Argument) in
     let description = description()
     _fail(
@@ -216,7 +239,7 @@ public func unimplemented<each Argument, Result>(
     function: StaticString = #function,
     line: UInt = #line,
     column: UInt = #column
-  ) -> @Sendable (repeat each Argument) async throws(Failure) -> Result {
+  ) -> _UnimplementedAsyncTypedThrowingClosure<repeat each Argument, Failure, Result> {
     return { (argument: repeat each Argument) async throws(Failure) in
       let description = description()
       _fail(

@@ -21,7 +21,7 @@ jobs:
           - debug
           - release
         xcode:
-          - '26.1'
+          - '26.5'
     name: macOS 26
     runs-on: macos-26
     steps:
@@ -33,11 +33,11 @@ jobs:
 
   library-evolution:
     name: Library evolution
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
     - uses: actions/checkout@v5
     - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcode-select -s /Applications/Xcode_26.5.app
     - name: Run tests
       run: make build-for-library-evolution
 
@@ -48,7 +48,7 @@ jobs:
           - Debug
           - Release
         xcode:
-          - '26.1'
+          - '26.5'
     name: Examples
     runs-on: macos-26
     steps:
@@ -66,7 +66,7 @@ jobs:
           - release
     name: Linux
     runs-on: ubuntu-latest
-    container: swift:6.0.3
+    container: swift:6.3
     steps:
       - uses: actions/checkout@v5
       - name: Install dependencies
@@ -75,52 +75,3 @@ jobs:
         run: make test-${{ matrix.config }}
       - name: Build for static-stdlib
         run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
-
-  wasm:
-    name: Wasm
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: bytecodealliance/actions/wasmtime/setup@v1
-      - name: Install Swift and Swift SDK for WebAssembly
-        run: |
-          PREFIX=/opt/swift
-          set -ex
-          curl -f -o /tmp/swift.tar.gz "https://download.swift.org/swift-6.0.2-release/ubuntu2204/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE-ubuntu22.04.tar.gz"
-          sudo mkdir -p $PREFIX; sudo tar -xzf /tmp/swift.tar.gz -C $PREFIX --strip-component 1
-          $PREFIX/usr/bin/swift sdk install https://github.com/swiftwasm/swift/releases/download/swift-wasm-6.0.2-RELEASE/swift-wasm-6.0.2-RELEASE-wasm32-unknown-wasi.artifactbundle.zip --checksum 6ffedb055cb9956395d9f435d03d53ebe9f6a8d45106b979d1b7f53358e1dcb4
-          echo "$PREFIX/usr/bin" >> $GITHUB_PATH
-
-      - name: Build
-        run: swift build --target IssueReporting --swift-sdk wasm32-unknown-wasi -Xlinker -z -Xlinker stack-size=$((1024 * 1024))
-
-  # windows:
-  #   name: Windows
-  #   strategy:
-  #     matrix:
-  #       os: [windows-latest]
-  #       config:
-  #         - debug
-  #         - release
-  #     fail-fast: false
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - uses: compnerd/gha-setup-swift@main
-  #       with:
-  #         branch: swift-6.0.3-release
-  #         tag: 6.0.3-RELEASE
-  #     - name: Set long paths
-  #       run: git config --system core.longpaths true
-  #     - uses: actions/checkout@v5
-  #     - name: Build
-  #       run: swift build -c ${{ matrix.config }}
-  #     - name: Run tests (debug only)
-  #       run: swift test
-
-  # android:
-  #   name: Android
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v5
-  #     - name: "Test Swift Package on Android"
-  #       uses: skiptools/swift-android-action@v2

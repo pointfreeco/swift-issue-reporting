@@ -1,7 +1,7 @@
-import Foundation
+public import Foundation
 
 #if canImport(os)
-  import os
+  public import os
 #endif
 
 extension IssueReporter where Self == _DefaultReporter {

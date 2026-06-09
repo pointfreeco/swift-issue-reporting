@@ -1,8 +1,15 @@
 import Foundation
-import IssueReportingPackageSupport
+public import IssueReportingPackageSupport
 
 #if canImport(WinSDK)
   import WinSDK
+#endif
+
+// NB: We can drop this when we bump to swift-tools-version 6.2
+#if hasFeature(NonisolatedNonsendingByDefault)
+  public typealias _AsyncThrowingBody = @concurrent () async throws -> Void
+#else
+  public typealias _AsyncThrowingBody = () async throws -> Void
 #endif
 
 @usableFromInline
@@ -233,7 +240,7 @@ func _withKnownIssue(
     filePath: String,
     line: Int,
     column: Int,
-    _ body: () async throws -> Void
+    _ body: _AsyncThrowingBody
   ) async {
     guard
       let function = function(for: "$s25IssueReportingTestSupport010_withKnownA13AsyncIsolatedypyF")
@@ -249,7 +256,6 @@ func _withKnownIssue(
           line: line,
           column: column
         )
-
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """
@@ -262,7 +268,7 @@ func _withKnownIssue(
               Bool,
               isolated (any Actor)?,
               SourceLocation,
-              () async throws -> Void
+              _AsyncThrowingBody
             ) async -> Void)
             .self
           )
