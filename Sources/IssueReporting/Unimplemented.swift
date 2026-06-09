@@ -13,10 +13,14 @@
 
 #if compiler(>=6)
   #if hasFeature(NonisolatedNonsendingByDefault)
-    public typealias _UnimplementedAsyncTypedThrowingClosure<each Argument, Failure: Error, Result> =
+    public typealias _UnimplementedAsyncTypedThrowingClosure<
+      each Argument, Failure: Error, Result
+    > =
       @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result
   #else
-    public typealias _UnimplementedAsyncTypedThrowingClosure<each Argument, Failure: Error, Result> =
+    public typealias _UnimplementedAsyncTypedThrowingClosure<
+      each Argument, Failure: Error, Result
+    > =
       @Sendable (repeat each Argument) async throws(Failure) -> Result
   #endif
 #endif
