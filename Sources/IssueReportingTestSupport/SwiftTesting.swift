@@ -1,5 +1,3 @@
-import IssueReportingPackageSupport
-
 #if canImport(Testing)
   import Testing
 #endif

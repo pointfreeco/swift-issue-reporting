@@ -1,5 +1,4 @@
 import Foundation
-public import IssueReportingPackageSupport
 
 #if canImport(WinSDK)
   import WinSDK
