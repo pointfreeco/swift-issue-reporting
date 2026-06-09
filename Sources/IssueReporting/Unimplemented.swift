@@ -137,7 +137,7 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) async -> Result {
+) -> @concurrent @Sendable (repeat each Argument) async -> Result {
   return { (argument: repeat each Argument) in
     _fail(
       description(),
@@ -174,7 +174,7 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) async throws -> Result {
+) -> @concurrent @Sendable (repeat each Argument) async throws -> Result {
   return { (argument: repeat each Argument) in
     let description = description()
     _fail(
@@ -216,7 +216,7 @@ public func unimplemented<each Argument, Result>(
     function: StaticString = #function,
     line: UInt = #line,
     column: UInt = #column
-  ) -> @Sendable (repeat each Argument) async throws(Failure) -> Result {
+  ) -> @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result {
     return { (argument: repeat each Argument) async throws(Failure) in
       let description = description()
       _fail(

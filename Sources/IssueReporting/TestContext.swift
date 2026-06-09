@@ -1,3 +1,5 @@
+import IssueReportingPackageSupport
+
 /// A type representing the context in which a test is being run, _i.e._ either in Swift's native
 /// Testing framework, or Xcode's XCTest framework.
 public enum TestContext: Equatable, Sendable {

@@ -1,13 +1,13 @@
 #if _runtime(_ObjC)
-  import Foundation
+  public import Foundation
 #endif
 
 #if canImport(Darwin)
-  import Darwin
+  public import Darwin
 #elseif canImport(Glibc)
-  import Glibc
+  public import Glibc
 #elseif canImport(WinSDK)
-  import WinSDK
+  public import WinSDK
 #endif
 
 @usableFromInline
@@ -63,7 +63,7 @@ func _XCTExpectFailure<R>(
         else { return try failingBlock() }
         if let pointer = dlsym(dlopen(nil, RTLD_NOW), "XCTExpectFailureWithOptionsInBlock"),
           let XCTExpectedFailureOptions = NSClassFromString("XCTExpectedFailureOptions")
-            as Any as? NSObjectProtocol,
+            as Any as? any NSObjectProtocol,
           let options = strict ?? true
             ? XCTExpectedFailureOptions
               .perform(NSSelectorFromString("alloc"))?.takeUnretainedValue()
