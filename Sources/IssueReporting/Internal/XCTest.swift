@@ -1,13 +1,15 @@
-#if _runtime(_ObjC)
-  public import Foundation
-#endif
+#if DEBUG
+  #if _runtime(_ObjC)
+    public import Foundation
+  #endif
 
-#if canImport(Darwin)
-  public import Darwin
-#elseif canImport(Glibc)
-  public import Glibc
-#elseif canImport(WinSDK)
-  public import WinSDK
+  #if canImport(Darwin)
+    public import Darwin
+  #elseif canImport(Glibc)
+    public import Glibc
+  #elseif canImport(WinSDK)
+    public import WinSDK
+  #endif
 #endif
 
 @usableFromInline
