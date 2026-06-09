@@ -299,7 +299,7 @@ public func unimplemented<each Argument, Result>(
   fileID: StaticString = #fileID,
   function: StaticString = #function,
   line: UInt = #line
-) -> @concurrent @Sendable (repeat each Argument) async -> Result {
+) -> _UnimplementedAsyncClosure<repeat each Argument, Result> {
   return { (argument: repeat each Argument) in
     let description = description()
     _fail(
@@ -525,7 +525,7 @@ public func XCTUnimplemented<each Argument, Result>(
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line
-) -> @concurrent @Sendable (repeat each Argument) async -> Result {
+) -> _UnimplementedAsyncClosure<repeat each Argument, Result> {
   unimplemented(
     description(),
     file: filePath,
@@ -542,7 +542,7 @@ public func XCTUnimplemented<each Argument, Result>(
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line
-) -> @concurrent @Sendable (repeat each Argument) async -> Result {
+) -> _UnimplementedAsyncClosure<repeat each Argument, Result> {
   unimplemented(
     description(),
     file: filePath,
@@ -555,7 +555,7 @@ public func XCTUnimplemented<each Argument, Result>(
 @available(*, deprecated, renamed: "unimplemented")
 public func XCTUnimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = ""
-) -> @concurrent @Sendable (repeat each Argument) async throws -> Result {
+) -> _UnimplementedAsyncThrowingClosure<repeat each Argument, Result> {
   unimplemented(description())
 }
 
