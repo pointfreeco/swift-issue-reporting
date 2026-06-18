@@ -31,7 +31,6 @@
       if environment.keys.contains("XCTestBundleInjectPath") { return true }
       if environment.keys.contains("XCTestConfigurationFilePath") { return true }
       if environment.keys.contains("XCTestSessionIdentifier") { return true }
-
       if environment.keys.contains("BAZEL_TEST") { return true }
 
       return arguments.contains { argument in
