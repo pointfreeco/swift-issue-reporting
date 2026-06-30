@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(Android)
+  import Android  // dlopen/dlsym/RTLD_LAZY on Android (not re-exported by Foundation as on Linux)
+#endif
+
 #if canImport(WinSDK)
   import WinSDK
 #endif
@@ -677,6 +681,15 @@ func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -
   #if os(Linux)
     guard
       let handle = dlopen("lib\(library).so", RTLD_LAZY),
+      let pointer = dlsym(handle, symbol)
+    else { return nil }
+    return unsafeBitCast(pointer, to: F.self)
+  #elseif os(Android)
+    // Android is ELF + `dlopen` like Linux, but `os(Linux)` is false here. The test-support
+    // symbols may live in a separate `.so` (dynamic linking) or in the test executable itself
+    // (static linking), so try the named library first and fall back to the main program handle.
+    guard
+      let handle = dlopen("lib\(library).so", RTLD_LAZY) ?? dlopen(nil, RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: F.self)
