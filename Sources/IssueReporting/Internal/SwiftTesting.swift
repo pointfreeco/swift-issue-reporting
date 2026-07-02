@@ -678,16 +678,7 @@ func function(for symbol: String) -> Any? {
 
 @usableFromInline
 func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -> F? {
-  #if os(Linux)
-    guard
-      let handle = dlopen("lib\(library).so", RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
-    else { return nil }
-    return unsafeBitCast(pointer, to: F.self)
-  #elseif os(Android)
-    // Android is ELF + `dlopen` like Linux, but `os(Linux)` is false here. The test-support
-    // symbols may live in a separate `.so` (dynamic linking) or in the test executable itself
-    // (static linking), so try the named library first and fall back to the main program handle.
+  #if os(Linux) || os(Android)
     guard
       let handle = dlopen("lib\(library).so", RTLD_LAZY) ?? dlopen(nil, RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
