@@ -1,7 +1,7 @@
 import Foundation
 
 #if canImport(Android)
-  import Android  // dlopen/dlsym/RTLD_LAZY on Android (not re-exported by Foundation as on Linux)
+  import Android
 #endif
 
 #if canImport(WinSDK)
