@@ -72,6 +72,6 @@ jobs:
       - name: Install dependencies
         run: apt-get update && apt-get install -y build-essential libcurl4-openssl-dev
       - name: Run tests
-        run: make test-${{ matrix.config }}
+        run: swift test -c ${{ matrix.config }}
       - name: Build for static-stdlib
         run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
