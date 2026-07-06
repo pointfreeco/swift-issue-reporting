@@ -11,18 +11,20 @@
     @Sendable (repeat each Argument) async throws -> Result
 #endif
 
-#if compiler(>=6)
-  #if hasFeature(NonisolatedNonsendingByDefault)
-    public typealias _UnimplementedAsyncTypedThrowingClosure<
-      each Argument, Failure: Error, Result
-    > =
-      @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result
-  #else
-    public typealias _UnimplementedAsyncTypedThrowingClosure<
-      each Argument, Failure: Error, Result
-    > =
-      @Sendable (repeat each Argument) async throws(Failure) -> Result
-  #endif
+#if hasFeature(NonisolatedNonsendingByDefault)
+  public typealias _UnimplementedAsyncTypedThrowingClosure<
+    each Argument,
+    Failure: Error,
+    Result
+  > =
+    @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result
+#else
+  public typealias _UnimplementedAsyncTypedThrowingClosure<
+    each Argument,
+    Failure: Error,
+    Result
+  > =
+    @Sendable (repeat each Argument) async throws(Failure) -> Result
 #endif
 
 /// Returns a closure that reports an issue when invoked.
@@ -100,46 +102,44 @@ public func unimplemented<each Argument, Result>(
   }
 }
 
-#if compiler(>=6)
-  /// Returns a throwing closure that reports an issue and throws a given error when invoked.
-  ///
-  /// Useful for creating closures that need to be overridden by users of your API, and if it is
-  /// ever invoked without being overridden an issue will be reported. See
-  /// <doc:GettingStarted#Unimplemented-closures> for more information.
-  ///
-  /// - Parameters:
-  ///   - description: An optional description of the unimplemented closure.
-  ///   - failure: The error thrown by the unimplemented closure.
-  ///   - fileID: The fileID.
-  ///   - filePath: The filePath.
-  ///   - function: The function.
-  ///   - line: The line.
-  ///   - column: The column.
-  /// - Returns: A throwing closure that reports an issue and throws an error when invoked.
-  public func unimplemented<each Argument, Failure: Error, Result>(
-    _ description: @autoclosure @escaping @Sendable () -> String = "",
-    throwing failure: @autoclosure @escaping @Sendable () -> Failure,
-    fileID: StaticString = #fileID,
-    filePath: StaticString = #filePath,
-    function: StaticString = #function,
-    line: UInt = #line,
-    column: UInt = #column
-  ) -> @Sendable (repeat each Argument) throws(Failure) -> Result {
-    return { (argument: repeat each Argument) throws(Failure) in
-      let description = description()
-      _fail(
-        description,
-        (repeat each argument),
-        fileID: fileID,
-        filePath: filePath,
-        function: function,
-        line: line,
-        column: column
-      )
-      throw failure()
-    }
+/// Returns a throwing closure that reports an issue and throws a given error when invoked.
+///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
+///
+/// - Parameters:
+///   - description: An optional description of the unimplemented closure.
+///   - failure: The error thrown by the unimplemented closure.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
+/// - Returns: A throwing closure that reports an issue and throws an error when invoked.
+public func unimplemented<each Argument, Failure: Error, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  throwing failure: @autoclosure @escaping @Sendable () -> Failure,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
+  line: UInt = #line,
+  column: UInt = #column
+) -> @Sendable (repeat each Argument) throws(Failure) -> Result {
+  return { (argument: repeat each Argument) throws(Failure) in
+    let description = description()
+    _fail(
+      description,
+      (repeat each argument),
+      fileID: fileID,
+      filePath: filePath,
+      function: function,
+      line: line,
+      column: column
+    )
+    throw failure()
   }
-#endif
+}
 
 /// Returns an asynchronous closure that reports an issue when invoked.
 ///
@@ -217,48 +217,46 @@ public func unimplemented<each Argument, Result>(
   }
 }
 
-#if compiler(>=6)
-  /// Returns a throwing, asynchronous closure that reports an issue and throws a given error when
-  /// invoked.
-  ///
-  /// Useful for creating closures that need to be overridden by users of your API, and if it is
-  /// ever invoked without being overridden an issue will be reported. See
-  /// <doc:GettingStarted#Unimplemented-closures> for more information.
-  ///
-  /// - Parameters:
-  ///   - description: An optional description of the unimplemented closure.
-  ///   - failure: The error thrown by the unimplemented closure.
-  ///   - fileID: The fileID.
-  ///   - filePath: The filePath.
-  ///   - function: The function.
-  ///   - line: The line.
-  ///   - column: The column.
-  /// - Returns: A throwing, asynchronous closure that reports an issue and throws an error when
-  ///   invoked.
-  public func unimplemented<each Argument, Failure: Error, Result>(
-    _ description: @autoclosure @escaping @Sendable () -> String = "",
-    throwing failure: @autoclosure @escaping @Sendable () -> Failure,
-    fileID: StaticString = #fileID,
-    filePath: StaticString = #filePath,
-    function: StaticString = #function,
-    line: UInt = #line,
-    column: UInt = #column
-  ) -> _UnimplementedAsyncTypedThrowingClosure<repeat each Argument, Failure, Result> {
-    return { (argument: repeat each Argument) async throws(Failure) in
-      let description = description()
-      _fail(
-        description,
-        (repeat each argument),
-        fileID: fileID,
-        filePath: filePath,
-        function: function,
-        line: line,
-        column: column
-      )
-      throw failure()
-    }
+/// Returns a throwing, asynchronous closure that reports an issue and throws a given error when
+/// invoked.
+///
+/// Useful for creating closures that need to be overridden by users of your API, and if it is
+/// ever invoked without being overridden an issue will be reported. See
+/// <doc:GettingStarted#Unimplemented-closures> for more information.
+///
+/// - Parameters:
+///   - description: An optional description of the unimplemented closure.
+///   - failure: The error thrown by the unimplemented closure.
+///   - fileID: The fileID.
+///   - filePath: The filePath.
+///   - function: The function.
+///   - line: The line.
+///   - column: The column.
+/// - Returns: A throwing, asynchronous closure that reports an issue and throws an error when
+///   invoked.
+public func unimplemented<each Argument, Failure: Error, Result>(
+  _ description: @autoclosure @escaping @Sendable () -> String = "",
+  throwing failure: @autoclosure @escaping @Sendable () -> Failure,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  function: StaticString = #function,
+  line: UInt = #line,
+  column: UInt = #column
+) -> _UnimplementedAsyncTypedThrowingClosure<repeat each Argument, Failure, Result> {
+  return { (argument: repeat each Argument) async throws(Failure) in
+    let description = description()
+    _fail(
+      description,
+      (repeat each argument),
+      fileID: fileID,
+      filePath: filePath,
+      function: function,
+      line: line,
+      column: column
+    )
+    throw failure()
   }
-#endif
+}
 
 @_disfavoredOverload
 public func unimplemented<Result>(

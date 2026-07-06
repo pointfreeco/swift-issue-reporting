@@ -224,28 +224,18 @@ public func withIssueReporters<R>(
   try IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
 }
 
-#if compiler(>=6)
-  /// Overrides the task's issue reporters for the duration of the asynchronous operation.
-  ///
-  /// An asynchronous version of ``withIssueReporters(_:operation:)``.
-  ///
-  /// - Parameters:
-  ///   - reporters: Issue reporters to notify during the operation.
-  ///   - isolation: The isolation associated with the operation.
-  ///   - operation: An asynchronous operation.
-  public func withIssueReporters<R>(
-    _ reporters: [any IssueReporter],
-    isolation: isolated (any Actor)? = #isolation,
-    operation: () async throws -> R
-  ) async rethrows -> R {
-    try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
-  }
-#else
-  @_unsafeInheritExecutor
-  public func withIssueReporters<R>(
-    _ reporters: [any IssueReporter],
-    operation: () async throws -> R
-  ) async rethrows -> R {
-    try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
-  }
-#endif
+/// Overrides the task's issue reporters for the duration of the asynchronous operation.
+///
+/// An asynchronous version of ``withIssueReporters(_:operation:)``.
+///
+/// - Parameters:
+///   - reporters: Issue reporters to notify during the operation.
+///   - isolation: The isolation associated with the operation.
+///   - operation: An asynchronous operation.
+public func withIssueReporters<R>(
+  _ reporters: [any IssueReporter],
+  isolation: isolated (any Actor)? = #isolation,
+  operation: () async throws -> R
+) async rethrows -> R {
+  try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)
+}
