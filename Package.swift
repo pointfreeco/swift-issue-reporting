@@ -17,7 +17,6 @@ let package = Package(
       type: .dynamic,
       targets: ["IssueReportingTestSupport"]
     ),
-    .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
     .target(
@@ -38,17 +37,6 @@ let package = Package(
     ),
     .target(
       name: "IssueReportingTestSupport"
-    ),
-    .target(
-      name: "XCTestDynamicOverlay",
-      dependencies: ["IssueReporting"]
-    ),
-    .testTarget(
-      name: "XCTestDynamicOverlayTests",
-      dependencies: [
-        "IssueReportingTestSupport",
-        "XCTestDynamicOverlay",
-      ]
     ),
   ],
   swiftLanguageModes: [.v6]
