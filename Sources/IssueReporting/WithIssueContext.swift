@@ -1,9 +1,8 @@
 /// Sets the context for issues reported for the duration of the synchronous operation.
 ///
 /// This context will override the implicit context from the call sites of
-/// ``reportIssue(_:fileID:filePath:line:column:)`` and
-/// ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``, and can be leveraged by
-/// custom test helpers that want to associate reported issues with specific source code.
+/// ``reportIssue(_:fileID:filePath:line:column:)``, and can be leveraged by custom test helpers
+/// that want to associate reported issues with specific source code.
 ///
 /// - Parameters:
 ///   - fileID: The source `#fileID` to associate with issues reported during the operation.

@@ -60,7 +60,6 @@ that ship in the same target as the library itself.
 ### Reporting issues
 
 - ``reportIssue(_:severity:fileID:filePath:line:column:)``
-- ``withExpectedIssue(_:isIntermittent:fileID:filePath:line:column:_:)``
 - ``withErrorReporting(_:to:fileID:filePath:line:column:catching:)``
 
 ### Issue reporters

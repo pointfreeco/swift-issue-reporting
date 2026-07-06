@@ -64,41 +64,41 @@
       #expect(reporter.severity.withLock { $0 } == .warning)
     }
 
-    @Test func withExpectedIssue_reportIssue() {
-      withExpectedIssue {
+    @Test func _withKnownIssue_reportIssue() {
+      _withKnownIssue {
         reportIssue()
       }
     }
 
-    @Test func withExpectedIssue_reportIssue_Async() async {
-      await withExpectedIssue {
+    @Test func _withKnownIssue_reportIssue_Async() async {
+      await _withKnownIssue {
         await Task.yield()
         reportIssue()
       }
     }
 
-    @Test func withExpectedIssue_issueRecord() {
-      withExpectedIssue {
+    @Test func _withKnownIssue_issueRecord() {
+      _withKnownIssue {
         Issue.record()
       }
     }
 
-    @Test func withExpectedIssue_throw() {
-      withExpectedIssue { throw Failure() }
+    @Test func _withKnownIssue_throw() {
+      _withKnownIssue { throw Failure() }
     }
 
-    @Test func withExpectedIssue_NoMessage_NoIssue() {
+    @Test func _withKnownIssue_NoMessage_NoIssue() {
       withKnownIssue {
-        withExpectedIssue {
+        _withKnownIssue {
         }
       } matching: { issue in
         issue.description == "Known issue was not recorded\(issueDescriptionSuffix)"
       }
     }
 
-    @Test func withExpectedIssue_NoMessage_NoIssue_Async() async {
+    @Test func _withKnownIssue_NoMessage_NoIssue_Async() async {
       await withKnownIssue {
-        await withExpectedIssue {
+        await _withKnownIssue {
           await Task.yield()
         }
       } matching: { issue in
@@ -106,9 +106,9 @@
       }
     }
 
-    @Test func withExpectedIssue_CustomMessage_NoIssue() {
+    @Test func _withKnownIssue_CustomMessage_NoIssue() {
       withKnownIssue {
-        withExpectedIssue("This didn't fail") {
+        _withKnownIssue("This didn't fail") {
         }
       } matching: { issue in
         issue.description
@@ -116,9 +116,9 @@
       }
     }
 
-    @Test func withExpectedIssue_CustomMessage_NoIssue_Async() async {
+    @Test func _withKnownIssue_CustomMessage_NoIssue_Async() async {
       await withKnownIssue {
-        await withExpectedIssue("This didn't fail") {
+        await _withKnownIssue("This didn't fail") {
           await Task.yield()
         }
       } matching: { issue in
@@ -127,13 +127,13 @@
       }
     }
 
-    @Test func withExpectedIssue_IsIntermittent() {
-      withExpectedIssue(isIntermittent: true) {
+    @Test func _withKnownIssue_IsIntermittent() {
+      _withKnownIssue(isIntermittent: true) {
       }
     }
 
-    @Test func withExpectedIssue_IsIntermittent_Async() async {
-      await withExpectedIssue(isIntermittent: true) {
+    @Test func _withKnownIssue_IsIntermittent_Async() async {
+      await _withKnownIssue(isIntermittent: true) {
         await Task.yield()
       }
     }
