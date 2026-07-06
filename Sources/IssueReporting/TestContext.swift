@@ -57,28 +57,6 @@ public enum TestContext: Equatable, Sendable {
       }
     }
   }
-
-  @available(*, deprecated, message: "Test using pattern matching, instead.")
-  public static func == (lhs: Self, rhs: Self) -> Bool {
-    switch (lhs, rhs) {
-    case (.swiftTesting(nil), .swiftTesting),
-      (.swiftTesting, .swiftTesting(nil)),
-      (.xcTest, .xcTest):
-      return true
-    case (.swiftTesting(let lhs), .swiftTesting(let rhs)):
-      return lhs == rhs
-    case (.swiftTesting, .xcTest), (.xcTest, .swiftTesting):
-      return false
-    }
-  }
-
-  @available(
-    *, deprecated,
-    message: "Test for '.swiftTesting' using pattern matching or 'isSwiftTesting', instead."
-  )
-  public static var swiftTesting: Self {
-    .swiftTesting(nil)
-  }
 }
 
 extension TestContext.Testing {
