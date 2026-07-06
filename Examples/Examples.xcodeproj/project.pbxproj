@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		CADE79DD2C4A9E59005A85F7 /* SwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DB2C4A9E59005A85F7 /* SwiftTestingTests.swift */; };
 		CADE79DE2C4A9E59005A85F7 /* XCTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADE79DC2C4A9E59005A85F7 /* XCTestTests.swift */; };
 		CADE79E02C4ABD94005A85F7 /* Examples.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = CADE79DF2C4ABD94005A85F7 /* Examples.xctestplan */; };
+		DC49BAC62FFC4464009DCBBC /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = DC49BAC52FFC4464009DCBBC /* IssueReporting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADE79DA2C4A9D3A005A85F7 /* IssueReporting in Frameworks */,
+				DC49BAC62FFC4464009DCBBC /* IssueReporting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,7 @@
 			name = Examples;
 			packageProductDependencies = (
 				CADE79D92C4A9D3A005A85F7 /* IssueReporting */,
+				DC49BAC52FFC4464009DCBBC /* IssueReporting */,
 			);
 			productName = Examples;
 			productReference = CADE79AA2C4A9D2C005A85F7 /* Examples.app */;
@@ -203,6 +206,9 @@
 				Base,
 			);
 			mainGroup = CADE79A12C4A9D2C005A85F7;
+			packageReferences = (
+				DC49BAC42FFC4464009DCBBC /* XCLocalSwiftPackageReference "../../swift-issue-reporting" */,
+			);
 			productRefGroup = CADE79AB2C4A9D2C005A85F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -529,8 +535,19 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		DC49BAC42FFC4464009DCBBC /* XCLocalSwiftPackageReference "../../swift-issue-reporting" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../swift-issue-reporting";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		CADE79D92C4A9D3A005A85F7 /* IssueReporting */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IssueReporting;
+		};
+		DC49BAC52FFC4464009DCBBC /* IssueReporting */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IssueReporting;
 		};

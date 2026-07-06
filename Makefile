@@ -11,7 +11,7 @@ EXPECTED = \033[31m\"$(EXPECTED_STRING)\"\033[0m
 test-examples:
 	xcodebuild test \
 		-configuration $(CONFIG) \
-		-workspace IssueReporting.xcworkspace \
+		-project Examples/Examples.xcodeproj \
 		-scheme Examples \
 		-destination platform="iOS Simulator,name=iPhone 17"
 
