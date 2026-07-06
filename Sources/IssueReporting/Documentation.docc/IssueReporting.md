@@ -79,6 +79,8 @@ that ship in the same target as the library itself.
 
 - ``isTesting``
 - ``TestContext``
+- ``expectReportsIssue(_:fileID:filePath:line:column:_:matching:)``
+- ``ReportedIssue``
 
 ### Unimplemented
 

@@ -5,6 +5,7 @@
 /// that is why IssueReporting provides `expectReportsIssue`.
 ///
 /// - Parameters:
+///   - message: An optional message describing the expected issue.
 ///   - fileID: The source `#fileID` associated with the expectation.
 ///   - filePath: The source `#filePath` associated with the expectation.
 ///   - line: The source `#line` associated with the expectation.
@@ -55,6 +56,7 @@ public func expectReportsIssue(
 /// An asynchronous version of `expectReportsIssue`.
 ///
 /// - Parameters:
+///   - message: An optional message describing the expected issue.
 ///   - fileID: The source `#fileID` associated with the expectation.
 ///   - filePath: The source `#filePath` associated with the expectation.
 ///   - line: The source `#line` associated with the expectation.
@@ -102,13 +104,30 @@ nonisolated(nonsending)
   }
 }
 
+/// A type representing a reported issue.
+///
+/// Used to assert against issues reported by
+/// ``expectReportsIssue(_:fileID:filePath:line:column:_:matching:)``.
 public struct ReportedIssue: Sendable {
+  /// A textual representation of this instance.
   public var description: String
+
+  /// The error which was associated with this issue, if any.
   public var error: (any Error)?
+
+  /// The severity of this issue.
   public var severity: IssueSeverity
+
+  /// The `#fileID` in source where this issue occurred.
   public var fileID: StaticString
+
+  /// The `#filePath` in source where this issue occurred.
   public var filePath: StaticString
+
+  /// The `#line` in source where this issue occurred.
   public var line: UInt
+
+  /// The `#column` in source where this issue occurred.
   public var column: UInt
 }
 
