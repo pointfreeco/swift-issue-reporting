@@ -1,14 +1,14 @@
 // NB: We can drop this when we bump to swift-tools-version 6.2
 #if hasFeature(NonisolatedNonsendingByDefault)
   public typealias _UnimplementedAsyncClosure<each Argument, Result> =
-    @concurrent @Sendable (repeat each Argument) async -> Result
+    @concurrent @Sendable (repeat each Argument) async -> sending Result
   public typealias _UnimplementedAsyncThrowingClosure<each Argument, Result> =
-    @concurrent @Sendable (repeat each Argument) async throws -> Result
+    @concurrent @Sendable (repeat each Argument) async throws -> sending Result
 #else
   public typealias _UnimplementedAsyncClosure<each Argument, Result> =
-    @Sendable (repeat each Argument) async -> Result
+    @Sendable (repeat each Argument) async -> sending Result
   public typealias _UnimplementedAsyncThrowingClosure<each Argument, Result> =
-    @Sendable (repeat each Argument) async throws -> Result
+    @Sendable (repeat each Argument) async throws -> sending Result
 #endif
 
 #if hasFeature(NonisolatedNonsendingByDefault)
@@ -17,14 +17,14 @@
     Failure: Error,
     Result
   > =
-    @concurrent @Sendable (repeat each Argument) async throws(Failure) -> Result
+    @concurrent @Sendable (repeat each Argument) async throws(Failure) -> sending Result
 #else
   public typealias _UnimplementedAsyncTypedThrowingClosure<
     each Argument,
     Failure: Error,
     Result
   > =
-    @Sendable (repeat each Argument) async throws(Failure) -> Result
+    @Sendable (repeat each Argument) async throws(Failure) -> sending Result
 #endif
 
 /// Returns a closure that reports an issue when invoked.
@@ -44,13 +44,13 @@
 /// - Returns: A closure that reports an issue when invoked.
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result = (),
+  placeholder: @autoclosure @escaping @Sendable () -> sending Result = (),
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) -> Result {
+) -> @Sendable (repeat each Argument) -> sending Result {
   return { (argument: repeat each Argument) in
     _fail(
       description(),
@@ -86,7 +86,7 @@ public func unimplemented<each Argument, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) throws -> Result {
+) -> @Sendable (repeat each Argument) throws -> sending Result {
   return { (argument: repeat each Argument) in
     let description = description()
     _fail(
@@ -125,7 +125,7 @@ public func unimplemented<each Argument, Failure: Error, Result>(
   function: StaticString = #function,
   line: UInt = #line,
   column: UInt = #column
-) -> @Sendable (repeat each Argument) throws(Failure) -> Result {
+) -> @Sendable (repeat each Argument) throws(Failure) -> sending Result {
   return { (argument: repeat each Argument) throws(Failure) in
     let description = description()
     _fail(
@@ -158,7 +158,7 @@ public func unimplemented<each Argument, Failure: Error, Result>(
 /// - Returns: An asynchronous closure that reports an issue when invoked.
 public func unimplemented<each Argument, Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result = (),
+  placeholder: @autoclosure @escaping @Sendable () -> sending Result = (),
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
@@ -261,7 +261,7 @@ public func unimplemented<each Argument, Failure: Error, Result>(
 @_disfavoredOverload
 public func unimplemented<Result>(
   _ description: @autoclosure @escaping @Sendable () -> String = "",
-  placeholder: @autoclosure @escaping @Sendable () -> Result = (),
+  placeholder: @autoclosure @escaping @Sendable () -> sending Result = (),
   fileID: StaticString = #fileID,
   filePath: StaticString = #filePath,
   function: StaticString = #function,
