@@ -15,11 +15,6 @@ test-examples:
 		-scheme Examples \
 		-destination platform="iOS Simulator,name=iPhone 17"
 
-test-wasm:
-	echo wasm-DEVELOPMENT-SNAPSHOT-2024-07-16-a > .swift-version
-	swift run carton bundle
-	rm .swift-version
-
 build-for-static-stdlib:
 	@swift build -c $(CONFIG) --static-swift-stdlib
 

@@ -42,21 +42,6 @@ let package = Package(
   swiftLanguageModes: [.v6]
 )
 
-#if os(macOS)
-  package.dependencies.append(contentsOf: [
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-    .package(url: "https://github.com/swiftwasm/carton", from: "1.0.0"),
-  ])
-  package.targets.append(
-    .executableTarget(
-      name: "WasmTests",
-      dependencies: [
-        "IssueReporting"
-      ]
-    )
-  )
-#endif
-
 for target in package.targets {
   target.swiftSettings = target.swiftSettings ?? []
   target.swiftSettings?.append(contentsOf: [
