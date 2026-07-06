@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(Android)
+  import Android
+#endif
+
 #if canImport(WinSDK)
   import WinSDK
 #endif
@@ -674,9 +678,9 @@ func function(for symbol: String) -> Any? {
 
 @usableFromInline
 func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -> F? {
-  #if os(Linux)
+  #if os(Linux) || os(Android)
     guard
-      let handle = dlopen("lib\(library).so", RTLD_LAZY),
+      let handle = dlopen("lib\(library).so", RTLD_LAZY) ?? dlopen(nil, RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: F.self)
