@@ -75,7 +75,9 @@ jobs:
         run: swift test -c ${{ matrix.config }}
       - name: Build for static-stdlib
         run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
+
   android:
+    name: Android
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
