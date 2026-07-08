@@ -15,20 +15,16 @@ let package = Package(
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
     .library(
       name: "IssueReportingTestSupport",
-      type: .dynamic,
+      type: ProcessInfo.processInfo.environment["OMIT_DYNAMIC_TEST_SUPPORT"] == nil
+        ? .dynamic
+        : nil,
       targets: ["IssueReportingTestSupport"]
     ),
     .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
     .target(
-      name: "IssueReportingPackageSupport"
-    ),
-    .target(
-      name: "IssueReporting",
-      dependencies: [
-        "IssueReportingPackageSupport"
-      ]
+      name: "IssueReporting"
     ),
     .testTarget(
       name: "IssueReportingTests",
@@ -44,10 +40,7 @@ let package = Package(
       ]
     ),
     .target(
-      name: "IssueReportingTestSupport",
-      dependencies: [
-        "IssueReportingPackageSupport"
-      ]
+      name: "IssueReportingTestSupport"
     ),
     .target(
       name: "XCTestDynamicOverlay",
@@ -64,29 +57,14 @@ let package = Package(
   swiftLanguageModes: [.v6]
 )
 
-#if os(macOS)
-  package.dependencies.append(contentsOf: [
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-    .package(url: "https://github.com/swiftwasm/carton", from: "1.0.0"),
+for target in package.targets {
+  target.swiftSettings = target.swiftSettings ?? []
+  target.swiftSettings?.append(contentsOf: [
+    .enableUpcomingFeature("ExistentialAny"),
+    .enableUpcomingFeature("ImmutableWeakCaptures"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+    .enableUpcomingFeature("InternalImportsByDefault"),
+    .enableUpcomingFeature("MemberImportVisibility"),
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
   ])
-  package.targets.append(
-    .executableTarget(
-      name: "WasmTests",
-      dependencies: [
-        "IssueReporting"
-      ]
-    )
-  )
-#endif
-
-// Set `OMIT_DYNAMIC_TEST_SUPPORT=1` to drop the `IssueReportingTestSupport`
-// dynamic-library product. Required when targeting platforms without dynamic
-// linking (`wasm32-unknown-wasip1`), where SwiftPM's auto-link of `.dynamic`
-// products into test build plans fails.
-if ProcessInfo.processInfo.environment["OMIT_DYNAMIC_TEST_SUPPORT"] != nil {
-  package.products.removeAll { $0.name == "IssueReportingTestSupport" }
-  package.targets.removeAll {
-    ["IssueReportingTestSupport", "IssueReportingTests", "XCTestDynamicOverlayTests"]
-      .contains($0.name)
-  }
 }

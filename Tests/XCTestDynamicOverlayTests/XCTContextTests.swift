@@ -2,7 +2,7 @@
   import XCTest
   import XCTestDynamicOverlay
 
-  public final class XCTContextTests: XCTestCase {
+  final class XCTContextTests: XCTestCase {
     func testContext() {
       XCTExpectFailure {
         $0.compactDescription == "failed - Failed"

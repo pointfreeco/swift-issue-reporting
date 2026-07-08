@@ -1,8 +1,18 @@
 import Foundation
-import IssueReportingPackageSupport
+
+#if canImport(Android)
+  import Android
+#endif
 
 #if canImport(WinSDK)
   import WinSDK
+#endif
+
+// NB: We can drop this when we bump to swift-tools-version 6.2
+#if hasFeature(NonisolatedNonsendingByDefault)
+  public typealias _AsyncThrowingBody = @concurrent () async throws -> Void
+#else
+  public typealias _AsyncThrowingBody = () async throws -> Void
 #endif
 
 @usableFromInline
@@ -233,7 +243,7 @@ func _withKnownIssue(
     filePath: String,
     line: Int,
     column: Int,
-    _ body: () async throws -> Void
+    _ body: _AsyncThrowingBody
   ) async {
     guard
       let function = function(for: "$s25IssueReportingTestSupport010_withKnownA13AsyncIsolatedypyF")
@@ -249,7 +259,6 @@ func _withKnownIssue(
           line: line,
           column: column
         )
-
         guard
           let withKnownIssue = unsafeBitCast(
             symbol: """
@@ -262,7 +271,7 @@ func _withKnownIssue(
               Bool,
               isolated (any Actor)?,
               SourceLocation,
-              () async throws -> Void
+              _AsyncThrowingBody
             ) async -> Void)
             .self
           )
@@ -520,12 +529,6 @@ func _currentTest() -> _Test? {
     }
 
     struct Case {}
-    private var name: String
-    private var displayName: String?
-    fileprivate var traits: [any Trait]
-    private var sourceLocation: SourceLocation
-    private var containingTypeInfo: TypeInfo?
-    private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
     fileprivate enum TestCasesState: @unchecked Sendable {
       #if compiler(>=6.3)
         case unevaluated(
@@ -538,15 +541,52 @@ func _currentTest() -> _Test? {
       #endif
       case failed(_ error: any Error)
     }
-    fileprivate var testCasesState: TestCasesState?
-    private var parameters: [Parameter]?
     private struct Parameter: Sendable {
       var index: Int
       var firstName: String
       var secondName: String?
       var typeInfo: TypeInfo
     }
-    private var isSynthesized = false
+
+    #if compiler(>=6.4)
+      private struct SourceBounds: Sendable {
+        var lowerBound: SourceLocation
+        var _upperBound: (line: Int, column: Int)
+      }
+      private struct _Properties {
+        var name: String
+        var displayName: String?
+        var traits: [any Trait]
+        var sourceBounds: SourceBounds
+        var containingTypeInfo: TypeInfo?
+        var xcTestCompatibleSelector: __XCTestCompatibleSelector?
+        var testCasesState: TestCasesState?
+        var parameters: [Parameter]?
+        var isSynthesized: Bool
+      }
+      private final class Allocated: @unchecked Sendable {
+        let value: _Properties
+        init(_ value: _Properties) { self.value = value }
+      }
+      private var _properties: Allocated
+      private var _padding: (UInt, UInt, UInt, UInt, UInt, UInt, UInt, UInt)
+
+      private var name: String { _properties.value.name }
+      fileprivate var traits: [any Trait] { _properties.value.traits }
+      private var sourceLocation: SourceLocation { _properties.value.sourceBounds.lowerBound }
+      private var containingTypeInfo: TypeInfo? { _properties.value.containingTypeInfo }
+      fileprivate var testCasesState: TestCasesState? { _properties.value.testCasesState }
+    #else
+      private var name: String
+      private var displayName: String?
+      fileprivate var traits: [any Trait]
+      private var sourceLocation: SourceLocation
+      private var containingTypeInfo: TypeInfo?
+      private var xcTestCompatibleSelector: __XCTestCompatibleSelector?
+      fileprivate var testCasesState: TestCasesState?
+      private var parameters: [Parameter]?
+      private var isSynthesized = false
+    #endif
 
     private var isSuite: Bool {
       containingTypeInfo != nil && testCasesState == nil
@@ -638,9 +678,9 @@ func function(for symbol: String) -> Any? {
 
 @usableFromInline
 func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -> F? {
-  #if os(Linux)
+  #if os(Linux) || os(Android)
     guard
-      let handle = dlopen("lib\(library).so", RTLD_LAZY),
+      let handle = dlopen("lib\(library).so", RTLD_LAZY) ?? dlopen(nil, RTLD_LAZY),
       let pointer = dlsym(handle, symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: F.self)

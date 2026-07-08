@@ -24,45 +24,30 @@ public func withIssueContext<R>(
   )
 }
 
-#if compiler(>=6)
-  /// Sets the context for issues reported for the duration of the asynchronous operation.
-  ///
-  /// An asynchronous version of ``withIssueContext(fileID:filePath:line:column:operation:)``.
-  ///
-  /// - Parameters:
-  ///   - fileID: The source `#fileID` to associate with issues reported during the operation.
-  ///   - filePath: The source `#filePath` to associate with issues reported during the operation.
-  ///   - line: The source `#line` to associate with issues reported during the operation.
-  ///   - column: The source `#column` to associate with issues reported during the operation.
-  ///   - operation: An asynchronous operation.
-  public func withIssueContext<R>(
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt,
-    isolation: isolated (any Actor)? = #isolation,
-    operation: () async throws -> R
-  ) async rethrows -> R {
-    try await IssueContext.$current.withValue(
-      IssueContext(fileID: fileID, filePath: filePath, line: line, column: column),
-      operation: operation,
-      isolation: isolation
-    )
-  }
-#else
-  public func withIssueContext<R>(
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt,
-    operation: () async throws -> R
-  ) async rethrows -> R {
-    try await IssueContext.$current.withValue(
-      IssueContext(fileID: fileID, filePath: filePath, line: line, column: column),
-      operation: operation
-    )
-  }
-#endif
+/// Sets the context for issues reported for the duration of the asynchronous operation.
+///
+/// An asynchronous version of ``withIssueContext(fileID:filePath:line:column:operation:)``.
+///
+/// - Parameters:
+///   - fileID: The source `#fileID` to associate with issues reported during the operation.
+///   - filePath: The source `#filePath` to associate with issues reported during the operation.
+///   - line: The source `#line` to associate with issues reported during the operation.
+///   - column: The source `#column` to associate with issues reported during the operation.
+///   - operation: An asynchronous operation.
+public func withIssueContext<R>(
+  fileID: StaticString,
+  filePath: StaticString,
+  line: UInt,
+  column: UInt,
+  isolation: isolated (any Actor)? = #isolation,
+  operation: () async throws -> R
+) async rethrows -> R {
+  try await IssueContext.$current.withValue(
+    IssueContext(fileID: fileID, filePath: filePath, line: line, column: column),
+    operation: operation,
+    isolation: isolation
+  )
+}
 
 @usableFromInline
 struct IssueContext: Sendable {

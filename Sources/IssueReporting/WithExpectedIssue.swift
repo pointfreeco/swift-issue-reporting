@@ -140,7 +140,7 @@ public func withExpectedIssue(
     filePath: StaticString = #filePath,
     line: UInt = #line,
     column: UInt = #column,
-    _ body: () async throws -> Void
+    _ body: _AsyncThrowingBody
   ) async {
     guard let context = TestContext.current else {
       guard !isTesting else { return }
@@ -212,7 +212,7 @@ public func withExpectedIssue(
     filePath: StaticString = #filePath,
     line: UInt = #line,
     column: UInt = #column,
-    _ body: () async throws -> Void
+    _ body: _AsyncThrowingBody
   ) async {
     guard let context = TestContext.current else {
       guard !isTesting else { return }
