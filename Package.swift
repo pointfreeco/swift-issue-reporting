@@ -1,5 +1,6 @@
 // swift-tools-version: 6.0
 
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -14,7 +15,9 @@ let package = Package(
     .library(name: "IssueReporting", targets: ["IssueReporting"]),
     .library(
       name: "IssueReportingTestSupport",
-      type: .dynamic,
+      type: ProcessInfo.processInfo.environment["OMIT_DYNAMIC_TEST_SUPPORT"] == nil
+        ? .dynamic
+        : nil,
       targets: ["IssueReportingTestSupport"]
     ),
   ],
