@@ -65,17 +65,15 @@ public func expectReportsIssue(
 ///   - issueMatcher: A function to invoke when an issue is reported that is used to determine if
 ///     the issue is expected to occur.
 @_transparent
-nonisolated(nonsending)
-  public func expectReportsIssue(
-    _ message: @autoclosure () -> String? = nil,
-    fileID: StaticString = #fileID,
-    filePath: StaticString = #filePath,
-    line: UInt = #line,
-    column: UInt = #column,
-    _ body: nonisolated (nonsending)() async throws -> Void,
-    matching issueMatcher: (_ issue: ReportedIssue) -> Bool
-  ) async rethrows
-{
+public func expectReportsIssue(
+  _ message: @autoclosure () -> String? = nil,
+  fileID: StaticString = #fileID,
+  filePath: StaticString = #filePath,
+  line: UInt = #line,
+  column: UInt = #column,
+  _ body: () async throws -> Void,
+  matching issueMatcher: (_ issue: ReportedIssue) -> Bool
+) async rethrows {
   let issueReporter = ExpectationIssueReporter()
   try await withIssueReporters([issueReporter], operation: body)
   let issues = issueReporter.issues.withLock({ $0 })
