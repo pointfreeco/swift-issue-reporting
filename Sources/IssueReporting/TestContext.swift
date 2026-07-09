@@ -12,7 +12,7 @@ public enum TestContext: Equatable, Sendable {
   /// How the test context is detected depends on the framework:
   ///
   ///   * If Swift Testing is running, _and_ this is called from the current test's task, this will
-  ///     return ``swiftTesting`` with an associated value of the current test. You can invoke
+  ///     return ``swiftTesting(_:)`` with an associated value of the current test. You can invoke
   ///     ``isSwiftTesting`` to detect if the test is currently in the Swift Testing framework,
   ///     which is equivalent to checking `Test.current != nil`, but safe to do from library and
   ///     application code.

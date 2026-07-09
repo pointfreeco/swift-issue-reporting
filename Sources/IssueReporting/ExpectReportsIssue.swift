@@ -108,6 +108,7 @@ nonisolated(nonsending)
 ///
 /// Used to assert against issues reported by
 /// ``expectReportsIssue(_:fileID:filePath:line:column:_:matching:)``.
+///
 public struct ReportedIssue: Sendable {
   /// A textual representation of this instance.
   public var description: String

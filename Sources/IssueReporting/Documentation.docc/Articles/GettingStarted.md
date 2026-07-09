@@ -24,7 +24,7 @@ To use this library in a SwiftPM project, add it to the dependencies of your Pac
 ## Reporting issues
 
 The primary tool for reporting an issue in your application code is the 
-[`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) function. You can invoke it from
+[`reportIssue`](<doc:reportIssue(_:severity:fileID:filePath:line:column:)>) function. You can invoke it from
 anywhere in your features' code to signal that something happened that should not have:
 
 ```swift
@@ -44,7 +44,7 @@ By default, this will trigger an unobtrusive, purple runtime warning when runnin
 This provides a very visual way to see when an issue has occurred in your application without
 stopping the app's execution or interrupting your workflow.
 
-The [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool can also be customized
+The [`reportIssue`](<doc:reportIssue(_:severity:fileID:filePath:line:column:)>) tool can also be customized
 to allow for other ways of reporting issues. It can be configured to trigger a breakpoint if you
 want to do some debugging when an issue is reported, or a precondition or fatal error if you want
 to truly stop execution. And you can create your own custom issue reporter to send issues to OSLog 
@@ -61,7 +61,7 @@ that ship in the same target as the library itself.
 
 The library comes with a variety of issue reporters that can be used right away:
 
-  * ``IssueReporter/runtimeWarning``: Issues are reported as purple runtime warnings in Xcode and
+  * ``IssueReporter/default``: Issues are reported as purple runtime warnings in Xcode and
     printed to the console on all other platforms. This is the default reporter.
   * ``IssueReporter/breakpoint``: A breakpoint is triggered, stopping execution of your app. This
     gives you the ability to debug the issue.
@@ -75,7 +75,7 @@ report issues in any way you want.
 
 ## Overriding issue reporters
 
-By default the library uses the ``IssueReporter/runtimeWarning`` reporter, but it is possible to 
+By default the library uses the ``IssueReporter/default`` reporter, but it is possible to 
 override the reporters used. There are two primary ways:
 
   * You can temporarily override reporters for a lexical scope using

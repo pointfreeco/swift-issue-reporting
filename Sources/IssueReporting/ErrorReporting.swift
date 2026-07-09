@@ -1,5 +1,14 @@
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
+/// Use this function to wrap a throwing unit of work for which you do not want to handle the
+/// errors right now, but do want to be notified of the errors if they occur:
+///
+/// ```swift
+/// withErrorReporting {
+///   results = try JSONDecoder().decode([Item].self, from: data)
+/// }
+/// ```
+///
 /// - Parameters:
 ///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
@@ -56,6 +65,15 @@ public func withErrorReporting<R>(
 
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
+/// Use this function to wrap a throwing unit of work for which you do not want to handle the
+/// errors right now, but do want to be notified of the errors if they occur:
+///
+/// ```swift
+/// withErrorReporting {
+///   results = try JSONDecoder().decode([Item].self, from: data)
+/// }
+/// ```
+/// 
 /// - Parameters:
 ///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
@@ -88,6 +106,15 @@ public func withErrorReporting<R>(
 
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
+/// Use this function to wrap a throwing unit of work for which you do not want to handle the
+/// errors right now, but do want to be notified of the errors if they occur:
+///
+/// ```swift
+/// await withErrorReporting {
+///   results = try await client.fetch()
+/// }
+/// ```
+///
 /// - Parameters:
 ///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
@@ -95,7 +122,6 @@ public func withErrorReporting<R>(
 ///   - filePath: The source `#filePath` associated with the error reporting.
 ///   - line: The source `#line` associated with the error reporting.
 ///   - column: The source `#column` associated with the error reporting.
-///   - isolation: The isolation associated with the error reporting.
 ///   - body: An asynchronous operation.
 /// - Returns: The optional result of the operation, or `nil` if an error was thrown.
 @_transparent
@@ -106,7 +132,6 @@ public func withErrorReporting<R>(
   filePath: StaticString = #filePath,
   line: UInt = #line,
   column: UInt = #column,
-  isolation: isolated (any Actor)? = #isolation,
   catching body: () async throws -> sending R
 ) async -> R? {
   if let reporters {
@@ -146,6 +171,15 @@ public func withErrorReporting<R>(
 
 /// Evaluates a throwing closure and automatically catches and reports any error thrown.
 ///
+/// Use this function to wrap a throwing unit of work for which you do not want to handle the
+/// errors right now, but do want to be notified of the errors if they occur:
+///
+/// ```swift
+/// await withErrorReporting {
+///   results = try await client.fetch()
+/// }
+/// ```
+///
 /// - Parameters:
 ///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
@@ -153,7 +187,6 @@ public func withErrorReporting<R>(
 ///   - filePath: The source `#filePath` associated with the error reporting.
 ///   - line: The source `#line` associated with the error reporting.
 ///   - column: The source `#column` associated with the error reporting.
-///   - isolation: The isolation associated with the error reporting.
 ///   - body: An asynchronous operation.
 /// - Returns: The optional result of the operation, or `nil` if an error was thrown.
 @_transparent
@@ -164,7 +197,6 @@ public func withErrorReporting<R>(
   filePath: StaticString = #filePath,
   line: UInt = #line,
   column: UInt = #column,
-  isolation: isolated (any Actor)? = #isolation,
   catching body: () async throws -> sending R?
 ) async -> R? {
   (await withErrorReporting(

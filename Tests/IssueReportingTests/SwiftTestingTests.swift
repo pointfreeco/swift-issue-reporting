@@ -186,6 +186,13 @@
         reportIssue("This should not fail")
       }
     }
+
+    @Test func `non-default reporter does not fail test when issue reported`() {
+      withIssueReporters([.noop]) {
+        reportIssue("This should not fail")
+      }
+    }
+
   }
 
   private struct Failure: Error {}
@@ -206,3 +213,18 @@
     }
   }
 #endif
+
+extension IssueReporter where Self == NoopReporter {
+  fileprivate static var noop: Self { Self() }
+}
+struct NoopReporter: IssueReporter {
+  func reportIssue(
+    _ message: @autoclosure () -> String?,
+    severity: IssueSeverity,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+  }
+}

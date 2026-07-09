@@ -162,6 +162,9 @@ extension IssueReporter {
   }
 }
 
+/// A namespace for the current issue reporters.
+///
+/// Globally override the current issue reporters used by setting ``current``.
 public enum IssueReporters {
   /// The task's current issue reporters.
   ///
@@ -230,11 +233,9 @@ public func withIssueReporters<R>(
 ///
 /// - Parameters:
 ///   - reporters: Issue reporters to notify during the operation.
-///   - isolation: The isolation associated with the operation.
 ///   - operation: An asynchronous operation.
 public func withIssueReporters<R>(
   _ reporters: [any IssueReporter],
-  isolation: isolated (any Actor)? = #isolation,
   operation: () async throws -> R
 ) async rethrows -> R {
   try await IssueReporters.$_current.withValue(LockIsolated(reporters), operation: operation)

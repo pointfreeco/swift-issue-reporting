@@ -21,6 +21,7 @@
   ///     }
   ///   }
   /// }
+  /// ```
   ///
   /// To detect if the current task is running inside a test, use ``TestContext/current``, instead.
   public let isTesting = ProcessInfo.processInfo.isTesting

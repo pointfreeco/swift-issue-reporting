@@ -4,7 +4,7 @@
 ///
 /// * When running your code in a non-testing context, this method will loop over the
 /// collection of issue reports registered and invoke them. The default issue reporter for the
-/// library is ``IssueReporter/runtimeWarning``, which emits a purple, runtime warning in Xcode:
+/// library is ``IssueReporter/default``, which emits a purple, runtime warning in Xcode:
 ///
 ///   ![A purple runtime warning in Xcode showing that an issue has been reported.](runtime-warning)
 ///
@@ -70,7 +70,7 @@ public func reportIssue(
 
 /// Report a caught error.
 ///
-/// This function behaves similarly to ``reportIssue(_:fileID:filePath:line:column:)``, but for
+/// This function behaves similarly to ``reportIssue(_:severity:fileID:filePath:line:column:)``, but for
 /// reporting errors.
 ///
 /// - Parameters:
