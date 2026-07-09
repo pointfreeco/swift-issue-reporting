@@ -72,7 +72,7 @@ nonisolated(nonsending)
     filePath: StaticString = #filePath,
     line: UInt = #line,
     column: UInt = #column,
-    _ body: nonisolated(nonsending) () async throws -> Void,
+    _ body: nonisolated (nonsending)() async throws -> Void,
     matching issueMatcher: (_ issue: ReportedIssue) -> Bool
   ) async rethrows
 {

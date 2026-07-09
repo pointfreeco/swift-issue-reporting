@@ -73,7 +73,7 @@ public func withErrorReporting<R>(
 ///   results = try JSONDecoder().decode([Item].self, from: data)
 /// }
 /// ```
-/// 
+///
 /// - Parameters:
 ///   - message: A message describing the expectation.
 ///   - reporters: Issue reporters to notify during the operation.
