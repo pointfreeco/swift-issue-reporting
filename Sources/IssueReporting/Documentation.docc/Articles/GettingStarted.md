@@ -4,27 +4,19 @@ Learn how to report issues in your application code, and how to customize how is
 
 ## Installation
 
-Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such, to use this 
-library you must depend on the old repository URL. This means if you are using the Xcode
-"Package Dependencies" interface you will enter the following URL when adding the package:
-
-```
-https://github.com/pointfreeco/xctest-dynamic-overlay
-```
-
-And if you are using an SPM Package.swift file you will specify the dependency like so:
+To use this library in a SwiftPM project, add it to the dependencies of your Package.swift:
 
 ```swift
-.package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "1.5.0"),
+.package(url: "https://github.com/pointfreeco/swift-issue-reporting", from: "2.0.0"),
 ```
 
-…and add the dependency product to your target like so:
+…and specify the `IssueReporting` product in any targets that need access to the library:
 
 ```swift
 .target(
   "MyTarget",
   dependencies: [
-    .product(name: "IssueReporting", package: "xctest-dynamic-overlay")
+    .product(name: "IssueReporting", package: "swift-issue-reporting")
   ]
 )
 ```
