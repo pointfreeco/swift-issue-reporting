@@ -4,7 +4,7 @@ import Foundation
 import PackageDescription
 
 let package = Package(
-  name: "xctest-dynamic-overlay",
+  name: "swift-issue-reporting",
   platforms: [
     .iOS(.v13),
     .macOS(.v10_15),
@@ -20,7 +20,6 @@ let package = Package(
         : nil,
       targets: ["IssueReportingTestSupport"]
     ),
-    .library(name: "XCTestDynamicOverlay", targets: ["XCTestDynamicOverlay"]),
   ],
   targets: [
     .target(
@@ -42,17 +41,6 @@ let package = Package(
     .target(
       name: "IssueReportingTestSupport"
     ),
-    .target(
-      name: "XCTestDynamicOverlay",
-      dependencies: ["IssueReporting"]
-    ),
-    .testTarget(
-      name: "XCTestDynamicOverlayTests",
-      dependencies: [
-        "IssueReportingTestSupport",
-        "XCTestDynamicOverlay",
-      ]
-    ),
   ],
   swiftLanguageModes: [.v6]
 )
@@ -68,3 +56,10 @@ for target in package.targets {
     .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
   ])
 }
+
+#if !os(Windows)
+  // Add the documentation compiler plugin if possible
+  package.dependencies.append(
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0")
+  )
+#endif

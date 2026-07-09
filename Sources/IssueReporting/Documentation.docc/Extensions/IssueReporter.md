@@ -13,10 +13,10 @@
 
 ### Available reporters
 
-- ``runtimeWarning``
+- ``default``
 - ``breakpoint``
 - ``fatalError``
 
 ### Deprecated requirements
 
-- ``reportIssue(_:fileID:filePath:line:column:)``
+- ``reportIssue(_:severity:fileID:filePath:line:column:)``

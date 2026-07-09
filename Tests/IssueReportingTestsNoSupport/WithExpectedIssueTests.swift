@@ -2,36 +2,36 @@
   import IssueReporting
   import Testing
 
-  @Suite struct WithExpectedIssueTests {
+  @Suite struct WithKnownIssueTests {
     @Test func sync() {
-      withExpectedIssue {
+      _withKnownIssue {
         reportIssue("Oops!")
       }
     }
 
     @Test func syncThrows() throws {
-      withExpectedIssue {
+      _withKnownIssue {
         reportIssue("Oops!")
         throw SomeError()
       }
     }
 
     @Test func asyncAwaitBefore() async {
-      await withExpectedIssue {
+      await _withKnownIssue {
         await Task.yield()
         reportIssue("Oops!")
       }
     }
 
     @Test func asyncAwaitAfter() async {
-      await withExpectedIssue {
+      await _withKnownIssue {
         reportIssue("Oops!")
         await Task.yield()
       }
     }
 
     @Test func asyncAwaitBeforeThrows() async throws {
-      await withExpectedIssue {
+      await _withKnownIssue {
         await Task.yield()
         reportIssue("Oops!")
         throw SomeError()
@@ -39,7 +39,7 @@
     }
 
     @Test func asyncAwaitAfterThrows() async throws {
-      await withExpectedIssue {
+      await _withKnownIssue {
         reportIssue("Oops!")
         await Task.yield()
         throw SomeError()

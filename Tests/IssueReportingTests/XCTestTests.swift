@@ -34,20 +34,20 @@ final class XCTestTests: XCTestCase {
       }
     }
 
-    func testWithExpectedIssue() {
-      withExpectedIssue {
+    func test_withKnownIssue() {
+      _withKnownIssue {
         reportIssue("Something went wrong")
       }
     }
 
-    func testWithExpectedIssue_XCTFail() {
-      withExpectedIssue {
+    func test_withKnownIssue_XCTFail() {
+      _withKnownIssue {
         XCTFail()
       }
     }
 
-    func testWithExpectedIssue_Throwing() {
-      withExpectedIssue { throw Failure() }
+    func test_withKnownIssue_Throwing() {
+      _withKnownIssue { throw Failure() }
     }
 
     func testOverrideIssueContext() {

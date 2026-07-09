@@ -12,7 +12,7 @@ public enum TestContext: Equatable, Sendable {
   /// How the test context is detected depends on the framework:
   ///
   ///   * If Swift Testing is running, _and_ this is called from the current test's task, this will
-  ///     return ``swiftTesting`` with an associated value of the current test. You can invoke
+  ///     return ``swiftTesting(_:)`` with an associated value of the current test. You can invoke
   ///     ``isSwiftTesting`` to detect if the test is currently in the Swift Testing framework,
   ///     which is equivalent to checking `Test.current != nil`, but safe to do from library and
   ///     application code.
@@ -56,28 +56,6 @@ public enum TestContext: Equatable, Sendable {
         hasher.combine(id)
       }
     }
-  }
-
-  @available(*, deprecated, message: "Test using pattern matching, instead.")
-  public static func == (lhs: Self, rhs: Self) -> Bool {
-    switch (lhs, rhs) {
-    case (.swiftTesting(nil), .swiftTesting),
-      (.swiftTesting, .swiftTesting(nil)),
-      (.xcTest, .xcTest):
-      return true
-    case (.swiftTesting(let lhs), .swiftTesting(let rhs)):
-      return lhs == rhs
-    case (.swiftTesting, .xcTest), (.xcTest, .swiftTesting):
-      return false
-    }
-  }
-
-  @available(
-    *, deprecated,
-    message: "Test for '.swiftTesting' using pattern matching or 'isSwiftTesting', instead."
-  )
-  public static var swiftTesting: Self {
-    .swiftTesting(nil)
   }
 }
 

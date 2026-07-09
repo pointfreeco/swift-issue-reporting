@@ -192,19 +192,19 @@ public struct _DefaultReporter: IssueReporter {
     fileID: StaticString,
     line: UInt
   ) {
+    var message = message() ?? ""
+    if message.isEmpty {
+      message = "Issue reported"
+    }
     #if canImport(os)
       guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
       else {
-        print("🟣 \(fileID):\(line): \(message() ?? "")")
+        print("🟣 \(fileID):\(line): \(message)")
         return
       }
       let moduleName = String(
         Substring("\(fileID)".utf8.prefix(while: { $0 != UTF8.CodeUnit(ascii: "/") }))
       )
-      var message = message() ?? ""
-      if message.isEmpty {
-        message = "Issue reported"
-      }
       os_log(
         .fault,
         dso: dso,
@@ -213,7 +213,7 @@ public struct _DefaultReporter: IssueReporter {
         "\(isTesting ? "\(fileID):\(line): " : "")\(message)"
       )
     #else
-      printError("\(fileID):\(line): \(message() ?? "")")
+      printError("\(fileID):\(line): \(message)")
     #endif
   }
 }

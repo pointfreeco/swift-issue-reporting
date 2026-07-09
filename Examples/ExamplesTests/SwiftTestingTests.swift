@@ -47,42 +47,42 @@
         }
       #endif
 
-      @Test func withExpectedIssue_reportIssue() {
-        withExpectedIssue {
+      @Test func _withKnownIssue_reportIssue() {
+        _withKnownIssue {
           reportIssue()
         }
       }
 
-      @Test func withExpectedIssue_issueRecord() {
-        withExpectedIssue {
+      @Test func _withKnownIssue_issueRecord() {
+        _withKnownIssue {
           Issue.record()
         }
       }
 
-      @Test func withExpectedIssue_throw() {
-        withExpectedIssue { throw Failure() }
+      @Test func _withKnownIssue_throw() {
+        _withKnownIssue { throw Failure() }
       }
 
-      @Test func withExpectedIssue_NoMessage_NoIssue() {
+      @Test func _withKnownIssue_NoMessage_NoIssue() {
         withKnownIssue {
-          withExpectedIssue {
+          _withKnownIssue {
           }
         } matching: { issue in
           issue.description.hasPrefix("Known issue was not recorded")
         }
       }
 
-      @Test func withExpectedIssue_CustomMessage_NoIssue() {
+      @Test func _withKnownIssue_CustomMessage_NoIssue() {
         withKnownIssue {
-          withExpectedIssue("This didn't fail") {
+          _withKnownIssue("This didn't fail") {
           }
         } matching: { issue in
           issue.description.hasSuffix("This didn't fail")
         }
       }
 
-      @Test func withExpectedIssue_IsIntermittent() async throws {
-        withExpectedIssue(isIntermittent: true) {
+      @Test func _withKnownIssue_IsIntermittent() async throws {
+        _withKnownIssue(isIntermittent: true) {
         }
       }
     }
@@ -102,12 +102,12 @@
         reportIssue()
       }
 
-      @Test func withExpectedIssueDoesNotFail() {
-        withExpectedIssue {}
+      @Test func _withKnownIssueDoesNotFail() {
+        _withKnownIssue {}
       }
 
-      @Test func withExpectedIssueDoesNotFailAsync() async {
-        await withExpectedIssue {
+      @Test func _withKnownIssueDoesNotFailAsync() async {
+        await _withKnownIssue {
           await Task.yield()
         }
       }

@@ -29,24 +29,24 @@ import XCTest
         }
       }
 
-      func testWithExpectedIssue_reportIssue() {
-        withExpectedIssue {
+      func test_withKnownIssue_reportIssue() {
+        _withKnownIssue {
           reportIssue()
         }
       }
 
-      func testWithExpectedIssue_issueRecord() {
-        withExpectedIssue {
+      func test_withKnownIssue_issueRecord() {
+        _withKnownIssue {
           XCTFail()
         }
       }
 
-      func testWithExpectedIssue_throw() {
-        withExpectedIssue { throw Failure() }
+      func test_withKnownIssue_throw() {
+        _withKnownIssue { throw Failure() }
       }
 
-      func testWithExpectedIssue_IsIntermittent() async throws {
-        withExpectedIssue(isIntermittent: true) {
+      func test_withKnownIssue_IsIntermittent() async throws {
+        _withKnownIssue(isIntermittent: true) {
         }
       }
     #endif
@@ -66,8 +66,8 @@ import XCTest
       reportIssue()
     }
 
-    func testWithExpectedIssueNoIssueDoesNotFail() {
-      withExpectedIssue {}
+    func test_withKnownIssueNoIssueDoesNotFail() {
+      _withKnownIssue {}
     }
   }
 #endif

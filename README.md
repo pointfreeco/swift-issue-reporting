@@ -1,4 +1,4 @@
-# Swift Issue Reporting
+# IssueReporting
 
 [![](https://img.shields.io/badge/documentation-gray?logo=swift&logoColor=white)](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting/main/documentation)
 [![CI](https://github.com/pointfreeco/xctest-dynamic-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/pointfreeco/swift-issue-reporting/actions/workflows/ci.yml)
@@ -9,14 +9,6 @@ Report issues in your application and library code as Xcode runtime warnings, br
 assertions, and do so in a testable manner.
 
 ## Overview
-
-> [!Important]
-> Issue Reporting is an evolution of our previous library, XCTestDynamicOverlay. As such,
-> to use this library you must depend on the old repository URL:
->
-> ```
-> https://github.com/pointfreeco/xctest-dynamic-overlay
-> ```
 
 This library provides robust tools for reporting issues in your application with a customizable
 degree of granularity and severity. In its most basic form you use the `reportIssue` function
@@ -60,46 +52,46 @@ that ship in the same target as the library itself.
   <img alt="A test failure in Xcode where an issue has been reported." src="Sources/IssueReporting/Documentation.docc/Resources/test-failure.png">
 </picture>
 
-Issue Reporting comes with a number of reporters, custom reporting functionality, and more. To learn
+IssueReporting comes with a number of reporters, custom reporting functionality, and more. To learn
 about these features, see
 [Getting started](Sources/IssueReporting/Documentation.docc/Articles/GettingStarted.md).
 
 ## Case studies
 
-There are many popular libraries out there using Issue Reporting. To name a few:
+There are many popular libraries out there using IssueReporting. To name a few:
 
   * [**Perception**](https://github.com/pointfreeco/swift-perception) is a back-port of Swift's
     Observation framework that can be deployed all the way back to the iOS 13 generation of devices,
     but requires a special SwiftUI view to observe changes to objects annotated with the macro. When
-    the library detects this view is missing, it uses Issue Reporting to warn developers with a
+    the library detects this view is missing, it uses IssueReporting to warn developers with a
     trace pointing to the view.
 
   * [**Dependencies**](https://github.com/pointfreeco/swift-dependencies) is a general purpose
-    dependency injection library inspired by SwiftUI's environment. It uses Swift Issue Reporting to
-    notify users when they access dependencies without overridding them. This results in runtime
-    warnings when running in the simulator, and test failures when testing. It forces each test
-    to explicitly declare its dependencies, and when a new dependency is introduced to a feature,
-    existing tests will fail until they account for it.
+    dependency injection library inspired by SwiftUI's environment. It uses IssueReporting to notify
+    users when they access dependencies without overriding them. This results in runtime warnings
+    when running in the simulator, and test failures when testing. It forces each test to explicitly
+    declare its dependencies, and when a new dependency is introduced to a feature, existing tests
+    will fail until they account for it.
 
   * [**Swift Navigation**](https://github.com/pointfreeco/swift-navigation) provides concise
-    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses Swift
-    Issue Reporting to raise runtime warnings when APIs are used in unexpected ways.
+    domain modeling tools for UI frameworks including SwiftUI, UIKit, and more; and it uses
+    IssueReporting to raise runtime warnings when APIs are used in unexpected ways.
 
   * [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
     comes with powerful testing tools that support both Swift Testing and XCTest out of the box
-    thanks to Swift Issue Reporting. In addition, the library is heavily instrumented with issue
+    thanks to Swift IssueReporting. In addition, the library is heavily instrumented with issue
     reporting to help developers catch bugs in their code early.
 
   * [**Custom Dump**](https://github.com/pointfreeco/swift-custom-dump) is an improved version of
     Swift's `dump` function, and a whole lot more. It provides well-formatted dumps of data types
     that read like Swift code, as well as well-formatted diffs when data types are compared. It also
-    ships several test helpers powered by Swift Issue Reporting, including drop-in replacements for
+    ships several test helpers powered by Swift IssueReporting, including drop-in replacements for
     `#expect(_ == _)` and `XCTAssertEqual` that render failures as concise diffs, as well as helpers
     that allow you to assert against changes to data structures over time.
 
   * [**Swift Clocks**](https://github.com/pointfreeco/swift-clocks) and
     [**Combine Schedulers**](https://github.com/pointfreeco/combine-schedulers) are sibling packages
-    that use issue reporting to drive their "test" and "unimplemented" clocks and schedulers. "Test" 
+    that use IssueReporting to drive their "test" and "unimplemented" clocks and schedulers. "Test" 
     clocks/schedulers allow you to _control time_ in tests, and will emit failures when expectations
     aren't met. "Unimplemented" clocks/schedulers record unexpected usage as issues.
 

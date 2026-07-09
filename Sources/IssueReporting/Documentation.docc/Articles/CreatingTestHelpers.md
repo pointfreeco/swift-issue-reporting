@@ -1,6 +1,6 @@
 # Creating testing tools
 
-Learn how to build testing tools in your libraries using Issue Reporting.
+Learn how to build testing tools in your libraries using IssueReporting.
 
 ## Overview
 
@@ -9,7 +9,7 @@ library. One can use this library to power those testing tools, and that comes w
 benefits:
 
   * Your testing tools will simultaneously work in both XCTest and [swift-testing][testing-gh] with
-    no further work from you. The Issue Reporting library detects which testing framework is being
+    no further work from you. The IssueReporting library detects which testing framework is being
     used, and correctly invokes either `XCTFail` or `Issue.record`.
 
   * You can put your testing tools in the same library as the core tools, without the need of a
@@ -20,13 +20,13 @@ benefits:
 
 ## Case studies
 
-We have two main uses cases for Issue Reporting in our libraries:
+We have two main uses cases for IssueReporting in our libraries:
 
   * In the [Composable Architecture][tca-gh] we provide a `TestStore` tool that allows one to test
     their features. It allows you to send actions to the store and assert on how state changes, and
     further assert how effects feed data back into the system. These testing tools need to invoke
     `XCTFail` (or `Issue.record`), but instead they can simply invoke
-    [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>). This will trigger a test
+    [`reportIssue`](<doc:reportIssue(_:severity:fileID:filePath:line:column:)>). This will trigger a test
     failure in tests, all without needing a dedicated "ComposableArchitectureTestSupport" library.
 
   * In our [Dependencies][deps-gh] library, we trigger a test failure when dependencies are accessed
@@ -40,7 +40,7 @@ We have two main uses cases for Issue Reporting in our libraries:
 
 To build more robust testing tools for your libraries, or to be able to report issues from your 
 library that are very customizable, simply depend on "IssueReporting" and use the 
- [`reportIssue`](<doc:reportIssue(_:fileID:filePath:line:column:)>) tool.
+ [`reportIssue`](<doc:reportIssue(_:severity:fileID:filePath:line:column:)>) tool.
 
 [tca-gh]: https://github.com/pointfreeco/swift-composable-architecture
 [deps-gh]: https://github.com/pointfreeco/swift-dependencies
