@@ -54,7 +54,7 @@ that ship in the same target as the library itself.
 
 IssueReporting comes with a number of reporters, custom reporting functionality, and more. To learn
 about these features, see
-[Getting started](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting/main/documentation/issuereporting).
+[Getting started](https://swiftpackageindex.com/pointfreeco/swift-issue-reporting/main/documentation/issuereporting/gettingstarted).
 
 ## Case studies
 
