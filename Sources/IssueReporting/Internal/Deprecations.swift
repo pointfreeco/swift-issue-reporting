@@ -95,8 +95,7 @@ public func withExpectedIssue(
   @available(
     *,
     deprecated,
-    message:
-      """
+    message: """
       Prefer the 'nonisolated(nonsending)' overload with stricter execution on caller context semantics: withValue(_:operation:file:line:)
       """
   )
