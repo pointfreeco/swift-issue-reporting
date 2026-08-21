@@ -685,9 +685,7 @@ func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -
     else { return nil }
     return unsafeBitCast(pointer, to: F.self)
   #elseif canImport(Darwin)
-    guard
-      let handle = dlopen(nil, RTLD_LAZY),
-      let pointer = dlsym(handle, symbol)
+    guard let pointer = ResolvedSymbolCache.pointer(for: symbol)
     else { return nil }
     return unsafeBitCast(pointer, to: F.self)
   #elseif os(Windows)
@@ -700,6 +698,81 @@ func unsafeBitCast<F>(symbol: String, in library: String, to function: F.Type) -
     return nil
   #endif
 }
+
+#if canImport(Darwin)
+  /// A process-wide cache of resolved symbol addresses, removing the per-call `dlopen`/`dlsym`
+  /// that otherwise serializes parallel test threads on dyld's global lock.
+  ///
+  /// A miss is cached but invalidated when dyld loads another image, so a late-loaded test bundle
+  /// is still picked up. Resolution runs outside the lock, the generation is captured before
+  /// resolving, and entries are published only if no resolution already exists.
+  ///
+  /// Darwin-only: the `_dyld` image APIs are not importable into Swift on Linux/Android.
+  private enum ResolvedSymbolCache {
+    /// The cache and the loaded-image generation. The generation is bumped whenever dyld loads an
+    /// image; a cached miss is valid only while it is unchanged.
+    private struct State {
+      var generation: UInt64 = 0
+      var entries: [String: CacheEntry] = [:]
+    }
+
+    private enum CacheEntry {
+      /// The bit-pattern of a resolved address. The defining image is never unloaded during a test
+      /// run, so the address stays valid for the process's lifetime.
+      case resolved(Int)
+      /// A miss, valid only while the loaded-image generation is unchanged.
+      case miss(generation: UInt64)
+    }
+
+    private static let storage = LockIsolated(State())
+
+    /// Registers the image-load observer once, on first use.
+    private static let observeImageLoads: Void = {
+      _dyld_register_func_for_add_image { _, _ in
+        storage.withLock { $0.generation &+= 1 }
+      }
+    }()
+
+    static func pointer(for symbol: String) -> UnsafeRawPointer? {
+      observeImageLoads
+      if let entry = storage.withLock({ $0.entries[symbol] }) {
+        switch entry {
+        case .resolved(let pattern):
+          return UnsafeRawPointer(bitPattern: pattern)
+        case .miss(let generation):
+          if storage.withLock({ $0.generation == generation }) { return nil }
+        }
+      }
+
+      // Capture the generation *before* resolving, so an image loaded during resolution makes the
+      // generation recorded for a miss immediately stale and the next call retries.
+      let generationBefore = storage.withLock { $0.generation }
+      let pattern = lookup(symbol: symbol)
+      // Publish only if a concurrent cold resolution has not already done so, on both the success
+      // and the miss path; the lock is never held while resolving.
+      let resolved = storage.withLock { state -> Int in
+        if case .resolved(let existing) = state.entries[symbol] {
+          return existing
+        }
+        if let pattern {
+          state.entries[symbol] = .resolved(pattern)
+          return pattern
+        }
+        state.entries[symbol] = .miss(generation: generationBefore)
+        return 0
+      }
+      return UnsafeRawPointer(bitPattern: resolved)
+    }
+
+    private static func lookup(symbol: String) -> Int? {
+      guard
+        let handle = dlopen(nil, RTLD_LAZY),
+        let pointer = dlsym(handle, symbol)
+      else { return nil }
+      return Int(bitPattern: pointer)
+    }
+  }
+#endif
 
 extension IssueSeverity {
   fileprivate var rawValue: Int {

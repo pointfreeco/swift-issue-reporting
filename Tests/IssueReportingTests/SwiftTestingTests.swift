@@ -193,6 +193,34 @@
       }
     }
 
+    /// Concurrent `TestContext.current` must stay correct and deadlock-free behind the cache.
+    @available(iOS 18, macOS 15, watchOS 11, tvOS 18, *)
+    @Test func concurrentTestContextCurrent() async {
+      let started = Mutex<[CheckedContinuation<Void, Never>]>([])
+      let results = await withTaskGroup(of: TestContext?.self) { group in
+        for _ in 0..<8 {
+          group.addTask {
+            // Release all waiting tasks together.
+            await withCheckedContinuation { continuation in
+              let ready = started.withLock { continuations -> [CheckedContinuation<Void, Never>]? in
+                continuations.append(continuation)
+                return continuations.count == 8 ? continuations : nil
+              }
+              if let ready {
+                for continuation in ready { continuation.resume() }
+              }
+            }
+            return TestContext.current
+          }
+        }
+        var results: [TestContext?] = []
+        for await result in group { results.append(result) }
+        return results
+      }
+      #expect(results.count == 8)
+      #expect(results.allSatisfy { $0?.isSwiftTesting == true })
+    }
+
   }
 
   private struct Failure: Error {}
