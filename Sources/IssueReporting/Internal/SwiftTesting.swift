@@ -666,14 +666,23 @@ func _currentTest() -> _Test? {
   }
 #endif
 
+private let functionCache = LockIsolated<[String: UncheckedSendable<Any>]>([:])
+
 @usableFromInline
 func function(for symbol: String) -> Any? {
-  let function = unsafeBitCast(
-    symbol: symbol,
-    in: "IssueReportingTestSupport",
-    to: (@convention(thin) () -> Any).self
-  )
-  return function?()
+  if let cached = functionCache.withLock({ $0[symbol] }) {
+    return cached.wrappedValue
+  }
+  guard
+    let function = unsafeBitCast(
+      symbol: symbol,
+      in: "IssueReportingTestSupport",
+      to: (@convention(thin) () -> Any).self
+    )
+  else { return nil }
+  let value = UncheckedSendable(wrappedValue: function())
+  functionCache.withLock { $0[symbol] = value }
+  return value.wrappedValue
 }
 
 @usableFromInline
