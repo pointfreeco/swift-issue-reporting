@@ -21,6 +21,19 @@ To use this library in a SwiftPM project, add it to the dependencies of your Pac
 )
 ```
 
+Further, add the `IssueReportingTestSupport` product to any test targets that assert against code
+that reports issues:
+
+```swift
+.testTarget(
+  "MyTargetTests",
+  dependencies: [
+    "MyTarget",
+    .product(name: "IssueReportingTestSupport", package: "swift-issue-reporting")
+  ]
+)
+```
+
 ## Reporting issues
 
 The primary tool for reporting an issue in your application code is the 
