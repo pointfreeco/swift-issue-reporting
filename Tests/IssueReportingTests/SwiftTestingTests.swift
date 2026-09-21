@@ -212,19 +212,19 @@
       self.severity.withLock { $0 = severity }
     }
   }
-#endif
 
-extension IssueReporter where Self == NoopReporter {
-  fileprivate static var noop: Self { Self() }
-}
-struct NoopReporter: IssueReporter {
-  func reportIssue(
-    _ message: @autoclosure () -> String?,
-    severity: IssueSeverity,
-    fileID: StaticString,
-    filePath: StaticString,
-    line: UInt,
-    column: UInt
-  ) {
+  extension IssueReporter where Self == NoopReporter {
+    fileprivate static var noop: Self { Self() }
   }
-}
+  struct NoopReporter: IssueReporter {
+    func reportIssue(
+      _ message: @autoclosure () -> String?,
+      severity: IssueSeverity,
+      fileID: StaticString,
+      filePath: StaticString,
+      line: UInt,
+      column: UInt
+    ) {
+    }
+  }
+#endif
