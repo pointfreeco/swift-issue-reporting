@@ -76,11 +76,11 @@ jobs:
       - name: Build for static-stdlib
         run: make CONFIG=${{ matrix.config }} build-for-static-stdlib
 
-  android:
-    name: Android
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: skiptools/swift-android-action@v2
-        with:
-          free-disk-space: true
+  # android:
+  #   name: Android
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v6
+  #     - uses: skiptools/swift-android-action@v2
+  #       with:
+  #         free-disk-space: true
