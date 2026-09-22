@@ -95,7 +95,8 @@ There are many popular libraries out there using IssueReporting. To name a few:
     clocks/schedulers allow you to _control time_ in tests, and will emit failures when expectations
     aren't met. "Unimplemented" clocks/schedulers record unexpected usage as issues.
 
-Have another case study to share? [Let us know!](edit/main/README.md)
+Have another case study to share?
+[Let us know!](https://github.com/pointfreeco/swift-issue-reporting/edit/main/README.md)
 
 ## Documentation 
 
