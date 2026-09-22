@@ -37,6 +37,7 @@
       return arguments.contains { argument in
         let path = URL(fileURLWithPath: argument)
         return path.lastPathComponent == "swiftpm-testing-helper"
+          || path.lastPathComponent.hasSuffix("-test-runner")
           || argument == "--testing-library"
           || path.lastPathComponent == "xctest"
           || path.pathExtension == "xctest"
