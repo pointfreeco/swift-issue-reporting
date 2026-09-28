@@ -52,6 +52,24 @@
         )
       }
     }
-  }
+
+    @Test func expectedErrorIssue() {
+      struct Failure: Error {}
+      expectReportsIssue {
+        reportIssue(Failure())
+      } matching: {
+        $0.error is Failure
+      }
+    }
+
+    @Test func expectedAsyncErrorIssue() async {
+      struct Failure: Error {}
+      await expectReportsIssue {
+        await Task.yield()
+        reportIssue(Failure())
+      } matching: {
+        $0.error is Failure
+      }
+    }  }
 
 #endif

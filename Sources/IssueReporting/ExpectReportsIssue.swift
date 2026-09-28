@@ -155,4 +155,28 @@ public struct ReportedIssue: Sendable {
       )
     }
   }
+
+  @usableFromInline func reportIssue(
+    _ error: any Error,
+    _ message: @autoclosure () -> String?,
+    fileID: StaticString,
+    filePath: StaticString,
+    line: UInt,
+    column: UInt
+  ) {
+    let message = message().map { ": \($0)" } ?? ""
+    issues.withLock {
+      $0.append(
+        ReportedIssue(
+          description: "Issue reported: Caught error: \(error)\(message)",
+          error: error,
+          severity: .error,
+          fileID: fileID,
+          filePath: filePath,
+          line: line,
+          column: column
+        )
+      )
+    }
+  }
 }
